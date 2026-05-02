@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     const {
       system,
       messages = [],
-      model = "google/gemini-2.0-flash-exp:free",
+      model = "claude-3-5-sonnet-20241022",
       max_tokens = 600,
     } = req.body || {};
 
@@ -43,13 +43,14 @@ export default async function handler(req, res) {
       ? [{ role: "system", content: system }, ...messages]
       : messages;
 
-    const upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    // Upstream API base URL — change this if you switch providers.
+    const UPSTREAM = "https://babycookbook.top/v1/chat/completions";
+
+    const upstream = await fetch(UPSTREAM, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://tbcsolutions.com",
-        "X-Title": "TBC Solutions",
       },
       body: JSON.stringify({ model, max_tokens, messages: fullMessages }),
     });

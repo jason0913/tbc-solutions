@@ -48,7 +48,7 @@ exports.handler = async (event) => {
     const {
       system,
       messages = [],
-      model = "google/gemini-2.0-flash-exp:free",
+      model = "claude-3-5-sonnet-20241022",
       max_tokens = 600,
     } = body;
 
@@ -65,15 +65,15 @@ exports.handler = async (event) => {
       ? [{ role: "system", content: system }, ...messages]
       : messages;
 
-    const upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    // Upstream API base URL — change this if you switch providers.
+    // Currently using a third-party OpenAI-compatible relay.
+    const UPSTREAM = "https://babycookbook.top/v1/chat/completions";
+
+    const upstream = await fetch(UPSTREAM, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        // Optional but recommended — helps OpenRouter rank your traffic and
-        // appears in your dashboard analytics.
-        "HTTP-Referer": "https://tbcsolutions.com",
-        "X-Title": "TBC Solutions",
       },
       body: JSON.stringify({
         model,
