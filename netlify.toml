@@ -1,0 +1,14 @@
+# Netlify configuration for TBC Solutions site
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Keep the frontend's existing /api/claude URL working on Netlify
+# by transparently rewriting it to the Netlify Functions path.
+[[redirects]]
+  from = "/api/claude"
+  to = "/.netlify/functions/claude"
+  status = 200
+  force = true

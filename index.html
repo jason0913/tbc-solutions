@@ -62,6 +62,46 @@ input,textarea,select{font-family:inherit}
 
 ::selection{background:var(--accent);color:#fff}
 
+/* =====================================================================
+   CUSTOM CURSOR
+   ===================================================================== */
+.cursor-dot,.cursor-ring{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+  transform:translate3d(-50%,-50%,0);will-change:transform;
+}
+.cursor-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#fff;mix-blend-mode:difference;
+}
+.cursor-ring{
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.45);
+  background:rgba(124,92,255,.05);
+  transition:width .25s cubic-bezier(.2,.7,.2,1),height .25s cubic-bezier(.2,.7,.2,1),border-color .25s,background .25s;
+}
+.cursor-ring.hover{
+  width:64px;height:64px;
+  border-color:var(--accent);
+  background:rgba(124,92,255,.12);
+  box-shadow:0 0 30px rgba(124,92,255,.4);
+}
+.cursor-ring.click{transform:translate3d(-50%,-50%,0) scale(.8)}
+body.has-cursor,body.has-cursor *{cursor:none !important}
+@media(max-width:760px),(pointer:coarse){
+  .cursor-dot,.cursor-ring{display:none}
+  body.has-cursor,body.has-cursor *{cursor:auto !important}
+}
+
+/* magnetic / glow follow on certain elements */
+.magnet{position:relative;overflow:hidden}
+.magnet::after{
+  content:"";position:absolute;top:var(--my,50%);left:var(--mx,50%);
+  width:200px;height:200px;border-radius:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(124,92,255,.25),transparent 60%);
+  opacity:0;transition:opacity .3s;pointer-events:none;z-index:0;
+}
+.magnet:hover::after{opacity:1}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -119,6 +159,26 @@ main,nav,section,footer{position:relative;z-index:2}
   color:var(--text-dim);border-radius:999px;transition:all var(--t-fast);
 }
 .lang-switch button.active{background:var(--grad);color:#fff;box-shadow:0 4px 18px rgba(124,92,255,.4)}
+
+/* Theme toggle */
+.theme-toggle{
+  width:36px;height:36px;border-radius:999px;
+  border:1px solid var(--line-strong);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.03);
+  transition:background var(--t-fast),border-color var(--t-fast),transform var(--t-fast);
+  position:relative;overflow:hidden;
+}
+.theme-toggle:hover{background:rgba(255,255,255,.08);transform:rotate(15deg)}
+.theme-toggle svg{
+  width:18px;height:18px;color:var(--text);
+  position:absolute;top:50%;left:50%;
+  transition:opacity .35s, transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.theme-toggle .icon-moon{transform:translate(-50%,-50%) rotate(0);opacity:1}
+.theme-toggle .icon-sun {transform:translate(-50%,-50%) rotate(-180deg);opacity:0}
+[data-theme="light"] .theme-toggle .icon-moon{transform:translate(-50%,-50%) rotate(180deg);opacity:0}
+[data-theme="light"] .theme-toggle .icon-sun {transform:translate(-50%,-50%) rotate(0);opacity:1}
 
 /* =====================================================================
    LOGO
@@ -216,6 +276,22 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 @keyframes pulse{50%{transform:translate(-50%,40px) scale(1.1);opacity:.7}}
 
+/* === Hero geometric SVG accent === */
+.hero-shape{
+  position:absolute;width:clamp(180px,22vw,300px);aspect-ratio:1;
+  pointer-events:none;opacity:.45;
+}
+.hero-shape.s1{top:14%;right:6%;animation:rot 28s linear infinite}
+.hero-shape.s2{bottom:18%;left:5%;animation:rot 36s linear infinite reverse}
+@keyframes rot{to{transform:rotate(360deg)}}
+.hero-shape svg{width:100%;height:100%}
+
+/* === Section ambient orb decoration === */
+.amb-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  pointer-events:none;mix-blend-mode:screen;opacity:.4;z-index:0;
+}
+
 /* =====================================================================
    MARQUEE TOOLS
    ===================================================================== */
@@ -230,12 +306,18 @@ main,nav,section,footer{position:relative;z-index:2}
   background:rgba(255,255,255,.04);border:1px solid var(--line);
   white-space:nowrap;flex-shrink:0;transition:all var(--t-fast);
 }
-.tool:hover{background:rgba(255,255,255,.08);border-color:var(--accent);transform:translateY(-2px)}
+.tool:hover{background:rgba(255,255,255,.08);border-color:var(--accent);transform:translateY(-3px)}
 .tool-icon{
-  width:34px;height:34px;border-radius:8px;
+  width:40px;height:40px;flex-shrink:0;
+  padding:9px;border-radius:10px;
+  background:#0a0a14;          /* default — overridden inline per brand */
+  color:#fff;                  /* SVG inherits via currentColor */
   display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-weight:800;font-size:13px;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);
+  transition:transform var(--t-fast),box-shadow var(--t-fast);
 }
+.tool-icon svg{width:100%;height:100%;display:block;color:#fff}
+.tool:hover .tool-icon{transform:scale(1.12) rotate(-4deg);box-shadow:0 6px 22px rgba(0,0,0,.45)}
 .tool-name{font-weight:600;font-size:14px;letter-spacing:.02em}
 
 /* =====================================================================
@@ -265,14 +347,26 @@ main,nav,section,footer{position:relative;z-index:2}
 .service-card:hover{transform:translateY(-6px)}
 .service-card:hover::before{opacity:1}
 .service-card:hover::after{opacity:1}
+.service-card .head-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .service-card .num{
   font-family:'Syne',sans-serif;font-weight:800;font-size:60px;
   background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
   line-height:1;opacity:.6;
 }
+.service-card .ico-wrap{
+  width:64px;height:64px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,rgba(124,92,255,.18),rgba(255,92,177,.08));
+  border:1px solid rgba(255,255,255,.1);
+  transition:transform .5s cubic-bezier(.2,.7,.2,1);
+  position:relative;z-index:1;
+}
+.service-card:hover .ico-wrap{transform:rotate(-6deg) scale(1.08)}
+.service-card .ico-wrap svg{width:32px;height:32px;color:#fff}
 .service-card h3{font-size:22px;font-weight:700;letter-spacing:-.005em}
 .service-card p{color:var(--text-dim);font-size:14.5px;line-height:1.65}
 .service-card .tag{font-size:11px;letter-spacing:.3em;color:var(--text-faint);text-transform:uppercase}
+.service-card .text-block{position:relative;z-index:1}
 
 /* =====================================================================
    DEMO SECTIONS
@@ -429,30 +523,165 @@ main,nav,section,footer{position:relative;z-index:2}
 .platform-btn.active{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 6px 20px rgba(124,92,255,.4)}
 
 /* =====================================================================
+   IMPACT  (savings stats + interactive ROI calculator)
+   ===================================================================== */
+.impact-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:54px;
+}
+@media(max-width:860px){.impact-stats{grid-template-columns:repeat(2,1fr)}}
+.stat-big{
+  position:relative;padding:28px 22px;border-radius:var(--radius-lg);
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);overflow:hidden;
+  transition:transform var(--t-med),border-color var(--t-med);
+}
+.stat-big::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity var(--t-med);pointer-events:none;
+}
+.stat-big:hover{transform:translateY(-4px)}
+.stat-big:hover::before{opacity:.8}
+.stat-big .n-row{
+  display:flex;align-items:baseline;gap:6px;font-family:'Syne',sans-serif;
+  font-weight:800;line-height:1;
+}
+.stat-big .n{
+  font-size:clamp(40px,5vw,68px);
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.stat-big .suffix{font-size:clamp(20px,2.4vw,32px);color:var(--text-dim);font-weight:700}
+.stat-big .l{
+  margin-top:14px;font-size:13px;color:var(--text-dim);
+  letter-spacing:.18em;text-transform:uppercase;font-weight:600;line-height:1.5;
+}
+
+/* === Calculator === */
+.calc{
+  margin-top:44px;padding:36px;border-radius:var(--radius-lg);
+  background:linear-gradient(180deg,rgba(124,92,255,.06),rgba(255,92,177,.03));
+  border:1px solid var(--line);position:relative;overflow:hidden;
+}
+.calc::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(600px 300px at 0% 0%,rgba(124,92,255,.18),transparent 60%),
+    radial-gradient(600px 300px at 100% 100%,rgba(92,215,255,.12),transparent 60%);
+  pointer-events:none;
+}
+.calc > *{position:relative;z-index:1}
+.calc-head{margin-bottom:28px;text-align:center}
+.calc-head h3{font-size:clamp(22px,2.4vw,30px);font-weight:700;font-family:'Syne',sans-serif}
+.calc-head p{margin-top:8px;color:var(--text-dim);font-size:14.5px}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:stretch}
+@media(max-width:860px){.calc-grid{grid-template-columns:1fr}}
+
+.calc-form .field{margin-bottom:20px}
+.area-chips{display:flex;flex-wrap:wrap;gap:8px}
+.area-chip{
+  padding:10px 14px;border-radius:999px;font-size:13px;font-weight:600;
+  background:rgba(255,255,255,.04);border:1px solid var(--line-strong);
+  letter-spacing:.02em;transition:all var(--t-fast);
+}
+.area-chip:hover{background:rgba(255,255,255,.08)}
+.area-chip.active{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 6px 20px rgba(124,92,255,.4)}
+
+.range-row{display:flex;align-items:center;gap:14px;margin-top:8px}
+.range-input{
+  flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;
+  background:linear-gradient(to right,var(--accent) var(--pct,25%),rgba(255,255,255,.08) var(--pct,25%));
+  outline:none;
+}
+.range-input::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;
+  background:#fff;cursor:pointer;border:3px solid var(--accent);
+  box-shadow:0 4px 14px rgba(124,92,255,.5);transition:transform var(--t-fast);
+}
+.range-input::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.range-input::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--accent);cursor:pointer}
+.range-value{
+  min-width:88px;text-align:right;font-family:'Syne',sans-serif;font-weight:700;
+  font-size:18px;
+}
+.range-value strong{font-size:26px;background:var(--grad);-webkit-background-clip:text;color:transparent}
+
+.rate-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+.rate-row .input{flex:1;max-width:160px;padding:10px 14px;font-size:14px}
+.rate-row .currency{color:var(--text-dim);font-size:13px}
+
+.calc-result{
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  padding:30px;border-radius:18px;
+  background:linear-gradient(160deg,rgba(124,92,255,.18),rgba(92,215,255,.08));
+  border:1px solid rgba(124,92,255,.3);position:relative;overflow:hidden;
+  min-height:280px;
+}
+.calc-result::after{
+  content:"";position:absolute;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,92,255,.45),transparent 60%);
+  filter:blur(40px);top:-100px;right:-100px;pointer-events:none;
+  animation:pulse 6s ease-in-out infinite;
+}
+.calc-result .res-label{
+  font-size:11px;letter-spacing:.32em;color:var(--text-dim);
+  text-transform:uppercase;font-weight:600;
+}
+.calc-result .res-big{
+  font-family:'Syne',sans-serif;font-weight:800;line-height:1;margin-top:10px;
+  font-size:clamp(48px,6.5vw,80px);
+  background:var(--grad);-webkit-background-clip:text;color:transparent;
+}
+.calc-result .res-unit{
+  display:inline-block;margin-left:6px;font-size:.45em;
+  color:var(--text);background:none;-webkit-text-fill-color:var(--text);
+}
+.calc-result .res-sub{margin-top:14px;font-size:14.5px;color:var(--text)}
+.calc-result .res-sub strong{font-weight:700}
+.calc-result .res-cost{
+  margin-top:6px;font-size:18px;font-weight:700;font-family:'Syne',sans-serif;
+}
+.calc-result .res-cost span{color:var(--accent-3)}
+.calc-result .res-cta{
+  margin-top:auto;padding-top:18px;
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;letter-spacing:.06em;
+  color:#fff;text-decoration:none;
+}
+.calc-result .res-cta:hover{color:var(--accent-2)}
+
+/* Demo savings badge */
+.demo-save{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:999px;
+  background:rgba(92,215,255,.12);border:1px solid rgba(92,215,255,.35);
+  font-size:11px;letter-spacing:.18em;font-weight:700;color:#a8e7ff;
+  text-transform:uppercase;
+}
+.demo-save::before{content:"⏱";font-size:13px;letter-spacing:0}
+
+/* =====================================================================
    ABOUT
    ===================================================================== */
 .about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:50px;align-items:center}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
 .founder-card{
   position:relative;border-radius:var(--radius-lg);overflow:hidden;
-  background:linear-gradient(160deg,rgba(124,92,255,.15),rgba(255,92,177,.08));
+  background:#1a1a22 url('founder.jpg') center/cover no-repeat;
   border:1px solid var(--line);aspect-ratio:4/5;
   display:flex;align-items:flex-end;
+  box-shadow:0 24px 60px rgba(0,0,0,.45);
+  transition:transform var(--t-med);
 }
-.founder-photo{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:clamp(80px,14vw,180px);font-weight:800;
-  color:rgba(255,255,255,.06);letter-spacing:-.02em;
-}
-.founder-photo::before{
-  content:"預留照片位置 / Photo Placeholder";
-  position:absolute;bottom:18px;left:0;right:0;
-  font-family:'Syne',sans-serif;font-size:10px;font-weight:500;letter-spacing:.3em;text-align:center;
-  color:rgba(255,255,255,.35);text-transform:uppercase;
+.founder-card:hover{transform:translateY(-4px) scale(1.01)}
+.founder-card::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(124,92,255,.12) 0%,transparent 35%,transparent 60%,rgba(0,0,0,.85) 100%);
+  pointer-events:none;
 }
 .founder-tag{
-  position:relative;z-index:1;padding:20px 22px;width:100%;
-  background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);
+  position:relative;z-index:1;padding:24px 24px 22px;width:100%;
 }
 .founder-tag .name{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.005em}
 .founder-tag .role{font-size:12px;color:var(--text-dim);letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
@@ -506,6 +735,205 @@ main,nav,section,footer{position:relative;z-index:2}
 .stagger-child{opacity:0;transform:translateY(20px)}
 
 /* =====================================================================
+   LIGHT THEME — overrides triggered by [data-theme="light"] on <html>
+   ===================================================================== */
+[data-theme="light"]{
+  --bg:#f6f6fa;
+  --bg-2:#ffffff;
+  --surface:#ffffff;
+  --surface-2:#f0f0f5;
+  --line:rgba(0,0,0,.08);
+  --line-strong:rgba(0,0,0,.14);
+  --text:#0a0a14;
+  --text-dim:#54545f;
+  --text-faint:#8a8a95;
+  --shadow-1:0 10px 30px rgba(40,40,80,.10);
+}
+[data-theme="light"] body{color:var(--text)}
+
+[data-theme="light"] #bg-canvas{
+  background:
+    radial-gradient(1200px 700px at 80% -10%,rgba(124,92,255,.14),transparent 60%),
+    radial-gradient(900px 600px at -10% 30%,rgba(255,92,177,.10),transparent 60%),
+    radial-gradient(900px 600px at 50% 110%,rgba(92,215,255,.14),transparent 60%),
+    var(--bg);
+}
+
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08)}
+[data-theme="light"] ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18)}
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.32)}
+
+/* nav */
+[data-theme="light"] .nav{
+  background:rgba(255,255,255,.7);
+  border-bottom-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.92)}
+[data-theme="light"] .nav-links a{color:var(--text-dim)}
+[data-theme="light"] .nav-links a:hover{color:#0a0a14}
+
+/* logo flip — black box + black "Solutions" on light bg */
+[data-theme="light"] .logo .logo-block{background:#0a0a14;color:#fff}
+[data-theme="light"] .logo .logo-right{border-left-color:rgba(0,0,0,.4)}
+[data-theme="light"] .logo .logo-name{color:#0a0a14}
+[data-theme="light"] .logo .logo-sub{color:#3a3a45}
+[data-theme="light"] .logo .logo-slogan{color:#5a5a65}
+
+/* lang & theme button surfaces */
+[data-theme="light"] .lang-switch{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .lang-switch button{color:var(--text-dim)}
+[data-theme="light"] .theme-toggle{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .theme-toggle:hover{background:rgba(0,0,0,.06)}
+
+/* buttons */
+[data-theme="light"] .btn-ghost{
+  background:rgba(0,0,0,.04);color:var(--text);
+  border-color:rgba(0,0,0,.1);
+}
+[data-theme="light"] .btn-ghost:hover{background:rgba(0,0,0,.08)}
+
+/* hero glow / decorative shapes — soften */
+[data-theme="light"] .hero-glow{opacity:.55;background:radial-gradient(circle,rgba(124,92,255,.22),transparent 60%)}
+[data-theme="light"] .hero-shape{opacity:.55}
+
+/* marquee */
+[data-theme="light"] .marquee-section{
+  background:rgba(0,0,0,.015);
+  border-block-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .tool{
+  background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .tool:hover{background:rgba(0,0,0,.05);border-color:var(--accent)}
+[data-theme="light"] .tool-icon{box-shadow:0 4px 12px rgba(40,40,80,.18)}
+
+/* service cards */
+[data-theme="light"] .service-card{
+  background:linear-gradient(160deg,rgba(0,0,0,.025),rgba(0,0,0,.005));
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .service-card .ico-wrap{
+  background:linear-gradient(140deg,rgba(124,92,255,.16),rgba(255,92,177,.06));
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .service-card .ico-wrap svg{color:#0a0a14}
+
+/* demo blocks */
+[data-theme="light"] .demo-block{
+  background:linear-gradient(180deg,rgba(0,0,0,.025),rgba(0,0,0,.005));
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .demo-head{border-bottom-color:rgba(0,0,0,.08)}
+[data-theme="light"] .demo-tag{
+  background:rgba(124,92,255,.12);
+  border-color:rgba(124,92,255,.3);
+  color:#5a3fd6;
+}
+[data-theme="light"] .demo-save{
+  background:rgba(20,140,200,.1);
+  border-color:rgba(20,140,200,.3);
+  color:#1a6f9a;
+}
+
+/* form fields */
+[data-theme="light"] .input,
+[data-theme="light"] .textarea,
+[data-theme="light"] .select{
+  background:rgba(255,255,255,.7);
+  color:var(--text);
+  border-color:rgba(0,0,0,.12);
+}
+[data-theme="light"] .input::placeholder,
+[data-theme="light"] .textarea::placeholder{color:rgba(0,0,0,.32)}
+[data-theme="light"] .input:focus,
+[data-theme="light"] .textarea:focus,
+[data-theme="light"] .select:focus{background:#fff;border-color:var(--accent)}
+
+/* workflow canvas */
+[data-theme="light"] .workflow-canvas{
+  background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .workflow-canvas::before{
+  background-image:
+    linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);
+}
+[data-theme="light"] .wf-node{
+  background:rgba(255,255,255,.95);border-color:rgba(0,0,0,.1);
+  color:#0a0a14;
+}
+[data-theme="light"] .wf-node .lbl{color:#0a0a14}
+[data-theme="light"] .wf-arrow{color:#aaa}
+[data-theme="light"] .wf-result{
+  background:linear-gradient(120deg,rgba(124,92,255,.10),rgba(92,215,255,.06));
+  border-color:rgba(124,92,255,.3);color:var(--text);
+}
+
+/* chat */
+[data-theme="light"] .chat-window{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .chat-msg.bot{
+  background:rgba(0,0,0,.04);
+  color:var(--text);
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .chat-input-row{border-top-color:rgba(0,0,0,.08)}
+
+/* webgen */
+[data-theme="light"] .webgen-preview{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .browser-bar{background:rgba(0,0,0,.04);border-bottom-color:rgba(0,0,0,.08)}
+[data-theme="light"] .browser-url{
+  background:rgba(255,255,255,.6);color:var(--text-dim);border-color:rgba(0,0,0,.08);
+}
+
+/* content output */
+[data-theme="light"] .content-output{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .platform-btn{
+  background:rgba(0,0,0,.025);color:var(--text);border-color:rgba(0,0,0,.12);
+}
+[data-theme="light"] .platform-btn:hover{background:rgba(0,0,0,.06)}
+
+/* impact */
+[data-theme="light"] .stat-big{
+  background:linear-gradient(160deg,rgba(0,0,0,.025),rgba(0,0,0,.005));
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .calc{
+  background:linear-gradient(180deg,rgba(124,92,255,.05),rgba(255,92,177,.025));
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .area-chip{
+  background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.12);color:var(--text);
+}
+[data-theme="light"] .area-chip:hover{background:rgba(0,0,0,.06)}
+[data-theme="light"] .range-input{
+  background:linear-gradient(to right,var(--accent) var(--pct,25%),rgba(0,0,0,.08) var(--pct,25%));
+}
+[data-theme="light"] .calc-result{
+  background:linear-gradient(160deg,rgba(124,92,255,.14),rgba(92,215,255,.06));
+  border-color:rgba(124,92,255,.25);
+}
+
+/* about */
+[data-theme="light"] .stat{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .about-text strong{color:#0a0a14}
+
+/* book + footer */
+[data-theme="light"] .book-frame-wrap{background:rgba(0,0,0,.015);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .footer{border-top-color:rgba(0,0,0,.08)}
+[data-theme="light"] .footer-links a{color:var(--text-dim)}
+[data-theme="light"] .footer-links a:hover{color:#0a0a14}
+
+/* cursor */
+[data-theme="light"] .cursor-dot{background:#0a0a14}
+[data-theme="light"] .cursor-ring{
+  border-color:rgba(20,20,40,.45);
+  background:rgba(124,92,255,.05);
+}
+
+/* particle canvas opacity tweak */
+[data-theme="light"] #particles{opacity:.85}
+
+/* =====================================================================
    RESPONSIVE
    ===================================================================== */
 @media(max-width:760px){
@@ -546,9 +974,19 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="nav-links">
       <a href="#services" data-i18n="nav.services">服務</a>
       <a href="#demos" data-i18n="nav.demos">互動 Demo</a>
+      <a href="#impact" data-i18n="nav.impact">效益</a>
       <a href="#about" data-i18n="nav.about">關於</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="切換主題 / Toggle theme" title="切換淺色 / 深色">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 3v2M12 19v2M5 12H3M21 12h-2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4l1.4-1.4M17 7l1.4-1.4"/>
+      </svg>
+    </button>
     <div class="lang-switch" role="tablist" aria-label="Language">
       <button data-lang="zh" class="active">繁中</button>
       <button data-lang="en">EN</button>
@@ -559,6 +997,35 @@ main,nav,section,footer{position:relative;z-index:2}
 <!-- ======================== HERO ======================== -->
 <header class="hero" id="top">
   <div class="hero-glow"></div>
+
+  <!-- decorative rotating geometric SVGs -->
+  <div class="hero-shape s1" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#7c5cff"/><stop offset="100%" stop-color="#5cd7ff"/>
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="90" stroke="url(#gA)" stroke-width="1" stroke-dasharray="2 6" opacity=".7"/>
+      <circle cx="100" cy="100" r="68" stroke="url(#gA)" stroke-width="1.2"/>
+      <circle cx="100" cy="100" r="46" stroke="url(#gA)" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <polygon points="100,30 160,135 40,135" stroke="url(#gA)" stroke-width="1" fill="none" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="hero-shape s2" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff5cb1"/><stop offset="100%" stop-color="#7c5cff"/>
+        </linearGradient>
+      </defs>
+      <rect x="30" y="30" width="140" height="140" stroke="url(#gB)" stroke-width="1" rx="20"/>
+      <rect x="55" y="55" width="90" height="90" stroke="url(#gB)" stroke-width="1.2" rx="12" opacity=".7"/>
+      <line x1="0" y1="100" x2="200" y2="100" stroke="url(#gB)" stroke-width=".8" stroke-dasharray="3 6" opacity=".5"/>
+      <line x1="100" y1="0" x2="100" y2="200" stroke="url(#gB)" stroke-width=".8" stroke-dasharray="3 6" opacity=".5"/>
+    </svg>
+  </div>
+
   <div class="hero-inner">
     <div class="eyebrow reveal" data-i18n="hero.eyebrow">AI · AUTOMATION · WEB</div>
     <h1 class="h1" id="hero-title" style="margin-top:18px">
@@ -595,32 +1062,75 @@ main,nav,section,footer{position:relative;z-index:2}
 
     <div class="services-grid">
       <article class="service-card reveal" data-mouse>
-        <div class="num">01</div>
-        <div>
+        <div class="head-row">
+          <div class="ico-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/>
+              <circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/>
+              <path d="M8.2 6h7.6M6 8.2v7.6M18 8.2v7.6M8.2 18h7.6"/>
+              <circle cx="12" cy="12" r="3" fill="currentColor" opacity=".25"/>
+            </svg>
+          </div>
+          <div class="num">01</div>
+        </div>
+        <div class="text-block">
           <div class="tag" data-i18n="services.tag1">AUTOMATION</div>
           <h3 data-i18n="services.s1.title">AI 自動化工作流程</h3>
           <p data-i18n="services.s1.desc">透過 n8n、Make、Zapier 等工具串聯系統，自動化郵件、CRM、資料同步、報表等重複工作。</p>
         </div>
       </article>
+
       <article class="service-card reveal" data-mouse>
-        <div class="num">02</div>
-        <div>
+        <div class="head-row">
+          <div class="ico-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="2"/>
+              <path d="M3 9h18"/>
+              <circle cx="6.5" cy="6.5" r=".6" fill="currentColor"/>
+              <circle cx="9" cy="6.5" r=".6" fill="currentColor"/>
+              <path d="M9 13l-2 2 2 2M15 13l2 2-2 2M13 12l-2 6"/>
+            </svg>
+          </div>
+          <div class="num">02</div>
+        </div>
+        <div class="text-block">
           <div class="tag" data-i18n="services.tag2">WEB</div>
           <h3 data-i18n="services.s2.title">網頁設計與開發</h3>
           <p data-i18n="services.s2.desc">從品牌官網到電商平台，提供現代感、響應式、SEO 友善的網頁設計與開發。</p>
         </div>
       </article>
+
       <article class="service-card reveal" data-mouse>
-        <div class="num">03</div>
-        <div>
+        <div class="head-row">
+          <div class="ico-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6L12 3z"/>
+              <path d="M19 16l.7 2.1L22 19l-2.3.9L19 22l-.7-2.1L16 19l2.3-.9L19 16z" opacity=".7"/>
+              <path d="M5 4l.5 1.5L7 6l-1.5.5L5 8l-.5-1.5L3 6l1.5-.5L5 4z" opacity=".5"/>
+            </svg>
+          </div>
+          <div class="num">03</div>
+        </div>
+        <div class="text-block">
           <div class="tag" data-i18n="services.tag3">CONTENT</div>
           <h3 data-i18n="services.s3.title">AI 內容創作</h3>
           <p data-i18n="services.s3.desc">運用 Claude / ChatGPT 為您批量生成社交媒體文案、部落格文章、產品描述、廣告素材。</p>
         </div>
       </article>
+
       <article class="service-card reveal" data-mouse>
-        <div class="num">04</div>
-        <div>
+        <div class="head-row">
+          <div class="ico-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="5" width="14" height="14" rx="2"/>
+              <rect x="9" y="9" width="6" height="6" fill="currentColor" opacity=".3"/>
+              <path d="M9 1.5v3M15 1.5v3M9 19.5v3M15 19.5v3M1.5 9h3M1.5 15h3M19.5 9h3M19.5 15h3"/>
+              <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="num">04</div>
+        </div>
+        <div class="text-block">
           <div class="tag" data-i18n="services.tag4">CUSTOM AI</div>
           <h3 data-i18n="services.s4.title">客製化 AI 解決方案</h3>
           <p data-i18n="services.s4.desc">針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。</p>
@@ -643,7 +1153,10 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="demo-block reveal" id="demo1">
       <div class="demo-head">
         <div>
-          <div class="demo-tag">DEMO 01</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div class="demo-tag">DEMO 01</div>
+            <div class="demo-save" data-i18n="demo1.save">平均省 25 小時/月</div>
+          </div>
           <h3 class="h3" style="margin-top:8px" data-i18n="demo1.title">AI 自動化模擬器</h3>
           <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo1.desc">輸入您的業務問題，看 AI 如何把它拆解成自動化工作流程。</p>
         </div>
@@ -682,7 +1195,10 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="demo-block reveal" id="demo2">
       <div class="demo-head">
         <div>
-          <div class="demo-tag">DEMO 02</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div class="demo-tag">DEMO 02</div>
+            <div class="demo-save" data-i18n="demo2.save">平均省 40 小時/月</div>
+          </div>
           <h3 class="h3" style="margin-top:8px" data-i18n="demo2.title">AI 聊天助手</h3>
           <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">由 Claude API 驅動的智能助手，可作為客服、顧問或內部知識助手。</p>
         </div>
@@ -703,7 +1219,10 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="demo-block reveal" id="demo3">
       <div class="demo-head">
         <div>
-          <div class="demo-tag">DEMO 03</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div class="demo-tag">DEMO 03</div>
+            <div class="demo-save" data-i18n="demo3.save">上線時間縮短 80%</div>
+          </div>
           <h3 class="h3" style="margin-top:8px" data-i18n="demo3.title">網頁生成預覽</h3>
           <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo3.desc">輸入公司名與行業，立即生成示意網頁，模擬我們的網頁設計流程。</p>
         </div>
@@ -740,7 +1259,10 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="demo-block reveal" id="demo4">
       <div class="demo-head">
         <div>
-          <div class="demo-tag">DEMO 04</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div class="demo-tag">DEMO 04</div>
+            <div class="demo-save" data-i18n="demo4.save">產出速度 5×</div>
+          </div>
           <h3 class="h3" style="margin-top:8px" data-i18n="demo4.title">AI 內容生成器</h3>
           <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo4.desc">由 Claude API 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
         </div>
@@ -771,12 +1293,96 @@ main,nav,section,footer{position:relative;z-index:2}
   </div>
 </section>
 
+<!-- ======================== IMPACT / ROI ======================== -->
+<section class="section" id="impact">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="eyebrow" style="justify-content:center" data-i18n="impact.eyebrow">REAL IMPACT</div>
+      <h2 class="h2"><span data-i18n="impact.title1">真實節省的</span> <span class="gradient-text" data-i18n="impact.title2">時間與成本</span></h2>
+      <p class="muted" data-i18n="impact.desc">每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。</p>
+    </div>
+
+    <!-- Animated counters -->
+    <div class="impact-stats">
+      <div class="stat-big reveal">
+        <div class="n-row"><span class="n" data-target="80">0</span><span class="suffix">%</span></div>
+        <div class="l" data-i18n="impact.s1">重複性工作時間 ↓</div>
+      </div>
+      <div class="stat-big reveal">
+        <div class="n-row"><span class="n" data-target="40">0</span><span class="suffix">h<span style="opacity:.6;font-size:.5em">/月</span></span></div>
+        <div class="l" data-i18n="impact.s2">平均每月節省</div>
+      </div>
+      <div class="stat-big reveal">
+        <div class="n-row"><span class="n" data-target="5">0</span><span class="suffix">×</span></div>
+        <div class="l" data-i18n="impact.s3">內容產出速度</div>
+      </div>
+      <div class="stat-big reveal">
+        <div class="n-row"><span class="n" data-target="24">0</span><span class="suffix">/<span data-target-2="7">0</span></span></div>
+        <div class="l" data-i18n="impact.s4">不眠不休運作</div>
+      </div>
+    </div>
+
+    <!-- Calculator -->
+    <div class="calc reveal">
+      <div class="calc-head">
+        <h3 data-i18n="calc.title">您能省下多少？立即試算</h3>
+        <p data-i18n="calc.desc">選擇您目前最花時間的領域，拉動週工時，立即看到月節省。</p>
+      </div>
+
+      <div class="calc-grid">
+        <!-- Form -->
+        <div class="calc-form">
+          <div class="field">
+            <label data-i18n="calc.l1">您的業務領域</label>
+            <div class="area-chips" id="area-chips">
+              <button class="area-chip active" data-area="email"   data-rate=".70" data-i18n="calc.a1">客戶跟進與郵件</button>
+              <button class="area-chip"        data-area="content" data-rate=".75" data-i18n="calc.a2">社交媒體 / 內容</button>
+              <button class="area-chip"        data-area="report"  data-rate=".65" data-i18n="calc.a3">報表與資料彙整</button>
+              <button class="area-chip"        data-area="support" data-rate=".60" data-i18n="calc.a4">客服回覆</button>
+              <button class="area-chip"        data-area="research" data-rate=".55" data-i18n="calc.a5">資料研究</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label data-i18n="calc.l2">每週投入小時</label>
+            <div class="range-row">
+              <input type="range" min="1" max="40" value="10" id="calc-hours" class="range-input" />
+              <div class="range-value"><strong id="calc-hours-val">10</strong> <span data-i18n="calc.hour">小時</span></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label data-i18n="calc.l3">您的時薪估算（HKD）</label>
+            <div class="rate-row">
+              <span class="currency">HK$</span>
+              <input type="number" class="input" id="calc-rate" value="300" min="50" max="5000" step="50" />
+              <span class="currency" data-i18n="calc.perHour">/小時</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="calc-result">
+          <div class="res-label" data-i18n="calc.resLabel">每月可節省</div>
+          <div class="res-big">
+            <span id="calc-saved-h">0</span><span class="res-unit" data-i18n="calc.hour">小時</span>
+          </div>
+          <div class="res-sub" data-i18n="calc.resSub">這些時間可以用來：陪家人、開發新客戶、創造下一個產品。</div>
+          <div class="res-cost"><span data-i18n="calc.equals">≈</span> <span id="calc-saved-money">HK$ 0</span> <span data-i18n="calc.month">/ 月</span></div>
+          <a href="#book" class="res-cta">
+            <span data-i18n="calc.cta">為您打造這個方案</span><span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ======================== ABOUT ======================== -->
 <section class="section" id="about">
   <div class="container">
     <div class="about-grid">
       <div class="founder-card reveal">
-        <div class="founder-photo">G</div>
         <div class="founder-tag">
           <div class="name">Grouper</div>
           <div class="role" data-i18n="about.role">FOUNDER · TBC Solutions</div>
@@ -868,7 +1474,7 @@ const CAL_LINK        = "https://cal.com/grouper-shek-9ungca/30min";
 /* ============== i18n ============== */
 const I18N = {
   zh:{
-    "nav.services":"服務", "nav.demos":"互動 Demo", "nav.about":"關於", "nav.book":"預約",
+    "nav.services":"服務", "nav.demos":"互動 Demo", "nav.impact":"效益", "nav.about":"關於", "nav.book":"預約",
     "hero.eyebrow":"AI · 自動化 · 網頁",
     "hero.title": ["從繁瑣事務中","解放出來"],
     "hero.typing":["為您打造 AI 自動化工作流程","用 AI 重塑您的網站與內容","Transform · Build · Create"],
@@ -890,15 +1496,26 @@ const I18N = {
     "demos.title1":"不是說明，","demos.title2":"而是親身體驗",
     "demos.desc":"每一個 Demo 都直接內嵌於本頁，零下載、零註冊。動手試試我們能為您做什麼。",
     "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，看 AI 如何把它拆解成自動化工作流程。",
-    "demo1.label":"您的業務問題","demo1.btn":"產生工作流程 →",
+    "demo1.label":"您的業務問題","demo1.btn":"產生工作流程 →","demo1.save":"平均省 25 小時/月",
     "wf.n1":"觸發","wf.n2":"篩選條件","wf.n3":"AI 處理","wf.n4":"發送郵件","wf.n5":"記錄追蹤","wf.n6":"完成",
     "demo2.title":"AI 聊天助手","demo2.desc":"由 Claude API 驅動的智能助手，可作為客服、顧問或內部知識助手。",
     "demo2.greet":"您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。",
-    "demo2.send":"送出",
+    "demo2.send":"送出","demo2.save":"平均省 40 小時/月",
     "demo3.title":"網頁生成預覽","demo3.desc":"輸入公司名與行業，立即生成示意網頁，模擬我們的網頁設計流程。",
-    "demo3.l1":"公司名稱","demo3.l2":"行業","demo3.btn":"生成預覽 →","demo3.empty":"輸入資訊後，這裡會生成預覽",
+    "demo3.l1":"公司名稱","demo3.l2":"行業","demo3.btn":"生成預覽 →","demo3.empty":"輸入資訊後，這裡會生成預覽","demo3.save":"上線時間縮短 80%",
     "demo4.title":"AI 內容生成器","demo4.desc":"由 Claude API 驅動，立即為您生成符合平台風格的社交媒體文案。",
-    "demo4.l1":"選擇平台","demo4.l2":"主題 / 產品","demo4.btn":"生成文案 →","demo4.empty":"您的文案將顯示在這裡…",
+    "demo4.l1":"選擇平台","demo4.l2":"主題 / 產品","demo4.btn":"生成文案 →","demo4.empty":"您的文案將顯示在這裡…","demo4.save":"產出速度 5×",
+    "impact.eyebrow":"REAL IMPACT",
+    "impact.title1":"真實節省的","impact.title2":"時間與成本",
+    "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
+    "impact.s1":"重複性工作 ↓","impact.s2":"平均每月節省","impact.s3":"內容產出速度","impact.s4":"不眠不休運作",
+    "calc.title":"您能省下多少？立即試算",
+    "calc.desc":"選擇您目前最花時間的領域，拉動週工時，立即看到月節省。",
+    "calc.l1":"您的業務領域","calc.l2":"每週投入小時","calc.l3":"您的時薪估算（HKD）",
+    "calc.a1":"客戶跟進與郵件","calc.a2":"社交媒體 / 內容","calc.a3":"報表與資料彙整","calc.a4":"客服回覆","calc.a5":"資料研究",
+    "calc.hour":"小時","calc.perHour":"/小時","calc.month":"/ 月",
+    "calc.resLabel":"每月可節省","calc.resSub":"這些時間可以用來：陪家人、開發新客戶、創造下一個產品。",
+    "calc.equals":"≈","calc.cta":"為您打造這個方案",
     "about.eyebrow":"關於我們","about.title1":"每一間企業都值得","about.title2":"智能系統",
     "about.p1":"TBC Solutions 由 <strong>Grouper</strong> 創立，專注於為企業提供 <strong>AI 自動化解決方案</strong>。我們相信每一間企業都值得擁有智能系統，讓您專注於真正重要的事。",
     "about.p2":"從工作流程設計到 AI 模型整合，我們以「Transform · Build · Create」為核心，把您的業務從繁瑣中解放，重新打造，並創造新的可能。",
@@ -911,7 +1528,7 @@ const I18N = {
     "book.fallback3":"或可直接點擊下方按鈕傳送 Email：",
   },
   en:{
-    "nav.services":"Services","nav.demos":"Demos","nav.about":"About","nav.book":"Book",
+    "nav.services":"Services","nav.demos":"Demos","nav.impact":"Impact","nav.about":"About","nav.book":"Book",
     "hero.eyebrow":"AI · AUTOMATION · WEB",
     "hero.title":["Free yourself","from busywork"],
     "hero.typing":["AI workflows that run while you sleep","Websites & content, reimagined with AI","Transform · Build · Create"],
@@ -933,15 +1550,26 @@ const I18N = {
     "demos.title1":"Don't read about it —","demos.title2":"try it",
     "demos.desc":"Every demo runs in this page. No download, no signup. Touch what we can build for you.",
     "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem and watch AI break it into an automated workflow.",
-    "demo1.label":"Your business problem","demo1.btn":"Generate workflow →",
+    "demo1.label":"Your business problem","demo1.btn":"Generate workflow →","demo1.save":"Saves 25 hrs / month",
     "wf.n1":"Trigger","wf.n2":"Filter","wf.n3":"AI Process","wf.n4":"Send Email","wf.n5":"Log","wf.n6":"Done",
     "demo2.title":"AI Chat Assistant","demo2.desc":"A real Claude-powered assistant — support, advisor, or internal knowledge bot.",
     "demo2.greet":"Hi! I'm TBC Solutions' AI assistant. Ask me anything about our services, AI automation or web development.",
-    "demo2.send":"Send",
+    "demo2.send":"Send","demo2.save":"Saves 40 hrs / month",
     "demo3.title":"Website Generator Preview","demo3.desc":"Drop in a company name and industry — see a sample site rendered live.",
-    "demo3.l1":"Company name","demo3.l2":"Industry","demo3.btn":"Generate preview →","demo3.empty":"Fill in the form to render a preview",
+    "demo3.l1":"Company name","demo3.l2":"Industry","demo3.btn":"Generate preview →","demo3.empty":"Fill in the form to render a preview","demo3.save":"80% faster to launch",
     "demo4.title":"AI Content Generator","demo4.desc":"Real Claude API — produces ready-to-post social copy that fits each platform.",
-    "demo4.l1":"Choose a platform","demo4.l2":"Topic / Product","demo4.btn":"Generate copy →","demo4.empty":"Your copy will appear here…",
+    "demo4.l1":"Choose a platform","demo4.l2":"Topic / Product","demo4.btn":"Generate copy →","demo4.empty":"Your copy will appear here…","demo4.save":"5× faster output",
+    "impact.eyebrow":"REAL IMPACT",
+    "impact.title1":"Real time and cost","impact.title2":"saved.",
+    "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
+    "impact.s1":"Less repetitive work","impact.s2":"Hours saved / month","impact.s3":"Faster content output","impact.s4":"Always on",
+    "calc.title":"How much could you save? Try it.",
+    "calc.desc":"Pick the area eating your time, drag the weekly hours — see your monthly savings instantly.",
+    "calc.l1":"Your area of work","calc.l2":"Hours per week","calc.l3":"Estimated hourly rate (HKD)",
+    "calc.a1":"Customer follow-up & email","calc.a2":"Social / content","calc.a3":"Reports & data ops","calc.a4":"Customer support","calc.a5":"Research",
+    "calc.hour":"hrs","calc.perHour":"/ hr","calc.month":"/ month",
+    "calc.resLabel":"Saved every month","calc.resSub":"Use that time for: family, new clients, building the next thing.",
+    "calc.equals":"≈","calc.cta":"Build this for me",
     "about.eyebrow":"ABOUT","about.title1":"Every business deserves","about.title2":"an intelligent system",
     "about.p1":"TBC Solutions was founded by <strong>Grouper</strong> to bring <strong>AI automation</strong> within reach of every business — so you can focus on what truly matters.",
     "about.p2":"From workflow design to AI model integration, we live by Transform · Build · Create — freeing your business from busywork, rebuilding it, and creating what's next.",
@@ -977,6 +1605,24 @@ function applyLang(lang){
 
 document.querySelectorAll(".lang-switch button").forEach(b=>{
   b.addEventListener("click", ()=> applyLang(b.dataset.lang));
+});
+
+/* ============== THEME TOGGLE ============== */
+let currentTheme = "dark";
+function applyTheme(theme){
+  currentTheme = theme;
+  document.documentElement.dataset.theme = theme;
+  try{ localStorage.setItem("tbc-theme", theme); }catch(e){}
+  // notify particle canvas (set by constellation closure)
+  if(window.__onThemeChange) window.__onThemeChange(theme);
+}
+(function initTheme(){
+  let saved = "dark";
+  try{ saved = localStorage.getItem("tbc-theme") || "dark"; }catch(e){}
+  applyTheme(saved);
+})();
+document.getElementById("theme-toggle").addEventListener("click", ()=>{
+  applyTheme(currentTheme === "dark" ? "light" : "dark");
 });
 
 /* ============== HERO TITLE ANIMATION ============== */
@@ -1017,67 +1663,271 @@ function startTyping(){
   tick();
 }
 
-/* ============== TOOLS MARQUEE ============== */
+/* ============== TOOLS MARQUEE — inline brand SVGs (no network deps) ============== */
+/* Each TOOL has a brand color (chip background) and a clean original geometric
+   SVG icon (white, single well-formed shape) representing its category.
+   Clean / no overlapping paths / no clumping. */
+const ICONS = {
+  // 4 nodes connected in diamond — represents workflow / automation
+  workflow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <line x1="6.5" y1="10.5" x2="10.5" y2="6.5"/><line x1="13.5" y1="6.5" x2="17.5" y2="10.5"/>
+    <line x1="17.5" y1="13.5" x2="13.5" y2="17.5"/><line x1="10.5" y1="17.5" x2="6.5" y2="13.5"/>
+    <circle cx="5" cy="12" r="2.2" fill="currentColor"/><circle cx="19" cy="12" r="2.2" fill="currentColor"/>
+    <circle cx="12" cy="5" r="2.2" fill="currentColor"/><circle cx="12" cy="19" r="2.2" fill="currentColor"/>
+  </svg>`,
+  // 4-point sparkle — represents AI / generation
+  sparkle: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4L3.5 11l6.4-2.1z"/></svg>`,
+  // chat bubble — represents AI chat
+  bubble:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round">
+    <path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="currentColor" fill-opacity=".15"/>
+    <circle cx="9" cy="11" r="1.1" fill="currentColor"/><circle cx="12" cy="11" r="1.1" fill="currentColor"/><circle cx="15" cy="11" r="1.1" fill="currentColor"/>
+  </svg>`,
+  // 3 linked rings — represents make / connecting modules
+  rings:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="6.5" cy="12" r="3.5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="12" r="3.5"/>
+  </svg>`,
+  // lightning bolt — represents instant automation / Zapier
+  bolt:    `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2L4 14h6l-1 8 11-13h-7z"/></svg>`,
+  // 3x3 grid (centre highlight) — represents tabular database
+  grid3:   `<svg viewBox="0 0 24 24" fill="currentColor">
+    <rect x="3" y="3"  width="5.3" height="5.3" rx="1"/><rect x="9.35" y="3"  width="5.3" height="5.3" rx="1"/><rect x="15.7" y="3"  width="5.3" height="5.3" rx="1"/>
+    <rect x="3" y="9.35" width="5.3" height="5.3" rx="1"/><rect x="9.35" y="9.35" width="5.3" height="5.3" rx="1" opacity=".75"/><rect x="15.7" y="9.35" width="5.3" height="5.3" rx="1"/>
+    <rect x="3" y="15.7" width="5.3" height="5.3" rx="1"/><rect x="9.35" y="15.7" width="5.3" height="5.3" rx="1"/><rect x="15.7" y="15.7" width="5.3" height="5.3" rx="1"/>
+  </svg>`,
+  // document — represents notes / Notion
+  doc:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11A1.5 1.5 0 0 0 19 19.5V8z" fill="currentColor" fill-opacity=".15"/>
+    <polyline points="14 3 14 8 19 8"/>
+    <line x1="8.5" y1="13" x2="15.5" y2="13"/><line x1="8.5" y1="16.5" x2="13" y2="16.5"/>
+  </svg>`,
+  // 9-dot app launcher — represents productivity suite
+  apps:    `<svg viewBox="0 0 24 24" fill="currentColor">
+    <circle cx="6" cy="6" r="1.8"/><circle cx="12" cy="6" r="1.8"/><circle cx="18" cy="6" r="1.8"/>
+    <circle cx="6" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/>
+    <circle cx="6" cy="18" r="1.8"/><circle cx="12" cy="18" r="1.8"/><circle cx="18" cy="18" r="1.8"/>
+  </svg>`,
+  // globe — represents publishing / web
+  globe:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="12" cy="12" r="9"/>
+    <ellipse cx="12" cy="12" rx="4" ry="9"/>
+    <line x1="3" y1="12" x2="21" y2="12"/>
+  </svg>`,
+  // flowing wave — represents web design / flow
+  wave:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9c3-4 6-4 9 0s6 4 9 0"/>
+    <path d="M3 15c3-4 6-4 9 0s6 4 9 0" opacity=".55"/>
+  </svg>`,
+};
+
 const TOOLS = [
-  {name:"n8n",          c:"#ea4b71"},
-  {name:"Claude AI",    c:"#cc785c"},
-  {name:"ChatGPT",      c:"#10a37f"},
-  {name:"Make",         c:"#6d00cc"},
-  {name:"Zapier",       c:"#ff4a00"},
-  {name:"Airtable",     c:"#fcb400"},
-  {name:"Notion",       c:"#000000"},
-  {name:"Google",       c:"#4285f4"},
-  {name:"WordPress",    c:"#21759b"},
-  {name:"Webflow",      c:"#4353ff"},
+  {name:"n8n",              color:"#EA4B71", icon:"workflow"},  // workflow automation
+  {name:"Claude AI",        color:"#CC785C", icon:"sparkle"},   // AI assistant
+  {name:"ChatGPT",          color:"#10A37F", icon:"bubble"},    // AI chat
+  {name:"Make",             color:"#6D00CC", icon:"rings"},     // visual automation
+  {name:"Zapier",           color:"#FF4F00", icon:"bolt"},      // instant automation
+  {name:"Airtable",         color:"#F82B60", icon:"grid3"},     // database
+  {name:"Notion",           color:"#0A0A14", icon:"doc"},       // notes / docs
+  {name:"Google Workspace", color:"#4285F4", icon:"apps"},      // productivity suite
+  {name:"WordPress",        color:"#21759B", icon:"globe"},     // CMS / web
+  {name:"Webflow",          color:"#146EF5", icon:"wave"},      // web design / flow
 ];
+
 function buildMarquee(){
-  const html = TOOLS.map(t=>{
-    const initials = t.name.split(/\s+/).map(s=>s[0]).join("").slice(0,2).toUpperCase();
-    const txt = t.c === "#000000" ? "#fff" : "#fff";
-    return `<div class="tool"><div class="tool-icon" style="background:${t.c};color:${txt}">${initials}</div><div class="tool-name">${t.name}</div></div>`;
-  }).join("");
+  const html = TOOLS.map(t => `
+    <div class="tool" title="${t.name}">
+      <div class="tool-icon" style="background:${t.color}">${ICONS[t.icon] || ""}</div>
+      <div class="tool-name">${t.name}</div>
+    </div>`).join("");
   document.getElementById("marquee-track").innerHTML  = html;
   document.getElementById("marquee-track-2").innerHTML = html;
 }
 
-/* ============== PARTICLES BG ============== */
-(function particles(){
+/* ============== CUSTOM CURSOR ============== */
+(function customCursor(){
+  if(matchMedia('(pointer:coarse)').matches) return;
+  const dot  = document.createElement('div'); dot.className  = 'cursor-dot';
+  const ring = document.createElement('div'); ring.className = 'cursor-ring';
+  document.body.append(dot, ring);
+  document.body.classList.add('has-cursor');
+
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate3d(${mx}px,${my}px,0) translate(-50%,-50%)`;
+  });
+  document.addEventListener('mousedown', ()=>ring.classList.add('click'));
+  document.addEventListener('mouseup',   ()=>ring.classList.remove('click'));
+
+  function loop(){
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // hover state — re-bind on dynamic content too
+  function bindHover(){
+    document.querySelectorAll('a, button, .tool, [data-mouse], input, textarea, select, .platform-btn, .lang-switch button')
+      .forEach(el => {
+        if(el.dataset.cursorBound) return;
+        el.dataset.cursorBound = '1';
+        el.addEventListener('mouseenter', ()=>ring.classList.add('hover'));
+        el.addEventListener('mouseleave', ()=>ring.classList.remove('hover'));
+      });
+  }
+  bindHover();
+  // re-bind whenever new chat/marquee items get added
+  const mo = new MutationObserver(bindHover);
+  mo.observe(document.body, {childList:true, subtree:true});
+})();
+
+/* ============== CONSTELLATION BG (stars + light filaments + cursor pull) ============== */
+(function constellation(){
   const canvas = document.getElementById("particles");
   const ctx = canvas.getContext("2d");
-  let w, h, parts = [];
-  function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-  resize(); window.addEventListener("resize", resize);
-  const N = Math.min(80, Math.round(window.innerWidth/22));
-  for(let i=0;i<N;i++){
-    parts.push({
-      x:Math.random()*w, y:Math.random()*h,
-      vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25,
-      r:Math.random()*1.6+.4,
-      hue: Math.random()<.5 ? 268 : (Math.random()<.5 ? 322 : 196),
-    });
+  let w, h, dpr = Math.min(window.devicePixelRatio||1, 2);
+  let stars = [];
+  let mouse = {x:-9999,y:-9999, active:false};
+
+  // theme-aware palette
+  let palette = paletteFor(document.documentElement.dataset.theme || "dark");
+  function paletteFor(theme){
+    if(theme === "light"){
+      return {
+        coreA:   a => `rgba(40,30,90,${Math.min(1,a*1.4)})`,
+        glow0:   a => `rgba(80,60,180,${a*.85})`,
+        glow1:   a => `rgba(124,92,255,${a*.5})`,
+        glow2:   _ => `rgba(124,92,255,0)`,
+        link1:   t => `rgba(110,80,220,${t*.35})`,
+        link2:   t => `rgba(60,140,200,${t*.35})`,
+        cursorL: t => `rgba(40,30,90,${t*.5})`,
+      };
+    }
+    return {
+      coreA:   a => `rgba(255,255,255,${Math.min(1,a*1.6)})`,
+      glow0:   a => `rgba(255,255,255,${a})`,
+      glow1:   a => `rgba(200,190,255,${a*.45})`,
+      glow2:   _ => `rgba(124,92,255,0)`,
+      link1:   t => `rgba(180,150,255,${t*.45})`,
+      link2:   t => `rgba(140,210,255,${t*.45})`,
+      cursorL: t => `rgba(255,255,255,${t*.55})`,
+    };
   }
+  // Expose hook for theme toggle
+  window.__onThemeChange = (theme) => { palette = paletteFor(theme); };
+
+  function resize(){
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width  = w*dpr; canvas.height = h*dpr;
+    canvas.style.width = w+"px"; canvas.style.height = h+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize();
+  window.addEventListener("resize", ()=>{ resize(); seed(); });
+
+  // mouse follows for cursor-pull effect
+  window.addEventListener("mousemove", e=>{ mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
+  window.addEventListener("mouseleave",()=>{ mouse.active = false; });
+
+  function seed(){
+    const N = Math.round(Math.min(160, w/9));   // density
+    stars = [];
+    for(let i=0;i<N;i++){
+      stars.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx:(Math.random()-.5)*.18,
+        vy:(Math.random()-.5)*.18,
+        r: Math.random()*1.2 + .35,             // small star size
+        baseAlpha: Math.random()*.5 + .35,
+        twPhase: Math.random()*Math.PI*2,
+        twSpeed: .015 + Math.random()*.025,
+      });
+    }
+  }
+  seed();
+
+  const LINK_DIST = 130;     // how far stars connect
+  const MOUSE_RADIUS = 180;  // cursor pull radius
+
   function tick(){
     ctx.clearRect(0,0,w,h);
-    parts.forEach(p=>{
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>w) p.vx*=-1;
-      if(p.y<0||p.y>h) p.vy*=-1;
-      ctx.beginPath();
-      ctx.fillStyle = `hsla(${p.hue},85%,70%,.55)`;
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fill();
-    });
-    // links
-    for(let i=0;i<parts.length;i++){
-      for(let j=i+1;j<parts.length;j++){
-        const dx = parts[i].x-parts[j].x, dy = parts[i].y-parts[j].y;
+
+    // update + draw stars
+    for(const s of stars){
+      // mouse subtle pull
+      if(mouse.active){
+        const dx = mouse.x - s.x, dy = mouse.y - s.y;
         const d = Math.hypot(dx,dy);
-        if(d<110){
-          ctx.strokeStyle = `rgba(180,160,255,${(1-d/110)*.18})`;
-          ctx.lineWidth = .6;
+        if(d < MOUSE_RADIUS){
+          const f = (1 - d/MOUSE_RADIUS) * .04;
+          s.vx += (dx/d) * f;
+          s.vy += (dy/d) * f;
+        }
+      }
+      // gentle damping so they don't run away
+      s.vx *= .992; s.vy *= .992;
+      s.x += s.vx; s.y += s.vy;
+      // wrap edges
+      if(s.x < -10) s.x = w+10;
+      if(s.x > w+10) s.x = -10;
+      if(s.y < -10) s.y = h+10;
+      if(s.y > h+10) s.y = -10;
+
+      // twinkle
+      s.twPhase += s.twSpeed;
+      const tw = .55 + .45 * Math.sin(s.twPhase);
+      const a = s.baseAlpha * tw;
+
+      // soft glow
+      const grd = ctx.createRadialGradient(s.x,s.y,0, s.x,s.y, s.r*5);
+      grd.addColorStop(0,  palette.glow0(a));
+      grd.addColorStop(.4, palette.glow1(a));
+      grd.addColorStop(1,  palette.glow2(a));
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y, s.r*5, 0, Math.PI*2);
+      ctx.fill();
+
+      // crisp core
+      ctx.fillStyle = palette.coreA(a);
+      ctx.beginPath();
+      ctx.arc(s.x,s.y, s.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // light filaments between nearby stars
+    for(let i=0;i<stars.length;i++){
+      for(let j=i+1;j<stars.length;j++){
+        const a = stars[i], b = stars[j];
+        const dx = a.x-b.x, dy = a.y-b.y;
+        const d = Math.hypot(dx,dy);
+        if(d < LINK_DIST){
+          const t = 1 - d/LINK_DIST;
+          const grad = ctx.createLinearGradient(a.x,a.y,b.x,b.y);
+          grad.addColorStop(0, palette.link1(t));
+          grad.addColorStop(1, palette.link2(t));
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = .7;
           ctx.beginPath();
-          ctx.moveTo(parts[i].x,parts[i].y);
-          ctx.lineTo(parts[j].x,parts[j].y);
+          ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+      // bright link from cursor
+      if(mouse.active){
+        const dx = stars[i].x - mouse.x, dy = stars[i].y - mouse.y;
+        const d = Math.hypot(dx,dy);
+        if(d < MOUSE_RADIUS){
+          const t = 1 - d/MOUSE_RADIUS;
+          ctx.strokeStyle = palette.cursorL(t);
+          ctx.lineWidth = .9;
+          ctx.beginPath();
+          ctx.moveTo(stars[i].x, stars[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
         }
       }
@@ -1087,8 +1937,96 @@ function buildMarquee(){
   tick();
 })();
 
+/* ============== ANIMATED COUNTERS ============== */
+(function counters(){
+  function animate(el, target, duration=1700){
+    const start = performance.now();
+    function step(now){
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased);
+      if(t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const n  = el.querySelector("[data-target]");
+        const n2 = el.querySelector("[data-target-2]");
+        if(n && !n.dataset.done){ n.dataset.done = "1"; animate(n, +n.dataset.target); }
+        if(n2 && !n2.dataset.done){ n2.dataset.done = "1"; animate(n2, +n2.dataset.target2 || +n2.getAttribute("data-target-2")); }
+        io.unobserve(el);
+      }
+    });
+  }, {threshold:.4});
+  document.querySelectorAll(".stat-big").forEach(el=>io.observe(el));
+})();
+
+/* ============== ROI CALCULATOR ============== */
+(function calculator(){
+  const chips     = document.querySelectorAll(".area-chip");
+  const hours     = document.getElementById("calc-hours");
+  const hoursVal  = document.getElementById("calc-hours-val");
+  const rate      = document.getElementById("calc-rate");
+  const savedH    = document.getElementById("calc-saved-h");
+  const savedM    = document.getElementById("calc-saved-money");
+  if(!chips.length || !hours) return;
+
+  let mult = .70; // default for "email"
+
+  function update(){
+    const wHrs = +hours.value;
+    const monthly = wHrs * mult * 4.33;       // weeks per month
+    const hRate   = +rate.value || 0;
+    const cost    = monthly * hRate;
+
+    // animate values
+    animateText(savedH, +savedH.textContent || 0, Math.round(monthly), 600);
+    animateText(savedM, parseInt((savedM.textContent.replace(/[^\d]/g,"")||"0"),10), Math.round(cost), 700,
+      v => "HK$ " + v.toLocaleString());
+
+    hoursVal.textContent = wHrs;
+    // update slider gradient
+    const pct = ((wHrs - hours.min) / (hours.max - hours.min)) * 100;
+    hours.style.setProperty("--pct", pct + "%");
+  }
+
+  function animateText(el, from, to, dur=600, fmt = v=>v){
+    const start = performance.now();
+    function step(now){
+      const t = Math.min(1,(now-start)/dur);
+      const eased = 1 - Math.pow(1-t, 3);
+      const v = Math.round(from + (to-from)*eased);
+      el.textContent = fmt(v);
+      if(t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  chips.forEach(c=>{
+    c.addEventListener("click", ()=>{
+      chips.forEach(x=>x.classList.remove("active"));
+      c.classList.add("active");
+      mult = parseFloat(c.dataset.rate) || .7;
+      update();
+    });
+  });
+  hours.addEventListener("input", update);
+  rate.addEventListener("input",  update);
+
+  update();
+})();
+
 /* ============== REVEAL ON SCROLL ============== */
 (function reveal(){
+  const els = document.querySelectorAll(".reveal");
+  if(!("IntersectionObserver" in window)){
+    // Old browser: just show everything
+    els.forEach(el=>el.classList.add("in"));
+    return;
+  }
   const io = new IntersectionObserver(entries=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
@@ -1096,8 +2034,14 @@ function buildMarquee(){
         io.unobserve(e.target);
       }
     });
-  }, {threshold:.12, rootMargin:"-40px"});
-  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+  }, {threshold:0.05, rootMargin:"0px 0px -5% 0px"});
+  els.forEach(el=>io.observe(el));
+
+  // Safety net: if anything is still hidden after 2s, force-show it.
+  // Prevents the page from ever appearing blank due to layout/timing issues.
+  setTimeout(()=>{
+    document.querySelectorAll(".reveal:not(.in)").forEach(el=>el.classList.add("in"));
+  }, 2000);
 })();
 
 /* ============== NAV SCROLLED ============== */
@@ -1361,23 +2305,11 @@ document.getElementById("yr").textContent = new Date().getFullYear();
 buildMarquee();
 applyLang("zh");
 
-/* GSAP ScrollTrigger flourishes */
-if(window.gsap && window.ScrollTrigger){
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.utils.toArray(".service-card").forEach((card,i)=>{
-    gsap.from(card, {
-      y:60, opacity:0, duration:.9, ease:"expo.out",
-      delay: i*0.08,
-      scrollTrigger:{ trigger:card, start:"top 85%" }
-    });
-  });
-  gsap.utils.toArray(".demo-block").forEach((block)=>{
-    gsap.from(block, {
-      y:50, opacity:0, duration:1, ease:"expo.out",
-      scrollTrigger:{ trigger:block, start:"top 85%" }
-    });
-  });
-}
+/* NOTE: We intentionally do NOT use gsap.from on .service-card / .demo-block
+   because those elements also carry the .reveal class. gsap.from writes an
+   inline opacity:0, which beats the .in class — if the ScrollTrigger never
+   fires (initial layout race, etc.), the element stays invisible.
+   The IntersectionObserver-based .reveal system above already handles them. */
 </script>
 </body>
 </html>
