@@ -369,9 +369,166 @@ main,nav,section,footer{position:relative;z-index:2}
 .service-card .text-block{position:relative;z-index:1}
 
 /* =====================================================================
-   DEMO SECTIONS
+   DEMO SECTIONS — carousel layout
    ===================================================================== */
-.demos-intro{text-align:center;margin-bottom:80px}
+.demos-intro{text-align:center;margin-bottom:60px}
+
+/* Tabs */
+.demos-tabs{
+  display:flex;flex-wrap:wrap;gap:4px;
+  margin-bottom:28px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:0;
+}
+.demo-tab-btn{
+  padding:14px 18px;
+  background:transparent;border:none;
+  border-bottom:2px solid transparent;
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:.04em;color:var(--text-dim);
+  cursor:pointer;transition:color var(--t-fast),border-color var(--t-fast);
+  margin-bottom:-1px;display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;
+}
+.demo-tab-btn:hover{color:var(--text)}
+.demo-tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+.demo-tab-btn .num{
+  font-weight:800;opacity:.5;
+  font-size:11px;letter-spacing:.1em;
+}
+.demo-tab-btn.active .num{
+  opacity:1;
+  background:var(--grad);-webkit-background-clip:text;color:transparent;
+}
+[data-theme="light"] .demo-tab-btn:hover{color:#0a0a14}
+
+/* Carousel viewport */
+.demos-carousel-wrap{position:relative}
+.demos-carousel{position:relative;min-height:560px}
+.demo-slide{
+  display:none;
+  animation:slideFade .55s cubic-bezier(.2,.7,.2,1);
+}
+.demo-slide.active{display:block}
+@keyframes slideFade{
+  from{opacity:0;transform:translateX(30px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+/* Side arrows */
+.carousel-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:50px;height:50px;border-radius:50%;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line-strong);
+  color:var(--text);
+  font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:5;
+  transition:transform var(--t-fast),background var(--t-fast),box-shadow var(--t-med);
+  backdrop-filter:blur(6px);
+}
+.carousel-nav:hover{
+  background:var(--grad);color:#fff;border-color:transparent;
+  transform:translateY(-50%) scale(1.12);
+  box-shadow:0 8px 26px rgba(124,92,255,.5);
+}
+.carousel-nav.prev{left:-26px}
+.carousel-nav.next{right:-26px}
+.carousel-nav:disabled{opacity:.3;cursor:not-allowed;transform:translateY(-50%) scale(.95)}
+[data-theme="light"] .carousel-nav{background:rgba(255,255,255,.85)}
+
+/* Bottom counter */
+.carousel-counter{
+  text-align:center;margin-top:36px;
+  font-family:'Syne',sans-serif;font-size:13px;letter-spacing:.2em;
+  color:var(--text-dim);text-transform:uppercase;
+}
+.carousel-counter strong{
+  font-size:22px;font-weight:800;letter-spacing:0;
+  background:var(--grad);-webkit-background-clip:text;color:transparent;
+  margin-right:4px;
+}
+
+/* New demo bits — sentiment cards, email card */
+.intent-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;
+}
+.intent-chip{
+  padding:14px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line-strong);
+  display:flex;flex-direction:column;gap:4px;
+}
+.intent-chip .lbl{font-size:10.5px;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase;font-weight:600}
+.intent-chip .val{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.01em}
+.intent-chip.urgency-high .val{color:#ff6b6b}
+.intent-chip.urgency-medium .val{color:#ffb84d}
+.intent-chip.urgency-low .val{color:#7be8a3}
+.intent-chip.mood-positive .val{color:#7be8a3}
+.intent-chip.mood-neutral .val{color:#a8b3c6}
+.intent-chip.mood-negative .val{color:#ff6b6b}
+.intent-reply{
+  margin-top:14px;padding:16px;border-radius:12px;
+  background:linear-gradient(160deg,rgba(124,92,255,.12),rgba(92,215,255,.06));
+  border:1px solid rgba(124,92,255,.3);
+  font-size:14.5px;line-height:1.65;white-space:pre-wrap;
+}
+.intent-reply .lbl{
+  font-size:10.5px;letter-spacing:.2em;color:var(--text-dim);
+  text-transform:uppercase;font-weight:600;display:block;margin-bottom:8px;
+}
+[data-theme="light"] .intent-chip{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
+
+.email-card{
+  background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;
+}
+[data-theme="light"] .email-card{background:rgba(255,255,255,.7);border-color:rgba(0,0,0,.1)}
+.email-head{
+  padding:14px 18px;border-bottom:1px solid var(--line);
+  font-size:12.5px;color:var(--text-dim);
+}
+.email-head .row{display:flex;gap:8px;margin-bottom:4px}
+.email-head .row:last-child{margin-bottom:0}
+.email-head strong{color:var(--text);min-width:54px;display:inline-block}
+.email-body{
+  padding:18px;font-size:14.5px;line-height:1.7;
+  white-space:pre-wrap;min-height:200px;
+}
+.email-body .placeholder{color:var(--text-faint);font-style:italic}
+
+/* Workflow step that renders dynamically — richer than the old static one */
+.wf-dynamic{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+}
+.wf-step-card{
+  padding:14px;border-radius:12px;
+  background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(255,92,177,.04));
+  border:1px solid rgba(255,255,255,.08);
+  opacity:0;transform:translateY(10px) scale(.95);
+  transition:opacity .4s, transform .4s;
+  position:relative;
+}
+.wf-step-card.show{opacity:1;transform:translateY(0) scale(1)}
+.wf-step-card .step-num{
+  position:absolute;top:8px;right:10px;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:11px;
+  color:var(--text-faint);letter-spacing:.1em;
+}
+.wf-step-card .icon{font-size:24px;line-height:1;margin-bottom:6px}
+.wf-step-card .title{font-weight:700;font-size:14px;margin-bottom:4px}
+.wf-step-card .desc{font-size:12px;color:var(--text-dim);line-height:1.5}
+[data-theme="light"] .wf-step-card{background:linear-gradient(160deg,rgba(124,92,255,.08),rgba(255,92,177,.03));border-color:rgba(0,0,0,.08)}
+
+@media(max-width:760px){
+  .demos-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .demo-tab-btn{padding:12px 14px;font-size:12px}
+  .carousel-nav{width:40px;height:40px;font-size:18px}
+  .carousel-nav.prev{left:-8px}
+  .carousel-nav.next{right:-8px}
+  .intent-grid{grid-template-columns:repeat(3,1fr)}
+  .wf-dynamic{grid-template-columns:1fr}
+}
 .demo-block{
   margin-top:60px;padding:36px;border-radius:var(--radius-lg);
   background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
@@ -1149,146 +1306,259 @@ main,nav,section,footer{position:relative;z-index:2}
       <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">每一個 Demo 都直接內嵌於本頁，零下載、零註冊。動手試試我們能為您做什麼。</p>
     </div>
 
-    <!-- ===== DEMO 1 : WORKFLOW ===== -->
-    <div class="demo-block reveal" id="demo1">
-      <div class="demo-head">
-        <div>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="demo-tag">DEMO 01</div>
-            <div class="demo-save" data-i18n="demo1.save">平均省 25 小時/月</div>
-          </div>
-          <h3 class="h3" style="margin-top:8px" data-i18n="demo1.title">AI 自動化模擬器</h3>
-          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo1.desc">輸入您的業務問題，看 AI 如何把它拆解成自動化工作流程。</p>
-        </div>
-      </div>
-      <div class="demo-grid">
-        <div>
-          <div class="field">
-            <label data-i18n="demo1.label">您的業務問題</label>
-            <textarea class="textarea" id="wf-input" placeholder="例如：我想自動發送跟進郵件給 7 天未回覆的客戶"></textarea>
-          </div>
-          <button class="btn btn-primary" id="wf-run" style="width:100%;justify-content:center" data-i18n="demo1.btn">產生工作流程 →</button>
-          <div id="wf-result" class="wf-result"></div>
-        </div>
-        <div>
-          <div class="workflow-canvas">
-            <div class="wf-grid" id="wf-grid">
-              <div class="wf-node" data-step="0"><span class="ico">⚡</span><span class="lbl" data-i18n="wf.n1">觸發</span></div>
-              <div class="wf-arrow" data-arrow="0">→</div>
-              <div class="wf-node" data-step="1"><span class="ico">🔍</span><span class="lbl" data-i18n="wf.n2">篩選條件</span></div>
-              <div class="wf-arrow" data-arrow="1">→</div>
-              <div class="wf-node" data-step="2"><span class="ico">🤖</span><span class="lbl" data-i18n="wf.n3">AI 處理</span></div>
-            </div>
-            <div class="wf-grid" id="wf-grid-2" style="margin-top:14px">
-              <div class="wf-node" data-step="3"><span class="ico">✉️</span><span class="lbl" data-i18n="wf.n4">發送郵件</span></div>
-              <div class="wf-arrow" data-arrow="3">→</div>
-              <div class="wf-node" data-step="4"><span class="ico">📊</span><span class="lbl" data-i18n="wf.n5">記錄追蹤</span></div>
-              <div class="wf-arrow" data-arrow="4">→</div>
-              <div class="wf-node" data-step="5"><span class="ico">✅</span><span class="lbl" data-i18n="wf.n6">完成</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- ====== TABS ====== -->
+    <div class="demos-tabs reveal" id="demos-tabs">
+      <button class="demo-tab-btn active" data-slide="0"><span class="num">01</span> <span data-i18n="demo1.title">AI 自動化模擬器</span></button>
+      <button class="demo-tab-btn"        data-slide="1"><span class="num">02</span> <span data-i18n="demo2.title">AI 聊天助手</span></button>
+      <button class="demo-tab-btn"        data-slide="2"><span class="num">03</span> <span data-i18n="demo3.title">網頁生成預覽</span></button>
+      <button class="demo-tab-btn"        data-slide="3"><span class="num">04</span> <span data-i18n="demo4.title">AI 內容生成器</span></button>
+      <button class="demo-tab-btn"        data-slide="4"><span class="num">05</span> <span data-i18n="demo5.title">客戶意圖分析器</span></button>
+      <button class="demo-tab-btn"        data-slide="5"><span class="num">06</span> <span data-i18n="demo6.title">AI 銷售跟進信</span></button>
     </div>
 
-    <!-- ===== DEMO 2 : CHAT ===== -->
-    <div class="demo-block reveal" id="demo2">
-      <div class="demo-head">
-        <div>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="demo-tag">DEMO 02</div>
-            <div class="demo-save" data-i18n="demo2.save">平均省 40 小時/月</div>
-          </div>
-          <h3 class="h3" style="margin-top:8px" data-i18n="demo2.title">AI 聊天助手</h3>
-          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">真實 AI 驅動嘅智能助手，可作為客服、顧問或內部知識助手。</p>
-        </div>
-      </div>
+    <div class="demos-carousel-wrap reveal">
+      <button class="carousel-nav prev" id="carousel-prev" aria-label="Previous">←</button>
+      <button class="carousel-nav next" id="carousel-next" aria-label="Next">→</button>
 
-      <div class="chat-window">
-        <div class="chat-msgs" id="chat-msgs">
-          <div class="chat-msg bot" data-i18n="demo2.greet">您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。</div>
-        </div>
-        <div class="chat-input-row">
-          <input type="text" class="input" id="chat-input" placeholder="輸入您的問題…" />
-          <button class="btn btn-primary" id="chat-send" data-i18n="demo2.send">送出</button>
-        </div>
-      </div>
-    </div>
+      <div class="demos-carousel" id="demos-carousel">
 
-    <!-- ===== DEMO 3 : WEBGEN ===== -->
-    <div class="demo-block reveal" id="demo3">
-      <div class="demo-head">
-        <div>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="demo-tag">DEMO 03</div>
-            <div class="demo-save" data-i18n="demo3.save">上線時間縮短 80%</div>
-          </div>
-          <h3 class="h3" style="margin-top:8px" data-i18n="demo3.title">網頁生成預覽</h3>
-          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo3.desc">輸入公司名與行業，立即生成示意網頁，模擬我們的網頁設計流程。</p>
-        </div>
-      </div>
-      <div class="demo-grid">
-        <div>
-          <div class="field">
-            <label data-i18n="demo3.l1">公司名稱</label>
-            <input type="text" class="input" id="wg-name" placeholder="例如：晨光咖啡" />
-          </div>
-          <div class="field">
-            <label data-i18n="demo3.l2">行業</label>
-            <input type="text" class="input" id="wg-industry" placeholder="例如：餐飲 / 科技 / 教育" />
-          </div>
-          <button class="btn btn-primary" id="wg-run" style="width:100%;justify-content:center" data-i18n="demo3.btn">生成預覽 →</button>
-        </div>
-        <div>
-          <div class="webgen-preview">
-            <div class="browser-bar">
-              <span class="browser-dot r"></span>
-              <span class="browser-dot y"></span>
-              <span class="browser-dot g"></span>
-              <span class="browser-url" id="wg-url">https://your-website.com</span>
+        <!-- ===== SLIDE 1 : DEMO 1 — WORKFLOW ===== -->
+        <div class="demo-slide active" data-slide-idx="0">
+          <div class="demo-block" id="demo1">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 01</div>
+                  <div class="demo-save" data-i18n="demo1.save">平均省 25 小時/月</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo1.title">AI 自動化模擬器</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo1.desc">輸入您的業務問題，AI 即時為您拆解成屬於您嘅自動化流程。</p>
+              </div>
             </div>
-            <div class="preview-body" id="wg-body">
-              <div class="preview-empty" data-i18n="demo3.empty">輸入資訊後，這裡會生成預覽</div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo1.label">您的業務問題</label>
+                  <textarea class="textarea" id="wf-input" placeholder="例如：我想自動發送跟進郵件給 7 天未回覆的客戶"></textarea>
+                </div>
+                <button class="btn btn-primary" id="wf-run" style="width:100%;justify-content:center" data-i18n="demo1.btn">AI 拆解工作流 →</button>
+                <div id="wf-result" class="wf-result"></div>
+              </div>
+              <div>
+                <div class="workflow-canvas">
+                  <div class="wf-dynamic" id="wf-dynamic">
+                    <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px">
+                      <div style="font-size:42px;margin-bottom:10px">🧠</div>
+                      <div data-i18n="demo1.placeholder">輸入您嘅問題，AI 即時為您動態生成工作流程節點</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- ===== DEMO 4 : CONTENT ===== -->
-    <div class="demo-block reveal" id="demo4">
-      <div class="demo-head">
-        <div>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="demo-tag">DEMO 04</div>
-            <div class="demo-save" data-i18n="demo4.save">產出速度 5×</div>
-          </div>
-          <h3 class="h3" style="margin-top:8px" data-i18n="demo4.title">AI 內容生成器</h3>
-          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo4.desc">真實 AI 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
-        </div>
-      </div>
-      <div class="demo-grid">
-        <div>
-          <div class="field">
-            <label data-i18n="demo4.l1">選擇平台</label>
-            <div class="platform-row" id="platform-row">
-              <button class="platform-btn active" data-platform="instagram">Instagram</button>
-              <button class="platform-btn" data-platform="facebook">Facebook</button>
-              <button class="platform-btn" data-platform="linkedin">LinkedIn</button>
+        <!-- ===== SLIDE 2 : DEMO 2 — CHAT ===== -->
+        <div class="demo-slide" data-slide-idx="1">
+          <div class="demo-block" id="demo2">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 02</div>
+                  <div class="demo-save" data-i18n="demo2.save">平均省 40 小時/月</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo2.title">AI 聊天助手</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">真實 AI 驅動嘅智能助手，可作為客服、顧問或內部知識助手。</p>
+              </div>
+            </div>
+
+            <div class="chat-window">
+              <div class="chat-msgs" id="chat-msgs">
+                <div class="chat-msg bot" data-i18n="demo2.greet">您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。</div>
+              </div>
+              <div class="chat-input-row">
+                <input type="text" class="input" id="chat-input" placeholder="輸入您的問題…" />
+                <button class="btn btn-primary" id="chat-send" data-i18n="demo2.send">送出</button>
+              </div>
             </div>
           </div>
-          <div class="field">
-            <label data-i18n="demo4.l2">主題 / 產品</label>
-            <textarea class="textarea" id="cg-topic" placeholder="例如：宣傳全新推出的咖啡訂閱方案，目標客群是上班族"></textarea>
-          </div>
-          <button class="btn btn-primary" id="cg-run" style="width:100%;justify-content:center" data-i18n="demo4.btn">生成文案 →</button>
         </div>
-        <div>
-          <div class="content-output" id="cg-output">
-            <span class="placeholder" data-i18n="demo4.empty">您的文案將顯示在這裡…</span>
+
+        <!-- ===== SLIDE 3 : DEMO 3 — WEBGEN ===== -->
+        <div class="demo-slide" data-slide-idx="2">
+          <div class="demo-block" id="demo3">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 03</div>
+                  <div class="demo-save" data-i18n="demo3.save">上線時間縮短 80%</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo3.title">網頁生成預覽</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo3.desc">輸入公司名與行業，AI 即時為您生成標語、Hero 區、3 個服務卡片預覽。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo3.l1">公司名稱</label>
+                  <input type="text" class="input" id="wg-name" placeholder="例如：晨光咖啡" />
+                </div>
+                <div class="field">
+                  <label data-i18n="demo3.l2">行業</label>
+                  <input type="text" class="input" id="wg-industry" placeholder="例如：餐飲 / 科技 / 教育" />
+                </div>
+                <button class="btn btn-primary" id="wg-run" style="width:100%;justify-content:center" data-i18n="demo3.btn">AI 生成預覽 →</button>
+              </div>
+              <div>
+                <div class="webgen-preview">
+                  <div class="browser-bar">
+                    <span class="browser-dot r"></span>
+                    <span class="browser-dot y"></span>
+                    <span class="browser-dot g"></span>
+                    <span class="browser-url" id="wg-url">https://your-website.com</span>
+                  </div>
+                  <div class="preview-body" id="wg-body">
+                    <div class="preview-empty" data-i18n="demo3.empty">輸入資訊後，這裡會生成預覽</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+
+        <!-- ===== SLIDE 4 : DEMO 4 — CONTENT ===== -->
+        <div class="demo-slide" data-slide-idx="3">
+          <div class="demo-block" id="demo4">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 04</div>
+                  <div class="demo-save" data-i18n="demo4.save">產出速度 5×</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo4.title">AI 內容生成器</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo4.desc">真實 AI 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo4.l1">選擇平台</label>
+                  <div class="platform-row" id="platform-row">
+                    <button class="platform-btn active" data-platform="instagram">Instagram</button>
+                    <button class="platform-btn" data-platform="facebook">Facebook</button>
+                    <button class="platform-btn" data-platform="linkedin">LinkedIn</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <label data-i18n="demo4.l2">主題 / 產品</label>
+                  <textarea class="textarea" id="cg-topic" placeholder="例如：宣傳全新推出的咖啡訂閱方案，目標客群是上班族"></textarea>
+                </div>
+                <button class="btn btn-primary" id="cg-run" style="width:100%;justify-content:center" data-i18n="demo4.btn">生成文案 →</button>
+              </div>
+              <div>
+                <div class="content-output" id="cg-output">
+                  <span class="placeholder" data-i18n="demo4.empty">您的文案將顯示在這裡…</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SLIDE 5 : DEMO 5 — CUSTOMER INTENT ANALYZER ===== -->
+        <div class="demo-slide" data-slide-idx="4">
+          <div class="demo-block" id="demo5">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 05</div>
+                  <div class="demo-save" data-i18n="demo5.save">客服效率 ↑ 3×</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo5.title">AI 客戶意圖分析器</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo5.desc">把客戶訊息貼入，AI 即時判斷緊急度、情緒、類別 + 建議回覆。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo5.label">客戶訊息</label>
+                  <textarea class="textarea" id="ia-input" rows="5" placeholder="例：我訂單已經 7 日仲未收到，再唔到我會投訴!"></textarea>
+                </div>
+                <button class="btn btn-primary" id="ia-run" style="width:100%;justify-content:center" data-i18n="demo5.btn">AI 分析訊息 →</button>
+              </div>
+              <div>
+                <div class="intent-grid">
+                  <div class="intent-chip" id="ia-chip-urgency">
+                    <div class="lbl" data-i18n="demo5.urgency">緊急程度</div>
+                    <div class="val" id="ia-urgency">—</div>
+                  </div>
+                  <div class="intent-chip" id="ia-chip-mood">
+                    <div class="lbl" data-i18n="demo5.mood">情緒</div>
+                    <div class="val" id="ia-mood">—</div>
+                  </div>
+                  <div class="intent-chip" id="ia-chip-category">
+                    <div class="lbl" data-i18n="demo5.category">類別</div>
+                    <div class="val" id="ia-category">—</div>
+                  </div>
+                </div>
+                <div class="intent-reply">
+                  <span class="lbl" data-i18n="demo5.reply">建議回覆</span>
+                  <span id="ia-reply" data-i18n="demo5.replyEmpty">分析後 AI 會撰寫專屬回覆…</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SLIDE 6 : DEMO 6 — SALES FOLLOW-UP EMAIL ===== -->
+        <div class="demo-slide" data-slide-idx="5">
+          <div class="demo-block" id="demo6">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 06</div>
+                  <div class="demo-save" data-i18n="demo6.save">成交率 ↑ 2×</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo6.title">AI 銷售跟進信</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo6.desc">填客戶資料 + 上次重點，AI 即時撰寫一封專屬跟進電郵。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo6.l1">客戶姓名</label>
+                  <input type="text" class="input" id="se-name" placeholder="例：陳生" />
+                </div>
+                <div class="field">
+                  <label data-i18n="demo6.l2">公司 / 行業</label>
+                  <input type="text" class="input" id="se-company" placeholder="例：晨光咖啡 / 餐飲" />
+                </div>
+                <div class="field">
+                  <label data-i18n="demo6.l3">上次對話重點</label>
+                  <textarea class="textarea" id="se-context" rows="3" placeholder="例：上週傾過 AI 自動點餐系統，客戶有興趣但仲未決定"></textarea>
+                </div>
+                <button class="btn btn-primary" id="se-run" style="width:100%;justify-content:center" data-i18n="demo6.btn">AI 撰寫跟進信 →</button>
+              </div>
+              <div>
+                <div class="email-card">
+                  <div class="email-head">
+                    <div class="row"><strong data-i18n="demo6.from">寄件:</strong> <span>contact@tbcsolutions.com</span></div>
+                    <div class="row"><strong data-i18n="demo6.to">收件:</strong> <span id="se-to">—</span></div>
+                    <div class="row"><strong data-i18n="demo6.subject">主旨:</strong> <span id="se-subject">—</span></div>
+                  </div>
+                  <div class="email-body" id="se-body">
+                    <span class="placeholder" data-i18n="demo6.empty">填好左邊資料，AI 會立即生成一封跟進信</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /demos-carousel -->
+    </div><!-- /demos-carousel-wrap -->
+
+    <div class="carousel-counter">
+      <strong id="carousel-current">1</strong> / <span id="carousel-total">6</span> <span data-i18n="demos.counterLabel">DEMOS</span>
     </div>
   </div>
 </section>
@@ -1492,19 +1762,26 @@ const I18N = {
     "services.s3.desc":"運用 Claude / ChatGPT 為您批量生成社交媒體文案、部落格文章、產品描述、廣告素材。",
     "services.s4.title":"客製化 AI 解決方案",
     "services.s4.desc":"針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。",
-    "demos.eyebrow":"互動 DEMO",
+    "demos.eyebrow":"互動 DEMO","demos.counterLabel":"DEMOS",
     "demos.title1":"不是說明，","demos.title2":"而是親身體驗",
-    "demos.desc":"每一個 Demo 都直接內嵌於本頁，零下載、零註冊。動手試試我們能為您做什麼。",
-    "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，看 AI 如何把它拆解成自動化工作流程。",
-    "demo1.label":"您的業務問題","demo1.btn":"產生工作流程 →","demo1.save":"平均省 25 小時/月",
-    "wf.n1":"觸發","wf.n2":"篩選條件","wf.n3":"AI 處理","wf.n4":"發送郵件","wf.n5":"記錄追蹤","wf.n6":"完成",
+    "demos.desc":"6 個 Demo 直接喺本頁互動，零下載、零註冊。撳上面 tab 或左右箭咀切換。",
+    "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您嘅業務問題，AI 即時為您拆解成屬於您嘅自動化流程。",
+    "demo1.label":"您的業務問題","demo1.btn":"AI 拆解工作流 →","demo1.save":"平均省 25 小時/月",
+    "demo1.placeholder":"輸入您嘅問題，AI 即時為您動態生成工作流程節點",
     "demo2.title":"AI 聊天助手","demo2.desc":"真實 AI 驅動嘅智能助手，可作為客服、顧問或內部知識助手。",
     "demo2.greet":"您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。",
     "demo2.send":"送出","demo2.save":"平均省 40 小時/月",
-    "demo3.title":"網頁生成預覽","demo3.desc":"輸入公司名與行業，立即生成示意網頁，模擬我們的網頁設計流程。",
-    "demo3.l1":"公司名稱","demo3.l2":"行業","demo3.btn":"生成預覽 →","demo3.empty":"輸入資訊後，這裡會生成預覽","demo3.save":"上線時間縮短 80%",
+    "demo3.title":"網頁生成預覽","demo3.desc":"輸入公司名與行業，AI 即時為您生成標語、Hero 區、3 個服務卡片預覽。",
+    "demo3.l1":"公司名稱","demo3.l2":"行業","demo3.btn":"AI 生成預覽 →","demo3.empty":"輸入資訊後，這裡會生成預覽","demo3.save":"上線時間縮短 80%",
     "demo4.title":"AI 內容生成器","demo4.desc":"真實 AI 驅動，立即為您生成符合平台風格的社交媒體文案。",
     "demo4.l1":"選擇平台","demo4.l2":"主題 / 產品","demo4.btn":"生成文案 →","demo4.empty":"您的文案將顯示在這裡…","demo4.save":"產出速度 5×",
+    "demo5.title":"客戶意圖分析器","demo5.desc":"把客戶訊息貼入，AI 即時判斷緊急度、情緒、類別 + 建議回覆。",
+    "demo5.label":"客戶訊息","demo5.btn":"AI 分析訊息 →","demo5.save":"客服效率 ↑ 3×",
+    "demo5.urgency":"緊急程度","demo5.mood":"情緒","demo5.category":"類別",
+    "demo5.reply":"建議回覆","demo5.replyEmpty":"分析後 AI 會撰寫專屬回覆…",
+    "demo6.title":"AI 銷售跟進信","demo6.desc":"填客戶資料 + 上次重點，AI 即時撰寫一封專屬跟進電郵。",
+    "demo6.l1":"客戶姓名","demo6.l2":"公司 / 行業","demo6.l3":"上次對話重點","demo6.btn":"AI 撰寫跟進信 →",
+    "demo6.from":"寄件:","demo6.to":"收件:","demo6.subject":"主旨:","demo6.empty":"填好左邊資料，AI 會立即生成一封跟進信","demo6.save":"成交率 ↑ 2×",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
     "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
@@ -1546,19 +1823,26 @@ const I18N = {
     "services.s3.desc":"Generate social posts, blogs, product copy and ad creatives at scale with Claude / ChatGPT.",
     "services.s4.title":"Custom AI Solutions",
     "services.s4.desc":"Tailored AI assistants, knowledge bases, smart support and decision-support systems for your business.",
-    "demos.eyebrow":"INTERACTIVE DEMOS",
+    "demos.eyebrow":"INTERACTIVE DEMOS","demos.counterLabel":"DEMOS",
     "demos.title1":"Don't read about it —","demos.title2":"try it",
-    "demos.desc":"Every demo runs in this page. No download, no signup. Touch what we can build for you.",
-    "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem and watch AI break it into an automated workflow.",
-    "demo1.label":"Your business problem","demo1.btn":"Generate workflow →","demo1.save":"Saves 25 hrs / month",
-    "wf.n1":"Trigger","wf.n2":"Filter","wf.n3":"AI Process","wf.n4":"Send Email","wf.n5":"Log","wf.n6":"Done",
+    "demos.desc":"6 live demos right on this page. No download, no signup. Switch via tabs above or arrows.",
+    "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem; AI breaks it into a workflow tailored for you.",
+    "demo1.label":"Your business problem","demo1.btn":"Break it down with AI →","demo1.save":"Saves 25 hrs / month",
+    "demo1.placeholder":"Type your problem and AI will generate workflow nodes live.",
     "demo2.title":"AI Chat Assistant","demo2.desc":"A real AI-powered assistant — support, advisor, or internal knowledge bot.",
     "demo2.greet":"Hi! I'm TBC Solutions' AI assistant. Ask me anything about our services, AI automation or web development.",
     "demo2.send":"Send","demo2.save":"Saves 40 hrs / month",
-    "demo3.title":"Website Generator Preview","demo3.desc":"Drop in a company name and industry — see a sample site rendered live.",
-    "demo3.l1":"Company name","demo3.l2":"Industry","demo3.btn":"Generate preview →","demo3.empty":"Fill in the form to render a preview","demo3.save":"80% faster to launch",
+    "demo3.title":"Website Generator Preview","demo3.desc":"Drop in a company name and industry — AI generates tagline, hero, and 3 service cards live.",
+    "demo3.l1":"Company name","demo3.l2":"Industry","demo3.btn":"Generate with AI →","demo3.empty":"Fill in the form to render a preview","demo3.save":"80% faster to launch",
     "demo4.title":"AI Content Generator","demo4.desc":"Real AI — produces ready-to-post social copy that fits each platform.",
     "demo4.l1":"Choose a platform","demo4.l2":"Topic / Product","demo4.btn":"Generate copy →","demo4.empty":"Your copy will appear here…","demo4.save":"5× faster output",
+    "demo5.title":"Customer Intent Analyzer","demo5.desc":"Paste a customer message — AI scores urgency, mood, category and drafts a reply.",
+    "demo5.label":"Customer message","demo5.btn":"Analyze with AI →","demo5.save":"3× support efficiency",
+    "demo5.urgency":"Urgency","demo5.mood":"Mood","demo5.category":"Category",
+    "demo5.reply":"Suggested reply","demo5.replyEmpty":"AI will draft a tailored reply here…",
+    "demo6.title":"AI Sales Follow-up","demo6.desc":"Drop in client info + last interaction — AI writes a personalised follow-up email.",
+    "demo6.l1":"Client name","demo6.l2":"Company / Industry","demo6.l3":"Last interaction","demo6.btn":"Draft email with AI →",
+    "demo6.from":"From:","demo6.to":"To:","demo6.subject":"Subject:","demo6.empty":"Fill the form on the left — AI will draft a follow-up.","demo6.save":"2× conversion rate",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"Real time and cost","impact.title2":"saved.",
     "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
@@ -2058,41 +2342,116 @@ document.querySelectorAll("[data-mouse]").forEach(card=>{
   });
 });
 
+function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
+
 /* ===========================================================
-   DEMO 1 — WORKFLOW SIMULATOR
+   CAROUSEL — tabs + arrows + counter
+   =========================================================== */
+(function carousel(){
+  const slides = document.querySelectorAll(".demo-slide");
+  const tabs   = document.querySelectorAll(".demo-tab-btn");
+  const prev   = document.getElementById("carousel-prev");
+  const next   = document.getElementById("carousel-next");
+  const cur    = document.getElementById("carousel-current");
+  const total  = document.getElementById("carousel-total");
+  if(!slides.length) return;
+  total.textContent = slides.length;
+
+  let idx = 0;
+  function go(i){
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,k)=>s.classList.toggle("active", k === idx));
+    tabs  .forEach((t,k)=>t.classList.toggle("active", k === idx));
+    cur.textContent = idx + 1;
+  }
+  tabs.forEach(t => t.addEventListener("click", ()=>go(+t.dataset.slide)));
+  prev.addEventListener("click", ()=>go(idx - 1));
+  next.addEventListener("click", ()=>go(idx + 1));
+  // keyboard arrows when carousel area is in view
+  document.addEventListener("keydown", e=>{
+    if(["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)) return;
+    if(e.key === "ArrowLeft")  go(idx - 1);
+    if(e.key === "ArrowRight") go(idx + 1);
+  });
+})();
+
+/* ===========================================================
+   DEMO 1 — WORKFLOW SIMULATOR (AI-generated dynamic steps)
    =========================================================== */
 const wfRunBtn = document.getElementById("wf-run");
-const wfNodes = document.querySelectorAll(".wf-node");
-const wfArrows = document.querySelectorAll(".wf-arrow");
+const wfDynamic = document.getElementById("wf-dynamic");
 const wfResult = document.getElementById("wf-result");
 
 wfRunBtn.addEventListener("click", async ()=>{
   const txt = (document.getElementById("wf-input").value || "").trim();
-  // reset
-  wfNodes.forEach(n=>n.classList.remove("active"));
-  wfArrows.forEach(a=>a.classList.remove("active"));
-  wfResult.classList.remove("show");
-  wfRunBtn.disabled = true;
-  const order = [0,1,2,3,4,5];
-  for(let i=0;i<order.length;i++){
-    await wait(450);
-    const node = document.querySelector(`.wf-node[data-step="${order[i]}"]`);
-    if(node) node.classList.add("active");
-    const arr = document.querySelector(`.wf-arrow[data-arrow="${order[i]}"]`);
-    if(arr) arr.classList.add("active");
+  if(!txt){
+    wfDynamic.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-faint);font-size:13.5px">${currentLang==="zh"?"請先輸入您嘅業務問題":"Please enter a business problem first."}</div>`;
+    return;
   }
-  await wait(400);
-  // estimated saving — pseudo random based on text length for fun
-  const hours = Math.max(6, Math.min(48, Math.round((txt.length || 18) * 1.1)));
-  const ZH = currentLang === "zh";
-  wfResult.innerHTML = ZH
-    ? `✅ <strong>流程已完成</strong> · 預估每月為您節省 <strong>${hours} 小時</strong>。<br><span style="color:var(--text-dim);font-size:13px">這個工作流程可以連接您的 Email、CRM、AI 模型，無需手動介入即可運作。</span>`
-    : `✅ <strong>Workflow complete</strong> · estimated savings: <strong>${hours} hrs / month</strong>.<br><span style="color:var(--text-dim);font-size:13px">This workflow connects your email, CRM and AI models — no manual work needed.</span>`;
-  wfResult.classList.add("show");
-  wfRunBtn.disabled = false;
+  wfRunBtn.disabled = true;
+  wfResult.classList.remove("show");
+  wfDynamic.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${currentLang==="zh"?"AI 正在拆解您嘅工作流程…":"AI is breaking down your workflow…"}</div></div>`;
+
+  const lang = currentLang;
+  const sysPrompt = lang === "zh"
+    ? `你是一個工作流程自動化專家。用戶會描述一個業務問題，請你拆解成 5 至 6 個自動化步驟（節點）。
+每個節點包含：icon (一個 emoji)、title (短標題，4-8 字)、desc (一句描述，10-25 字)。
+最後估算每月節省幾多小時 (savings_hours)。
+**只回覆 JSON**，格式：{"nodes":[{"icon":"⚡","title":"...","desc":"..."}], "savings_hours":N}`
+    : `You are a workflow automation expert. Given a business problem, break it into 5-6 automated steps (nodes).
+Each node has: icon (an emoji), title (short, 2-5 words), desc (1 sentence, 8-15 words).
+Then estimate monthly hours saved (savings_hours).
+**Reply ONLY with JSON**: {"nodes":[{"icon":"⚡","title":"...","desc":"..."}], "savings_hours":N}`;
+
+  try{
+    const reply = await callClaude({
+      system: sysPrompt,
+      messages: [{role:"user", content: txt}],
+    });
+    // try to parse JSON (model may wrap in code fence)
+    const json = extractJSON(reply);
+    if(!json || !Array.isArray(json.nodes)) throw new Error("Invalid JSON from AI");
+
+    // render dynamically
+    wfDynamic.innerHTML = json.nodes.map((n,i)=>`
+      <div class="wf-step-card">
+        <span class="step-num">${String(i+1).padStart(2,"0")}</span>
+        <div class="icon">${escapeHtml(n.icon || "⚙️")}</div>
+        <div class="title">${escapeHtml(n.title || "")}</div>
+        <div class="desc">${escapeHtml(n.desc || "")}</div>
+      </div>`).join("");
+
+    // animate
+    const cards = wfDynamic.querySelectorAll(".wf-step-card");
+    for(let i=0;i<cards.length;i++){
+      await wait(220);
+      cards[i].classList.add("show");
+    }
+    await wait(300);
+    const hrs = json.savings_hours || Math.max(8, Math.round(json.nodes.length * 6));
+    wfResult.innerHTML = lang === "zh"
+      ? `✅ <strong>${json.nodes.length} 步流程設計完成</strong> · 預估每月節省 <strong>${hrs} 小時</strong>。<br><span style="color:var(--text-dim);font-size:13px">交俾 TBC Solutions 為您打造完整自動化系統。</span>`
+      : `✅ <strong>${json.nodes.length}-step workflow ready</strong> · estimated savings: <strong>${hrs} hrs / month</strong>.<br><span style="color:var(--text-dim);font-size:13px">Let TBC Solutions build the full automation for you.</span>`;
+    wfResult.classList.add("show");
+  }catch(e){
+    wfDynamic.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px 20px;color:#ff8c8c;font-size:13px">⚠️ ${e.message || e}</div>`;
+  }finally{
+    wfRunBtn.disabled = false;
+  }
 });
 
-function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
+function extractJSON(txt){
+  if(!txt) return null;
+  // strip ```json ... ``` if present
+  const cleaned = txt.replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/i, "").trim();
+  try{ return JSON.parse(cleaned); }catch(e){}
+  // fallback: find first { ... last }
+  const a = cleaned.indexOf("{"), b = cleaned.lastIndexOf("}");
+  if(a >= 0 && b > a){
+    try{ return JSON.parse(cleaned.slice(a, b+1)); }catch(e){}
+  }
+  return null;
+}
 
 /* ===========================================================
    DEMO 2 — CHAT (Claude API)
@@ -2149,66 +2508,106 @@ chatSend.addEventListener("click", sendChat);
 chatInput.addEventListener("keydown", e=>{ if(e.key==="Enter") sendChat(); });
 
 /* ===========================================================
-   DEMO 3 — WEBSITE PREVIEW
+   DEMO 3 — WEBSITE PREVIEW (AI-generated content)
    =========================================================== */
 const wgRun = document.getElementById("wg-run");
 wgRun.addEventListener("click", async ()=>{
-  const name = (document.getElementById("wg-name").value || "Acme").trim();
-  const ind = (document.getElementById("wg-industry").value || "Studio").trim();
-  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") || "your-brand";
+  const name = (document.getElementById("wg-name").value || "").trim();
+  const ind  = (document.getElementById("wg-industry").value || "").trim();
+  if(!name || !ind){
+    document.getElementById("wg-body").innerHTML = `<div class="preview-empty">${currentLang==="zh"?"請填入公司名與行業":"Please fill in name and industry."}</div>`;
+    return;
+  }
+  const slug = name.toLowerCase().replace(/[^a-z0-9一-龥]+/g,"-").replace(/^-|-$/g,"") || "your-brand";
   const urlEl = document.getElementById("wg-url");
-  const body = document.getElementById("wg-body");
+  const body  = document.getElementById("wg-body");
+  wgRun.disabled = true;
 
-  body.innerHTML = `<div class="preview-empty">${currentLang==="zh"?"生成中…":"Generating…"}</div>`;
-  // simulate URL typing
+  // animate URL typing
   const targetUrl = `https://${slug}.com`;
   urlEl.textContent = "https://";
   for(let i=0;i<targetUrl.length-8;i++){
-    await wait(40);
+    await wait(35);
     urlEl.textContent = "https://" + targetUrl.slice(8, 8+i+1);
   }
-  await wait(280);
 
-  const ZH = currentLang === "zh";
-  const taglineMap = {
-    zh: `為您打造的 ${ind} 體驗`,
-    en: `${ind} reimagined.`,
-  };
-  const cards = ZH
-    ? [["關於","了解我們的故事與理念"],["服務","為您提供量身訂製的方案"],["聯絡","30 秒就能聯繫到我們"]]
-    : [["About","Our story and approach"],["Services","Tailored solutions for you"],["Contact","Reach us in 30 seconds"]];
+  body.innerHTML = `<div class="preview-empty"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${currentLang==="zh"?"AI 正在生成網頁內容…":"AI is drafting website content…"}</div></div>`;
 
-  body.innerHTML = `
-    <div class="preview-nav fade-in">
-      <strong>${escapeHtml(name)}</strong>
-      <div class="links">
-        <span>${ZH?"關於":"About"}</span>
-        <span>${ZH?"服務":"Services"}</span>
-        <span>${ZH?"聯絡":"Contact"}</span>
+  const lang = currentLang;
+  const sysPrompt = lang === "zh"
+    ? `你是一個品牌文案專家。用戶會提供公司名與行業，你要為佢生成一個簡潔、專業嘅網站首頁文案。
+**只回覆 JSON**，格式：
+{
+  "tagline": "8-15 字嘅吸引標語",
+  "hero_title": "10-18 字嘅 Hero 大標題",
+  "hero_sub": "20-35 字嘅副標題，講解品牌價值",
+  "services": [
+    {"title":"服務 1 名稱（4-8 字）","desc":"15-25 字描述"},
+    {"title":"服務 2 名稱","desc":"..."},
+    {"title":"服務 3 名稱","desc":"..."}
+  ]
+}`
+    : `You are a brand copywriter. Given a company name and industry, generate concise, professional website homepage copy.
+**Reply ONLY with JSON**:
+{
+  "tagline": "5-10 word catchy tagline",
+  "hero_title": "5-9 word hero headline",
+  "hero_sub": "12-22 word subheadline explaining brand value",
+  "services": [
+    {"title":"Service 1 (2-4 words)","desc":"8-15 word description"},
+    {"title":"Service 2","desc":"..."},
+    {"title":"Service 3","desc":"..."}
+  ]
+}`;
+
+  try{
+    const reply = await callClaude({
+      system: sysPrompt,
+      messages: [{role:"user", content: `Company: ${name}\nIndustry: ${ind}\nLanguage: ${lang}`}],
+    });
+    const json = extractJSON(reply);
+    if(!json || !json.hero_title) throw new Error("Invalid JSON from AI");
+
+    const services = Array.isArray(json.services) ? json.services.slice(0,3) : [];
+
+    body.innerHTML = `
+      <div class="preview-nav fade-in">
+        <strong>${escapeHtml(name)}</strong>
+        <div class="links">
+          <span>${lang==="zh"?"關於":"About"}</span>
+          <span>${lang==="zh"?"服務":"Services"}</span>
+          <span>${lang==="zh"?"聯絡":"Contact"}</span>
+        </div>
       </div>
-    </div>
-    <div class="preview-hero fade-in">
-      <span class="pill">${escapeHtml(ind).toUpperCase()}</span>
-      <h4>${escapeHtml(name)}</h4>
-      <p>${escapeHtml(taglineMap[currentLang])}</p>
-    </div>
-    <div class="preview-cards">
-      ${cards.map(([t,d])=>`
-        <div class="preview-card fade-in"><strong>${t}</strong><span>${d}</span></div>
-      `).join("")}
-    </div>
-  `;
-  // animate in
-  const fades = body.querySelectorAll(".fade-in");
-  fades.forEach((f,i)=>{
-    setTimeout(()=>{
-      f.style.transition = "opacity .5s ease, transform .5s ease";
-      f.style.opacity = "1";
-      f.style.transform = "translateY(0)";
-    }, i*150);
-  });
+      <div class="preview-hero fade-in">
+        <span class="pill">${escapeHtml(ind).toUpperCase()}</span>
+        <h4>${escapeHtml(json.hero_title)}</h4>
+        <p>${escapeHtml(json.hero_sub || json.tagline || "")}</p>
+      </div>
+      <div class="preview-cards">
+        ${services.map(s => `
+          <div class="preview-card fade-in">
+            <strong>${escapeHtml(s.title || "")}</strong>
+            <span>${escapeHtml(s.desc || "")}</span>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    const fades = body.querySelectorAll(".fade-in");
+    fades.forEach((f,i)=>{
+      setTimeout(()=>{
+        f.style.transition = "opacity .5s ease, transform .5s ease";
+        f.style.opacity = "1";
+        f.style.transform = "translateY(0)";
+      }, i*150);
+    });
+  }catch(e){
+    body.innerHTML = `<div class="preview-empty" style="color:#cc4444">⚠️ ${e.message || e}</div>`;
+  }finally{
+    wgRun.disabled = false;
+  }
 });
-function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" })[c]); }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" })[c]); }
 
 /* ===========================================================
    DEMO 4 — CONTENT GENERATOR (Claude API)
@@ -2264,7 +2663,132 @@ cgRun.addEventListener("click", async ()=>{
 });
 
 /* ===========================================================
-   CLAUDE API CALL — via Vercel serverless proxy (/api/claude)
+   DEMO 5 — CUSTOMER INTENT ANALYZER
+   =========================================================== */
+const iaRun = document.getElementById("ia-run");
+iaRun.addEventListener("click", async ()=>{
+  const text = (document.getElementById("ia-input").value || "").trim();
+  if(!text){
+    document.getElementById("ia-reply").textContent = currentLang==="zh"?"請先貼入客戶訊息":"Please paste a customer message.";
+    return;
+  }
+  iaRun.disabled = true;
+  const lang = currentLang;
+  const setVal = (id,v)=>{ document.getElementById(id).textContent = v; };
+  setVal("ia-urgency","…"); setVal("ia-mood","…"); setVal("ia-category","…");
+  setVal("ia-reply", lang==="zh" ? "AI 分析中…" : "Analyzing…");
+
+  const sysPrompt = lang === "zh"
+    ? `你係客服分析師。用戶會貼一段客戶訊息，請分析並**只回覆 JSON**：
+{
+  "urgency": "高 | 中 | 低",
+  "mood": "正面 | 中性 | 負面",
+  "category": "查詢 / 投訴 / 銷售 / 售後 / 退款 / 其他 嘅其中一個",
+  "reply": "用同樣語氣寫一封專業、有同理心嘅回覆，2-4 句"
+}`
+    : `You are a customer-care analyst. Given a customer message, reply ONLY with JSON:
+{
+  "urgency": "High | Medium | Low",
+  "mood": "Positive | Neutral | Negative",
+  "category": "one of: Inquiry / Complaint / Sales / Support / Refund / Other",
+  "reply": "a professional, empathetic 2-4 sentence reply"
+}`;
+
+  try{
+    const reply = await callClaude({
+      system: sysPrompt,
+      messages: [{role:"user", content:text}],
+    });
+    const json = extractJSON(reply);
+    if(!json) throw new Error("Invalid JSON from AI");
+
+    setVal("ia-urgency", json.urgency || "—");
+    setVal("ia-mood",    json.mood    || "—");
+    setVal("ia-category",json.category|| "—");
+    setVal("ia-reply",   json.reply   || "—");
+
+    // colour the urgency / mood chips
+    const urgencyChip = document.getElementById("ia-chip-urgency");
+    const moodChip    = document.getElementById("ia-chip-mood");
+    urgencyChip.className = "intent-chip " + urgencyClass(json.urgency);
+    moodChip.className    = "intent-chip " + moodClass(json.mood);
+  }catch(e){
+    setVal("ia-reply", "⚠️ " + (e.message || e));
+  }finally{
+    iaRun.disabled = false;
+  }
+});
+function urgencyClass(v){
+  if(!v) return "";
+  const s = String(v).toLowerCase();
+  if(s.includes("高")||s.includes("high"))   return "urgency-high";
+  if(s.includes("中")||s.includes("med"))    return "urgency-medium";
+  if(s.includes("低")||s.includes("low"))    return "urgency-low";
+  return "";
+}
+function moodClass(v){
+  if(!v) return "";
+  const s = String(v).toLowerCase();
+  if(s.includes("正")||s.includes("pos")) return "mood-positive";
+  if(s.includes("負")||s.includes("neg")) return "mood-negative";
+  return "mood-neutral";
+}
+
+/* ===========================================================
+   DEMO 6 — SALES FOLLOW-UP EMAIL
+   =========================================================== */
+const seRun = document.getElementById("se-run");
+seRun.addEventListener("click", async ()=>{
+  const name    = (document.getElementById("se-name").value    || "").trim();
+  const company = (document.getElementById("se-company").value || "").trim();
+  const ctx     = (document.getElementById("se-context").value || "").trim();
+  if(!name || !company){
+    document.getElementById("se-body").innerHTML = `<span class="placeholder">${currentLang==="zh"?"請填客戶姓名同公司":"Please fill in name and company."}</span>`;
+    return;
+  }
+  seRun.disabled = true;
+  const lang = currentLang;
+  document.getElementById("se-to").textContent = `${name} <${name.toLowerCase().replace(/\s+/g,".")}@${company.split(/[\s\/]/)[0].toLowerCase().replace(/[^a-z]/g,"")}.com>`;
+  document.getElementById("se-subject").textContent = lang==="zh"?"AI 撰寫中…":"AI drafting…";
+  document.getElementById("se-body").innerHTML = `<div class="dot-typing"><span></span><span></span><span></span></div>`;
+
+  const sysPrompt = lang === "zh"
+    ? `你係資深 B2B 銷售。為 TBC Solutions（一間提供 AI 自動化 + 網頁開發嘅顧問公司）撰寫一封專業、簡潔、有溫度嘅跟進電郵。
+**只回覆 JSON**，格式：
+{
+  "subject": "8-15 字嘅吸引主旨",
+  "body": "150-220 字嘅完整郵件內文（包含問候 → 提及上次重點 → 呼應客戶需求 → 提出下一步 → 結尾）。署名請用『Grouper｜TBC Solutions』。"
+}`
+    : `You are a senior B2B sales rep. Write a professional, concise, warm follow-up email for TBC Solutions (a consultancy offering AI automation + web development).
+**Reply ONLY with JSON**:
+{
+  "subject": "5-9 word compelling subject line",
+  "body": "120-180 word full email body (greeting → reference last interaction → echo client needs → propose next step → sign-off). Sign as 'Grouper | TBC Solutions'."
+}`;
+
+  const userMsg = lang === "zh"
+    ? `客戶姓名：${name}\n公司／行業：${company}\n上次重點：${ctx || "未提供"}`
+    : `Client name: ${name}\nCompany / Industry: ${company}\nLast interaction: ${ctx || "Not provided"}`;
+
+  try{
+    const reply = await callClaude({
+      system: sysPrompt,
+      messages: [{role:"user", content:userMsg}],
+    });
+    const json = extractJSON(reply);
+    if(!json) throw new Error("Invalid JSON from AI");
+    document.getElementById("se-subject").textContent = json.subject || "—";
+    document.getElementById("se-body").textContent    = json.body    || "—";
+  }catch(e){
+    document.getElementById("se-subject").textContent = lang==="zh"?"⚠️ 失敗":"⚠️ Failed";
+    document.getElementById("se-body").innerHTML = `<span class="placeholder">${e.message || e}</span>`;
+  }finally{
+    seRun.disabled = false;
+  }
+});
+
+/* ===========================================================
+   AI BACKEND CALL — via serverless proxy (/api/claude)
    API Key 由後端持有，前端無法看到。
    =========================================================== */
 async function callClaude({system, messages}){
