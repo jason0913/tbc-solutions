@@ -1622,10 +1622,26 @@ main,nav,section,footer{position:relative;z-index:2}
           </div>
 
           <div class="field">
-            <label data-i18n="calc.l3">您的時薪估算（HKD）</label>
+            <label data-i18n="calc.l3">您的時薪估算</label>
             <div class="rate-row">
-              <span class="currency">HK$</span>
-              <input type="number" class="input" id="calc-rate" value="300" min="50" max="5000" step="50" />
+              <select class="select" id="calc-currency" style="max-width:120px;padding:14px 10px;font-size:13.5px">
+                <option value="HKD">HK$ HKD</option>
+                <option value="USD">US$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
+                <option value="JPY">¥ JPY</option>
+                <option value="CNY">¥ CNY</option>
+                <option value="TWD">NT$ TWD</option>
+                <option value="SGD">S$ SGD</option>
+                <option value="AUD">A$ AUD</option>
+                <option value="CAD">C$ CAD</option>
+                <option value="KRW">₩ KRW</option>
+                <option value="MYR">RM MYR</option>
+                <option value="THB">฿ THB</option>
+                <option value="PHP">₱ PHP</option>
+                <option value="INR">₹ INR</option>
+              </select>
+              <input type="number" class="input" id="calc-rate" value="300" min="1" max="100000" step="10" />
               <span class="currency" data-i18n="calc.perHour">/小時</span>
             </div>
           </div>
@@ -1788,7 +1804,7 @@ const I18N = {
     "impact.s1":"重複性工作 ↓","impact.s2":"平均每月節省","impact.s3":"內容產出速度","impact.s4":"不眠不休運作",
     "calc.title":"您能省下多少？立即試算",
     "calc.desc":"選擇您目前最花時間的領域，拉動週工時，立即看到月節省。",
-    "calc.l1":"您的業務領域","calc.l2":"每週投入小時","calc.l3":"您的時薪估算（HKD）",
+    "calc.l1":"您的業務領域","calc.l2":"每週投入小時","calc.l3":"您的時薪估算",
     "calc.a1":"客戶跟進與郵件","calc.a2":"社交媒體 / 內容","calc.a3":"報表與資料彙整","calc.a4":"客服回覆","calc.a5":"資料研究",
     "calc.hour":"小時","calc.perHour":"/小時","calc.month":"/ 月",
     "calc.resLabel":"每月可節省","calc.resSub":"這些時間可以用來：陪家人、開發新客戶、創造下一個產品。",
@@ -1849,7 +1865,7 @@ const I18N = {
     "impact.s1":"Less repetitive work","impact.s2":"Hours saved / month","impact.s3":"Faster content output","impact.s4":"Always on",
     "calc.title":"How much could you save? Try it.",
     "calc.desc":"Pick the area eating your time, drag the weekly hours — see your monthly savings instantly.",
-    "calc.l1":"Your area of work","calc.l2":"Hours per week","calc.l3":"Estimated hourly rate (HKD)",
+    "calc.l1":"Your area of work","calc.l2":"Hours per week","calc.l3":"Your estimated hourly rate",
     "calc.a1":"Customer follow-up & email","calc.a2":"Social / content","calc.a3":"Reports & data ops","calc.a4":"Customer support","calc.a5":"Research",
     "calc.hour":"hrs","calc.perHour":"/ hr","calc.month":"/ month",
     "calc.resLabel":"Saved every month","calc.resSub":"Use that time for: family, new clients, building the next thing.",
@@ -2254,36 +2270,66 @@ function buildMarquee(){
   const hours     = document.getElementById("calc-hours");
   const hoursVal  = document.getElementById("calc-hours-val");
   const rate      = document.getElementById("calc-rate");
+  const currency  = document.getElementById("calc-currency");
   const savedH    = document.getElementById("calc-saved-h");
   const savedM    = document.getElementById("calc-saved-money");
   if(!chips.length || !hours) return;
 
+  // Sensible default hourly rate per currency + locale + display symbol.
+  // Keep currency code short & visible.
+  const CURRENCIES = {
+    HKD:{ sym:"HK$", default:300,  locale:"en-HK", decimals:0 },
+    USD:{ sym:"US$", default:50,   locale:"en-US", decimals:0 },
+    EUR:{ sym:"€",   default:45,   locale:"de-DE", decimals:0 },
+    GBP:{ sym:"£",   default:40,   locale:"en-GB", decimals:0 },
+    JPY:{ sym:"¥",   default:5000, locale:"ja-JP", decimals:0 },
+    CNY:{ sym:"¥",   default:200,  locale:"zh-CN", decimals:0 },
+    TWD:{ sym:"NT$", default:1500, locale:"zh-TW", decimals:0 },
+    SGD:{ sym:"S$",  default:60,   locale:"en-SG", decimals:0 },
+    AUD:{ sym:"A$",  default:70,   locale:"en-AU", decimals:0 },
+    CAD:{ sym:"C$",  default:65,   locale:"en-CA", decimals:0 },
+    KRW:{ sym:"₩",   default:60000,locale:"ko-KR", decimals:0 },
+    MYR:{ sym:"RM",  default:200,  locale:"ms-MY", decimals:0 },
+    THB:{ sym:"฿",   default:1500, locale:"th-TH", decimals:0 },
+    PHP:{ sym:"₱",   default:2000, locale:"en-PH", decimals:0 },
+    INR:{ sym:"₹",   default:3000, locale:"en-IN", decimals:0 },
+  };
+
   let mult = .70; // default for "email"
+  let userTouchedRate = false; // don't override rate if user manually edited
+
+  function fmt(v, code){
+    const c = CURRENCIES[code] || CURRENCIES.HKD;
+    try{
+      return c.sym + " " + Math.round(v).toLocaleString(c.locale, {maximumFractionDigits:0});
+    }catch(e){
+      return c.sym + " " + Math.round(v).toLocaleString();
+    }
+  }
 
   function update(){
     const wHrs = +hours.value;
     const monthly = wHrs * mult * 4.33;       // weeks per month
     const hRate   = +rate.value || 0;
     const cost    = monthly * hRate;
+    const code    = currency.value;
 
-    // animate values
     animateText(savedH, +savedH.textContent || 0, Math.round(monthly), 600);
     animateText(savedM, parseInt((savedM.textContent.replace(/[^\d]/g,"")||"0"),10), Math.round(cost), 700,
-      v => "HK$ " + v.toLocaleString());
+      v => fmt(v, code));
 
     hoursVal.textContent = wHrs;
-    // update slider gradient
     const pct = ((wHrs - hours.min) / (hours.max - hours.min)) * 100;
     hours.style.setProperty("--pct", pct + "%");
   }
 
-  function animateText(el, from, to, dur=600, fmt = v=>v){
+  function animateText(el, from, to, dur=600, fn = v=>v){
     const start = performance.now();
     function step(now){
       const t = Math.min(1,(now-start)/dur);
       const eased = 1 - Math.pow(1-t, 3);
       const v = Math.round(from + (to-from)*eased);
-      el.textContent = fmt(v);
+      el.textContent = fn(v);
       if(t < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -2297,8 +2343,19 @@ function buildMarquee(){
       update();
     });
   });
+
   hours.addEventListener("input", update);
-  rate.addEventListener("input",  update);
+  rate.addEventListener("input",  ()=>{ userTouchedRate = true; update(); });
+
+  // when user picks a different currency, swap to that currency's sensible default
+  // (unless they manually overrode the rate already — then keep their value)
+  currency.addEventListener("change", ()=>{
+    const c = CURRENCIES[currency.value] || CURRENCIES.HKD;
+    if(!userTouchedRate){
+      rate.value = c.default;
+    }
+    update();
+  });
 
   update();
 })();
