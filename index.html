@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TBC Solutions — Transform · Build · Create</title>
+<meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
+
+<!-- ============== FONTS ============== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<!-- ============== GSAP ============== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+/* =====================================================================
+   ROOT / RESET
+   ===================================================================== */
+:root{
+  --bg:#07070a;
+  --bg-2:#0d0d12;
+  --surface:#13131a;
+  --surface-2:#1b1b24;
+  --line:rgba(255,255,255,.08);
+  --line-strong:rgba(255,255,255,.16);
+  --text:#f5f5f7;
+  --text-dim:#9a9aa8;
+  --text-faint:#6b6b78;
+  --accent:#7c5cff;
+  --accent-2:#ff5cb1;
+  --accent-3:#5cd7ff;
+  --grad: linear-gradient(120deg,#7c5cff 0%,#ff5cb1 50%,#5cd7ff 100%);
+  --grad-soft: linear-gradient(120deg,rgba(124,92,255,.18),rgba(255,92,177,.18),rgba(92,215,255,.18));
+  --radius:16px;
+  --radius-lg:24px;
+  --shadow-1:0 10px 30px rgba(0,0,0,.35);
+  --shadow-glow:0 0 40px rgba(124,92,255,.35);
+  --t-fast:.2s ease;
+  --t-med:.4s cubic-bezier(.2,.7,.2,1);
+  --t-slow:.8s cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Syne','Noto Sans TC',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+}
+body.lang-zh{font-family:'Noto Sans TC','Syne',system-ui,sans-serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:inherit}
+
+::selection{background:var(--accent);color:#fff}
+
+/* Custom scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.16)}
+
+/* =====================================================================
+   GLOBAL BACKGROUND CANVAS
+   ===================================================================== */
+#bg-canvas{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(1200px 700px at 80% -10%,rgba(124,92,255,.18),transparent 60%),
+    radial-gradient(900px 600px at -10% 30%,rgba(255,92,177,.12),transparent 60%),
+    radial-gradient(900px 600px at 50% 110%,rgba(92,215,255,.10),transparent 60%),
+    var(--bg);
+}
+#particles{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+main,nav,section,footer{position:relative;z-index:2}
+
+/* =====================================================================
+   NAV
+   ===================================================================== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,4vw,48px);
+  backdrop-filter:blur(14px);
+  background:rgba(7,7,10,.55);
+  border-bottom:1px solid var(--line);
+  transition:padding var(--t-med),background var(--t-med);
+}
+.nav.scrolled{padding:12px clamp(20px,4vw,48px);background:rgba(7,7,10,.85)}
+
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-links{display:flex;gap:26px}
+.nav-links a{
+  color:var(--text-dim);font-size:14px;font-weight:500;letter-spacing:.04em;
+  position:relative;transition:color var(--t-fast);
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;
+  background:var(--grad);transition:width var(--t-med);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+
+.lang-switch{
+  display:flex;border:1px solid var(--line-strong);border-radius:999px;
+  padding:4px;background:rgba(255,255,255,.03);
+}
+.lang-switch button{
+  padding:6px 12px;font-size:12px;font-weight:600;letter-spacing:.05em;
+  color:var(--text-dim);border-radius:999px;transition:all var(--t-fast);
+}
+.lang-switch button.active{background:var(--grad);color:#fff;box-shadow:0 4px 18px rgba(124,92,255,.4)}
+
+/* =====================================================================
+   LOGO
+   ===================================================================== */
+.logo{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.logo-row{display:flex;align-items:center;gap:10px}
+.logo-block{
+  background:#fff;color:#07070a;
+  padding:7px 11px;border-radius:6px;
+  font-family:'Syne',sans-serif;font-weight:800;letter-spacing:.04em;
+  font-size:18px;
+}
+.logo-right{display:flex;flex-direction:column;line-height:1.1;border-left:1px solid rgba(255,255,255,.35);padding-left:10px}
+.logo-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;letter-spacing:.02em;color:#fff}
+.logo-sub{font-size:9px;color:var(--text-dim);letter-spacing:.22em;margin-top:2px;font-weight:500}
+.logo-slogan{font-size:8px;color:var(--text-faint);letter-spacing:.32em;margin-top:6px;font-weight:500;text-transform:uppercase}
+
+/* light variant (used inside light bg blocks) */
+.logo.light .logo-block{background:#07070a;color:#fff}
+.logo.light .logo-right{border-left-color:rgba(0,0,0,.45)}
+.logo.light .logo-name{color:#07070a}
+.logo.light .logo-sub{color:#3a3a45}
+.logo.light .logo-slogan{color:#5a5a65}
+
+/* =====================================================================
+   COMMON
+   ===================================================================== */
+.section{padding:clamp(80px,11vw,160px) clamp(20px,5vw,80px);position:relative}
+.container{max-width:1280px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--text-dim);font-weight:600;
+}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--grad)}
+.h1{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(40px,7vw,96px);line-height:1.02;letter-spacing:-.02em;
+}
+.h2{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:clamp(32px,4.4vw,56px);line-height:1.05;letter-spacing:-.015em;
+}
+.h3{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(20px,2vw,28px);letter-spacing:-.01em}
+.muted{color:var(--text-dim)}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border-radius:999px;font-weight:700;letter-spacing:.04em;
+  font-size:14px;transition:transform var(--t-fast),box-shadow var(--t-med),background var(--t-med);
+  border:1px solid var(--line-strong);
+}
+.btn-primary{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 28px rgba(124,92,255,.45)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(124,92,255,.6)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.btn .arrow{display:inline-block;transition:transform var(--t-fast)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* =====================================================================
+   HERO
+   ===================================================================== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:140px 24px 80px;text-align:center;position:relative;
+}
+.hero-inner{max-width:1100px;margin:0 auto}
+.hero h1 .word{display:inline-block;overflow:hidden;vertical-align:top}
+.hero h1 .word span{display:inline-block;transform:translateY(110%)}
+.hero-sub{
+  margin-top:28px;font-size:clamp(16px,1.4vw,20px);color:var(--text-dim);
+  min-height:32px;font-weight:400;letter-spacing:.02em;
+}
+.typing-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:3px;vertical-align:middle;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+.hero-cta{margin-top:44px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.scroll-hint{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  font-size:11px;letter-spacing:.4em;color:var(--text-faint);text-transform:uppercase;
+}
+.scroll-hint::after{
+  content:"";display:block;width:1px;height:36px;margin:10px auto 0;
+  background:linear-gradient(to bottom,var(--accent),transparent);
+  animation:fall 2s ease-in-out infinite;
+}
+@keyframes fall{0%{transform:translateY(-10px);opacity:.2}50%{opacity:1}100%{transform:translateY(10px);opacity:.2}}
+
+.hero-glow{
+  position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,92,255,.35),transparent 60%);
+  filter:blur(40px);top:-100px;left:50%;transform:translateX(-50%);z-index:-1;
+  animation:pulse 8s ease-in-out infinite;pointer-events:none;
+}
+@keyframes pulse{50%{transform:translate(-50%,40px) scale(1.1);opacity:.7}}
+
+/* =====================================================================
+   MARQUEE TOOLS
+   ===================================================================== */
+.marquee-section{padding:60px 0;border-block:1px solid var(--line);background:rgba(255,255,255,.015);overflow:hidden}
+.marquee-label{text-align:center;font-size:11px;letter-spacing:.4em;color:var(--text-faint);text-transform:uppercase;margin-bottom:30px}
+.marquee{display:flex;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)}
+.marquee-track{display:flex;gap:60px;flex-shrink:0;animation:scroll 40s linear infinite;padding-right:60px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.tool{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:14px 24px;border-radius:14px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+  white-space:nowrap;flex-shrink:0;transition:all var(--t-fast);
+}
+.tool:hover{background:rgba(255,255,255,.08);border-color:var(--accent);transform:translateY(-2px)}
+.tool-icon{
+  width:34px;height:34px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:13px;
+}
+.tool-name{font-weight:600;font-size:14px;letter-spacing:.02em}
+
+/* =====================================================================
+   SERVICES
+   ===================================================================== */
+.section-head{display:flex;flex-direction:column;gap:18px;margin-bottom:60px;max-width:780px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.service-card{
+  position:relative;padding:36px 30px;border-radius:var(--radius-lg);
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);overflow:hidden;
+  transition:transform var(--t-med),border-color var(--t-med);
+  min-height:260px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;
+}
+.service-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity var(--t-med);pointer-events:none;
+}
+.service-card::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.18),transparent 50%);
+  opacity:0;transition:opacity var(--t-med);pointer-events:none;
+}
+.service-card:hover{transform:translateY(-6px)}
+.service-card:hover::before{opacity:1}
+.service-card:hover::after{opacity:1}
+.service-card .num{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:60px;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1;opacity:.6;
+}
+.service-card h3{font-size:22px;font-weight:700;letter-spacing:-.005em}
+.service-card p{color:var(--text-dim);font-size:14.5px;line-height:1.65}
+.service-card .tag{font-size:11px;letter-spacing:.3em;color:var(--text-faint);text-transform:uppercase}
+
+/* =====================================================================
+   DEMO SECTIONS
+   ===================================================================== */
+.demos-intro{text-align:center;margin-bottom:80px}
+.demo-block{
+  margin-top:60px;padding:36px;border-radius:var(--radius-lg);
+  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  border:1px solid var(--line);position:relative;overflow:hidden;
+}
+.demo-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:20px}
+.demo-tag{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 12px;
+  background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.35);
+  border-radius:999px;font-size:11px;letter-spacing:.3em;font-weight:700;color:#c8b9ff;
+}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:860px){.demo-grid{grid-template-columns:1fr}}
+
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.field label{font-size:12px;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;font-weight:600}
+.input,.textarea,.select{
+  width:100%;padding:14px 16px;border-radius:12px;
+  background:rgba(0,0,0,.4);border:1px solid var(--line-strong);
+  color:var(--text);font-size:14.5px;transition:border-color var(--t-fast),background var(--t-fast);
+}
+.input:focus,.textarea:focus,.select:focus{outline:none;border-color:var(--accent);background:rgba(0,0,0,.55)}
+.textarea{min-height:90px;resize:vertical;line-height:1.55}
+
+/* ===== Demo 1: Workflow ===== */
+.workflow-canvas{
+  position:relative;background:rgba(0,0,0,.45);border:1px solid var(--line);
+  border-radius:14px;min-height:360px;padding:20px;overflow:hidden;
+}
+.workflow-canvas::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:24px 24px;pointer-events:none;
+}
+.wf-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:center;position:relative;z-index:1}
+.wf-node{
+  background:rgba(20,20,30,.95);border:1px solid var(--line-strong);
+  border-radius:12px;padding:14px 10px;text-align:center;
+  font-size:12px;font-weight:600;letter-spacing:.04em;
+  opacity:.4;transition:all .4s ease;position:relative;
+}
+.wf-node .ico{font-size:22px;margin-bottom:6px;display:block;line-height:1}
+.wf-node .lbl{color:var(--text);font-size:11px;letter-spacing:.05em}
+.wf-node.active{
+  opacity:1;border-color:var(--accent);
+  box-shadow:0 0 0 1px rgba(124,92,255,.5),0 0 30px rgba(124,92,255,.4);
+  background:linear-gradient(160deg,rgba(124,92,255,.18),rgba(124,92,255,.04));
+}
+.wf-node.active .lbl{color:#fff}
+.wf-arrow{color:var(--text-faint);font-size:18px;text-align:center;opacity:.5;transition:all .4s ease}
+.wf-arrow.active{color:var(--accent);opacity:1}
+.wf-result{
+  margin-top:18px;padding:14px 18px;border-radius:10px;
+  background:linear-gradient(120deg,rgba(124,92,255,.15),rgba(92,215,255,.1));
+  border:1px solid rgba(124,92,255,.3);font-size:14px;
+  display:none;
+}
+.wf-result.show{display:block;animation:slideUp .4s ease}
+@keyframes slideUp{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ===== Demo 2: Chat ===== */
+.chat-window{
+  background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:14px;
+  height:380px;display:flex;flex-direction:column;
+}
+.chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.chat-msg{
+  max-width:80%;padding:12px 16px;border-radius:14px;font-size:14.5px;line-height:1.55;
+  white-space:pre-wrap;word-wrap:break-word;
+}
+.chat-msg.user{align-self:flex-end;background:var(--grad);color:#fff;border-bottom-right-radius:4px}
+.chat-msg.bot{align-self:flex-start;background:rgba(255,255,255,.06);border:1px solid var(--line);border-bottom-left-radius:4px}
+.chat-msg.bot.thinking{font-style:italic;color:var(--text-dim)}
+.dot-typing{display:inline-flex;gap:3px;align-items:center;height:14px}
+.dot-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-dim);animation:dotPulse 1.4s infinite ease}
+.dot-typing span:nth-child(2){animation-delay:.2s}
+.dot-typing span:nth-child(3){animation-delay:.4s}
+@keyframes dotPulse{0%,60%,100%{transform:scale(.5);opacity:.4}30%{transform:scale(1);opacity:1}}
+.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.chat-input-row .input{flex:1}
+
+/* ===== Demo 3: Webgen ===== */
+.webgen-preview{
+  background:rgba(0,0,0,.5);border:1px solid var(--line);border-radius:14px;
+  min-height:380px;overflow:hidden;display:flex;flex-direction:column;
+}
+.browser-bar{
+  display:flex;align-items:center;gap:8px;padding:12px 14px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid var(--line);
+}
+.browser-dot{width:10px;height:10px;border-radius:50%;background:#444}
+.browser-dot.r{background:#ff5f57}
+.browser-dot.y{background:#febc2e}
+.browser-dot.g{background:#28c840}
+.browser-url{
+  flex:1;background:rgba(0,0,0,.5);padding:5px 12px;border-radius:6px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-dim);
+  border:1px solid var(--line);min-height:24px;
+}
+.preview-body{
+  flex:1;padding:24px;overflow:hidden;
+  background:linear-gradient(160deg,#fff,#f0f0f5);color:#111;
+  position:relative;display:flex;flex-direction:column;gap:14px;
+}
+.preview-empty{
+  display:flex;align-items:center;justify-content:center;flex:1;
+  color:#999;font-size:13px;
+}
+.preview-nav{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:#111}
+.preview-nav .links{display:flex;gap:14px;color:#666;font-weight:500}
+.preview-hero{
+  margin-top:10px;padding:16px;background:#111;color:#fff;border-radius:10px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.preview-hero h4{font-size:18px;font-weight:800;letter-spacing:-.01em}
+.preview-hero p{font-size:11.5px;opacity:.7;line-height:1.5}
+.preview-hero .pill{align-self:flex-start;padding:5px 12px;background:#fff;color:#111;border-radius:999px;font-size:10px;font-weight:700}
+.preview-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.preview-card{padding:10px;background:rgba(0,0,0,.06);border-radius:8px;font-size:10px}
+.preview-card strong{display:block;margin-bottom:3px;font-size:11px}
+.preview-card span{color:#666;font-size:9.5px;line-height:1.4}
+.fade-in{opacity:0;transform:translateY(10px)}
+
+/* ===== Demo 4: Content ===== */
+.content-output{
+  background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:14px;
+  padding:24px;min-height:300px;font-size:14.5px;line-height:1.7;
+  white-space:pre-wrap;color:var(--text);
+}
+.content-output .placeholder{color:var(--text-faint);font-style:italic}
+.content-output .platform-tag{
+  display:inline-block;padding:5px 12px;border-radius:999px;
+  font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.content-output .platform-tag.instagram{background:linear-gradient(120deg,#fd1d1d,#fcb045);color:#fff}
+.content-output .platform-tag.facebook{background:#1877f2;color:#fff}
+.content-output .platform-tag.linkedin{background:#0a66c2;color:#fff}
+
+.platform-row{display:flex;gap:10px;flex-wrap:wrap}
+.platform-btn{
+  flex:1;min-width:90px;padding:14px 12px;border-radius:12px;
+  background:rgba(255,255,255,.03);border:1px solid var(--line-strong);
+  font-size:13px;font-weight:600;letter-spacing:.04em;transition:all var(--t-fast);
+}
+.platform-btn:hover{background:rgba(255,255,255,.08)}
+.platform-btn.active{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 6px 20px rgba(124,92,255,.4)}
+
+/* =====================================================================
+   ABOUT
+   ===================================================================== */
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:50px;align-items:center}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+.founder-card{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  background:linear-gradient(160deg,rgba(124,92,255,.15),rgba(255,92,177,.08));
+  border:1px solid var(--line);aspect-ratio:4/5;
+  display:flex;align-items:flex-end;
+}
+.founder-photo{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:clamp(80px,14vw,180px);font-weight:800;
+  color:rgba(255,255,255,.06);letter-spacing:-.02em;
+}
+.founder-photo::before{
+  content:"預留照片位置 / Photo Placeholder";
+  position:absolute;bottom:18px;left:0;right:0;
+  font-family:'Syne',sans-serif;font-size:10px;font-weight:500;letter-spacing:.3em;text-align:center;
+  color:rgba(255,255,255,.35);text-transform:uppercase;
+}
+.founder-tag{
+  position:relative;z-index:1;padding:20px 22px;width:100%;
+  background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);
+}
+.founder-tag .name{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.005em}
+.founder-tag .role{font-size:12px;color:var(--text-dim);letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
+.about-text p{font-size:17px;line-height:1.8;color:var(--text-dim);margin-top:20px}
+.about-text p strong{color:#fff;font-weight:600}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.stat{padding:18px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.stat .n{font-family:'Syne',sans-serif;font-weight:800;font-size:30px;background:var(--grad);-webkit-background-clip:text;color:transparent;line-height:1}
+.stat .l{font-size:11px;color:var(--text-dim);letter-spacing:.18em;text-transform:uppercase;margin-top:6px;font-weight:600}
+
+/* =====================================================================
+   CAL.COM
+   ===================================================================== */
+.book-section{
+  padding:clamp(80px,11vw,140px) clamp(20px,5vw,80px) 0;
+  text-align:center;
+}
+.book-frame-wrap{
+  margin-top:50px;border-radius:var(--radius-lg);overflow:hidden;
+  border:1px solid var(--line);background:rgba(255,255,255,.02);
+  min-height:720px;
+}
+.book-frame-wrap iframe{width:100%;height:720px;border:0;display:block;background:#fff}
+.book-fallback{
+  padding:80px 30px;text-align:center;color:var(--text-dim);
+}
+.book-fallback code{
+  display:inline-block;padding:6px 12px;border-radius:6px;
+  background:rgba(124,92,255,.15);border:1px solid rgba(124,92,255,.4);
+  color:#c8b9ff;font-family:'JetBrains Mono',monospace;font-size:12px;margin:6px 4px;
+}
+
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
+.footer{
+  margin-top:80px;padding:50px clamp(20px,5vw,80px) 30px;
+  border-top:1px solid var(--line);text-align:center;
+}
+.footer-row{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:24px;margin-bottom:20px}
+.footer-links{display:flex;gap:22px}
+.footer-links a{font-size:13px;color:var(--text-dim);transition:color var(--t-fast)}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:12px;color:var(--text-faint);letter-spacing:.04em}
+
+/* =====================================================================
+   ANIMATIONS / REVEAL
+   ===================================================================== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.stagger-child{opacity:0;transform:translateY(20px)}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media(max-width:760px){
+  .nav{padding:12px 18px}
+  .nav-links{display:none}
+  .logo-slogan{display:none}
+  .hero{padding:120px 18px 60px}
+  .demo-block{padding:24px 18px}
+  .wf-grid{grid-template-columns:repeat(5,1fr);gap:6px}
+  .wf-node{padding:10px 4px;font-size:10px}
+  .wf-node .ico{font-size:18px}
+  .wf-node .lbl{font-size:9.5px;letter-spacing:0}
+  .wf-arrow{font-size:14px}
+  .preview-cards{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body class="lang-zh">
+
+<!-- ======================== BG / PARTICLES ======================== -->
+<div id="bg-canvas"></div>
+<canvas id="particles"></canvas>
+
+<!-- ======================== NAV ======================== -->
+<nav class="nav" id="nav">
+  <a href="#top" class="logo" aria-label="TBC Solutions">
+    <div class="logo-row">
+      <div class="logo-block">TBC</div>
+      <div class="logo-right">
+        <div class="logo-name">Solutions</div>
+        <div class="logo-sub">AI · AUTOMATION</div>
+      </div>
+    </div>
+    <div class="logo-slogan">Transform · Build · Create</div>
+  </a>
+
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#services" data-i18n="nav.services">服務</a>
+      <a href="#demos" data-i18n="nav.demos">互動 Demo</a>
+      <a href="#about" data-i18n="nav.about">關於</a>
+      <a href="#book" data-i18n="nav.book">預約</a>
+    </div>
+    <div class="lang-switch" role="tablist" aria-label="Language">
+      <button data-lang="zh" class="active">繁中</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<header class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="eyebrow reveal" data-i18n="hero.eyebrow">AI · AUTOMATION · WEB</div>
+    <h1 class="h1" id="hero-title" style="margin-top:18px">
+      <!-- words injected by JS for animation -->
+    </h1>
+    <p class="hero-sub">
+      <span id="typed"></span><span class="typing-cursor"></span>
+    </p>
+    <div class="hero-cta reveal">
+      <a href="#book" class="btn btn-primary" data-i18n="hero.cta">預約免費諮詢 <span class="arrow">→</span></a>
+      <a href="#demos" class="btn btn-ghost" data-i18n="hero.cta2">體驗 Demo</a>
+    </div>
+  </div>
+  <div class="scroll-hint" data-i18n="hero.scroll">SCROLL</div>
+</header>
+
+<!-- ======================== TOOLS MARQUEE ======================== -->
+<section class="marquee-section" aria-label="Tools we use">
+  <div class="marquee-label" data-i18n="tools.label">我們熟悉的工具 · Powered with</div>
+  <div class="marquee">
+    <div class="marquee-track" id="marquee-track"></div>
+    <div class="marquee-track" aria-hidden="true" id="marquee-track-2"></div>
+  </div>
+</section>
+
+<!-- ======================== SERVICES ======================== -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="services.eyebrow">SERVICES</div>
+      <h2 class="h2"><span data-i18n="services.title1">為您打造</span> <span class="gradient-text" data-i18n="services.title2">智能商業未來</span></h2>
+      <p class="muted" data-i18n="services.desc">從工作流程自動化到 AI 內容創作，我們提供端到端的解決方案，讓您從繁瑣事務中解放，專注於真正重要的事。</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card reveal" data-mouse>
+        <div class="num">01</div>
+        <div>
+          <div class="tag" data-i18n="services.tag1">AUTOMATION</div>
+          <h3 data-i18n="services.s1.title">AI 自動化工作流程</h3>
+          <p data-i18n="services.s1.desc">透過 n8n、Make、Zapier 等工具串聯系統，自動化郵件、CRM、資料同步、報表等重複工作。</p>
+        </div>
+      </article>
+      <article class="service-card reveal" data-mouse>
+        <div class="num">02</div>
+        <div>
+          <div class="tag" data-i18n="services.tag2">WEB</div>
+          <h3 data-i18n="services.s2.title">網頁設計與開發</h3>
+          <p data-i18n="services.s2.desc">從品牌官網到電商平台，提供現代感、響應式、SEO 友善的網頁設計與開發。</p>
+        </div>
+      </article>
+      <article class="service-card reveal" data-mouse>
+        <div class="num">03</div>
+        <div>
+          <div class="tag" data-i18n="services.tag3">CONTENT</div>
+          <h3 data-i18n="services.s3.title">AI 內容創作</h3>
+          <p data-i18n="services.s3.desc">運用 Claude / ChatGPT 為您批量生成社交媒體文案、部落格文章、產品描述、廣告素材。</p>
+        </div>
+      </article>
+      <article class="service-card reveal" data-mouse>
+        <div class="num">04</div>
+        <div>
+          <div class="tag" data-i18n="services.tag4">CUSTOM AI</div>
+          <h3 data-i18n="services.s4.title">客製化 AI 解決方案</h3>
+          <p data-i18n="services.s4.desc">針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== DEMOS ======================== -->
+<section class="section" id="demos">
+  <div class="container">
+    <div class="demos-intro reveal">
+      <div class="eyebrow" data-i18n="demos.eyebrow">INTERACTIVE DEMOS</div>
+      <h2 class="h2" style="margin-top:18px"><span data-i18n="demos.title1">不是說明，</span><span class="gradient-text" data-i18n="demos.title2">而是親身體驗</span></h2>
+      <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">每一個 Demo 都直接內嵌於本頁，零下載、零註冊。動手試試我們能為您做什麼。</p>
+    </div>
+
+    <!-- ===== DEMO 1 : WORKFLOW ===== -->
+    <div class="demo-block reveal" id="demo1">
+      <div class="demo-head">
+        <div>
+          <div class="demo-tag">DEMO 01</div>
+          <h3 class="h3" style="margin-top:8px" data-i18n="demo1.title">AI 自動化模擬器</h3>
+          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo1.desc">輸入您的業務問題，看 AI 如何把它拆解成自動化工作流程。</p>
+        </div>
+      </div>
+      <div class="demo-grid">
+        <div>
+          <div class="field">
+            <label data-i18n="demo1.label">您的業務問題</label>
+            <textarea class="textarea" id="wf-input" placeholder="例如：我想自動發送跟進郵件給 7 天未回覆的客戶"></textarea>
+          </div>
+          <button class="btn btn-primary" id="wf-run" style="width:100%;justify-content:center" data-i18n="demo1.btn">產生工作流程 →</button>
+          <div id="wf-result" class="wf-result"></div>
+        </div>
+        <div>
+          <div class="workflow-canvas">
+            <div class="wf-grid" id="wf-grid">
+              <div class="wf-node" data-step="0"><span class="ico">⚡</span><span class="lbl" data-i18n="wf.n1">觸發</span></div>
+              <div class="wf-arrow" data-arrow="0">→</div>
+              <div class="wf-node" data-step="1"><span class="ico">🔍</span><span class="lbl" data-i18n="wf.n2">篩選條件</span></div>
+              <div class="wf-arrow" data-arrow="1">→</div>
+              <div class="wf-node" data-step="2"><span class="ico">🤖</span><span class="lbl" data-i18n="wf.n3">AI 處理</span></div>
+            </div>
+            <div class="wf-grid" id="wf-grid-2" style="margin-top:14px">
+              <div class="wf-node" data-step="3"><span class="ico">✉️</span><span class="lbl" data-i18n="wf.n4">發送郵件</span></div>
+              <div class="wf-arrow" data-arrow="3">→</div>
+              <div class="wf-node" data-step="4"><span class="ico">📊</span><span class="lbl" data-i18n="wf.n5">記錄追蹤</span></div>
+              <div class="wf-arrow" data-arrow="4">→</div>
+              <div class="wf-node" data-step="5"><span class="ico">✅</span><span class="lbl" data-i18n="wf.n6">完成</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DEMO 2 : CHAT ===== -->
+    <div class="demo-block reveal" id="demo2">
+      <div class="demo-head">
+        <div>
+          <div class="demo-tag">DEMO 02</div>
+          <h3 class="h3" style="margin-top:8px" data-i18n="demo2.title">AI 聊天助手</h3>
+          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">由 Claude API 驅動的智能助手，可作為客服、顧問或內部知識助手。</p>
+        </div>
+      </div>
+
+      <div class="chat-window">
+        <div class="chat-msgs" id="chat-msgs">
+          <div class="chat-msg bot" data-i18n="demo2.greet">您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。</div>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" class="input" id="chat-input" placeholder="輸入您的問題…" />
+          <button class="btn btn-primary" id="chat-send" data-i18n="demo2.send">送出</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DEMO 3 : WEBGEN ===== -->
+    <div class="demo-block reveal" id="demo3">
+      <div class="demo-head">
+        <div>
+          <div class="demo-tag">DEMO 03</div>
+          <h3 class="h3" style="margin-top:8px" data-i18n="demo3.title">網頁生成預覽</h3>
+          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo3.desc">輸入公司名與行業，立即生成示意網頁，模擬我們的網頁設計流程。</p>
+        </div>
+      </div>
+      <div class="demo-grid">
+        <div>
+          <div class="field">
+            <label data-i18n="demo3.l1">公司名稱</label>
+            <input type="text" class="input" id="wg-name" placeholder="例如：晨光咖啡" />
+          </div>
+          <div class="field">
+            <label data-i18n="demo3.l2">行業</label>
+            <input type="text" class="input" id="wg-industry" placeholder="例如：餐飲 / 科技 / 教育" />
+          </div>
+          <button class="btn btn-primary" id="wg-run" style="width:100%;justify-content:center" data-i18n="demo3.btn">生成預覽 →</button>
+        </div>
+        <div>
+          <div class="webgen-preview">
+            <div class="browser-bar">
+              <span class="browser-dot r"></span>
+              <span class="browser-dot y"></span>
+              <span class="browser-dot g"></span>
+              <span class="browser-url" id="wg-url">https://your-website.com</span>
+            </div>
+            <div class="preview-body" id="wg-body">
+              <div class="preview-empty" data-i18n="demo3.empty">輸入資訊後，這裡會生成預覽</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DEMO 4 : CONTENT ===== -->
+    <div class="demo-block reveal" id="demo4">
+      <div class="demo-head">
+        <div>
+          <div class="demo-tag">DEMO 04</div>
+          <h3 class="h3" style="margin-top:8px" data-i18n="demo4.title">AI 內容生成器</h3>
+          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo4.desc">由 Claude API 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
+        </div>
+      </div>
+      <div class="demo-grid">
+        <div>
+          <div class="field">
+            <label data-i18n="demo4.l1">選擇平台</label>
+            <div class="platform-row" id="platform-row">
+              <button class="platform-btn active" data-platform="instagram">Instagram</button>
+              <button class="platform-btn" data-platform="facebook">Facebook</button>
+              <button class="platform-btn" data-platform="linkedin">LinkedIn</button>
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="demo4.l2">主題 / 產品</label>
+            <textarea class="textarea" id="cg-topic" placeholder="例如：宣傳全新推出的咖啡訂閱方案，目標客群是上班族"></textarea>
+          </div>
+          <button class="btn btn-primary" id="cg-run" style="width:100%;justify-content:center" data-i18n="demo4.btn">生成文案 →</button>
+        </div>
+        <div>
+          <div class="content-output" id="cg-output">
+            <span class="placeholder" data-i18n="demo4.empty">您的文案將顯示在這裡…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== ABOUT ======================== -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="founder-card reveal">
+        <div class="founder-photo">G</div>
+        <div class="founder-tag">
+          <div class="name">Grouper</div>
+          <div class="role" data-i18n="about.role">FOUNDER · TBC Solutions</div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <div class="eyebrow" data-i18n="about.eyebrow">ABOUT</div>
+        <h2 class="h2" style="margin-top:18px"><span data-i18n="about.title1">每一間企業都值得</span> <span class="gradient-text" data-i18n="about.title2">智能系統</span></h2>
+        <p data-i18n="about.p1">TBC Solutions 由 <strong>Grouper</strong> 創立，專注於為企業提供 <strong>AI 自動化解決方案</strong>。我們相信每一間企業都值得擁有智能系統，讓您專注於真正重要的事。</p>
+        <p data-i18n="about.p2">從工作流程設計到 AI 模型整合，我們以「Transform · Build · Create」為核心，把您的業務從繁瑣中解放，重新打造，並創造新的可能。</p>
+        <div class="about-stats">
+          <div class="stat"><div class="n">10+</div><div class="l" data-i18n="about.stat1">整合工具</div></div>
+          <div class="stat"><div class="n">24/7</div><div class="l" data-i18n="about.stat2">自動運作</div></div>
+          <div class="stat"><div class="n">∞</div><div class="l" data-i18n="about.stat3">無限可能</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== BOOK ======================== -->
+<section class="book-section" id="book">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow" data-i18n="book.eyebrow">BOOK A CALL</div>
+      <h2 class="h2" style="margin-top:18px"><span data-i18n="book.title1">準備好了嗎？</span> <span class="gradient-text" data-i18n="book.title2">預約免費諮詢</span></h2>
+      <p class="muted" style="margin-top:18px;max-width:600px;margin-inline:auto" data-i18n="book.desc">30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。</p>
+    </div>
+
+    <div class="book-frame-wrap reveal">
+      <!--
+        ⬇️ Cal.com 預約 widget — 將下方 iframe 的 src 換成您的 Cal.com 連結即可
+        例：https://cal.com/grouper/30min
+      -->
+      <iframe
+        id="cal-frame"
+        src="about:blank"
+        data-cal-link="YOUR_CAL_LINK_HERE"
+        title="Book a meeting via Cal.com"
+        loading="lazy"
+        allow="camera *; microphone *; autoplay; clipboard-write; encrypted-media; fullscreen; geolocation"
+      ></iframe>
+
+      <div class="book-fallback" id="book-fallback">
+        <p data-i18n="book.fallback1" style="font-size:15px;color:var(--text)">📅 Cal.com 預約 widget 預留位置</p>
+        <p style="margin-top:14px" data-i18n="book.fallback2">請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：</p>
+        <code>https://cal.com/your-handle/30min</code>
+        <p style="margin-top:18px;font-size:13px" data-i18n="book.fallback3">或可直接點擊下方按鈕傳送 Email：</p>
+        <a class="btn btn-primary" style="margin-top:14px" href="mailto:contact@tbcsolutions.com">contact@tbcsolutions.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FOOTER ======================== -->
+<footer class="footer">
+  <div class="footer-row">
+    <div class="logo" style="align-items:center">
+      <div class="logo-row">
+        <div class="logo-block">TBC</div>
+        <div class="logo-right">
+          <div class="logo-name">Solutions</div>
+          <div class="logo-sub">AI · AUTOMATION</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="#services" data-i18n="nav.services">服務</a>
+      <a href="#demos" data-i18n="nav.demos">Demo</a>
+      <a href="#about" data-i18n="nav.about">關於</a>
+      <a href="#book" data-i18n="nav.book">預約</a>
+    </div>
+  </div>
+  <div class="footer-copy">© <span id="yr"></span> TBC Solutions · Transform · Build · Create</div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+/* =================================================================
+   API 設定 — 已改為後端代理模式（Vercel /api/claude）
+   API Key 設在 Vercel 環境變數 CLAUDE_API_KEY，前端看不到。
+   ================================================================= */
+const CLAUDE_ENDPOINT = "/api/claude";               // Vercel serverless function
+const CLAUDE_MODEL    = "claude-sonnet-4-5";         // 可換成 claude-opus-4-6 等
+const CAL_LINK        = "https://cal.com/grouper-shek-9ungca/30min";
+
+/* ============== i18n ============== */
+const I18N = {
+  zh:{
+    "nav.services":"服務", "nav.demos":"互動 Demo", "nav.about":"關於", "nav.book":"預約",
+    "hero.eyebrow":"AI · 自動化 · 網頁",
+    "hero.title": ["從繁瑣事務中","解放出來"],
+    "hero.typing":["為您打造 AI 自動化工作流程","用 AI 重塑您的網站與內容","Transform · Build · Create"],
+    "hero.cta":"預約免費諮詢", "hero.cta2":"體驗 Demo", "hero.scroll":"向下滾動",
+    "tools.label":"我們熟悉的工具 · POWERED WITH",
+    "services.eyebrow":"服務內容",
+    "services.title1":"為您打造","services.title2":"智能商業未來",
+    "services.desc":"從工作流程自動化到 AI 內容創作，我們提供端到端的解決方案，讓您從繁瑣事務中解放，專注於真正重要的事。",
+    "services.tag1":"AUTOMATION","services.tag2":"WEB","services.tag3":"CONTENT","services.tag4":"CUSTOM AI",
+    "services.s1.title":"AI 自動化工作流程",
+    "services.s1.desc":"透過 n8n、Make、Zapier 等工具串聯系統，自動化郵件、CRM、資料同步、報表等重複工作。",
+    "services.s2.title":"網頁設計與開發",
+    "services.s2.desc":"從品牌官網到電商平台，提供現代感、響應式、SEO 友善的網頁設計與開發。",
+    "services.s3.title":"AI 內容創作",
+    "services.s3.desc":"運用 Claude / ChatGPT 為您批量生成社交媒體文案、部落格文章、產品描述、廣告素材。",
+    "services.s4.title":"客製化 AI 解決方案",
+    "services.s4.desc":"針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。",
+    "demos.eyebrow":"互動 DEMO",
+    "demos.title1":"不是說明，","demos.title2":"而是親身體驗",
+    "demos.desc":"每一個 Demo 都直接內嵌於本頁，零下載、零註冊。動手試試我們能為您做什麼。",
+    "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，看 AI 如何把它拆解成自動化工作流程。",
+    "demo1.label":"您的業務問題","demo1.btn":"產生工作流程 →",
+    "wf.n1":"觸發","wf.n2":"篩選條件","wf.n3":"AI 處理","wf.n4":"發送郵件","wf.n5":"記錄追蹤","wf.n6":"完成",
+    "demo2.title":"AI 聊天助手","demo2.desc":"由 Claude API 驅動的智能助手，可作為客服、顧問或內部知識助手。",
+    "demo2.greet":"您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。",
+    "demo2.send":"送出",
+    "demo3.title":"網頁生成預覽","demo3.desc":"輸入公司名與行業，立即生成示意網頁，模擬我們的網頁設計流程。",
+    "demo3.l1":"公司名稱","demo3.l2":"行業","demo3.btn":"生成預覽 →","demo3.empty":"輸入資訊後，這裡會生成預覽",
+    "demo4.title":"AI 內容生成器","demo4.desc":"由 Claude API 驅動，立即為您生成符合平台風格的社交媒體文案。",
+    "demo4.l1":"選擇平台","demo4.l2":"主題 / 產品","demo4.btn":"生成文案 →","demo4.empty":"您的文案將顯示在這裡…",
+    "about.eyebrow":"關於我們","about.title1":"每一間企業都值得","about.title2":"智能系統",
+    "about.p1":"TBC Solutions 由 <strong>Grouper</strong> 創立，專注於為企業提供 <strong>AI 自動化解決方案</strong>。我們相信每一間企業都值得擁有智能系統，讓您專注於真正重要的事。",
+    "about.p2":"從工作流程設計到 AI 模型整合，我們以「Transform · Build · Create」為核心，把您的業務從繁瑣中解放，重新打造，並創造新的可能。",
+    "about.role":"創辦人 · TBC Solutions",
+    "about.stat1":"整合工具","about.stat2":"自動運作","about.stat3":"無限可能",
+    "book.eyebrow":"預約諮詢","book.title1":"準備好了嗎？","book.title2":"預約免費諮詢",
+    "book.desc":"30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。",
+    "book.fallback1":"📅 Cal.com 預約 widget 預留位置",
+    "book.fallback2":"請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：",
+    "book.fallback3":"或可直接點擊下方按鈕傳送 Email：",
+  },
+  en:{
+    "nav.services":"Services","nav.demos":"Demos","nav.about":"About","nav.book":"Book",
+    "hero.eyebrow":"AI · AUTOMATION · WEB",
+    "hero.title":["Free yourself","from busywork"],
+    "hero.typing":["AI workflows that run while you sleep","Websites & content, reimagined with AI","Transform · Build · Create"],
+    "hero.cta":"Book a free call","hero.cta2":"Try the demos","hero.scroll":"SCROLL",
+    "tools.label":"POWERED WITH",
+    "services.eyebrow":"SERVICES",
+    "services.title1":"Build the","services.title2":"intelligent business",
+    "services.desc":"From workflow automation to AI content creation, we deliver end-to-end solutions so you can focus on what really matters.",
+    "services.tag1":"AUTOMATION","services.tag2":"WEB","services.tag3":"CONTENT","services.tag4":"CUSTOM AI",
+    "services.s1.title":"AI Workflow Automation",
+    "services.s1.desc":"Wire your tools together with n8n, Make and Zapier — emails, CRM, sync, reports, all on autopilot.",
+    "services.s2.title":"Web Design & Development",
+    "services.s2.desc":"From brand sites to e-commerce — modern, responsive, SEO-friendly websites built to convert.",
+    "services.s3.title":"AI Content Creation",
+    "services.s3.desc":"Generate social posts, blogs, product copy and ad creatives at scale with Claude / ChatGPT.",
+    "services.s4.title":"Custom AI Solutions",
+    "services.s4.desc":"Tailored AI assistants, knowledge bases, smart support and decision-support systems for your business.",
+    "demos.eyebrow":"INTERACTIVE DEMOS",
+    "demos.title1":"Don't read about it —","demos.title2":"try it",
+    "demos.desc":"Every demo runs in this page. No download, no signup. Touch what we can build for you.",
+    "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem and watch AI break it into an automated workflow.",
+    "demo1.label":"Your business problem","demo1.btn":"Generate workflow →",
+    "wf.n1":"Trigger","wf.n2":"Filter","wf.n3":"AI Process","wf.n4":"Send Email","wf.n5":"Log","wf.n6":"Done",
+    "demo2.title":"AI Chat Assistant","demo2.desc":"A real Claude-powered assistant — support, advisor, or internal knowledge bot.",
+    "demo2.greet":"Hi! I'm TBC Solutions' AI assistant. Ask me anything about our services, AI automation or web development.",
+    "demo2.send":"Send",
+    "demo3.title":"Website Generator Preview","demo3.desc":"Drop in a company name and industry — see a sample site rendered live.",
+    "demo3.l1":"Company name","demo3.l2":"Industry","demo3.btn":"Generate preview →","demo3.empty":"Fill in the form to render a preview",
+    "demo4.title":"AI Content Generator","demo4.desc":"Real Claude API — produces ready-to-post social copy that fits each platform.",
+    "demo4.l1":"Choose a platform","demo4.l2":"Topic / Product","demo4.btn":"Generate copy →","demo4.empty":"Your copy will appear here…",
+    "about.eyebrow":"ABOUT","about.title1":"Every business deserves","about.title2":"an intelligent system",
+    "about.p1":"TBC Solutions was founded by <strong>Grouper</strong> to bring <strong>AI automation</strong> within reach of every business — so you can focus on what truly matters.",
+    "about.p2":"From workflow design to AI model integration, we live by Transform · Build · Create — freeing your business from busywork, rebuilding it, and creating what's next.",
+    "about.role":"FOUNDER · TBC Solutions",
+    "about.stat1":"Tools integrated","about.stat2":"Always-on","about.stat3":"Possibilities",
+    "book.eyebrow":"BOOK A CALL","book.title1":"Ready?","book.title2":"Book a free consultation",
+    "book.desc":"A free 30-minute call to understand your needs and propose tailored AI-automation ideas.",
+    "book.fallback1":"📅 Cal.com booking widget placeholder",
+    "book.fallback2":"Find <code>YOUR_CAL_LINK_HERE</code> in the source and replace it with your Cal.com link, e.g.:",
+    "book.fallback3":"Or just send us an email:",
+  }
+};
+
+let currentLang = "zh";
+function applyLang(lang){
+  currentLang = lang;
+  document.body.classList.toggle("lang-zh", lang === "zh");
+  document.body.classList.toggle("lang-en", lang === "en");
+  document.documentElement.lang = lang === "zh" ? "zh-TW" : "en";
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k = el.getAttribute("data-i18n");
+    const v = I18N[lang][k];
+    if(typeof v === "string"){ el.innerHTML = v; }
+  });
+  // language toggle UI
+  document.querySelectorAll(".lang-switch button").forEach(b=>{
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
+  // reset hero title + typing for new language
+  buildHeroTitle();
+  startTyping();
+}
+
+document.querySelectorAll(".lang-switch button").forEach(b=>{
+  b.addEventListener("click", ()=> applyLang(b.dataset.lang));
+});
+
+/* ============== HERO TITLE ANIMATION ============== */
+function buildHeroTitle(){
+  const el = document.getElementById("hero-title");
+  const words = I18N[currentLang]["hero.title"];
+  el.innerHTML = words.map((w,i)=>{
+    const cls = i === 1 ? "gradient-text" : "";
+    return `<span class="word"><span class="${cls}">${w}</span></span>`;
+  }).join(" ");
+  // animate
+  if(window.gsap){
+    gsap.to("#hero-title .word > span", {
+      y:"0%", duration:1.1, ease:"expo.out", stagger:.12, delay:.2
+    });
+  }
+}
+
+/* ============== TYPING EFFECT ============== */
+let typeTimer;
+function startTyping(){
+  clearTimeout(typeTimer);
+  const el = document.getElementById("typed");
+  const lines = I18N[currentLang]["hero.typing"];
+  let li = 0, ci = 0, deleting = false;
+  el.textContent = "";
+  function tick(){
+    const cur = lines[li];
+    if(!deleting){
+      el.textContent = cur.slice(0, ++ci);
+      if(ci === cur.length){ deleting = true; typeTimer = setTimeout(tick, 1700); return; }
+    } else {
+      el.textContent = cur.slice(0, --ci);
+      if(ci === 0){ deleting = false; li = (li+1) % lines.length; }
+    }
+    typeTimer = setTimeout(tick, deleting ? 28 : 60);
+  }
+  tick();
+}
+
+/* ============== TOOLS MARQUEE ============== */
+const TOOLS = [
+  {name:"n8n",          c:"#ea4b71"},
+  {name:"Claude AI",    c:"#cc785c"},
+  {name:"ChatGPT",      c:"#10a37f"},
+  {name:"Make",         c:"#6d00cc"},
+  {name:"Zapier",       c:"#ff4a00"},
+  {name:"Airtable",     c:"#fcb400"},
+  {name:"Notion",       c:"#000000"},
+  {name:"Google",       c:"#4285f4"},
+  {name:"WordPress",    c:"#21759b"},
+  {name:"Webflow",      c:"#4353ff"},
+];
+function buildMarquee(){
+  const html = TOOLS.map(t=>{
+    const initials = t.name.split(/\s+/).map(s=>s[0]).join("").slice(0,2).toUpperCase();
+    const txt = t.c === "#000000" ? "#fff" : "#fff";
+    return `<div class="tool"><div class="tool-icon" style="background:${t.c};color:${txt}">${initials}</div><div class="tool-name">${t.name}</div></div>`;
+  }).join("");
+  document.getElementById("marquee-track").innerHTML  = html;
+  document.getElementById("marquee-track-2").innerHTML = html;
+}
+
+/* ============== PARTICLES BG ============== */
+(function particles(){
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+  let w, h, parts = [];
+  function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+  resize(); window.addEventListener("resize", resize);
+  const N = Math.min(80, Math.round(window.innerWidth/22));
+  for(let i=0;i<N;i++){
+    parts.push({
+      x:Math.random()*w, y:Math.random()*h,
+      vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25,
+      r:Math.random()*1.6+.4,
+      hue: Math.random()<.5 ? 268 : (Math.random()<.5 ? 322 : 196),
+    });
+  }
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    parts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>w) p.vx*=-1;
+      if(p.y<0||p.y>h) p.vy*=-1;
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue},85%,70%,.55)`;
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+    });
+    // links
+    for(let i=0;i<parts.length;i++){
+      for(let j=i+1;j<parts.length;j++){
+        const dx = parts[i].x-parts[j].x, dy = parts[i].y-parts[j].y;
+        const d = Math.hypot(dx,dy);
+        if(d<110){
+          ctx.strokeStyle = `rgba(180,160,255,${(1-d/110)*.18})`;
+          ctx.lineWidth = .6;
+          ctx.beginPath();
+          ctx.moveTo(parts[i].x,parts[i].y);
+          ctx.lineTo(parts[j].x,parts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ============== REVEAL ON SCROLL ============== */
+(function reveal(){
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:.12, rootMargin:"-40px"});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+})();
+
+/* ============== NAV SCROLLED ============== */
+window.addEventListener("scroll", ()=>{
+  document.getElementById("nav").classList.toggle("scrolled", window.scrollY > 30);
+});
+
+/* ============== SERVICE CARD MOUSE GLOW ============== */
+document.querySelectorAll("[data-mouse]").forEach(card=>{
+  card.addEventListener("mousemove", e=>{
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", (e.clientX-r.left)+"px");
+    card.style.setProperty("--my", (e.clientY-r.top)+"px");
+  });
+});
+
+/* ===========================================================
+   DEMO 1 — WORKFLOW SIMULATOR
+   =========================================================== */
+const wfRunBtn = document.getElementById("wf-run");
+const wfNodes = document.querySelectorAll(".wf-node");
+const wfArrows = document.querySelectorAll(".wf-arrow");
+const wfResult = document.getElementById("wf-result");
+
+wfRunBtn.addEventListener("click", async ()=>{
+  const txt = (document.getElementById("wf-input").value || "").trim();
+  // reset
+  wfNodes.forEach(n=>n.classList.remove("active"));
+  wfArrows.forEach(a=>a.classList.remove("active"));
+  wfResult.classList.remove("show");
+  wfRunBtn.disabled = true;
+  const order = [0,1,2,3,4,5];
+  for(let i=0;i<order.length;i++){
+    await wait(450);
+    const node = document.querySelector(`.wf-node[data-step="${order[i]}"]`);
+    if(node) node.classList.add("active");
+    const arr = document.querySelector(`.wf-arrow[data-arrow="${order[i]}"]`);
+    if(arr) arr.classList.add("active");
+  }
+  await wait(400);
+  // estimated saving — pseudo random based on text length for fun
+  const hours = Math.max(6, Math.min(48, Math.round((txt.length || 18) * 1.1)));
+  const ZH = currentLang === "zh";
+  wfResult.innerHTML = ZH
+    ? `✅ <strong>流程已完成</strong> · 預估每月為您節省 <strong>${hours} 小時</strong>。<br><span style="color:var(--text-dim);font-size:13px">這個工作流程可以連接您的 Email、CRM、AI 模型，無需手動介入即可運作。</span>`
+    : `✅ <strong>Workflow complete</strong> · estimated savings: <strong>${hours} hrs / month</strong>.<br><span style="color:var(--text-dim);font-size:13px">This workflow connects your email, CRM and AI models — no manual work needed.</span>`;
+  wfResult.classList.add("show");
+  wfRunBtn.disabled = false;
+});
+
+function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
+
+/* ===========================================================
+   DEMO 2 — CHAT (Claude API)
+   =========================================================== */
+const chatMsgs = document.getElementById("chat-msgs");
+const chatInput = document.getElementById("chat-input");
+const chatSend  = document.getElementById("chat-send");
+let chatHistory = [];
+
+function addMsg(role, text, opts={}){
+  const div = document.createElement("div");
+  div.className = "chat-msg " + role + (opts.thinking ? " thinking" : "");
+  if(opts.thinking){
+    div.innerHTML = `<span class="dot-typing"><span></span><span></span><span></span></span>`;
+  } else {
+    div.textContent = text;
+  }
+  chatMsgs.appendChild(div);
+  chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  return div;
+}
+
+async function sendChat(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  chatInput.value = "";
+  chatSend.disabled = true;
+  addMsg("user", text);
+  chatHistory.push({role:"user", content:text});
+  const thinking = addMsg("bot","",{thinking:true});
+
+  try{
+    const reply = await callClaude({
+      system: currentLang === "zh"
+        ? "你是 TBC Solutions 的 AI 助手。TBC Solutions 由 Grouper 創立，專注於 AI 自動化、網頁設計與 AI 內容創作。請以友善、專業、簡潔的繁體中文回答，回覆控制在 100 字內。若使用者詢問報價或合作，建議他們點擊頁面下方的「預約免費諮詢」。"
+        : "You are TBC Solutions' AI assistant. TBC Solutions, founded by Grouper, specialises in AI automation, web design and AI content creation. Reply in friendly, professional and concise English (under 90 words). If the user asks about pricing or collaboration, invite them to click the 'Book a free call' section at the bottom of the page.",
+      messages: chatHistory,
+    });
+    thinking.classList.remove("thinking");
+    thinking.innerHTML = "";
+    thinking.textContent = reply;
+    chatHistory.push({role:"assistant", content:reply});
+  }catch(e){
+    thinking.classList.remove("thinking");
+    thinking.textContent = (currentLang==="zh"
+      ? "⚠️ 連接 Claude API 失敗。請確認已在原始碼填入 CLAUDE_API_KEY。\n錯誤："
+      : "⚠️ Failed to reach Claude API. Please set CLAUDE_API_KEY in the source.\nError: ") + (e.message || e);
+  }finally{
+    chatSend.disabled = false;
+    chatInput.focus();
+  }
+}
+chatSend.addEventListener("click", sendChat);
+chatInput.addEventListener("keydown", e=>{ if(e.key==="Enter") sendChat(); });
+
+/* ===========================================================
+   DEMO 3 — WEBSITE PREVIEW
+   =========================================================== */
+const wgRun = document.getElementById("wg-run");
+wgRun.addEventListener("click", async ()=>{
+  const name = (document.getElementById("wg-name").value || "Acme").trim();
+  const ind = (document.getElementById("wg-industry").value || "Studio").trim();
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") || "your-brand";
+  const urlEl = document.getElementById("wg-url");
+  const body = document.getElementById("wg-body");
+
+  body.innerHTML = `<div class="preview-empty">${currentLang==="zh"?"生成中…":"Generating…"}</div>`;
+  // simulate URL typing
+  const targetUrl = `https://${slug}.com`;
+  urlEl.textContent = "https://";
+  for(let i=0;i<targetUrl.length-8;i++){
+    await wait(40);
+    urlEl.textContent = "https://" + targetUrl.slice(8, 8+i+1);
+  }
+  await wait(280);
+
+  const ZH = currentLang === "zh";
+  const taglineMap = {
+    zh: `為您打造的 ${ind} 體驗`,
+    en: `${ind} reimagined.`,
+  };
+  const cards = ZH
+    ? [["關於","了解我們的故事與理念"],["服務","為您提供量身訂製的方案"],["聯絡","30 秒就能聯繫到我們"]]
+    : [["About","Our story and approach"],["Services","Tailored solutions for you"],["Contact","Reach us in 30 seconds"]];
+
+  body.innerHTML = `
+    <div class="preview-nav fade-in">
+      <strong>${escapeHtml(name)}</strong>
+      <div class="links">
+        <span>${ZH?"關於":"About"}</span>
+        <span>${ZH?"服務":"Services"}</span>
+        <span>${ZH?"聯絡":"Contact"}</span>
+      </div>
+    </div>
+    <div class="preview-hero fade-in">
+      <span class="pill">${escapeHtml(ind).toUpperCase()}</span>
+      <h4>${escapeHtml(name)}</h4>
+      <p>${escapeHtml(taglineMap[currentLang])}</p>
+    </div>
+    <div class="preview-cards">
+      ${cards.map(([t,d])=>`
+        <div class="preview-card fade-in"><strong>${t}</strong><span>${d}</span></div>
+      `).join("")}
+    </div>
+  `;
+  // animate in
+  const fades = body.querySelectorAll(".fade-in");
+  fades.forEach((f,i)=>{
+    setTimeout(()=>{
+      f.style.transition = "opacity .5s ease, transform .5s ease";
+      f.style.opacity = "1";
+      f.style.transform = "translateY(0)";
+    }, i*150);
+  });
+});
+function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" })[c]); }
+
+/* ===========================================================
+   DEMO 4 — CONTENT GENERATOR (Claude API)
+   =========================================================== */
+let activePlatform = "instagram";
+document.querySelectorAll(".platform-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".platform-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    activePlatform = btn.dataset.platform;
+  });
+});
+
+const cgRun = document.getElementById("cg-run");
+const cgOut = document.getElementById("cg-output");
+cgRun.addEventListener("click", async ()=>{
+  const topic = (document.getElementById("cg-topic").value || "").trim();
+  if(!topic){
+    cgOut.innerHTML = `<span class="placeholder">${currentLang==="zh"?"請先輸入主題":"Please enter a topic first."}</span>`;
+    return;
+  }
+  cgRun.disabled = true;
+  cgOut.innerHTML = `<span class="placeholder">${currentLang==="zh"?"AI 生成中…":"AI is writing…"}</span>`;
+
+  const platformLabel = {instagram:"Instagram",facebook:"Facebook",linkedin:"LinkedIn"}[activePlatform];
+  const styleHints = {
+    instagram: currentLang==="zh"
+      ? "風格：年輕、生活感、重視視覺。大量使用 emoji，3–5 個 hashtag，分段乾淨、節奏明快。控制在 80 字內。"
+      : "Style: young, lifestyle-driven, visual. Plenty of emojis, 3–5 hashtags, snappy paragraphs. Under 70 words.",
+    facebook: currentLang==="zh"
+      ? "風格：偏對話式、像跟朋友分享。可使用少量 emoji，輕鬆但帶有 CTA。控制在 100 字內。"
+      : "Style: conversational, like sharing with friends. Light emojis, easy CTA. Under 80 words.",
+    linkedin: currentLang==="zh"
+      ? "風格：專業、富洞察、針對企業 / 上班族受眾。少量或不使用 emoji，結構清楚（鉤子 → 觀點 → 行動）。控制在 130 字內。"
+      : "Style: professional, insight-driven, for executives. Minimal emojis. Hook → insight → CTA. Under 110 words.",
+  }[activePlatform];
+
+  const sysPrompt = (currentLang==="zh"
+    ? `你是專業的社交媒體文案寫手。請為 ${platformLabel} 平台撰寫一則貼文。${styleHints} 直接輸出貼文內容即可，不需要前言或說明。`
+    : `You are a senior social media copywriter. Write one post for ${platformLabel}. ${styleHints} Output the post only — no preface or commentary.`);
+
+  try{
+    const reply = await callClaude({
+      system: sysPrompt,
+      messages: [{role:"user", content: topic}],
+    });
+    cgOut.innerHTML = `<div class="platform-tag ${activePlatform}">${platformLabel}</div>${escapeHtml(reply)}`;
+  }catch(e){
+    cgOut.innerHTML = `<span class="placeholder">⚠️ ${currentLang==="zh"?"連接 Claude API 失敗。請在原始碼填入 CLAUDE_API_KEY。":"Failed to reach Claude API. Set CLAUDE_API_KEY in the source."}\n${e.message||e}</span>`;
+  }finally{
+    cgRun.disabled = false;
+  }
+});
+
+/* ===========================================================
+   CLAUDE API CALL — via Vercel serverless proxy (/api/claude)
+   API Key 由後端持有，前端無法看到。
+   =========================================================== */
+async function callClaude({system, messages}){
+  const res = await fetch(CLAUDE_ENDPOINT, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      model: CLAUDE_MODEL,
+      system,
+      messages: messages.map(m=>({role:m.role, content:m.content})),
+    }),
+  });
+  const data = await res.json().catch(()=>({error:"Invalid JSON from /api/claude"}));
+  if(!res.ok){
+    throw new Error(data.error || `HTTP ${res.status}`);
+  }
+  return (data.reply || "").trim() || "(empty response)";
+}
+
+/* ===========================================================
+   CAL.COM IFRAME LOAD
+   =========================================================== */
+(function loadCal(){
+  const frame = document.getElementById("cal-frame");
+  const fb = document.getElementById("book-fallback");
+  if(!CAL_LINK || CAL_LINK === "YOUR_CAL_LINK_HERE"){
+    frame.style.display = "none";
+    fb.style.display = "block";
+    return;
+  }
+  const url = CAL_LINK.startsWith("http") ? CAL_LINK : `https://cal.com/${CAL_LINK}`;
+  frame.src = `${url}?embed=true&theme=dark`;
+  fb.style.display = "none";
+})();
+
+/* ============== INIT ============== */
+document.getElementById("yr").textContent = new Date().getFullYear();
+buildMarquee();
+applyLang("zh");
+
+/* GSAP ScrollTrigger flourishes */
+if(window.gsap && window.ScrollTrigger){
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray(".service-card").forEach((card,i)=>{
+    gsap.from(card, {
+      y:60, opacity:0, duration:.9, ease:"expo.out",
+      delay: i*0.08,
+      scrollTrigger:{ trigger:card, start:"top 85%" }
+    });
+  });
+  gsap.utils.toArray(".demo-block").forEach((block)=>{
+    gsap.from(block, {
+      y:50, opacity:0, duration:1, ease:"expo.out",
+      scrollTrigger:{ trigger:block, start:"top 85%" }
+    });
+  });
+}
+</script>
+</body>
+</html>
