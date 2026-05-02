@@ -1200,7 +1200,7 @@ main,nav,section,footer{position:relative;z-index:2}
             <div class="demo-save" data-i18n="demo2.save">平均省 40 小時/月</div>
           </div>
           <h3 class="h3" style="margin-top:8px" data-i18n="demo2.title">AI 聊天助手</h3>
-          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">由 Claude API 驅動的智能助手，可作為客服、顧問或內部知識助手。</p>
+          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">真實 AI 驅動嘅智能助手，可作為客服、顧問或內部知識助手。</p>
         </div>
       </div>
 
@@ -1264,7 +1264,7 @@ main,nav,section,footer{position:relative;z-index:2}
             <div class="demo-save" data-i18n="demo4.save">產出速度 5×</div>
           </div>
           <h3 class="h3" style="margin-top:8px" data-i18n="demo4.title">AI 內容生成器</h3>
-          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo4.desc">由 Claude API 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
+          <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo4.desc">真實 AI 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
         </div>
       </div>
       <div class="demo-grid">
@@ -1468,7 +1468,7 @@ main,nav,section,footer{position:relative;z-index:2}
    API Key 設在 Vercel 環境變數 CLAUDE_API_KEY，前端看不到。
    ================================================================= */
 const CLAUDE_ENDPOINT = "/api/claude";               // serverless function (works on Netlify and Vercel)
-const CLAUDE_MODEL    = "anthropic/claude-sonnet-4"; // OpenRouter 格式：provider/model
+const CLAUDE_MODEL    = "google/gemini-2.0-flash-exp:free"; // OpenRouter — 免費 Gemini
 const CAL_LINK        = "https://cal.com/grouper-shek-9ungca/30min";
 
 /* ============== i18n ============== */
@@ -1498,12 +1498,12 @@ const I18N = {
     "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，看 AI 如何把它拆解成自動化工作流程。",
     "demo1.label":"您的業務問題","demo1.btn":"產生工作流程 →","demo1.save":"平均省 25 小時/月",
     "wf.n1":"觸發","wf.n2":"篩選條件","wf.n3":"AI 處理","wf.n4":"發送郵件","wf.n5":"記錄追蹤","wf.n6":"完成",
-    "demo2.title":"AI 聊天助手","demo2.desc":"由 Claude API 驅動的智能助手，可作為客服、顧問或內部知識助手。",
+    "demo2.title":"AI 聊天助手","demo2.desc":"真實 AI 驅動嘅智能助手，可作為客服、顧問或內部知識助手。",
     "demo2.greet":"您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。",
     "demo2.send":"送出","demo2.save":"平均省 40 小時/月",
     "demo3.title":"網頁生成預覽","demo3.desc":"輸入公司名與行業，立即生成示意網頁，模擬我們的網頁設計流程。",
     "demo3.l1":"公司名稱","demo3.l2":"行業","demo3.btn":"生成預覽 →","demo3.empty":"輸入資訊後，這裡會生成預覽","demo3.save":"上線時間縮短 80%",
-    "demo4.title":"AI 內容生成器","demo4.desc":"由 Claude API 驅動，立即為您生成符合平台風格的社交媒體文案。",
+    "demo4.title":"AI 內容生成器","demo4.desc":"真實 AI 驅動，立即為您生成符合平台風格的社交媒體文案。",
     "demo4.l1":"選擇平台","demo4.l2":"主題 / 產品","demo4.btn":"生成文案 →","demo4.empty":"您的文案將顯示在這裡…","demo4.save":"產出速度 5×",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
@@ -1552,12 +1552,12 @@ const I18N = {
     "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem and watch AI break it into an automated workflow.",
     "demo1.label":"Your business problem","demo1.btn":"Generate workflow →","demo1.save":"Saves 25 hrs / month",
     "wf.n1":"Trigger","wf.n2":"Filter","wf.n3":"AI Process","wf.n4":"Send Email","wf.n5":"Log","wf.n6":"Done",
-    "demo2.title":"AI Chat Assistant","demo2.desc":"A real Claude-powered assistant — support, advisor, or internal knowledge bot.",
+    "demo2.title":"AI Chat Assistant","demo2.desc":"A real AI-powered assistant — support, advisor, or internal knowledge bot.",
     "demo2.greet":"Hi! I'm TBC Solutions' AI assistant. Ask me anything about our services, AI automation or web development.",
     "demo2.send":"Send","demo2.save":"Saves 40 hrs / month",
     "demo3.title":"Website Generator Preview","demo3.desc":"Drop in a company name and industry — see a sample site rendered live.",
     "demo3.l1":"Company name","demo3.l2":"Industry","demo3.btn":"Generate preview →","demo3.empty":"Fill in the form to render a preview","demo3.save":"80% faster to launch",
-    "demo4.title":"AI Content Generator","demo4.desc":"Real Claude API — produces ready-to-post social copy that fits each platform.",
+    "demo4.title":"AI Content Generator","demo4.desc":"Real AI — produces ready-to-post social copy that fits each platform.",
     "demo4.l1":"Choose a platform","demo4.l2":"Topic / Product","demo4.btn":"Generate copy →","demo4.empty":"Your copy will appear here…","demo4.save":"5× faster output",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"Real time and cost","impact.title2":"saved.",
@@ -2138,8 +2138,8 @@ async function sendChat(){
   }catch(e){
     thinking.classList.remove("thinking");
     thinking.textContent = (currentLang==="zh"
-      ? "⚠️ 連接 Claude API 失敗。請確認已在原始碼填入 CLAUDE_API_KEY。\n錯誤："
-      : "⚠️ Failed to reach Claude API. Please set CLAUDE_API_KEY in the source.\nError: ") + (e.message || e);
+      ? "⚠️ 連接 AI 服務失敗。\n錯誤："
+      : "⚠️ Failed to reach AI service.\nError: ") + (e.message || e);
   }finally{
     chatSend.disabled = false;
     chatInput.focus();
@@ -2257,7 +2257,7 @@ cgRun.addEventListener("click", async ()=>{
     });
     cgOut.innerHTML = `<div class="platform-tag ${activePlatform}">${platformLabel}</div>${escapeHtml(reply)}`;
   }catch(e){
-    cgOut.innerHTML = `<span class="placeholder">⚠️ ${currentLang==="zh"?"連接 Claude API 失敗。請在原始碼填入 CLAUDE_API_KEY。":"Failed to reach Claude API. Set CLAUDE_API_KEY in the source."}\n${e.message||e}</span>`;
+    cgOut.innerHTML = `<span class="placeholder">⚠️ ${currentLang==="zh"?"連接 AI 服務失敗。":"Failed to reach AI service."}\n${e.message||e}</span>`;
   }finally{
     cgRun.disabled = false;
   }

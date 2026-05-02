@@ -48,7 +48,7 @@ exports.handler = async (event) => {
     const {
       system,
       messages = [],
-      model = "anthropic/claude-sonnet-4",
+      model = "google/gemini-2.0-flash-exp:free",
       max_tokens = 600,
     } = body;
 
