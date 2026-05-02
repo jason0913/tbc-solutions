@@ -1467,8 +1467,8 @@ main,nav,section,footer{position:relative;z-index:2}
    API 設定 — 已改為後端代理模式（Vercel /api/claude）
    API Key 設在 Vercel 環境變數 CLAUDE_API_KEY，前端看不到。
    ================================================================= */
-const CLAUDE_ENDPOINT = "/api/claude";               // Vercel serverless function
-const CLAUDE_MODEL    = "claude-sonnet-4-5";         // 可換成 claude-opus-4-6 等
+const CLAUDE_ENDPOINT = "/api/claude";               // serverless function (works on Netlify and Vercel)
+const CLAUDE_MODEL    = "anthropic/claude-3.5-sonnet"; // OpenRouter 格式：provider/model
 const CAL_LINK        = "https://cal.com/grouper-shek-9ungca/30min";
 
 /* ============== i18n ============== */

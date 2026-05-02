@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     const {
       system,
       messages = [],
-      model = "anthropic/claude-sonnet-4.5",
+      model = "anthropic/claude-3.5-sonnet",
       max_tokens = 600,
     } = req.body || {};
 

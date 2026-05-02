@@ -48,7 +48,7 @@ exports.handler = async (event) => {
     const {
       system,
       messages = [],
-      model = "anthropic/claude-sonnet-4.5",
+      model = "anthropic/claude-3.5-sonnet",
       max_tokens = 600,
     } = body;
 
