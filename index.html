@@ -1332,7 +1332,7 @@ main,nav,section,footer{position:relative;z-index:2}
                   <div class="demo-save" data-i18n="demo1.save">平均省 25 小時/月</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo1.title">AI 自動化模擬器</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo1.desc">輸入您的業務問題，AI 即時為您拆解成屬於您嘅自動化流程。</p>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo1.desc">輸入您的業務問題，AI 即時為您拆解成屬於您的自動化流程。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -1349,7 +1349,7 @@ main,nav,section,footer{position:relative;z-index:2}
                   <div class="wf-dynamic" id="wf-dynamic">
                     <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px">
                       <div style="font-size:42px;margin-bottom:10px">🧠</div>
-                      <div data-i18n="demo1.placeholder">輸入您嘅問題，AI 即時為您動態生成工作流程節點</div>
+                      <div data-i18n="demo1.placeholder">輸入您的問題，AI 即時為您動態生成工作流程節點</div>
                     </div>
                   </div>
                 </div>
@@ -1368,7 +1368,7 @@ main,nav,section,footer{position:relative;z-index:2}
                   <div class="demo-save" data-i18n="demo2.save">平均省 40 小時/月</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo2.title">AI 聊天助手</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">真實 AI 驅動嘅智能助手，可作為客服、顧問或內部知識助手。</p>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">真實 AI 驅動的智能助手，可作為客服、顧問或內部知識助手。</p>
               </div>
             </div>
 
@@ -1481,7 +1481,7 @@ main,nav,section,footer{position:relative;z-index:2}
               <div>
                 <div class="field">
                   <label data-i18n="demo5.label">客戶訊息</label>
-                  <textarea class="textarea" id="ia-input" rows="5" placeholder="例：我訂單已經 7 日仲未收到，再唔到我會投訴!"></textarea>
+                  <textarea class="textarea" id="ia-input" rows="5" placeholder="例：我訂單已經 7 日尚未收到，再不到我會投訴!"></textarea>
                 </div>
                 <button class="btn btn-primary" id="ia-run" style="width:100%;justify-content:center" data-i18n="demo5.btn">AI 分析訊息 →</button>
               </div>
@@ -1534,7 +1534,7 @@ main,nav,section,footer{position:relative;z-index:2}
                 </div>
                 <div class="field">
                   <label data-i18n="demo6.l3">上次對話重點</label>
-                  <textarea class="textarea" id="se-context" rows="3" placeholder="例：上週傾過 AI 自動點餐系統，客戶有興趣但仲未決定"></textarea>
+                  <textarea class="textarea" id="se-context" rows="3" placeholder="例：上週談過 AI 自動點餐系統，客戶有興趣但尚未決定"></textarea>
                 </div>
                 <button class="btn btn-primary" id="se-run" style="width:100%;justify-content:center" data-i18n="demo6.btn">AI 撰寫跟進信 →</button>
               </div>
@@ -1780,11 +1780,11 @@ const I18N = {
     "services.s4.desc":"針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。",
     "demos.eyebrow":"互動 DEMO","demos.counterLabel":"DEMOS",
     "demos.title1":"不是說明，","demos.title2":"而是親身體驗",
-    "demos.desc":"6 個 Demo 直接喺本頁互動，零下載、零註冊。撳上面 tab 或左右箭咀切換。",
-    "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您嘅業務問題，AI 即時為您拆解成屬於您嘅自動化流程。",
+    "demos.desc":"6 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。",
+    "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，AI 即時為您拆解成屬於您的自動化流程。",
     "demo1.label":"您的業務問題","demo1.btn":"AI 拆解工作流 →","demo1.save":"平均省 25 小時/月",
-    "demo1.placeholder":"輸入您嘅問題，AI 即時為您動態生成工作流程節點",
-    "demo2.title":"AI 聊天助手","demo2.desc":"真實 AI 驅動嘅智能助手，可作為客服、顧問或內部知識助手。",
+    "demo1.placeholder":"輸入您的問題，AI 即時為您動態生成工作流程節點",
+    "demo2.title":"AI 聊天助手","demo2.desc":"真實 AI 驅動的智能助手，可作為客服、顧問或內部知識助手。",
     "demo2.greet":"您好！我是 TBC Solutions 的 AI 助手，可以為您解答關於我們服務、AI 自動化或網頁開發的任何問題。",
     "demo2.send":"送出","demo2.save":"平均省 40 小時/月",
     "demo3.title":"網頁生成預覽","demo3.desc":"輸入公司名與行業，AI 即時為您生成標語、Hero 區、3 個服務卡片預覽。",
@@ -2442,12 +2442,12 @@ const wfResult = document.getElementById("wf-result");
 wfRunBtn.addEventListener("click", async ()=>{
   const txt = (document.getElementById("wf-input").value || "").trim();
   if(!txt){
-    wfDynamic.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-faint);font-size:13.5px">${currentLang==="zh"?"請先輸入您嘅業務問題":"Please enter a business problem first."}</div>`;
+    wfDynamic.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-faint);font-size:13.5px">${currentLang==="zh"?"請先輸入您的業務問題":"Please enter a business problem first."}</div>`;
     return;
   }
   wfRunBtn.disabled = true;
   wfResult.classList.remove("show");
-  wfDynamic.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${currentLang==="zh"?"AI 正在拆解您嘅工作流程…":"AI is breaking down your workflow…"}</div></div>`;
+  wfDynamic.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${currentLang==="zh"?"AI 正在拆解您的工作流程…":"AI is breaking down your workflow…"}</div></div>`;
 
   const lang = currentLang;
   const sysPrompt = lang === "zh"
@@ -2592,12 +2592,12 @@ wgRun.addEventListener("click", async ()=>{
 
   const lang = currentLang;
   const sysPrompt = lang === "zh"
-    ? `你是一個品牌文案專家。用戶會提供公司名與行業，你要為佢生成一個簡潔、專業嘅網站首頁文案。
+    ? `你是一個品牌文案專家。用戶會提供公司名與行業，你要為其生成一個簡潔、專業的網站首頁文案。
 **只回覆 JSON**，格式：
 {
-  "tagline": "8-15 字嘅吸引標語",
-  "hero_title": "10-18 字嘅 Hero 大標題",
-  "hero_sub": "20-35 字嘅副標題，講解品牌價值",
+  "tagline": "8-15 字的吸引標語",
+  "hero_title": "10-18 字的 Hero 大標題",
+  "hero_sub": "20-35 字的副標題，講解品牌價值",
   "services": [
     {"title":"服務 1 名稱（4-8 字）","desc":"15-25 字描述"},
     {"title":"服務 2 名稱","desc":"..."},
@@ -2736,12 +2736,12 @@ iaRun.addEventListener("click", async ()=>{
   setVal("ia-reply", lang==="zh" ? "AI 分析中…" : "Analyzing…");
 
   const sysPrompt = lang === "zh"
-    ? `你係客服分析師。用戶會貼一段客戶訊息，請分析並**只回覆 JSON**：
+    ? `你是客服分析師。用戶會貼一段客戶訊息，請分析並**只回覆 JSON**：
 {
   "urgency": "高 | 中 | 低",
   "mood": "正面 | 中性 | 負面",
-  "category": "查詢 / 投訴 / 銷售 / 售後 / 退款 / 其他 嘅其中一個",
-  "reply": "用同樣語氣寫一封專業、有同理心嘅回覆，2-4 句"
+  "category": "查詢 / 投訴 / 銷售 / 售後 / 退款 / 其他 的其中一個",
+  "reply": "用同樣語氣寫一封專業、有同理心的回覆，2-4 句"
 }`
     : `You are a customer-care analyst. Given a customer message, reply ONLY with JSON:
 {
@@ -2810,11 +2810,11 @@ seRun.addEventListener("click", async ()=>{
   document.getElementById("se-body").innerHTML = `<div class="dot-typing"><span></span><span></span><span></span></div>`;
 
   const sysPrompt = lang === "zh"
-    ? `你係資深 B2B 銷售。為 TBC Solutions（一間提供 AI 自動化 + 網頁開發嘅顧問公司）撰寫一封專業、簡潔、有溫度嘅跟進電郵。
+    ? `你是資深 B2B 銷售。為 TBC Solutions（一間提供 AI 自動化 + 網頁開發的顧問公司）撰寫一封專業、簡潔、有溫度的跟進電郵。
 **只回覆 JSON**，格式：
 {
-  "subject": "8-15 字嘅吸引主旨",
-  "body": "150-220 字嘅完整郵件內文（包含問候 → 提及上次重點 → 呼應客戶需求 → 提出下一步 → 結尾）。署名請用『Grouper｜TBC Solutions』。"
+  "subject": "8-15 字的吸引主旨",
+  "body": "150-220 字的完整郵件內文（包含問候 → 提及上次重點 → 呼應客戶需求 → 提出下一步 → 結尾）。署名請用『Grouper｜TBC Solutions』。"
 }`
     : `You are a senior B2B sales rep. Write a professional, concise, warm follow-up email for TBC Solutions (a consultancy offering AI automation + web development).
 **Reply ONLY with JSON**:
