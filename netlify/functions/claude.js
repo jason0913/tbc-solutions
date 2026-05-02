@@ -1,9 +1,12 @@
-// Netlify Serverless Function — proxies requests to the Anthropic Claude API
-// so the API key stays on the server (never shipped to the browser).
+// Netlify Serverless Function — proxies requests to OpenRouter
+// (which gives access to Claude and many other models with one API key).
 //
 // Reads the API key from environment variable CLAUDE_API_KEY,
 // which you set in the Netlify dashboard:
 //   Site → Site configuration → Environment variables
+//
+// The variable name is CLAUDE_API_KEY for backward compatibility
+// even though the value is now an OpenRouter key (sk-or-v1-...).
 //
 // Endpoint:
 //   POST /.netlify/functions/claude
@@ -13,7 +16,7 @@
 // Reply: { reply: string }   or   { error: string }
 
 exports.handler = async (event) => {
-  // CORS / method gate
+  // CORS preflight
   if (event.httpMethod === "OPTIONS") {
     return {
       statusCode: 204,
@@ -44,8 +47,8 @@ exports.handler = async (event) => {
     const body = JSON.parse(event.body || "{}");
     const {
       system,
-      messages,
-      model = "claude-sonnet-4-5",
+      messages = [],
+      model = "anthropic/claude-sonnet-4.5",
       max_tokens = 600,
     } = body;
 
@@ -57,14 +60,26 @@ exports.handler = async (event) => {
       };
     }
 
-    const upstream = await fetch("https://api.anthropic.com/v1/messages", {
+    // OpenRouter is OpenAI-compatible — system goes in messages array
+    const fullMessages = system
+      ? [{ role: "system", content: system }, ...messages]
+      : messages;
+
+    const upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        // Optional but recommended — helps OpenRouter rank your traffic and
+        // appears in your dashboard analytics.
+        "HTTP-Referer": "https://tbcsolutions.com",
+        "X-Title": "TBC Solutions",
       },
-      body: JSON.stringify({ model, max_tokens, system, messages }),
+      body: JSON.stringify({
+        model,
+        max_tokens,
+        messages: fullMessages,
+      }),
     });
 
     const text = await upstream.text();
@@ -72,15 +87,15 @@ exports.handler = async (event) => {
       return {
         statusCode: upstream.status,
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ error: `Anthropic API error: ${text.slice(0, 500)}` }),
+        body: JSON.stringify({ error: `OpenRouter API error: ${text.slice(0, 500)}` }),
       };
     }
 
     const data = JSON.parse(text);
     const reply =
-      Array.isArray(data?.content) && data.content[0]?.text
-        ? data.content[0].text
-        : "";
+      data?.choices?.[0]?.message?.content ||
+      data?.choices?.[0]?.text ||
+      "";
 
     return {
       statusCode: 200,
