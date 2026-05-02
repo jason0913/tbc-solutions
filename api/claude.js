@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       : messages;
 
     // Upstream API base URL — change this if you switch providers.
-    const UPSTREAM = "https://babycookbook.top/v1/chat/completions";
+    const UPSTREAM = "https://babycookbook.top/chat/completions";
 
     const upstream = await fetch(UPSTREAM, {
       method: "POST",

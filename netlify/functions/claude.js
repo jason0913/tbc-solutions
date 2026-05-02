@@ -67,7 +67,7 @@ exports.handler = async (event) => {
 
     // Upstream API base URL — change this if you switch providers.
     // Currently using a third-party OpenAI-compatible relay.
-    const UPSTREAM = "https://babycookbook.top/v1/chat/completions";
+    const UPSTREAM = "https://babycookbook.top/chat/completions";
 
     const upstream = await fetch(UPSTREAM, {
       method: "POST",
