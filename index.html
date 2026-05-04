@@ -630,29 +630,159 @@ main,nav,section,footer{position:relative;z-index:2}
   font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-dim);
   border:1px solid var(--line);min-height:24px;
 }
+/* ======= Demo 3: rich website preview (multi-section) ======= */
 .preview-body{
-  flex:1;padding:24px;overflow:hidden;
-  background:linear-gradient(160deg,#fff,#f0f0f5);color:#111;
-  position:relative;display:flex;flex-direction:column;gap:14px;
+  flex:1;padding:0;overflow:hidden;
+  background:#ffffff;color:#0a0a14;
+  position:relative;display:flex;flex-direction:column;
+  --pv-accent:#7c5cff;
+  --pv-soft:#f5f3ff;
+  --pv-accent-2:#ff5cb1;
 }
 .preview-empty{
   display:flex;align-items:center;justify-content:center;flex:1;
-  color:#999;font-size:13px;
+  color:#999;font-size:13px;text-align:center;padding:40px 20px;
+  flex-direction:column;
 }
-.preview-nav{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:#111}
-.preview-nav .links{display:flex;gap:14px;color:#666;font-weight:500}
-.preview-hero{
-  margin-top:10px;padding:16px;background:#111;color:#fff;border-radius:10px;
-  display:flex;flex-direction:column;gap:8px;
+
+/* Header bar */
+.pv-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 18px;border-bottom:1px solid #eaeaef;background:#fff;
+  font-size:11px;
 }
-.preview-hero h4{font-size:18px;font-weight:800;letter-spacing:-.01em}
-.preview-hero p{font-size:11.5px;opacity:.7;line-height:1.5}
-.preview-hero .pill{align-self:flex-start;padding:5px 12px;background:#fff;color:#111;border-radius:999px;font-size:10px;font-weight:700}
-.preview-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
-.preview-card{padding:10px;background:rgba(0,0,0,.06);border-radius:8px;font-size:10px}
-.preview-card strong{display:block;margin-bottom:3px;font-size:11px}
-.preview-card span{color:#666;font-size:9.5px;line-height:1.4}
-.fade-in{opacity:0;transform:translateY(10px)}
+.pv-header strong{font-size:13px;font-weight:800;letter-spacing:-.01em;color:#0a0a14}
+.pv-header .nav-mini{display:flex;gap:14px;color:#777;font-weight:500}
+.pv-header .cta-mini{
+  padding:6px 12px;border-radius:7px;background:var(--pv-accent);color:#fff;
+  font-weight:700;letter-spacing:.02em;font-size:10.5px;
+}
+
+/* Hero */
+.pv-hero{
+  padding:32px 22px 26px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg, var(--pv-soft), #fff 70%);
+}
+.pv-hero::before{
+  content:"";position:absolute;width:200px;height:200px;border-radius:50%;
+  background:var(--pv-accent);opacity:.20;filter:blur(40px);
+  top:-50px;right:-40px;
+}
+.pv-hero::after{
+  content:"";position:absolute;width:140px;height:140px;border-radius:50%;
+  background:var(--pv-accent-2);opacity:.10;filter:blur(35px);
+  bottom:-40px;left:-30px;
+}
+.pv-hero > *{position:relative;z-index:1}
+.pv-hero .pill{
+  display:inline-block;padding:4px 11px;background:#fff;color:#0a0a14;
+  border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid #e0e0e8;box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.pv-hero h4{
+  font-size:23px;font-weight:800;letter-spacing:-.02em;line-height:1.15;
+  margin-top:13px;color:#0a0a14;max-width:92%;
+}
+.pv-hero p{
+  font-size:12.5px;color:#555;line-height:1.6;margin-top:10px;max-width:88%;
+}
+.pv-hero .cta-row{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap}
+.pv-hero .btn-p{
+  padding:9px 16px;border-radius:8px;background:var(--pv-accent);color:#fff;
+  font-size:10.5px;font-weight:700;letter-spacing:.02em;border:none;
+  display:inline-flex;align-items:center;gap:5px;cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.pv-hero .btn-s{
+  padding:9px 16px;border-radius:8px;background:transparent;color:#555;
+  font-size:10.5px;font-weight:600;border:1px solid #d0d0d8;cursor:pointer;
+}
+
+/* Stats strip */
+.pv-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  padding:18px 22px;background:#fafafb;
+  border-top:1px solid #f0f0f5;border-bottom:1px solid #f0f0f5;
+}
+.pv-stat{text-align:center;padding:0 4px}
+.pv-stat .n{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;
+  background:linear-gradient(120deg, var(--pv-accent), var(--pv-accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;
+}
+.pv-stat .l{
+  font-size:8.5px;letter-spacing:.16em;color:#888;text-transform:uppercase;
+  margin-top:4px;font-weight:600;
+}
+
+/* Feature cards */
+.pv-features{
+  padding:20px 22px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.pv-feature{
+  padding:13px 11px;background:#fff;border-radius:9px;
+  border:1px solid #eaeaef;transition:transform .3s, box-shadow .3s;
+}
+.pv-feature:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.pv-feature .ico{font-size:20px;margin-bottom:6px;line-height:1}
+.pv-feature strong{font-size:11.5px;font-weight:700;color:#0a0a14;display:block;margin-bottom:3px}
+.pv-feature span{font-size:10px;color:#666;line-height:1.5}
+
+/* Testimonial */
+.pv-testimonial{
+  padding:20px 22px;background:linear-gradient(160deg, var(--pv-soft), #fff);
+  border-top:1px solid #f0f0f5;
+}
+.pv-quote{
+  font-size:13px;font-style:italic;color:#333;line-height:1.65;
+  position:relative;padding-left:24px;
+}
+.pv-quote::before{
+  content:"\201C";font-size:42px;line-height:.7;color:var(--pv-accent);
+  position:absolute;left:0;top:4px;font-family:Georgia,serif;
+}
+.pv-author{
+  margin-top:10px;font-size:10px;color:#777;font-weight:600;letter-spacing:.06em;
+}
+
+/* Bottom CTA strip */
+.pv-final{
+  padding:22px;text-align:center;
+  background:linear-gradient(120deg, var(--pv-accent), var(--pv-accent-2));
+  color:#fff;margin-top:auto;position:relative;overflow:hidden;
+}
+.pv-final::before{
+  content:"";position:absolute;width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.12);filter:blur(40px);
+  top:-100px;right:-50px;pointer-events:none;
+}
+.pv-final h5{
+  font-family:'Syne',sans-serif;font-size:16px;font-weight:800;letter-spacing:-.01em;
+  position:relative;z-index:1;
+}
+.pv-final p{font-size:11.5px;opacity:.92;margin-top:5px;position:relative;z-index:1}
+.pv-final button{
+  margin-top:13px;padding:10px 22px;background:#fff;color:#0a0a14;
+  border-radius:999px;font-size:11.5px;font-weight:700;border:none;cursor:pointer;
+  position:relative;z-index:1;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+
+/* Section reveal animation */
+.pv-section{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .55s cubic-bezier(.2,.7,.2,1), transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.pv-section.show{opacity:1;transform:translateY(0)}
+
+/* Mobile tweaks */
+@media(max-width:540px){
+  .pv-hero h4{font-size:20px}
+  .pv-stats{padding:14px 16px}
+  .pv-features{padding:14px 16px}
+  .pv-feature{padding:10px 8px}
+  .pv-feature .ico{font-size:17px}
+}
 
 /* ===== Demo 4: Content ===== */
 .content-output{
@@ -3200,22 +3330,50 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
       name:"晨光咖啡", industry:"餐飲", slug:"morning-light",
       hero_title:"從一杯咖啡開始，喚醒你的早晨",
       hero_sub:"精選莊園豆，現場手沖，為都市人帶來慢生活儀式感。",
-      services:[
-        {title:"門市直送", desc:"凌晨烘焙當日送達，鮮度滿分"},
-        {title:"訂閱方案", desc:"每月精選莊園豆，固定送到府上"},
-        {title:"咖啡課程", desc:"從入門到杯測，週末小班授課"},
+      cta_primary:"立即訂閱",
+      stats:[
+        {n:"5+", l:"年烘焙經驗"},
+        {n:"200+", l:"訂閱客戶"},
+        {n:"4.9★", l:"客戶評價"},
       ],
-      thinkLabel:"AI 正在生成網頁內容…",
+      services:[
+        {icon:"☕", title:"門市直送", desc:"凌晨烘焙、當日送達，鮮度滿分"},
+        {icon:"📦", title:"月度訂閱", desc:"每月精選 3 款莊園豆"},
+        {icon:"🎓", title:"咖啡課程", desc:"週末小班授課，從入門到杯測"},
+      ],
+      testimonial:{
+        quote:"咖啡香氣濃郁但不苦澀，每月都有驚喜。送禮自用都得體，已介紹同事一齊訂。",
+        author:"Anna 陳 · 廣告公司創意總監",
+      },
+      final_title:"今日就讓咖啡香喚醒你",
+      final_sub:"首月訂閱限時 8 折，隨時可暫停或取消。",
+      final_btn:"開始訂閱",
+      color:"#a8552d",
+      thinkLabel:"AI 正在生成完整網頁設計…",
     } : {
       name:"Morning Light", industry:"F&B", slug:"morning-light",
       hero_title:"Start your day with a perfect cup",
       hero_sub:"Hand-poured single-origin beans, roasted daily — a slower morning ritual.",
-      services:[
-        {title:"Same-day delivery", desc:"Roasted at dawn, in your hands by noon"},
-        {title:"Subscription", desc:"Curated beans monthly to your door"},
-        {title:"Coffee classes", desc:"From basics to cupping, weekend sessions"},
+      cta_primary:"Subscribe now",
+      stats:[
+        {n:"5+", l:"Years roasting"},
+        {n:"200+", l:"Subscribers"},
+        {n:"4.9★", l:"Customer rating"},
       ],
-      thinkLabel:"AI is drafting the homepage…",
+      services:[
+        {icon:"☕", title:"Same-day delivery", desc:"Roasted at dawn, in your hands by noon"},
+        {icon:"📦", title:"Monthly subscription", desc:"3 curated single-origin beans every month"},
+        {icon:"🎓", title:"Coffee classes", desc:"Weekend small-group sessions, basics to cupping"},
+      ],
+      testimonial:{
+        quote:"Rich aroma without the bitter edge — every month brings a new surprise. Already got my whole team subscribed.",
+        author:"Anna Chan · Creative Director, Kindred Agency",
+      },
+      final_title:"Wake up to better coffee today",
+      final_sub:"First month 20% off. Pause or cancel anytime.",
+      final_btn:"Get started",
+      color:"#a8552d",
+      thinkLabel:"AI is designing the full homepage…",
     };
   }
   function S4(){
@@ -3331,26 +3489,18 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
       urlEl.textContent = "https://" + target.slice(8, 8+i+1);
     }
     bodyEl.innerHTML = `<div class="preview-empty"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${s.thinkLabel}</div></div>`;
-    if(!await gate(1100, token)) return;
-    bodyEl.innerHTML = `
-      <div class="preview-nav fade-in"><strong>${s.name}</strong>
-        <div class="links"><span>${currentLang==="zh"?"關於":"About"}</span><span>${currentLang==="zh"?"服務":"Services"}</span><span>${currentLang==="zh"?"聯絡":"Contact"}</span></div>
-      </div>
-      <div class="preview-hero fade-in">
-        <span class="pill">${s.industry.toUpperCase()}</span>
-        <h4>${s.hero_title}</h4>
-        <p>${s.hero_sub}</p>
-      </div>
-      <div class="preview-cards">
-        ${s.services.map(c=>`<div class="preview-card fade-in"><strong>${c.title}</strong><span>${c.desc}</span></div>`).join("")}
-      </div>`;
-    bodyEl.querySelectorAll(".fade-in").forEach((f,i)=>{
-      setTimeout(()=>{
-        if(token !== playToken) return;
-        f.style.transition = "opacity .5s ease, transform .5s ease";
-        f.style.opacity = "1"; f.style.transform = "translateY(0)";
-      }, i*150);
-    });
+    if(!await gate(1300, token)) return;
+    if(typeof renderRichPreview === "function"){
+      renderRichPreview(bodyEl, {
+        name: s.name, industry: s.industry,
+        heroTitle: s.hero_title, heroSub: s.hero_sub,
+        ctaPrimary: s.cta_primary,
+        stats: s.stats, services: s.services,
+        testimonial: s.testimonial,
+        finalTitle: s.final_title, finalSub: s.final_sub, finalBtn: s.final_btn,
+        color: s.color, lang: currentLang,
+      });
+    }
   }
 
   async function playDemo4(token){
@@ -3812,75 +3962,83 @@ wgRun.addEventListener("click", async ()=>{
     urlEl.textContent = "https://" + targetUrl.slice(8, 8+i+1);
   }
 
-  body.innerHTML = `<div class="preview-empty"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${currentLang==="zh"?"AI 正在生成網頁內容…":"AI is drafting website content…"}</div></div>`;
+  body.innerHTML = `<div class="preview-empty"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${currentLang==="zh"?"AI 正在生成完整網頁設計…":"AI is designing full homepage…"}</div></div>`;
 
   const lang = currentLang;
   const sysPrompt = lang === "zh"
-    ? `你是一個品牌文案專家。用戶會提供公司名與行業，你要為其生成一個簡潔、專業的網站首頁文案。
-**只回覆 JSON**，格式：
+    ? `你是品牌設計師加文案專家。根據公司名與行業，為其生成一個現代、有質感、有 wow factor 的網站首頁完整內容。
+**只回覆 JSON**：
 {
-  "tagline": "8-15 字的吸引標語",
-  "hero_title": "10-18 字的 Hero 大標題",
-  "hero_sub": "20-35 字的副標題，講解品牌價值",
+  "hero_title": "10-18 字 Hero 大標題",
+  "hero_sub": "20-35 字副標題，講解品牌價值",
+  "cta_primary": "主 CTA 按鈕文字（3-6 字，如：立即預約 / 開始體驗 / 聯絡我們）",
+  "stats": [
+    {"n": "短數字（如 5+ / 200+ / 4.9★）", "l": "短標籤（4-8 字）"},
+    {"n": "...", "l": "..."},
+    {"n": "...", "l": "..."}
+  ],
   "services": [
-    {"title":"服務 1 名稱（4-8 字）","desc":"15-25 字描述"},
-    {"title":"服務 2 名稱","desc":"..."},
-    {"title":"服務 3 名稱","desc":"..."}
-  ]
+    {"icon": "一個 emoji", "title": "服務名稱（4-6 字）", "desc": "簡短描述（10-18 字）"},
+    {"icon": "...", "title": "...", "desc": "..."},
+    {"icon": "...", "title": "...", "desc": "..."}
+  ],
+  "testimonial": {
+    "quote": "客戶評語，要 specific 且真實感（25-45 字）",
+    "author": "姓名 / 職稱（如：Anna 陳 · 創辦人）"
+  },
+  "final_title": "底部 CTA 標題（10-15 字）",
+  "final_sub": "底部副標（15-25 字）",
+  "final_btn": "底部按鈕（3-5 字）",
+  "color": "一個品牌主色 hex code（配合行業氛圍，避免過於灰暗或刺眼，例如餐飲用暖色 / 科技用藍紫 / 教育用穩重）"
 }`
-    : `You are a brand copywriter. Given a company name and industry, generate concise, professional website homepage copy.
+    : `You are a brand designer and copywriter. Given a company name and industry, generate a complete, modern homepage with wow factor.
 **Reply ONLY with JSON**:
 {
-  "tagline": "5-10 word catchy tagline",
   "hero_title": "5-9 word hero headline",
   "hero_sub": "12-22 word subheadline explaining brand value",
+  "cta_primary": "primary CTA button (2-4 words, e.g., Get started / Book a call)",
+  "stats": [
+    {"n": "short number (e.g., 5+ / 200+ / 4.9★)", "l": "short label (1-3 words)"},
+    {"n": "...", "l": "..."},
+    {"n": "...", "l": "..."}
+  ],
   "services": [
-    {"title":"Service 1 (2-4 words)","desc":"8-15 word description"},
-    {"title":"Service 2","desc":"..."},
-    {"title":"Service 3","desc":"..."}
-  ]
+    {"icon": "one emoji", "title": "service name (2-4 words)", "desc": "short description (8-15 words)"},
+    {"icon": "...", "title": "...", "desc": "..."},
+    {"icon": "...", "title": "...", "desc": "..."}
+  ],
+  "testimonial": {
+    "quote": "specific, authentic-sounding customer quote (15-30 words)",
+    "author": "Name · Title (e.g., Anna Chan · Founder)"
+  },
+  "final_title": "bottom CTA headline (5-9 words)",
+  "final_sub": "bottom CTA subline (8-15 words)",
+  "final_btn": "bottom CTA button (2-3 words)",
+  "color": "brand primary hex code (matches industry vibe — warm for F&B, blue/purple for tech, etc.)"
 }`;
 
   try{
     const reply = await callClaude({
       system: sysPrompt,
       messages: [{role:"user", content: `Company: ${name}\nIndustry: ${ind}\nLanguage: ${lang}`}],
+      max_tokens: 1200,
     });
     const json = extractJSON(reply);
     if(!json || !json.hero_title) throw new Error("Invalid JSON from AI");
 
-    const services = Array.isArray(json.services) ? json.services.slice(0,3) : [];
-
-    body.innerHTML = `
-      <div class="preview-nav fade-in">
-        <strong>${escapeHtml(name)}</strong>
-        <div class="links">
-          <span>${lang==="zh"?"關於":"About"}</span>
-          <span>${lang==="zh"?"服務":"Services"}</span>
-          <span>${lang==="zh"?"聯絡":"Contact"}</span>
-        </div>
-      </div>
-      <div class="preview-hero fade-in">
-        <span class="pill">${escapeHtml(ind).toUpperCase()}</span>
-        <h4>${escapeHtml(json.hero_title)}</h4>
-        <p>${escapeHtml(json.hero_sub || json.tagline || "")}</p>
-      </div>
-      <div class="preview-cards">
-        ${services.map(s => `
-          <div class="preview-card fade-in">
-            <strong>${escapeHtml(s.title || "")}</strong>
-            <span>${escapeHtml(s.desc || "")}</span>
-          </div>
-        `).join("")}
-      </div>
-    `;
-    const fades = body.querySelectorAll(".fade-in");
-    fades.forEach((f,i)=>{
-      setTimeout(()=>{
-        f.style.transition = "opacity .5s ease, transform .5s ease";
-        f.style.opacity = "1";
-        f.style.transform = "translateY(0)";
-      }, i*150);
+    renderRichPreview(body, {
+      name, industry: ind,
+      heroTitle: json.hero_title,
+      heroSub: json.hero_sub || "",
+      ctaPrimary: json.cta_primary || (lang==="zh"?"立即預約":"Get started"),
+      stats: Array.isArray(json.stats) ? json.stats.slice(0,3) : [],
+      services: Array.isArray(json.services) ? json.services.slice(0,3) : [],
+      testimonial: json.testimonial || {quote:"", author:""},
+      finalTitle: json.final_title || "",
+      finalSub: json.final_sub || "",
+      finalBtn: json.final_btn || (lang==="zh"?"開始":"Start"),
+      color: validHex(json.color) || "#7c5cff",
+      lang,
     });
   }catch(e){
     body.innerHTML = `<div class="preview-empty" style="color:#cc4444">⚠️ ${e.message || e}</div>`;
@@ -3888,7 +4046,71 @@ wgRun.addEventListener("click", async ()=>{
     wgRun.disabled = false;
   }
 });
+
+/* ---- Demo 3 helpers ---- */
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" })[c]); }
+function validHex(s){
+  if(!s) return null;
+  s = String(s).trim();
+  return /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(s) ? s : null;
+}
+function hexLighten(hex, percent){
+  hex = hex.replace("#","");
+  if(hex.length===3) hex = hex.split("").map(c=>c+c).join("");
+  let r = parseInt(hex.substr(0,2),16),
+      g = parseInt(hex.substr(2,2),16),
+      b = parseInt(hex.substr(4,2),16);
+  r = Math.min(255, Math.round(r + (255-r)*percent/100));
+  g = Math.min(255, Math.round(g + (255-g)*percent/100));
+  b = Math.min(255, Math.round(b + (255-b)*percent/100));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+function renderRichPreview(body, d){
+  const navAbout = d.lang==="zh"?"關於":"About";
+  const navServices = d.lang==="zh"?"服務":"Services";
+  const navContact = d.lang==="zh"?"聯絡":"Contact";
+  const learnMore = d.lang==="zh"?"了解更多":"Learn more";
+  body.style.setProperty("--pv-accent", d.color);
+  body.style.setProperty("--pv-soft",   hexLighten(d.color, 92));
+  // Pick complementary accent-2 (shifted hue) — keep it simple by mixing with pink
+  body.style.setProperty("--pv-accent-2", hexLighten(d.color, 35).replace("rgb","rgba").replace(")", ", 0.85)"));
+
+  body.innerHTML = `
+    <div class="pv-header pv-section">
+      <strong>${escapeHtml(d.name)}</strong>
+      <div class="nav-mini"><span>${navAbout}</span><span>${navServices}</span><span>${navContact}</span></div>
+      <button class="cta-mini">${escapeHtml(d.ctaPrimary)}</button>
+    </div>
+    <div class="pv-hero pv-section">
+      <span class="pill">${escapeHtml(d.industry).toUpperCase()}</span>
+      <h4>${escapeHtml(d.heroTitle)}</h4>
+      <p>${escapeHtml(d.heroSub)}</p>
+      <div class="cta-row">
+        <button class="btn-p">${escapeHtml(d.ctaPrimary)} →</button>
+        <button class="btn-s">${learnMore}</button>
+      </div>
+    </div>
+    ${d.stats.length ? `<div class="pv-stats pv-section">
+      ${d.stats.map(s=>`<div class="pv-stat"><div class="n">${escapeHtml(String(s.n||""))}</div><div class="l">${escapeHtml(String(s.l||""))}</div></div>`).join("")}
+    </div>` : ""}
+    ${d.services.length ? `<div class="pv-features pv-section">
+      ${d.services.map(s=>`<div class="pv-feature"><div class="ico">${escapeHtml(String(s.icon||"✨"))}</div><strong>${escapeHtml(s.title||"")}</strong><span>${escapeHtml(s.desc||"")}</span></div>`).join("")}
+    </div>` : ""}
+    ${d.testimonial.quote ? `<div class="pv-testimonial pv-section">
+      <div class="pv-quote">${escapeHtml(d.testimonial.quote)}</div>
+      <div class="pv-author">— ${escapeHtml(d.testimonial.author||"")}</div>
+    </div>` : ""}
+    ${d.finalTitle ? `<div class="pv-final pv-section">
+      <h5>${escapeHtml(d.finalTitle)}</h5>
+      <p>${escapeHtml(d.finalSub)}</p>
+      <button>${escapeHtml(d.finalBtn)}</button>
+    </div>` : ""}
+  `;
+  // animate sections in sequence
+  body.querySelectorAll(".pv-section").forEach((el,i)=>{
+    setTimeout(()=>el.classList.add("show"), 180 + i*140);
+  });
+}
 
 /* ===========================================================
    DEMO 4 — CONTENT GENERATOR (Claude API)
