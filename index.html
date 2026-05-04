@@ -808,6 +808,66 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 .calc-result .res-cta:hover{color:var(--accent-2)}
 
+/* Meeting summary card output (Demo 7) */
+.meeting-output{display:flex;flex-direction:column;gap:12px}
+.ms-card{
+  padding:16px 18px;border-radius:13px;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line-strong);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s, transform .4s;
+}
+.ms-card.show{opacity:1;transform:translateY(0)}
+.ms-card .ms-lbl{
+  display:flex;align-items:center;gap:8px;
+  font-size:11.5px;letter-spacing:.2em;color:var(--text-dim);
+  text-transform:uppercase;font-weight:700;margin-bottom:8px;
+}
+.ms-card .ms-lbl .ico{font-size:15px;letter-spacing:0;line-height:1}
+.ms-card .ms-content{font-size:14px;line-height:1.7;color:var(--text);white-space:pre-wrap}
+.ms-card .ms-list{margin:0;padding-left:18px;font-size:14px;line-height:1.75}
+.ms-card .ms-list li{margin-bottom:4px}
+.ms-card.empty .ms-content{color:var(--text-faint);font-style:italic}
+[data-theme="light"] .ms-card{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
+
+/* Translation output (Demo 8) */
+.translate-output{
+  background:rgba(0,0,0,.4);border:1px solid var(--line);
+  border-radius:14px;padding:20px;min-height:240px;
+  font-size:15px;line-height:1.75;color:var(--text);
+  white-space:pre-wrap;
+}
+.translate-output .placeholder{color:var(--text-faint);font-style:italic}
+.translate-output .tr-text{margin-bottom:14px}
+.translate-output .tr-note{
+  margin-top:14px;padding:12px 14px;border-radius:10px;
+  background:rgba(124,92,255,.10);border:1px solid rgba(124,92,255,.25);
+  font-size:13px;color:var(--text-dim);line-height:1.6;
+}
+.translate-output .tr-note strong{color:var(--text);display:block;margin-bottom:4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+[data-theme="light"] .translate-output{background:rgba(255,255,255,.7);border-color:rgba(0,0,0,.1)}
+
+/* Review reply options (Demo 9) */
+.reply-options{display:flex;flex-direction:column;gap:10px}
+.rv-card{
+  padding:14px 18px;border-radius:12px;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line-strong);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s, transform .4s, border-color var(--t-fast);
+}
+.rv-card:hover{border-color:var(--accent)}
+.rv-card.show{opacity:1;transform:translateY(0)}
+.rv-tone{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10.5px;letter-spacing:.22em;color:var(--accent);
+  text-transform:uppercase;font-weight:700;margin-bottom:8px;
+  padding:4px 10px;border-radius:999px;
+  background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.3);
+}
+.rv-text{font-size:14px;line-height:1.7;color:var(--text);white-space:pre-wrap}
+[data-theme="light"] .rv-card{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
+
 /* Demo savings badge */
 .demo-save{
   display:inline-flex;align-items:center;gap:6px;
@@ -848,6 +908,74 @@ main,nav,section,footer{position:relative;z-index:2}
 .stat{padding:18px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
 .stat .n{font-family:'Syne',sans-serif;font-weight:800;font-size:30px;background:var(--grad);-webkit-background-clip:text;color:transparent;line-height:1}
 .stat .l{font-size:11px;color:var(--text-dim);letter-spacing:.18em;text-transform:uppercase;margin-top:6px;font-weight:600}
+
+/* =====================================================================
+   FAQ — accordion list
+   ===================================================================== */
+.faq-list{display:flex;flex-direction:column;gap:14px;margin-top:50px;max-width:880px;margin-inline:auto}
+.faq-item{
+  border-radius:16px;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  overflow:hidden;
+  transition:border-color var(--t-fast),transform var(--t-fast);
+}
+.faq-item:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+.faq-item.open{border-color:rgba(124,92,255,.4);box-shadow:0 8px 28px rgba(124,92,255,.12)}
+.faq-q{
+  padding:22px 26px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  cursor:pointer;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:17px;
+  letter-spacing:-.005em;line-height:1.4;
+  user-select:none;color:var(--text);
+  background:transparent;border:none;width:100%;text-align:left;
+}
+.faq-q:hover .q-text{color:var(--accent)}
+.q-text{transition:color var(--t-fast)}
+.faq-q .ic{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(124,92,255,.12);
+  color:var(--accent);
+  font-size:22px;font-weight:300;line-height:1;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s,color .3s;
+  flex-shrink:0;
+}
+.faq-item.open .faq-q .ic{
+  transform:rotate(45deg);
+  background:var(--grad);color:#fff;
+  box-shadow:0 4px 14px rgba(124,92,255,.45);
+}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s cubic-bezier(.2,.7,.2,1);
+}
+.faq-item.open .faq-a{max-height:600px}
+.faq-a-inner{
+  padding:0 26px 26px;
+  color:var(--text-dim);font-size:15px;line-height:1.75;
+}
+.faq-cta-row{
+  margin-top:40px;text-align:center;
+  padding:26px;border-radius:16px;
+  background:linear-gradient(160deg,rgba(124,92,255,.08),rgba(255,92,177,.04));
+  border:1px solid rgba(124,92,255,.2);
+}
+.faq-cta-row p{color:var(--text-dim);font-size:14.5px;margin-bottom:14px}
+
+[data-theme="light"] .faq-item{
+  background:linear-gradient(160deg,rgba(0,0,0,.025),rgba(0,0,0,.005));
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .faq-item.open{
+  border-color:rgba(124,92,255,.35);
+  box-shadow:0 6px 20px rgba(124,92,255,.10);
+}
+[data-theme="light"] .faq-cta-row{
+  background:linear-gradient(160deg,rgba(124,92,255,.08),rgba(255,92,177,.04));
+  border-color:rgba(124,92,255,.2);
+}
 
 /* =====================================================================
    CAL.COM
@@ -1133,6 +1261,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <a href="#demos" data-i18n="nav.demos">互動 Demo</a>
       <a href="#impact" data-i18n="nav.impact">效益</a>
       <a href="#about" data-i18n="nav.about">關於</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
     <button class="theme-toggle" id="theme-toggle" aria-label="切換主題 / Toggle theme" title="切換淺色 / 深色">
@@ -1314,6 +1443,11 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="3"><span class="num">04</span> <span data-i18n="demo4.title">AI 內容生成器</span></button>
       <button class="demo-tab-btn"        data-slide="4"><span class="num">05</span> <span data-i18n="demo5.title">客戶意圖分析器</span></button>
       <button class="demo-tab-btn"        data-slide="5"><span class="num">06</span> <span data-i18n="demo6.title">AI 銷售跟進信</span></button>
+      <button class="demo-tab-btn"        data-slide="6"><span class="num">07</span> <span data-i18n="demo7.title">AI 會議紀要</span></button>
+      <button class="demo-tab-btn"        data-slide="7"><span class="num">08</span> <span data-i18n="demo8.title">AI 多語翻譯</span></button>
+      <button class="demo-tab-btn"        data-slide="8"><span class="num">09</span> <span data-i18n="demo9.title">AI 評論回覆</span></button>
+      <button class="demo-tab-btn"        data-slide="9"><span class="num">10</span> <span data-i18n="demo10.title">AI SEO 標題</span></button>
+      <button class="demo-tab-btn"        data-slide="10"><span class="num">11</span> <span data-i18n="demo11.title">AI 產品文案</span></button>
     </div>
 
     <div class="demos-carousel-wrap reveal">
@@ -1554,6 +1688,194 @@ main,nav,section,footer{position:relative;z-index:2}
           </div>
         </div>
 
+        <!-- ===== SLIDE 7 : DEMO 7 — MEETING SUMMARY ===== -->
+        <div class="demo-slide" data-slide-idx="6">
+          <div class="demo-block" id="demo7">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 07</div>
+                  <div class="demo-save" data-i18n="demo7.save">會議筆記速度 ↑ 10×</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo7.title">AI 會議紀要</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo7.desc">貼入會議筆記或錄音轉文字，AI 自動拆解摘要、行動項目、主要決定。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo7.label">會議內容</label>
+                  <textarea class="textarea" id="ms-input" rows="6" placeholder="貼入會議錄音轉文字 / 會議筆記原文…"></textarea>
+                </div>
+                <button class="btn btn-primary" id="ms-run" style="width:100%;justify-content:center" data-i18n="demo7.btn">AI 整理紀要 →</button>
+              </div>
+              <div>
+                <div class="meeting-output" id="ms-output">
+                  <div class="ms-card empty"><div class="ms-lbl"><span class="ico">📋</span> <span data-i18n="demo7.summary">摘要</span></div><div class="ms-content" data-i18n="demo7.empty">分析後 AI 會自動產生摘要、行動項目、主要決定。</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SLIDE 8 : DEMO 8 — TRANSLATION ===== -->
+        <div class="demo-slide" data-slide-idx="7">
+          <div class="demo-block" id="demo8">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 08</div>
+                  <div class="demo-save" data-i18n="demo8.save">支援 30+ 語言</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo8.title">AI 多語翻譯（含語氣/文化備註）</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo8.desc">不只係翻譯 — AI 會根據您揀的語氣 + 文化背景調整表達方式。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo8.label">原文</label>
+                  <textarea class="textarea" id="tr-input" rows="4" placeholder="輸入要翻譯的句子或段落…"></textarea>
+                </div>
+                <div class="field">
+                  <label data-i18n="demo8.langLabel">目標語言</label>
+                  <select class="select" id="tr-lang">
+                    <option value="English">English (英文)</option>
+                    <option value="日本語">日本語 (日文)</option>
+                    <option value="한국어">한국어 (韓文)</option>
+                    <option value="简体中文">简体中文 (簡體)</option>
+                    <option value="Français">Français (法文)</option>
+                    <option value="Español">Español (西文)</option>
+                    <option value="Deutsch">Deutsch (德文)</option>
+                    <option value="Italiano">Italiano (義文)</option>
+                    <option value="Português">Português (葡文)</option>
+                    <option value="ภาษาไทย">ภาษาไทย (泰文)</option>
+                    <option value="Tiếng Việt">Tiếng Việt (越南文)</option>
+                    <option value="Bahasa Indonesia">Bahasa Indonesia (印尼文)</option>
+                    <option value="العربية">العربية (阿拉伯文)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label data-i18n="demo8.toneLabel">語氣</label>
+                  <div class="platform-row" id="tr-tone-row">
+                    <button class="platform-btn active" data-tone="formal" data-i18n="demo8.toneFormal">正式</button>
+                    <button class="platform-btn"        data-tone="casual" data-i18n="demo8.toneCasual">輕鬆</button>
+                    <button class="platform-btn"        data-tone="friendly" data-i18n="demo8.toneFriendly">親切</button>
+                  </div>
+                </div>
+                <button class="btn btn-primary" id="tr-run" style="width:100%;justify-content:center" data-i18n="demo8.btn">AI 翻譯 →</button>
+              </div>
+              <div>
+                <div class="translate-output" id="tr-output">
+                  <span class="placeholder" data-i18n="demo8.empty">翻譯結果會喺呢度顯示…</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SLIDE 9 : DEMO 9 — REVIEW REPLY ===== -->
+        <div class="demo-slide" data-slide-idx="8">
+          <div class="demo-block" id="demo9">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 09</div>
+                  <div class="demo-save" data-i18n="demo9.save">每則 30 秒搞掂</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo9.title">AI 評論回覆生成器</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo9.desc">貼入 Google / TripAdvisor / OpenRice 評論，AI 即時生成 3 個不同語氣的回覆讓您揀。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo9.label">客戶評論</label>
+                  <textarea class="textarea" id="rv-input" rows="5" placeholder="貼入客戶評論原文…"></textarea>
+                </div>
+                <div class="field">
+                  <label data-i18n="demo9.bizLabel">您的業務類型</label>
+                  <input type="text" class="input" id="rv-business" placeholder="例：餐廳、酒店、零售、診所" />
+                </div>
+                <button class="btn btn-primary" id="rv-run" style="width:100%;justify-content:center" data-i18n="demo9.btn">AI 生成 3 個回覆 →</button>
+              </div>
+              <div>
+                <div class="reply-options" id="rv-output">
+                  <div class="rv-card show"><div class="rv-tone" data-i18n="demo9.empty">分析後 AI 會生成 3 個回覆風格</div><div class="rv-text" style="color:var(--text-faint);font-style:italic" data-i18n="demo9.emptyText">— 正式專業 / 親切溫暖 / 真誠致歉（或感謝）—</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SLIDE 10 : DEMO 10 — SEO TITLE GENERATOR ===== -->
+        <div class="demo-slide" data-slide-idx="9">
+          <div class="demo-block" id="demo10">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 10</div>
+                  <div class="demo-save" data-i18n="demo10.save">流量 ↑ 平均 40%</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo10.title">AI SEO 標題生成器</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo10.desc">輸入頁面主題 + 關鍵字，AI 生成 5 個 SEO 友善、又能吸引點擊的標題。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo10.l1">頁面主題</label>
+                  <input type="text" class="input" id="seo-topic" placeholder="例：企業數位轉型策略指南" />
+                </div>
+                <div class="field">
+                  <label data-i18n="demo10.l2">主要關鍵字</label>
+                  <input type="text" class="input" id="seo-keyword" placeholder="例：AI 自動化、digital transformation" />
+                </div>
+                <button class="btn btn-primary" id="seo-run" style="width:100%;justify-content:center" data-i18n="demo10.btn">AI 生成 5 個標題 →</button>
+              </div>
+              <div>
+                <div class="reply-options" id="seo-output">
+                  <div class="rv-card show"><div class="rv-tone" data-i18n="demo10.empty">5 個 SEO 標題會喺呢度顯示</div><div class="rv-text" style="color:var(--text-faint);font-style:italic" data-i18n="demo10.emptyText">— 每個都有不同切入角度 + 點擊吸引力評分 —</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SLIDE 11 : DEMO 11 — PRODUCT COPY ===== -->
+        <div class="demo-slide" data-slide-idx="10">
+          <div class="demo-block" id="demo11">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 11</div>
+                  <div class="demo-save" data-i18n="demo11.save">電商轉換率 ↑ 25%</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo11.title">AI 電商產品文案</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo11.desc">輸入產品名 + 主要特色，AI 生成符合電商平台風格的完整商品文案。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo11.l1">產品名稱</label>
+                  <input type="text" class="input" id="pc-name" placeholder="例：極簡陶瓷咖啡杯" />
+                </div>
+                <div class="field">
+                  <label data-i18n="demo11.l2">主要特色 / 賣點</label>
+                  <textarea class="textarea" id="pc-features" rows="3" placeholder="例：手作陶瓷、3 色可選、保溫 4 小時、可進微波爐"></textarea>
+                </div>
+                <button class="btn btn-primary" id="pc-run" style="width:100%;justify-content:center" data-i18n="demo11.btn">AI 撰寫商品文案 →</button>
+              </div>
+              <div>
+                <div class="content-output" id="pc-output">
+                  <span class="placeholder" data-i18n="demo11.empty">商品文案會喺呢度顯示…</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /demos-carousel -->
     </div><!-- /demos-carousel-wrap -->
 
@@ -1689,6 +2011,64 @@ main,nav,section,footer{position:relative;z-index:2}
   </div>
 </section>
 
+<!-- ======================== FAQ ======================== -->
+<section class="section" id="faq">
+  <div class="container" style="max-width:980px">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="eyebrow" style="justify-content:center" data-i18n="faq.eyebrow">FAQ</div>
+      <h2 class="h2"><span data-i18n="faq.title1">你最想問的，</span><span class="gradient-text" data-i18n="faq.title2">我們先答</span></h2>
+      <p class="muted" data-i18n="faq.desc">合作之前你會諗到的疑問，我們已經幫你準備好。</p>
+    </div>
+
+    <div class="faq-list reveal" id="faq-list">
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q1">我沒技術背景／公司不大，可以用嗎？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a1">完全可以。我們會根據您的實際業務需求做完整方案：包括選工具、做 setup、寫工作流、培訓員工。您只需要告訴我們業務目標。其實 AI 自動化最大的紅利往往在小團隊 — 一個 5 人公司每月省下 30 小時，已經抵掉成本好多倍。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q2">收費如何計算？有沒套餐？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a2">我們按專案 scope 報價，不收隱藏費用。簡單自動化（如 email 跟進、表單同步）由 HK$ 3,000 起；網站 + AI 內容系統約 HK$ 15,000–30,000；客製化 AI 解決方案視乎複雜度由 HK$ 30,000 起。先免費諮詢了解需求，再給您詳細 quote — 您決定先收費。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q3">一個 Project 通常要做多久？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a3">簡單自動化通常 1–2 週；網站 + 內容系統 3–4 週；客製化 AI 解決方案 4–8 週。每個 project 開始前都會給您完整 timeline + 階段性 deliverables，每週滙報進度，您隨時可以提意見。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q4">預約諮詢真的免費？會 hard sell 嗎？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a4">30 分鐘免費諮詢沒隱藏條件，亦沒強制購買。我們會誠實了解您的業務、判斷 AI 適不適合您。如果您覺得方案不適合、或者預算未到，我們會直接告訴您，並提供其他建議 — 而不是打 hard sell 電話。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q5">我的資料和 API Key 安不安全？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a5">所有 API Key 和密碼存在後端環境變數（Vercel / Netlify 的 secret store），不會出現在前端代碼或 GitHub 公開 repo。客戶資料只儲存在您指定的平台（您的 Notion / Airtable / 自家 server），我們本身不保留任何客戶資料。可以簽 NDA 和保密協議。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q6">完成後我自己可以維護嗎？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a6">可以。我們會做完整文件 + handover 培訓 — 將所有登入資料、流程圖、運作邏輯、操作 SOP 都交給您。如果您之後想我們繼續支援，可以選月度 maintenance plan（小事優先處理 + 系統健康監察），或者按次叫 support。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q7">如果做完沒效果怎麼辦？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a7">我們每個 project 在 kickoff 時都會釐清成功指標（例如：每月節省 X 小時、回覆速度提升 Y%、訂單轉換率上升 Z%）。如果交付的系統未達標，我們會免費修正直至達標。我們對自己的 deliverables 有信心。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q8">適合哪些行業？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a8">我們合作過的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。</div></div>
+      </div>
+    </div>
+
+    <div class="faq-cta-row reveal">
+      <p data-i18n="faq.ctaText">還有其他問題？最快的方法是直接談。</p>
+      <a href="#book" class="btn btn-primary" data-i18n="faq.ctaBtn">免費諮詢 30 分鐘 →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ======================== BOOK ======================== -->
 <section class="book-section" id="book">
   <div class="container">
@@ -1760,7 +2140,7 @@ const CAL_LINK        = "https://cal.com/grouper-shek/30min";
 /* ============== i18n ============== */
 const I18N = {
   zh:{
-    "nav.services":"服務", "nav.demos":"互動 Demo", "nav.impact":"效益", "nav.about":"關於", "nav.book":"預約",
+    "nav.services":"服務", "nav.demos":"互動 Demo", "nav.impact":"效益", "nav.about":"關於", "nav.faq":"常見問題", "nav.book":"預約",
     "hero.eyebrow":"AI · 自動化 · 網頁",
     "hero.title": ["從繁瑣事務中","解放出來"],
     "hero.typing":["為您打造 AI 自動化工作流程","用 AI 重塑您的網站與內容","Transform · Build · Create"],
@@ -1814,6 +2194,27 @@ const I18N = {
     "about.p2":"從工作流程設計到 AI 模型整合，我們以「Transform · Build · Create」為核心，把您的業務從繁瑣中解放，重新打造，並創造新的可能。",
     "about.role":"創辦人 · TBC Solutions",
     "about.stat1":"整合工具","about.stat2":"自動運作","about.stat3":"無限可能",
+    "faq.eyebrow":"FAQ",
+    "faq.title1":"你最想問的，","faq.title2":"我們先答",
+    "faq.desc":"合作之前你會諗到的疑問，我們已經幫你準備好。",
+    "faq.q1":"我沒技術背景／公司不大，可以用嗎？",
+    "faq.a1":"完全可以。我們會根據您的實際業務需求做完整方案：包括選工具、做 setup、寫工作流、培訓員工。您只需要告訴我們業務目標。其實 AI 自動化最大的紅利往往在小團隊 — 一個 5 人公司每月省下 30 小時，已經抵掉成本好多倍。",
+    "faq.q2":"收費如何計算？有沒套餐？",
+    "faq.a2":"我們按專案 scope 報價，不收隱藏費用。簡單自動化（如 email 跟進、表單同步）由 HK$ 3,000 起；網站 + AI 內容系統約 HK$ 15,000–30,000；客製化 AI 解決方案視乎複雜度由 HK$ 30,000 起。先免費諮詢了解需求，再給您詳細 quote — 您決定先收費。",
+    "faq.q3":"一個 Project 通常要做多久？",
+    "faq.a3":"簡單自動化通常 1–2 週；網站 + 內容系統 3–4 週；客製化 AI 解決方案 4–8 週。每個 project 開始前都會給您完整 timeline + 階段性 deliverables，每週滙報進度，您隨時可以提意見。",
+    "faq.q4":"預約諮詢真的免費？會 hard sell 嗎？",
+    "faq.a4":"30 分鐘免費諮詢沒隱藏條件，亦沒強制購買。我們會誠實了解您的業務、判斷 AI 適不適合您。如果您覺得方案不適合、或者預算未到，我們會直接告訴您，並提供其他建議 — 而不是打 hard sell 電話。",
+    "faq.q5":"我的資料和 API Key 安不安全？",
+    "faq.a5":"所有 API Key 和密碼存在後端環境變數（Vercel / Netlify 的 secret store），不會出現在前端代碼或 GitHub 公開 repo。客戶資料只儲存在您指定的平台（您的 Notion / Airtable / 自家 server），我們本身不保留任何客戶資料。可以簽 NDA 和保密協議。",
+    "faq.q6":"完成後我自己可以維護嗎？",
+    "faq.a6":"可以。我們會做完整文件 + handover 培訓 — 將所有登入資料、流程圖、運作邏輯、操作 SOP 都交給您。如果您之後想我們繼續支援，可以選月度 maintenance plan（小事優先處理 + 系統健康監察），或者按次叫 support。",
+    "faq.q7":"如果做完沒效果怎麼辦？",
+    "faq.a7":"我們每個 project 在 kickoff 時都會釐清成功指標（例如：每月節省 X 小時、回覆速度提升 Y%、訂單轉換率上升 Z%）。如果交付的系統未達標，我們會免費修正直至達標。我們對自己的 deliverables 有信心。",
+    "faq.q8":"適合哪些行業？",
+    "faq.a8":"我們合作過的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。",
+    "faq.ctaText":"還有其他問題？最快的方法是直接談。",
+    "faq.ctaBtn":"免費諮詢 30 分鐘 →",
     "book.eyebrow":"預約諮詢","book.title1":"準備好了嗎？","book.title2":"預約免費諮詢",
     "book.desc":"30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。",
     "book.fallback1":"📅 Cal.com 預約 widget 預留位置",
@@ -1821,7 +2222,7 @@ const I18N = {
     "book.fallback3":"或可直接點擊下方按鈕傳送 Email：",
   },
   en:{
-    "nav.services":"Services","nav.demos":"Demos","nav.impact":"Impact","nav.about":"About","nav.book":"Book",
+    "nav.services":"Services","nav.demos":"Demos","nav.impact":"Impact","nav.about":"About","nav.faq":"FAQ","nav.book":"Book",
     "hero.eyebrow":"AI · AUTOMATION · WEB",
     "hero.title":["Free yourself","from busywork"],
     "hero.typing":["AI workflows that run while you sleep","Websites & content, reimagined with AI","Transform · Build · Create"],
@@ -1875,6 +2276,27 @@ const I18N = {
     "about.p2":"From workflow design to AI model integration, we live by Transform · Build · Create — freeing your business from busywork, rebuilding it, and creating what's next.",
     "about.role":"FOUNDER · TBC Solutions",
     "about.stat1":"Tools integrated","about.stat2":"Always-on","about.stat3":"Possibilities",
+    "faq.eyebrow":"FAQ",
+    "faq.title1":"What you'd ask first —","faq.title2":"answered upfront",
+    "faq.desc":"The questions you'd raise before working with us. We've answered them already.",
+    "faq.q1":"I have no tech background / my company isn't big — can I still use this?",
+    "faq.a1":"Absolutely. We deliver end-to-end: tool selection, setup, workflow design, staff training. You only need to share your business goals. In fact, AI automation often pays off most for small teams — a 5-person company saving 30 hours a month covers our cost many times over.",
+    "faq.q2":"How is pricing structured? Are there packages?",
+    "faq.a2":"We quote per project scope — no hidden fees. Simple automation (e.g., email follow-ups, form sync) starts at HK$ 3,000; website + AI content systems run HK$ 15,000–30,000; custom AI solutions start at HK$ 30,000 depending on complexity. We give you a free consultation first, then a detailed quote — you only pay after you decide.",
+    "faq.q3":"How long does a project usually take?",
+    "faq.a3":"Simple automation: 1–2 weeks. Website + content systems: 3–4 weeks. Custom AI solutions: 4–8 weeks. Each project starts with a full timeline and milestone deliverables, with weekly progress reports.",
+    "faq.q4":"Is the consultation really free? Will you hard-sell?",
+    "faq.a4":"The 30-minute consultation is genuinely free, no strings attached. We'll honestly assess your business and tell you whether AI fits. If the solution isn't right for you, or your budget isn't there yet, we'll say so directly and suggest alternatives — not push for a sale.",
+    "faq.q5":"Are my data and API keys safe?",
+    "faq.a5":"All API keys and secrets live in backend environment variables (Vercel / Netlify secret store) — they never appear in frontend code or public GitHub repos. Customer data only lives in platforms you specify (your Notion / Airtable / own server); we don't retain any client data ourselves. NDAs and confidentiality agreements available.",
+    "faq.q6":"Can I maintain it myself after delivery?",
+    "faq.a6":"Yes. We provide complete documentation + handover training — credentials, flow diagrams, operational logic, and SOPs all transferred to you. If you'd rather we handle ongoing support, choose a monthly maintenance plan (priority handling + system health monitoring) or pay-as-you-go.",
+    "faq.q7":"What if it doesn't work?",
+    "faq.a7":"Every project has clear success metrics defined at kickoff (e.g., X hours saved monthly, Y% faster response, Z% conversion lift). If delivery doesn't meet those metrics, we fix it free until it does. We back our work.",
+    "faq.q8":"Which industries do you work with?",
+    "faq.a8":"We've worked across F&B, retail / e-commerce, education, professional services (legal / accounting / consulting), creative studios, real estate, aesthetics, and SaaS startups. Any business with repetitive workflows, high customer-message volume, or content-at-scale needs is a fit for AI.",
+    "faq.ctaText":"Got more questions? Quickest way is to talk.",
+    "faq.ctaBtn":"Free 30-minute consultation →",
     "book.eyebrow":"BOOK A CALL","book.title1":"Ready?","book.title2":"Book a free consultation",
     "book.desc":"A free 30-minute call to understand your needs and propose tailored AI-automation ideas.",
     "book.fallback1":"📅 Cal.com booking widget placeholder",
@@ -2264,6 +2686,17 @@ function buildMarquee(){
   document.querySelectorAll(".stat-big").forEach(el=>io.observe(el));
 })();
 
+/* ============== FAQ ACCORDION ============== */
+(function faq(){
+  document.querySelectorAll(".faq-item").forEach(item => {
+    const q = item.querySelector(".faq-q");
+    if(!q) return;
+    q.addEventListener("click", () => {
+      item.classList.toggle("open");
+    });
+  });
+})();
+
 /* ============== ROI CALCULATOR ============== */
 (function calculator(){
   const chips     = document.querySelectorAll(".area-chip");
@@ -2430,6 +2863,329 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     if(e.key === "ArrowLeft")  go(idx - 1);
     if(e.key === "ArrowRight") go(idx + 1);
   });
+})();
+
+/* ===========================================================
+   DEMO PREVIEW ANIMATIONS — auto-play sample on first view
+   per slide (no API spend; cancelled if user interacts)
+   =========================================================== */
+(function previews(){
+  const playedSlides = new Set();
+  let playToken = 0;
+
+  function cancelPreview(){ playToken++; }
+  async function gate(ms, token){ await wait(ms); return token === playToken; }
+  async function typeInput(el, text, token, speed=22){
+    el.value = "";
+    for(const ch of text){ if(token !== playToken) return false; el.value += ch; await wait(speed); }
+    return true;
+  }
+  async function typeText(el, text, token, speed=14){
+    el.textContent = "";
+    for(const ch of text){ if(token !== playToken) return false; el.textContent += ch; await wait(speed); }
+    return true;
+  }
+
+  // ----- sample data per demo (zh / en) -----
+  function S1(){
+    return currentLang === "zh" ? {
+      input:"我想自動發送跟進郵件給未回覆的客戶",
+      nodes:[
+        {icon:"⚡", title:"觸發監測", desc:"每日掃描 CRM 中 7 天未回覆的客戶"},
+        {icon:"🔍", title:"篩選條件", desc:"排除已回覆或標記不聯絡的紀錄"},
+        {icon:"🤖", title:"AI 個人化", desc:"根據過往互動產生專屬跟進內容"},
+        {icon:"✉️", title:"發送郵件", desc:"經 Gmail / Outlook 自動分批寄出"},
+        {icon:"📊", title:"成果記錄", desc:"開信、點擊率自動同步至 Notion"},
+      ], hours:32,
+      thinkLabel:"AI 正在拆解您的工作流程…",
+      doneLine:`✅ <strong>5 步流程設計完成</strong> · 預估每月節省 <strong>32 小時</strong>。<br><span style="color:var(--text-dim);font-size:13px">↑ 這是範例。輸入您自己的業務問題，AI 會即時為您拆解。</span>`,
+    } : {
+      input:"Auto follow-up emails to clients silent for 7+ days",
+      nodes:[
+        {icon:"⚡", title:"Trigger", desc:"Scan CRM daily for clients silent 7+ days"},
+        {icon:"🔍", title:"Filter", desc:"Exclude already-replied or do-not-contact"},
+        {icon:"🤖", title:"AI personalize", desc:"Generate tailored copy from past context"},
+        {icon:"✉️", title:"Send", desc:"Auto-send via Gmail / Outlook in batches"},
+        {icon:"📊", title:"Track", desc:"Open & click rates pushed to Notion"},
+      ], hours:32,
+      thinkLabel:"AI is breaking down your workflow…",
+      doneLine:`✅ <strong>5-step workflow ready</strong> · estimated savings: <strong>32 hrs / month</strong>.<br><span style="color:var(--text-dim);font-size:13px">↑ Sample. Enter your own problem and AI will tailor the workflow.</span>`,
+    };
+  }
+  function S2(){
+    return currentLang === "zh" ? {
+      q:"請問你們的 AI 自動化方案大約多少錢？",
+      a:"謝謝您的查詢！我們按專案 scope 報價：簡單自動化由 HK$ 3,000 起，完整 AI 系統視乎複雜度由 HK$ 30,000 起。歡迎預約 30 分鐘免費諮詢，我會根據您的業務給出詳細估算 ☕",
+    } : {
+      q:"How much does your AI automation cost?",
+      a:"Thanks for asking! We quote per project scope: simple automation starts at HK$ 3,000; full AI systems start at HK$ 30,000 depending on complexity. Book a free 30-min consultation and I'll give you a tailored estimate ☕",
+    };
+  }
+  function S3(){
+    return currentLang === "zh" ? {
+      name:"晨光咖啡", industry:"餐飲", slug:"morning-light",
+      hero_title:"從一杯咖啡開始，喚醒你的早晨",
+      hero_sub:"精選莊園豆，現場手沖，為都市人帶來慢生活儀式感。",
+      services:[
+        {title:"門市直送", desc:"凌晨烘焙當日送達，鮮度滿分"},
+        {title:"訂閱方案", desc:"每月精選莊園豆，固定送到府上"},
+        {title:"咖啡課程", desc:"從入門到杯測，週末小班授課"},
+      ],
+      thinkLabel:"AI 正在生成網頁內容…",
+    } : {
+      name:"Morning Light", industry:"F&B", slug:"morning-light",
+      hero_title:"Start your day with a perfect cup",
+      hero_sub:"Hand-poured single-origin beans, roasted daily — a slower morning ritual.",
+      services:[
+        {title:"Same-day delivery", desc:"Roasted at dawn, in your hands by noon"},
+        {title:"Subscription", desc:"Curated beans monthly to your door"},
+        {title:"Coffee classes", desc:"From basics to cupping, weekend sessions"},
+      ],
+      thinkLabel:"AI is drafting the homepage…",
+    };
+  }
+  function S4(){
+    return currentLang === "zh" ? {
+      platform:"instagram",
+      topic:"宣傳新推出的咖啡訂閱方案，目標客群是上班族",
+      output:`☕ 還在每朝為了一杯好咖啡排隊嗎？\n\n我們全新推出嘅訂閱方案幫你解決早晨煩惱 — 每月精選 3 款莊園豆，直送辦公室或家中。\n\n🔸 自動配送，無需操心\n🔸 每月限量莊園豆\n🔸 隨時可暫停 / 取消\n\n首月 8 折，立即試試 → 連結在 bio\n\n#訂閱咖啡 #手沖咖啡 #上班族日常 #SlowMorning`,
+    } : {
+      platform:"instagram",
+      topic:"Promote our new coffee subscription for office workers",
+      output:`☕ Tired of queuing every morning?\n\nOur new subscription drops 3 single-origin beans to your office every month — no more morning stress.\n\n🔸 Auto delivery, zero hassle\n🔸 Limited monthly farms\n🔸 Pause or cancel anytime\n\nFirst month 20% off — link in bio\n\n#CoffeeSubscription #PourOver #SlowMorning #OfficeLife`,
+    };
+  }
+  function S5(){
+    return currentLang === "zh" ? {
+      input:"我訂單已經 7 日仍未收到，再不送到我會投訴！",
+      urgency:"高", mood:"負面", category:"投訴",
+      reply:"陳先生您好，非常抱歉讓您久等。我已即時為您查詢訂單狀態，並會於 1 小時內提供確切送達時間。對於延誤造成的不便，我們會主動補償，並全程跟進確保您今日能收到包裹。",
+    } : {
+      input:"My order is 7 days late and STILL not here. I'm filing a complaint if it doesn't arrive!",
+      urgency:"High", mood:"Negative", category:"Complaint",
+      reply:"Hi Mr. Chan, sincere apologies for the long wait. I'm checking your order status now and will confirm a delivery time within the hour. We'll proactively compensate for the delay and personally track this until your package arrives today.",
+    };
+  }
+  function S6(){
+    return currentLang === "zh" ? {
+      name:"陳先生",
+      company:"晨光咖啡 / 餐飲",
+      ctx:"上週談過 AI 自動點餐系統，客戶有興趣但尚未決定",
+      to:"陳先生 <morning-light@coffee.com>",
+      subject:"為晨光咖啡準備了一份點餐系統試算 ☕",
+      body:"陳先生您好，\n\n感謝上週撥冗交流晨光咖啡的點餐流程。我特別針對您門市規模準備了一份試算：估計每月可節省 28 小時人手、訂單錯誤率下降約 65%。\n\n如果這個方向可行，下週方便安排一次 30 分鐘 demo 嗎？只需 demo 完，您就可以判斷是否值得進一步討論。\n\n期待您的回覆。\n\nGrouper｜TBC Solutions",
+    } : {
+      name:"Mr. Chan",
+      company:"Morning Light / F&B",
+      ctx:"Discussed AI ordering system last week; interested but undecided",
+      to:"Mr. Chan <morning-light@coffee.com>",
+      subject:"A quick ROI sketch for Morning Light's ordering system ☕",
+      body:"Hi Mr. Chan,\n\nThanks for the chat last week about Morning Light's ordering flow. I put together a quick estimate based on your shop size: ~28 staff-hours saved per month and ~65% fewer order errors.\n\nIf this looks worthwhile, can we set up a 30-min demo next week? After the demo you can decide whether it's worth exploring further.\n\nLooking forward to hearing from you.\n\nGrouper | TBC Solutions",
+    };
+  }
+
+  // ----- play functions -----
+  async function playDemo1(token){
+    const inEl = document.getElementById("wf-input");
+    const dyEl = document.getElementById("wf-dynamic");
+    const reEl = document.getElementById("wf-result");
+    if(!inEl || !dyEl) return;
+    const s = S1();
+    reEl.classList.remove("show");
+    if(!await typeInput(inEl, s.input, token)) return;
+    if(!await gate(400, token)) return;
+    dyEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${s.thinkLabel}</div></div>`;
+    if(!await gate(1100, token)) return;
+    dyEl.innerHTML = s.nodes.map((n,i)=>`
+      <div class="wf-step-card">
+        <span class="step-num">${String(i+1).padStart(2,"0")}</span>
+        <div class="icon">${n.icon}</div>
+        <div class="title">${n.title}</div>
+        <div class="desc">${n.desc}</div>
+      </div>`).join("");
+    const cards = dyEl.querySelectorAll(".wf-step-card");
+    for(const c of cards){
+      if(token !== playToken) return;
+      await wait(200);
+      c.classList.add("show");
+    }
+    if(!await gate(300, token)) return;
+    reEl.innerHTML = s.doneLine;
+    reEl.classList.add("show");
+  }
+
+  async function playDemo2(token){
+    const msgs = document.getElementById("chat-msgs");
+    if(!msgs) return;
+    const s = S2();
+    if(!await gate(700, token)) return;
+    const userBubble = document.createElement("div");
+    userBubble.className = "chat-msg user";
+    msgs.appendChild(userBubble);
+    msgs.scrollTop = msgs.scrollHeight;
+    if(!await typeText(userBubble, s.q, token, 22)) return;
+    if(!await gate(500, token)) return;
+    const botBubble = document.createElement("div");
+    botBubble.className = "chat-msg bot thinking";
+    botBubble.innerHTML = `<span class="dot-typing"><span></span><span></span><span></span></span>`;
+    msgs.appendChild(botBubble);
+    msgs.scrollTop = msgs.scrollHeight;
+    if(!await gate(1100, token)) return;
+    botBubble.classList.remove("thinking");
+    botBubble.innerHTML = "";
+    if(!await typeText(botBubble, s.a, token, 14)) return;
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  async function playDemo3(token){
+    const nameEl = document.getElementById("wg-name");
+    const indEl  = document.getElementById("wg-industry");
+    const urlEl  = document.getElementById("wg-url");
+    const bodyEl = document.getElementById("wg-body");
+    if(!nameEl) return;
+    const s = S3();
+    if(!await typeInput(nameEl, s.name, token, 26)) return;
+    if(!await gate(280, token)) return;
+    if(!await typeInput(indEl, s.industry, token, 26)) return;
+    if(!await gate(400, token)) return;
+    // url typing
+    const target = `https://${s.slug}.com`;
+    urlEl.textContent = "https://";
+    for(let i=0;i<target.length-8;i++){
+      if(token !== playToken) return;
+      await wait(35);
+      urlEl.textContent = "https://" + target.slice(8, 8+i+1);
+    }
+    bodyEl.innerHTML = `<div class="preview-empty"><div class="dot-typing" style="justify-content:center"><span></span><span></span><span></span></div><div style="margin-top:12px">${s.thinkLabel}</div></div>`;
+    if(!await gate(1100, token)) return;
+    bodyEl.innerHTML = `
+      <div class="preview-nav fade-in"><strong>${s.name}</strong>
+        <div class="links"><span>${currentLang==="zh"?"關於":"About"}</span><span>${currentLang==="zh"?"服務":"Services"}</span><span>${currentLang==="zh"?"聯絡":"Contact"}</span></div>
+      </div>
+      <div class="preview-hero fade-in">
+        <span class="pill">${s.industry.toUpperCase()}</span>
+        <h4>${s.hero_title}</h4>
+        <p>${s.hero_sub}</p>
+      </div>
+      <div class="preview-cards">
+        ${s.services.map(c=>`<div class="preview-card fade-in"><strong>${c.title}</strong><span>${c.desc}</span></div>`).join("")}
+      </div>`;
+    bodyEl.querySelectorAll(".fade-in").forEach((f,i)=>{
+      setTimeout(()=>{
+        if(token !== playToken) return;
+        f.style.transition = "opacity .5s ease, transform .5s ease";
+        f.style.opacity = "1"; f.style.transform = "translateY(0)";
+      }, i*150);
+    });
+  }
+
+  async function playDemo4(token){
+    const topEl = document.getElementById("cg-topic");
+    const outEl = document.getElementById("cg-output");
+    if(!topEl) return;
+    const s = S4();
+    // platform already 'instagram' by default
+    if(!await typeInput(topEl, s.topic, token, 22)) return;
+    if(!await gate(500, token)) return;
+    outEl.innerHTML = `<span class="placeholder">${currentLang==="zh"?"AI 生成中…":"AI is writing…"}</span>`;
+    if(!await gate(1200, token)) return;
+    outEl.innerHTML = `<div class="platform-tag instagram">Instagram</div><span id="cg-stream"></span>`;
+    const stream = document.getElementById("cg-stream");
+    if(!await typeText(stream, s.output, token, 12)) return;
+  }
+
+  async function playDemo5(token){
+    const inEl = document.getElementById("ia-input");
+    if(!inEl) return;
+    const s = S5();
+    const setText = (id,v)=>{ const e=document.getElementById(id); if(e) e.textContent = v; };
+    setText("ia-urgency","—"); setText("ia-mood","—"); setText("ia-category","—");
+    setText("ia-reply", currentLang==="zh"?"分析後 AI 會撰寫專屬回覆…":"AI will draft a tailored reply here…");
+    if(!await typeInput(inEl, s.input, token, 22)) return;
+    if(!await gate(450, token)) return;
+    setText("ia-urgency","…"); setText("ia-mood","…"); setText("ia-category","…");
+    if(!await gate(900, token)) return;
+    setText("ia-urgency", s.urgency);
+    setText("ia-mood",    s.mood);
+    setText("ia-category",s.category);
+    document.getElementById("ia-chip-urgency").className = "intent-chip " + (
+      /高|high/i.test(s.urgency) ? "urgency-high" : /中|med/i.test(s.urgency) ? "urgency-medium" : "urgency-low"
+    );
+    document.getElementById("ia-chip-mood").className = "intent-chip " + (
+      /正|pos/i.test(s.mood) ? "mood-positive" : /負|neg/i.test(s.mood) ? "mood-negative" : "mood-neutral"
+    );
+    if(!await gate(400, token)) return;
+    const replyEl = document.getElementById("ia-reply");
+    if(replyEl) await typeText(replyEl, s.reply, token, 14);
+  }
+
+  async function playDemo6(token){
+    const nameEl = document.getElementById("se-name");
+    const compEl = document.getElementById("se-company");
+    const ctxEl  = document.getElementById("se-context");
+    if(!nameEl) return;
+    const s = S6();
+    if(!await typeInput(nameEl, s.name, token, 30)) return;
+    if(!await gate(220, token)) return;
+    if(!await typeInput(compEl, s.company, token, 24)) return;
+    if(!await gate(220, token)) return;
+    if(!await typeInput(ctxEl, s.ctx, token, 18)) return;
+    if(!await gate(450, token)) return;
+    document.getElementById("se-to").textContent = s.to;
+    document.getElementById("se-subject").textContent = currentLang==="zh"?"AI 撰寫中…":"AI drafting…";
+    document.getElementById("se-body").innerHTML = `<div class="dot-typing"><span></span><span></span><span></span></div>`;
+    if(!await gate(1200, token)) return;
+    document.getElementById("se-subject").textContent = s.subject;
+    const bodyEl = document.getElementById("se-body");
+    bodyEl.innerHTML = "";
+    await typeText(bodyEl, s.body, token, 9);
+  }
+
+  function playSlide(idx){
+    if(playedSlides.has(idx)) return;
+    playedSlides.add(idx);
+    const token = ++playToken;
+    const fns = [playDemo1, playDemo2, playDemo3, playDemo4, playDemo5, playDemo6];
+    fns[idx]?.(token).catch(()=>{});
+  }
+
+  // Watch slides — when one becomes .active for the first time, play it.
+  const slides = document.querySelectorAll(".demo-slide");
+  if(slides.length){
+    const obs = new MutationObserver(muts => {
+      muts.forEach(m => {
+        if(m.attributeName === "class" && m.target.classList.contains("active")){
+          const idx = +m.target.dataset.slideIdx;
+          if(!isNaN(idx)) setTimeout(()=>playSlide(idx), 350);
+        }
+      });
+    });
+    slides.forEach(s => obs.observe(s, {attributes:true, attributeFilter:["class"]}));
+  }
+
+  // Trigger Demo 1 only after the demos section actually scrolls into view
+  const demosCarousel = document.getElementById("demos-carousel");
+  if(demosCarousel){
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          setTimeout(()=>playSlide(0), 600);
+          io.disconnect();
+        }
+      });
+    }, {threshold:.25});
+    io.observe(demosCarousel);
+  }
+
+  // User interaction → cancel any running preview
+  ["wf-input","wf-run","chat-input","chat-send","wg-name","wg-industry","wg-run",
+   "cg-topic","cg-run","ia-input","ia-run","se-name","se-company","se-context","se-run"]
+    .forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.addEventListener("focus", cancelPreview, {passive:true});
+      el.addEventListener("mousedown", cancelPreview, {passive:true});
+    });
 })();
 
 /* ===========================================================
@@ -2841,6 +3597,237 @@ seRun.addEventListener("click", async ()=>{
     document.getElementById("se-body").innerHTML = `<span class="placeholder">${e.message || e}</span>`;
   }finally{
     seRun.disabled = false;
+  }
+});
+
+/* ===========================================================
+   DEMO 7 — MEETING SUMMARY
+   =========================================================== */
+const msRun = document.getElementById("ms-run");
+msRun?.addEventListener("click", async ()=>{
+  const text = (document.getElementById("ms-input").value || "").trim();
+  const out  = document.getElementById("ms-output");
+  if(!text){
+    out.innerHTML = `<div class="ms-card empty show"><div class="ms-content">${currentLang==="zh"?"請先貼入會議內容":"Please paste meeting content first."}</div></div>`;
+    return;
+  }
+  msRun.disabled = true;
+  out.innerHTML = `<div class="ms-card show"><div class="ms-content"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 整理中…":"AI is summarising…"}</div></div>`;
+
+  const sysPrompt = currentLang === "zh"
+    ? `你是專業會議速記員。根據用戶貼入的會議內容，提取以下三項。**只回覆 JSON**：
+{
+  "summary": "2-3 句綜合摘要",
+  "actions": ["具體行動項目（含負責人/截止日期 if mentioned）", "..."],
+  "decisions": ["主要決定（清晰列出）", "..."]
+}`
+    : `You are a meeting note-taker. Given a transcript, extract the three sections. **Reply ONLY with JSON**:
+{
+  "summary": "2-3 sentence overview",
+  "actions": ["concrete action items (with owner/deadline if mentioned)", "..."],
+  "decisions": ["clear key decisions", "..."]
+}`;
+
+  try{
+    const reply = await callClaude({system:sysPrompt, messages:[{role:"user", content:text}]});
+    const json = extractJSON(reply);
+    if(!json) throw new Error("Invalid JSON from AI");
+    const labels = currentLang === "zh"
+      ? {summary:"摘要", actions:"行動項目", decisions:"主要決定"}
+      : {summary:"Summary", actions:"Action items", decisions:"Key decisions"};
+
+    const renderList = arr => Array.isArray(arr) && arr.length
+      ? `<ul class="ms-list">${arr.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul>`
+      : `<div class="ms-content" style="color:var(--text-faint);font-style:italic">—</div>`;
+
+    out.innerHTML = `
+      <div class="ms-card"><div class="ms-lbl"><span class="ico">📋</span> ${labels.summary}</div><div class="ms-content">${escapeHtml(json.summary || "—")}</div></div>
+      <div class="ms-card"><div class="ms-lbl"><span class="ico">✅</span> ${labels.actions}</div>${renderList(json.actions)}</div>
+      <div class="ms-card"><div class="ms-lbl"><span class="ico">🎯</span> ${labels.decisions}</div>${renderList(json.decisions)}</div>
+    `;
+    out.querySelectorAll(".ms-card").forEach((c,i)=>setTimeout(()=>c.classList.add("show"), i*150));
+  }catch(e){
+    out.innerHTML = `<div class="ms-card show"><div class="ms-content">⚠️ ${e.message || e}</div></div>`;
+  }finally{
+    msRun.disabled = false;
+  }
+});
+
+/* ===========================================================
+   DEMO 8 — MULTI-LANG TRANSLATION
+   =========================================================== */
+let trTone = "formal";
+document.querySelectorAll("#tr-tone-row .platform-btn").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("#tr-tone-row .platform-btn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    trTone = b.dataset.tone;
+  });
+});
+const trRun = document.getElementById("tr-run");
+trRun?.addEventListener("click", async ()=>{
+  const text = (document.getElementById("tr-input").value || "").trim();
+  const lang = document.getElementById("tr-lang").value;
+  const out  = document.getElementById("tr-output");
+  if(!text){
+    out.innerHTML = `<span class="placeholder">${currentLang==="zh"?"請先輸入要翻譯的文字":"Please enter text to translate."}</span>`;
+    return;
+  }
+  trRun.disabled = true;
+  out.innerHTML = `<span class="placeholder"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 翻譯中…":"Translating…"}</span>`;
+
+  const sysPrompt = `You are a professional translator. Translate the source text into ${lang} with a ${trTone} tone. Preserve meaning and adapt to the target culture. **Reply ONLY with JSON**:
+{
+  "translation": "the translated text",
+  "note": "1 short cultural / contextual note explaining a key choice (or null)"
+}`;
+  try{
+    const reply = await callClaude({system:sysPrompt, messages:[{role:"user", content:text}]});
+    const json = extractJSON(reply);
+    if(!json || !json.translation) throw new Error("Invalid JSON from AI");
+    const noteLabel = currentLang === "zh" ? "文化備註" : "Cultural note";
+    out.innerHTML = `<div class="tr-text">${escapeHtml(json.translation)}</div>` +
+      (json.note ? `<div class="tr-note"><strong>${noteLabel}</strong>${escapeHtml(json.note)}</div>` : "");
+  }catch(e){
+    out.innerHTML = `<span class="placeholder">⚠️ ${e.message || e}</span>`;
+  }finally{
+    trRun.disabled = false;
+  }
+});
+
+/* ===========================================================
+   DEMO 9 — REVIEW REPLY GENERATOR
+   =========================================================== */
+const rvRun = document.getElementById("rv-run");
+rvRun?.addEventListener("click", async ()=>{
+  const text = (document.getElementById("rv-input").value || "").trim();
+  const biz  = (document.getElementById("rv-business").value || "").trim() || (currentLang==="zh"?"我們公司":"our business");
+  const out  = document.getElementById("rv-output");
+  if(!text){
+    out.innerHTML = `<div class="rv-card show"><div class="rv-text">${currentLang==="zh"?"請先貼入評論":"Please paste a review."}</div></div>`;
+    return;
+  }
+  rvRun.disabled = true;
+  out.innerHTML = `<div class="rv-card show"><div class="rv-text"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 撰寫中…":"AI drafting replies…"}</div></div>`;
+
+  const sysPrompt = currentLang === "zh"
+    ? `你是品牌客戶關係專家。根據用戶提供的客戶評論，為「${biz}」撰寫 3 個不同風格嘅回覆。判斷評論係正面/負面，調整語氣。**只回覆 JSON**：
+{
+  "replies": [
+    {"tone": "正式專業", "text": "..."},
+    {"tone": "親切溫暖", "text": "..."},
+    {"tone": "真誠致歉/感謝", "text": "..."}
+  ]
+}`
+    : `You are a brand customer relations expert. Given a review for "${biz}", write 3 distinct reply styles. Detect tone (positive/negative) and adapt accordingly. **Reply ONLY with JSON**:
+{
+  "replies": [
+    {"tone": "Formal & professional", "text": "..."},
+    {"tone": "Warm & friendly", "text": "..."},
+    {"tone": "Sincerely apologetic/grateful", "text": "..."}
+  ]
+}`;
+  try{
+    const reply = await callClaude({system:sysPrompt, messages:[{role:"user", content:text}]});
+    const json = extractJSON(reply);
+    if(!json || !Array.isArray(json.replies)) throw new Error("Invalid JSON from AI");
+    out.innerHTML = json.replies.slice(0,3).map(r=>`
+      <div class="rv-card">
+        <div class="rv-tone">${escapeHtml(r.tone || "")}</div>
+        <div class="rv-text">${escapeHtml(r.text || "")}</div>
+      </div>`).join("");
+    out.querySelectorAll(".rv-card").forEach((c,i)=>setTimeout(()=>c.classList.add("show"), i*180));
+  }catch(e){
+    out.innerHTML = `<div class="rv-card show"><div class="rv-text">⚠️ ${e.message || e}</div></div>`;
+  }finally{
+    rvRun.disabled = false;
+  }
+});
+
+/* ===========================================================
+   DEMO 10 — SEO TITLE GENERATOR
+   =========================================================== */
+const seoRun = document.getElementById("seo-run");
+seoRun?.addEventListener("click", async ()=>{
+  const topic = (document.getElementById("seo-topic").value || "").trim();
+  const kw    = (document.getElementById("seo-keyword").value || "").trim();
+  const out   = document.getElementById("seo-output");
+  if(!topic || !kw){
+    out.innerHTML = `<div class="rv-card show"><div class="rv-text">${currentLang==="zh"?"請填入主題同關鍵字":"Please fill in topic and keyword."}</div></div>`;
+    return;
+  }
+  seoRun.disabled = true;
+  out.innerHTML = `<div class="rv-card show"><div class="rv-text"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 生成中…":"AI generating…"}</div></div>`;
+
+  const sysPrompt = currentLang === "zh"
+    ? `你是 SEO 文案專家。根據用戶提供的主題同關鍵字，生成 5 個 SEO 標題。每個唔同切入角度（懸念式 / 數字列表 / How-to / 問題式 / 直接利益）。每個標題長度 30-60 字元，自然嵌入關鍵字。
+**只回覆 JSON**：
+{
+  "titles": [
+    {"angle": "切入角度（4-6 字描述）", "title": "標題", "score": 1-100 點擊吸引力評分},
+    ...共 5 個
+  ]
+}`
+    : `You are an SEO copywriter. Given a topic and primary keyword, generate 5 SEO-optimized titles. Each takes a different angle (curiosity / list / how-to / question / direct benefit). 30-60 chars, keyword embedded naturally.
+**Reply ONLY with JSON**:
+{
+  "titles": [
+    {"angle": "angle (2-3 words)", "title": "the title", "score": 1-100 click attractiveness},
+    ...5 total
+  ]
+}`;
+  try{
+    const reply = await callClaude({system:sysPrompt, messages:[{role:"user", content:`Topic: ${topic}\nKeyword: ${kw}`}]});
+    const json = extractJSON(reply);
+    if(!json || !Array.isArray(json.titles)) throw new Error("Invalid JSON from AI");
+    out.innerHTML = json.titles.slice(0,5).map(t=>`
+      <div class="rv-card">
+        <div class="rv-tone">${escapeHtml(t.angle || "")} · ${currentLang==="zh"?"評分":"Score"} ${t.score ?? "—"}/100</div>
+        <div class="rv-text" style="font-weight:600;font-size:15px">${escapeHtml(t.title || "")}</div>
+      </div>`).join("");
+    out.querySelectorAll(".rv-card").forEach((c,i)=>setTimeout(()=>c.classList.add("show"), i*140));
+  }catch(e){
+    out.innerHTML = `<div class="rv-card show"><div class="rv-text">⚠️ ${e.message || e}</div></div>`;
+  }finally{
+    seoRun.disabled = false;
+  }
+});
+
+/* ===========================================================
+   DEMO 11 — PRODUCT COPY (E-COMMERCE)
+   =========================================================== */
+const pcRun = document.getElementById("pc-run");
+pcRun?.addEventListener("click", async ()=>{
+  const name = (document.getElementById("pc-name").value || "").trim();
+  const feat = (document.getElementById("pc-features").value || "").trim();
+  const out  = document.getElementById("pc-output");
+  if(!name || !feat){
+    out.innerHTML = `<span class="placeholder">${currentLang==="zh"?"請填入產品名同特色":"Please fill in product name and features."}</span>`;
+    return;
+  }
+  pcRun.disabled = true;
+  out.innerHTML = `<span class="placeholder"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 撰寫中…":"AI writing…"}</span>`;
+
+  const sysPrompt = currentLang === "zh"
+    ? `你是電商文案專家。根據產品名同特色，撰寫一段適合上架嘅完整商品文案。包含：
+1. 一句吸引人嘅開場（喚起需求或情感）
+2. 3 個 bullet point 列出核心賣點（用 emoji 開頭）
+3. 一句 closing CTA
+
+控制 100-150 字。直接輸出文案，唔需要前言。`
+    : `You are an e-commerce copywriter. Given a product name and features, write complete product page copy. Include:
+1. A compelling one-line opener (evoking need or emotion)
+2. 3 bulleted key benefits (each starting with an emoji)
+3. A closing CTA line
+
+Keep to 90-130 words. Output only the copy, no preamble.`;
+  try{
+    const reply = await callClaude({system:sysPrompt, messages:[{role:"user", content:`產品: ${name}\n特色: ${feat}`}]});
+    out.textContent = reply.trim();
+  }catch(e){
+    out.innerHTML = `<span class="placeholder">⚠️ ${e.message || e}</span>`;
+  }finally{
+    pcRun.disabled = false;
   }
 });
 
