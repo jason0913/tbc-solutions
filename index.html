@@ -1728,7 +1728,7 @@ main,nav,section,footer{position:relative;z-index:2}
                   <div class="demo-save" data-i18n="demo8.save">支援 30+ 語言</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo8.title">AI 多語翻譯（含語氣/文化備註）</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo8.desc">不只係翻譯 — AI 會根據您揀的語氣 + 文化背景調整表達方式。</p>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo8.desc">不只係翻譯 — AI 會根據您選的語氣 + 文化背景調整表達方式。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -1767,7 +1767,7 @@ main,nav,section,footer{position:relative;z-index:2}
               </div>
               <div>
                 <div class="translate-output" id="tr-output">
-                  <span class="placeholder" data-i18n="demo8.empty">翻譯結果會喺呢度顯示…</span>
+                  <span class="placeholder" data-i18n="demo8.empty">翻譯結果會在這裡顯示…</span>
                 </div>
               </div>
             </div>
@@ -1781,10 +1781,10 @@ main,nav,section,footer{position:relative;z-index:2}
               <div>
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                   <div class="demo-tag">DEMO 09</div>
-                  <div class="demo-save" data-i18n="demo9.save">每則 30 秒搞掂</div>
+                  <div class="demo-save" data-i18n="demo9.save">每則 30 秒完成</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo9.title">AI 評論回覆生成器</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo9.desc">貼入 Google / TripAdvisor / OpenRice 評論，AI 即時生成 3 個不同語氣的回覆讓您揀。</p>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo9.desc">貼入 Google / TripAdvisor / OpenRice 評論，AI 即時生成 3 個不同語氣的回覆讓您選。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -1835,7 +1835,7 @@ main,nav,section,footer{position:relative;z-index:2}
               </div>
               <div>
                 <div class="reply-options" id="seo-output">
-                  <div class="rv-card show"><div class="rv-tone" data-i18n="demo10.empty">5 個 SEO 標題會喺呢度顯示</div><div class="rv-text" style="color:var(--text-faint);font-style:italic" data-i18n="demo10.emptyText">— 每個都有不同切入角度 + 點擊吸引力評分 —</div></div>
+                  <div class="rv-card show"><div class="rv-tone" data-i18n="demo10.empty">5 個 SEO 標題會在這裡顯示</div><div class="rv-text" style="color:var(--text-faint);font-style:italic" data-i18n="demo10.emptyText">— 每個都有不同切入角度 + 點擊吸引力評分 —</div></div>
                 </div>
               </div>
             </div>
@@ -1869,7 +1869,7 @@ main,nav,section,footer{position:relative;z-index:2}
               </div>
               <div>
                 <div class="content-output" id="pc-output">
-                  <span class="placeholder" data-i18n="demo11.empty">商品文案會喺呢度顯示…</span>
+                  <span class="placeholder" data-i18n="demo11.empty">商品文案會在這裡顯示…</span>
                 </div>
               </div>
             </div>
@@ -2178,6 +2178,22 @@ const I18N = {
     "demo6.title":"AI 銷售跟進信","demo6.desc":"填客戶資料 + 上次重點，AI 即時撰寫一封專屬跟進電郵。",
     "demo6.l1":"客戶姓名","demo6.l2":"公司 / 行業","demo6.l3":"上次對話重點","demo6.btn":"AI 撰寫跟進信 →",
     "demo6.from":"寄件:","demo6.to":"收件:","demo6.subject":"主旨:","demo6.empty":"填好左邊資料，AI 會立即生成一封跟進信","demo6.save":"成交率 ↑ 2×",
+    "demo7.title":"AI 會議紀要","demo7.desc":"貼入會議筆記或錄音轉文字，AI 自動拆解摘要、行動項目、主要決定。",
+    "demo7.label":"會議內容","demo7.btn":"AI 整理紀要 →","demo7.save":"會議筆記速度 ↑ 10×",
+    "demo7.summary":"摘要","demo7.empty":"分析後 AI 會自動產生摘要、行動項目、主要決定。",
+    "demo8.title":"AI 多語翻譯（含語氣／文化備註）","demo8.desc":"不只是翻譯 — AI 會根據您選的語氣 + 文化背景調整表達方式。",
+    "demo8.label":"原文","demo8.langLabel":"目標語言","demo8.toneLabel":"語氣",
+    "demo8.toneFormal":"正式","demo8.toneCasual":"輕鬆","demo8.toneFriendly":"親切",
+    "demo8.btn":"AI 翻譯 →","demo8.empty":"翻譯結果會在這裡顯示…","demo8.save":"支援 30+ 語言",
+    "demo9.title":"AI 評論回覆生成器","demo9.desc":"貼入 Google／TripAdvisor／OpenRice 評論，AI 即時生成 3 個不同語氣的回覆讓您選。",
+    "demo9.label":"客戶評論","demo9.bizLabel":"您的業務類型","demo9.btn":"AI 生成 3 個回覆 →",
+    "demo9.empty":"分析後 AI 會生成 3 個回覆風格","demo9.emptyText":"— 正式專業 ／ 親切溫暖 ／ 真誠致歉（或感謝） —","demo9.save":"每則 30 秒完成",
+    "demo10.title":"AI SEO 標題生成器","demo10.desc":"輸入頁面主題 + 關鍵字，AI 生成 5 個 SEO 友善、又能吸引點擊的標題。",
+    "demo10.l1":"頁面主題","demo10.l2":"主要關鍵字","demo10.btn":"AI 生成 5 個標題 →",
+    "demo10.empty":"5 個 SEO 標題會在這裡顯示","demo10.emptyText":"— 每個都有不同切入角度 + 點擊吸引力評分 —","demo10.save":"流量 ↑ 平均 40%",
+    "demo11.title":"AI 電商產品文案","demo11.desc":"輸入產品名 + 主要特色，AI 生成符合電商平台風格的完整商品文案。",
+    "demo11.l1":"產品名稱","demo11.l2":"主要特色 / 賣點","demo11.btn":"AI 撰寫商品文案 →",
+    "demo11.empty":"商品文案會在這裡顯示…","demo11.save":"電商轉換率 ↑ 25%",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
     "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
@@ -2260,6 +2276,22 @@ const I18N = {
     "demo6.title":"AI Sales Follow-up","demo6.desc":"Drop in client info + last interaction — AI writes a personalised follow-up email.",
     "demo6.l1":"Client name","demo6.l2":"Company / Industry","demo6.l3":"Last interaction","demo6.btn":"Draft email with AI →",
     "demo6.from":"From:","demo6.to":"To:","demo6.subject":"Subject:","demo6.empty":"Fill the form on the left — AI will draft a follow-up.","demo6.save":"2× conversion rate",
+    "demo7.title":"AI Meeting Summary","demo7.desc":"Paste meeting notes or transcripts — AI extracts summary, action items, and key decisions.",
+    "demo7.label":"Meeting content","demo7.btn":"Summarise with AI →","demo7.save":"10× faster notes",
+    "demo7.summary":"Summary","demo7.empty":"AI will produce a summary, action items and decisions here.",
+    "demo8.title":"AI Translation (with tone & cultural notes)","demo8.desc":"More than translation — AI adapts tone and cultural nuance for the target audience.",
+    "demo8.label":"Source text","demo8.langLabel":"Target language","demo8.toneLabel":"Tone",
+    "demo8.toneFormal":"Formal","demo8.toneCasual":"Casual","demo8.toneFriendly":"Friendly",
+    "demo8.btn":"Translate with AI →","demo8.empty":"Translation will appear here…","demo8.save":"30+ languages",
+    "demo9.title":"AI Review Reply Generator","demo9.desc":"Paste a Google / TripAdvisor / Yelp review — AI drafts 3 reply styles for you to pick.",
+    "demo9.label":"Customer review","demo9.bizLabel":"Your business type","demo9.btn":"Generate 3 replies →",
+    "demo9.empty":"AI will draft 3 reply styles","demo9.emptyText":"— Formal & professional / Warm & friendly / Sincerely apologetic (or grateful) —","demo9.save":"30 sec per reply",
+    "demo10.title":"AI SEO Title Generator","demo10.desc":"Type your topic + keyword — AI generates 5 SEO-friendly, click-worthy titles.",
+    "demo10.l1":"Page topic","demo10.l2":"Primary keyword","demo10.btn":"Generate 5 titles →",
+    "demo10.empty":"5 SEO titles will appear here","demo10.emptyText":"— Each takes a different angle + click-attractiveness score —","demo10.save":"+40% traffic avg",
+    "demo11.title":"AI E-commerce Product Copy","demo11.desc":"Type product name + features — AI writes complete e-commerce product description.",
+    "demo11.l1":"Product name","demo11.l2":"Key features / selling points","demo11.btn":"Write copy with AI →",
+    "demo11.empty":"Product copy will appear here…","demo11.save":"+25% conversion",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"Real time and cost","impact.title2":"saved.",
     "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
@@ -2948,7 +2980,7 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     return currentLang === "zh" ? {
       platform:"instagram",
       topic:"宣傳新推出的咖啡訂閱方案，目標客群是上班族",
-      output:`☕ 還在每朝為了一杯好咖啡排隊嗎？\n\n我們全新推出嘅訂閱方案幫你解決早晨煩惱 — 每月精選 3 款莊園豆，直送辦公室或家中。\n\n🔸 自動配送，無需操心\n🔸 每月限量莊園豆\n🔸 隨時可暫停 / 取消\n\n首月 8 折，立即試試 → 連結在 bio\n\n#訂閱咖啡 #手沖咖啡 #上班族日常 #SlowMorning`,
+      output:`☕ 還在每朝為了一杯好咖啡排隊嗎？\n\n我們全新推出的訂閱方案幫你解決早晨煩惱 — 每月精選 3 款莊園豆，直送辦公室或家中。\n\n🔸 自動配送，無需操心\n🔸 每月限量莊園豆\n🔸 隨時可暫停 / 取消\n\n首月 8 折，立即試試 → 連結在 bio\n\n#訂閱咖啡 #手沖咖啡 #上班族日常 #SlowMorning`,
     } : {
       platform:"instagram",
       topic:"Promote our new coffee subscription for office workers",
@@ -3141,11 +3173,203 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     await typeText(bodyEl, s.body, token, 9);
   }
 
+  // ----- additional sample data (Demo 7-11) -----
+  function S7(){
+    return currentLang === "zh" ? {
+      input:"今日會議 Sarah 主持，討論 Q4 行銷計劃。預算 50 萬，重點推社交媒體投放。John 提到 11 月底前要完成新網站，Mary 負責 KPI 追蹤。下次會議定在下週三。",
+      summary:"Q4 行銷計劃會議：預算 50 萬，重點推社交媒體，網站 11 月底完成，下週三再開。",
+      actions:["John 在 11 月底前完成新網站", "Mary 設定 KPI 追蹤儀表板", "Sarah 草擬社交媒體投放計劃"],
+      decisions:["Q4 預算定為 50 萬", "主力投放社交媒體", "下次會議：下週三"],
+      thinkLabel:"AI 整理中…",
+    } : {
+      input:"Today's meeting was led by Sarah on Q4 marketing. Budget set at $500k, focus on social media. John to deliver new website by end of November. Mary handles KPI tracking. Next meeting: next Wednesday.",
+      summary:"Q4 marketing meeting: $500k budget, social-first, website due Nov, follow-up next Wed.",
+      actions:["John ships new website by end of November", "Mary sets up KPI tracking dashboard", "Sarah drafts social media campaign plan"],
+      decisions:["Q4 budget set at $500k", "Primary channel: social media", "Next meeting: next Wednesday"],
+      thinkLabel:"AI is summarising…",
+    };
+  }
+  function S8(){
+    return currentLang === "zh" ? {
+      input:"我們下星期三可以開個會討論項目進度嗎？",
+      lang:"English", tone:"formal",
+      translation:"Could we schedule a meeting next Wednesday to review project progress?",
+      note:"使用 \"Could we\" 比直譯 \"Can we\" 更顯禮貌，適合商務情境。",
+      thinkLabel:"AI 翻譯中…",
+    } : {
+      input:"Could we set a quick sync next Wednesday to review project status?",
+      lang:"日本語", tone:"formal",
+      translation:"来週水曜日に簡単な打ち合わせを設定し、プロジェクトの状況を確認することは可能でしょうか？",
+      note:"Japanese business communication favours longer, more polite phrasing — note the use of でしょうか for softening.",
+      thinkLabel:"Translating…",
+    };
+  }
+  function S9(){
+    return currentLang === "zh" ? {
+      input:"餐廳食物好食但服務員態度好差，等位等了 30 分鐘無人理。再不會來。",
+      biz:"餐廳",
+      replies:[
+        {tone:"正式專業", text:"感謝您的反饋。對於服務上的不足，我們深表歉意。已將您的意見轉達相關主管，並會立即加強員工培訓。希望能有機會讓我們重新為您服務。"},
+        {tone:"親切溫暖", text:"先生／小姐您好，看到您的留言我們真的很心痛 💔 等了 30 分鐘還沒人招呼確實不應該。下次光臨可以告訴我們嗎？我們親自為您安排座位，請給我們一次補償的機會 🙏"},
+        {tone:"真誠致歉", text:"非常抱歉讓您有這樣不愉快的經歷。對食物的肯定我們由衷感謝，但服務未達標準是我們的責任。已即時檢討當值流程，誠摯邀請您再次光臨，由我親自為您服務。— 店長 Grouper"},
+      ],
+      thinkLabel:"AI 撰寫中…",
+    } : {
+      input:"Food was great but the service was awful. Waited 30 minutes for seating with no one acknowledging us. Won't be back.",
+      biz:"restaurant",
+      replies:[
+        {tone:"Formal & professional", text:"Thank you for your feedback. We sincerely apologise for the service shortfall and have escalated your comments to our floor manager. Staff training will be reinforced immediately. We would welcome the chance to serve you better."},
+        {tone:"Warm & friendly", text:"Hi there — reading this honestly broke our hearts 💔 30 minutes ignored at the door is not okay. Could you let us know next time you're nearby? I'd love to seat you personally and make it up to you 🙏"},
+        {tone:"Sincerely apologetic", text:"I'm truly sorry your visit ended this way. We're grateful you enjoyed the food, but the service was on us — and that's unacceptable. I've reviewed our floor process and would personally welcome you back any time. — Grouper, Restaurant Manager"},
+      ],
+      thinkLabel:"AI drafting replies…",
+    };
+  }
+  function S10(){
+    return currentLang === "zh" ? {
+      topic:"企業數位轉型策略指南",
+      keyword:"AI 自動化",
+      titles:[
+        {angle:"How-to 教學", title:"如何用 AI 自動化推動企業數位轉型：5 步實戰指南", score:88},
+        {angle:"數字列表", title:"7 個 AI 自動化案例證明數位轉型沒想像中難", score:84},
+        {angle:"問題式", title:"為什麼您的數位轉型失敗？關鍵在 AI 自動化", score:90},
+        {angle:"懸念式", title:"頂尖企業正用 AI 自動化做這件事 — 您還在等？", score:86},
+        {angle:"直接利益", title:"AI 自動化：3 個月內完成數位轉型的最快路徑", score:82},
+      ],
+      thinkLabel:"AI 生成中…",
+    } : {
+      topic:"Enterprise digital transformation strategy",
+      keyword:"AI automation",
+      titles:[
+        {angle:"How-to", title:"How to Drive Digital Transformation with AI Automation: 5 Steps", score:88},
+        {angle:"Listicle", title:"7 AI Automation Wins That Made Digital Transformation Easy", score:84},
+        {angle:"Question", title:"Why Does Digital Transformation Fail? AI Automation Holds the Key", score:90},
+        {angle:"Curiosity", title:"What Leading Companies Are Doing with AI Automation Right Now", score:86},
+        {angle:"Direct benefit", title:"AI Automation: The Fastest Path to Digital Transformation in 90 Days", score:82},
+      ],
+      thinkLabel:"AI generating…",
+    };
+  }
+  function S11(){
+    return currentLang === "zh" ? {
+      name:"極簡陶瓷咖啡杯",
+      features:"手作陶瓷、3 色可選、保溫 4 小時、可進微波爐",
+      output:`為日常一杯咖啡，留住溫度與儀式感。\n\n☕ 手作陶瓷杯壁，每一只都有獨特紋路\n🌡️ 雙層真空設計，咖啡保溫 4 小時不變涼\n🎨 經典米白、深炭、霧粉 3 色，搭配任何空間都耐看\n\n微波爐安全，輕鬆熱奶咖、煮巧克力。今日下單，享首次購入限定 8 折優惠。`,
+      thinkLabel:"AI 撰寫中…",
+    } : {
+      name:"Minimalist Ceramic Mug",
+      features:"Hand-thrown ceramic, 3 colours, keeps heat 4 hrs, microwave-safe",
+      output:`Slow down your morning, one cup at a time.\n\n☕ Hand-thrown ceramic walls — each piece uniquely textured\n🌡️ Double-wall design holds heat for 4 full hours\n🎨 Off-white, charcoal, dusty pink — built to live in any space\n\nMicrowave-safe for warm milk and lazy mornings. Order today and get 20% off your first.`,
+      thinkLabel:"AI writing…",
+    };
+  }
+
+  // ----- new play functions -----
+  async function playDemo7(token){
+    const inEl = document.getElementById("ms-input");
+    const out  = document.getElementById("ms-output");
+    if(!inEl) return;
+    const s = S7();
+    if(!await typeInput(inEl, s.input, token, 12)) return;
+    if(!await gate(450, token)) return;
+    out.innerHTML = `<div class="ms-card show"><div class="ms-content"><div class="dot-typing"><span></span><span></span><span></span></div> ${s.thinkLabel}</div></div>`;
+    if(!await gate(1200, token)) return;
+    const labels = currentLang === "zh"
+      ? {summary:"摘要", actions:"行動項目", decisions:"主要決定"}
+      : {summary:"Summary", actions:"Action items", decisions:"Key decisions"};
+    out.innerHTML = `
+      <div class="ms-card"><div class="ms-lbl"><span class="ico">📋</span> ${labels.summary}</div><div class="ms-content">${s.summary}</div></div>
+      <div class="ms-card"><div class="ms-lbl"><span class="ico">✅</span> ${labels.actions}</div><ul class="ms-list">${s.actions.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      <div class="ms-card"><div class="ms-lbl"><span class="ico">🎯</span> ${labels.decisions}</div><ul class="ms-list">${s.decisions.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+    out.querySelectorAll(".ms-card").forEach((c,i)=>{
+      setTimeout(()=>{ if(token === playToken) c.classList.add("show"); }, i*200);
+    });
+  }
+
+  async function playDemo8(token){
+    const inEl = document.getElementById("tr-input");
+    const langEl = document.getElementById("tr-lang");
+    const out  = document.getElementById("tr-output");
+    if(!inEl) return;
+    const s = S8();
+    langEl.value = s.lang;
+    if(!await typeInput(inEl, s.input, token, 22)) return;
+    if(!await gate(400, token)) return;
+    out.innerHTML = `<span class="placeholder"><div class="dot-typing"><span></span><span></span><span></span></div> ${s.thinkLabel}</span>`;
+    if(!await gate(1100, token)) return;
+    const noteLabel = currentLang === "zh" ? "文化備註" : "Cultural note";
+    out.innerHTML = `<div class="tr-text" id="tr-stream"></div><div class="tr-note"><strong>${noteLabel}</strong>${s.note}</div>`;
+    const stream = document.getElementById("tr-stream");
+    if(!await typeText(stream, s.translation, token, 14)) return;
+  }
+
+  async function playDemo9(token){
+    const inEl = document.getElementById("rv-input");
+    const bizEl = document.getElementById("rv-business");
+    const out  = document.getElementById("rv-output");
+    if(!inEl) return;
+    const s = S9();
+    if(!await typeInput(inEl, s.input, token, 16)) return;
+    if(!await gate(220, token)) return;
+    if(!await typeInput(bizEl, s.biz, token, 30)) return;
+    if(!await gate(450, token)) return;
+    out.innerHTML = `<div class="rv-card show"><div class="rv-text"><div class="dot-typing"><span></span><span></span><span></span></div> ${s.thinkLabel}</div></div>`;
+    if(!await gate(1200, token)) return;
+    out.innerHTML = s.replies.map(r=>`
+      <div class="rv-card">
+        <div class="rv-tone">${r.tone}</div>
+        <div class="rv-text">${r.text}</div>
+      </div>`).join("");
+    out.querySelectorAll(".rv-card").forEach((c,i)=>{
+      setTimeout(()=>{ if(token === playToken) c.classList.add("show"); }, i*220);
+    });
+  }
+
+  async function playDemo10(token){
+    const topEl = document.getElementById("seo-topic");
+    const kwEl  = document.getElementById("seo-keyword");
+    const out   = document.getElementById("seo-output");
+    if(!topEl) return;
+    const s = S10();
+    if(!await typeInput(topEl, s.topic, token, 26)) return;
+    if(!await gate(220, token)) return;
+    if(!await typeInput(kwEl, s.keyword, token, 30)) return;
+    if(!await gate(450, token)) return;
+    out.innerHTML = `<div class="rv-card show"><div class="rv-text"><div class="dot-typing"><span></span><span></span><span></span></div> ${s.thinkLabel}</div></div>`;
+    if(!await gate(1100, token)) return;
+    const scoreLabel = currentLang === "zh" ? "評分" : "Score";
+    out.innerHTML = s.titles.map(t=>`
+      <div class="rv-card">
+        <div class="rv-tone">${t.angle} · ${scoreLabel} ${t.score}/100</div>
+        <div class="rv-text" style="font-weight:600;font-size:15px">${t.title}</div>
+      </div>`).join("");
+    out.querySelectorAll(".rv-card").forEach((c,i)=>{
+      setTimeout(()=>{ if(token === playToken) c.classList.add("show"); }, i*150);
+    });
+  }
+
+  async function playDemo11(token){
+    const nameEl = document.getElementById("pc-name");
+    const featEl = document.getElementById("pc-features");
+    const out  = document.getElementById("pc-output");
+    if(!nameEl) return;
+    const s = S11();
+    if(!await typeInput(nameEl, s.name, token, 30)) return;
+    if(!await gate(250, token)) return;
+    if(!await typeInput(featEl, s.features, token, 18)) return;
+    if(!await gate(450, token)) return;
+    out.innerHTML = `<span class="placeholder"><div class="dot-typing"><span></span><span></span><span></span></div> ${s.thinkLabel}</span>`;
+    if(!await gate(1100, token)) return;
+    out.textContent = "";
+    if(!await typeText(out, s.output, token, 11)) return;
+  }
+
   function playSlide(idx){
     if(playedSlides.has(idx)) return;
     playedSlides.add(idx);
     const token = ++playToken;
-    const fns = [playDemo1, playDemo2, playDemo3, playDemo4, playDemo5, playDemo6];
+    const fns = [playDemo1, playDemo2, playDemo3, playDemo4, playDemo5, playDemo6,
+                 playDemo7, playDemo8, playDemo9, playDemo10, playDemo11];
     fns[idx]?.(token).catch(()=>{});
   }
 
@@ -3179,7 +3403,9 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
 
   // User interaction → cancel any running preview
   ["wf-input","wf-run","chat-input","chat-send","wg-name","wg-industry","wg-run",
-   "cg-topic","cg-run","ia-input","ia-run","se-name","se-company","se-context","se-run"]
+   "cg-topic","cg-run","ia-input","ia-run","se-name","se-company","se-context","se-run",
+   "ms-input","ms-run","tr-input","tr-lang","tr-run","rv-input","rv-business","rv-run",
+   "seo-topic","seo-keyword","seo-run","pc-name","pc-features","pc-run"]
     .forEach(id => {
       const el = document.getElementById(id);
       if(!el) return;
@@ -3556,7 +3782,7 @@ seRun.addEventListener("click", async ()=>{
   const company = (document.getElementById("se-company").value || "").trim();
   const ctx     = (document.getElementById("se-context").value || "").trim();
   if(!name || !company){
-    document.getElementById("se-body").innerHTML = `<span class="placeholder">${currentLang==="zh"?"請填客戶姓名同公司":"Please fill in name and company."}</span>`;
+    document.getElementById("se-body").innerHTML = `<span class="placeholder">${currentLang==="zh"?"請填客戶姓名和公司":"Please fill in name and company."}</span>`;
     return;
   }
   seRun.disabled = true;
@@ -3711,7 +3937,7 @@ rvRun?.addEventListener("click", async ()=>{
   out.innerHTML = `<div class="rv-card show"><div class="rv-text"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 撰寫中…":"AI drafting replies…"}</div></div>`;
 
   const sysPrompt = currentLang === "zh"
-    ? `你是品牌客戶關係專家。根據用戶提供的客戶評論，為「${biz}」撰寫 3 個不同風格嘅回覆。判斷評論係正面/負面，調整語氣。**只回覆 JSON**：
+    ? `你是品牌客戶關係專家。根據用戶提供的客戶評論，為「${biz}」撰寫 3 個不同風格的回覆。判斷評論係正面/負面，調整語氣。**只回覆 JSON**：
 {
   "replies": [
     {"tone": "正式專業", "text": "..."},
@@ -3753,14 +3979,14 @@ seoRun?.addEventListener("click", async ()=>{
   const kw    = (document.getElementById("seo-keyword").value || "").trim();
   const out   = document.getElementById("seo-output");
   if(!topic || !kw){
-    out.innerHTML = `<div class="rv-card show"><div class="rv-text">${currentLang==="zh"?"請填入主題同關鍵字":"Please fill in topic and keyword."}</div></div>`;
+    out.innerHTML = `<div class="rv-card show"><div class="rv-text">${currentLang==="zh"?"請填入主題和關鍵字":"Please fill in topic and keyword."}</div></div>`;
     return;
   }
   seoRun.disabled = true;
   out.innerHTML = `<div class="rv-card show"><div class="rv-text"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 生成中…":"AI generating…"}</div></div>`;
 
   const sysPrompt = currentLang === "zh"
-    ? `你是 SEO 文案專家。根據用戶提供的主題同關鍵字，生成 5 個 SEO 標題。每個唔同切入角度（懸念式 / 數字列表 / How-to / 問題式 / 直接利益）。每個標題長度 30-60 字元，自然嵌入關鍵字。
+    ? `你是 SEO 文案專家。根據用戶提供的主題和關鍵字，生成 5 個 SEO 標題。每個不同切入角度（懸念式 / 數字列表 / How-to / 問題式 / 直接利益）。每個標題長度 30-60 字元，自然嵌入關鍵字。
 **只回覆 JSON**：
 {
   "titles": [
@@ -3802,19 +4028,19 @@ pcRun?.addEventListener("click", async ()=>{
   const feat = (document.getElementById("pc-features").value || "").trim();
   const out  = document.getElementById("pc-output");
   if(!name || !feat){
-    out.innerHTML = `<span class="placeholder">${currentLang==="zh"?"請填入產品名同特色":"Please fill in product name and features."}</span>`;
+    out.innerHTML = `<span class="placeholder">${currentLang==="zh"?"請填入產品名和特色":"Please fill in product name and features."}</span>`;
     return;
   }
   pcRun.disabled = true;
   out.innerHTML = `<span class="placeholder"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 撰寫中…":"AI writing…"}</span>`;
 
   const sysPrompt = currentLang === "zh"
-    ? `你是電商文案專家。根據產品名同特色，撰寫一段適合上架嘅完整商品文案。包含：
-1. 一句吸引人嘅開場（喚起需求或情感）
+    ? `你是電商文案專家。根據產品名和特色，撰寫一段適合上架的完整商品文案。包含：
+1. 一句吸引人的開場（喚起需求或情感）
 2. 3 個 bullet point 列出核心賣點（用 emoji 開頭）
 3. 一句 closing CTA
 
-控制 100-150 字。直接輸出文案，唔需要前言。`
+控制 100-150 字。直接輸出文案，不需要前言。`
     : `You are an e-commerce copywriter. Given a product name and features, write complete product page copy. Include:
 1. A compelling one-line opener (evoking need or emotion)
 2. 3 bulleted key benefits (each starting with an emoji)
