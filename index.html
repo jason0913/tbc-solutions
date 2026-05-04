@@ -910,6 +910,77 @@ main,nav,section,footer{position:relative;z-index:2}
 .stat .l{font-size:11px;color:var(--text-dim);letter-spacing:.18em;text-transform:uppercase;margin-top:6px;font-weight:600}
 
 /* =====================================================================
+   PROCESS — 6-step timeline
+   ===================================================================== */
+.process-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px;
+  counter-reset:proc;
+}
+.process-step{
+  position:relative;padding:30px 26px 26px;
+  border-radius:16px;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  overflow:hidden;
+  transition:transform var(--t-med),border-color var(--t-med);
+}
+.process-step::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity var(--t-med);pointer-events:none;
+}
+.process-step:hover{transform:translateY(-4px)}
+.process-step:hover::before{opacity:1}
+.process-step::after{
+  /* big background numeral */
+  content:counter(proc, decimal-leading-zero);counter-increment:proc;
+  position:absolute;right:-10px;bottom:-30px;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:120px;line-height:1;
+  color:rgba(255,255,255,.04);letter-spacing:-.04em;pointer-events:none;
+}
+[data-theme="light"] .process-step::after{color:rgba(0,0,0,.05)}
+.process-step .ps-num{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:.18em;
+  color:var(--text-dim);margin-bottom:14px;
+  position:relative;z-index:1;
+}
+.process-step .ps-num .num{
+  background:var(--grad);-webkit-background-clip:text;color:transparent;font-size:18px;
+}
+.process-step .ps-icon{
+  font-size:32px;line-height:1;margin-bottom:14px;
+  position:relative;z-index:1;
+}
+.process-step h3{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.005em;
+  margin-bottom:10px;position:relative;z-index:1;
+}
+.process-step p{
+  color:var(--text-dim);font-size:14px;line-height:1.65;margin-bottom:16px;
+  position:relative;z-index:1;
+}
+.process-step .ps-meta{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:999px;
+  font-size:11px;letter-spacing:.18em;font-weight:700;text-transform:uppercase;
+  background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.3);
+  color:#c8b9ff;position:relative;z-index:1;
+}
+[data-theme="light"] .process-step{
+  background:linear-gradient(160deg,rgba(0,0,0,.025),rgba(0,0,0,.005));
+  border-color:rgba(0,0,0,.08);
+}
+[data-theme="light"] .process-step .ps-meta{
+  background:rgba(124,92,255,.10);border-color:rgba(124,92,255,.25);
+  color:#5a3fd6;
+}
+
+@media(max-width:860px){.process-grid{grid-template-columns:1fr}}
+
+/* =====================================================================
    FAQ — accordion list
    ===================================================================== */
 .faq-list{display:flex;flex-direction:column;gap:14px;margin-top:50px;max-width:880px;margin-inline:auto}
@@ -1261,6 +1332,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <a href="#demos" data-i18n="nav.demos">互動 Demo</a>
       <a href="#impact" data-i18n="nav.impact">效益</a>
       <a href="#about" data-i18n="nav.about">關於</a>
+      <a href="#process" data-i18n="nav.process">流程</a>
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
@@ -2011,6 +2083,67 @@ main,nav,section,footer{position:relative;z-index:2}
   </div>
 </section>
 
+<!-- ======================== PROCESS ======================== -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="eyebrow" style="justify-content:center" data-i18n="process.eyebrow">PROCESS</div>
+      <h2 class="h2"><span data-i18n="process.title1">六步走完，</span><span class="gradient-text" data-i18n="process.title2">從諮詢到交付</span></h2>
+      <p class="muted" data-i18n="process.desc">透明的合作流程，每一步都有清晰的 deliverables 與時程。</p>
+    </div>
+
+    <div class="process-grid reveal">
+      <div class="process-step">
+        <div class="ps-num"><span class="num">01</span> <span data-i18n="process.s1.tag">第一步</span></div>
+        <div class="ps-icon">💬</div>
+        <h3 data-i18n="process.s1.title">免費諮詢</h3>
+        <p data-i18n="process.s1.desc">30 分鐘 Cal.com 視訊，了解您的業務目標、現有系統、痛點。我們會誠實判斷 AI 適不適合您。</p>
+        <div class="ps-meta" data-i18n="process.s1.meta">⏱ 1 天內可預約</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">02</span> <span data-i18n="process.s2.tag">第二步</span></div>
+        <div class="ps-icon">📋</div>
+        <h3 data-i18n="process.s2.title">方案 + 報價</h3>
+        <p data-i18n="process.s2.desc">24–48 小時內收到書面方案：包含技術選型、工作流程圖、時程表、明細報價。您決定才收費。</p>
+        <div class="ps-meta" data-i18n="process.s2.meta">⏱ 諮詢後 48 小時</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">03</span> <span data-i18n="process.s3.tag">第三步</span></div>
+        <div class="ps-icon">🚀</div>
+        <h3 data-i18n="process.s3.title">啟動專案</h3>
+        <p data-i18n="process.s3.desc">簽約後即刻 kickoff：釐清成功指標（KPIs）、開設共享 Notion 看板、訂下每週進度滙報節奏。</p>
+        <div class="ps-meta" data-i18n="process.s3.meta">⏱ 簽約後 3 天</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">04</span> <span data-i18n="process.s4.tag">第四步</span></div>
+        <div class="ps-icon">⚙️</div>
+        <h3 data-i18n="process.s4.title">開發 + 測試</h3>
+        <p data-i18n="process.s4.desc">系統建設、模組整合、自動化流程編寫。每週展示進度，邀請您試用 + 即時回饋調整。</p>
+        <div class="ps-meta" data-i18n="process.s4.meta">⏱ 1–6 週（視 scope）</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">05</span> <span data-i18n="process.s5.tag">第五步</span></div>
+        <div class="ps-icon">🎓</div>
+        <h3 data-i18n="process.s5.title">培訓 + 上線</h3>
+        <p data-i18n="process.s5.desc">完整文件、操作 SOP、登入資料、流程圖一次過交接。1–2 小時遠端培訓您的團隊正式接手。</p>
+        <div class="ps-meta" data-i18n="process.s5.meta">⏱ 上線前 1 週</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">06</span> <span data-i18n="process.s6.tag">第六步</span></div>
+        <div class="ps-icon">🤝</div>
+        <h3 data-i18n="process.s6.title">持續支援</h3>
+        <p data-i18n="process.s6.desc">30 天免費 bug 修正期 + KPI 追蹤檢視。後續可選月度 maintenance plan，或按需呼叫支援。</p>
+        <div class="ps-meta" data-i18n="process.s6.meta">⏱ 30 天保固期</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ======================== FAQ ======================== -->
 <section class="section" id="faq">
   <div class="container" style="max-width:980px">
@@ -2076,6 +2209,10 @@ main,nav,section,footer{position:relative;z-index:2}
       <div class="eyebrow" data-i18n="book.eyebrow">BOOK A CALL</div>
       <h2 class="h2" style="margin-top:18px"><span data-i18n="book.title1">準備好了嗎？</span> <span class="gradient-text" data-i18n="book.title2">預約免費諮詢</span></h2>
       <p class="muted" style="margin-top:18px;max-width:600px;margin-inline:auto" data-i18n="book.desc">30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。</p>
+      <p class="muted" style="margin-top:14px;font-size:14.5px">
+        <span data-i18n="book.altText">或直接電郵聯絡：</span>
+        <a href="mailto:shek0913@tbchk.com" style="color:var(--accent);font-weight:600;border-bottom:1px solid rgba(124,92,255,.4)">shek0913@tbchk.com</a>
+      </p>
     </div>
 
     <div class="book-frame-wrap reveal">
@@ -2118,9 +2255,15 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="footer-links">
       <a href="#services" data-i18n="nav.services">服務</a>
       <a href="#demos" data-i18n="nav.demos">Demo</a>
-      <a href="#about" data-i18n="nav.about">關於</a>
+      <a href="#process" data-i18n="nav.process">流程</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
+  </div>
+  <div class="footer-row" style="margin-top:8px;font-size:13.5px">
+    <a href="mailto:shek0913@tbchk.com" style="color:var(--text);display:inline-flex;align-items:center;gap:8px">
+      <span style="font-size:15px">✉</span> shek0913@tbchk.com
+    </a>
   </div>
   <div class="footer-copy">© <span id="yr"></span> TBC Solutions · Transform · Build · Create</div>
 </footer>
@@ -2140,7 +2283,7 @@ const CAL_LINK        = "https://cal.com/grouper-shek/30min";
 /* ============== i18n ============== */
 const I18N = {
   zh:{
-    "nav.services":"服務", "nav.demos":"互動 Demo", "nav.impact":"效益", "nav.about":"關於", "nav.faq":"常見問題", "nav.book":"預約",
+    "nav.services":"服務", "nav.demos":"互動 Demo", "nav.impact":"效益", "nav.about":"關於", "nav.process":"流程", "nav.faq":"常見問題", "nav.book":"預約",
     "hero.eyebrow":"AI · 自動化 · 網頁",
     "hero.title": ["從繁瑣事務中","解放出來"],
     "hero.typing":["為您打造 AI 自動化工作流程","用 AI 重塑您的網站與內容","Transform · Build · Create"],
@@ -2210,6 +2353,27 @@ const I18N = {
     "about.p2":"從工作流程設計到 AI 模型整合，我們以「Transform · Build · Create」為核心，把您的業務從繁瑣中解放，重新打造，並創造新的可能。",
     "about.role":"創辦人 · TBC Solutions",
     "about.stat1":"整合工具","about.stat2":"自動運作","about.stat3":"無限可能",
+    "process.eyebrow":"PROCESS",
+    "process.title1":"六步走完，","process.title2":"從諮詢到交付",
+    "process.desc":"透明的合作流程，每一步都有清晰的 deliverables 與時程。",
+    "process.s1.tag":"第一步","process.s1.title":"免費諮詢",
+    "process.s1.desc":"30 分鐘 Cal.com 視訊，了解您的業務目標、現有系統、痛點。我們會誠實判斷 AI 適不適合您。",
+    "process.s1.meta":"⏱ 1 天內可預約",
+    "process.s2.tag":"第二步","process.s2.title":"方案 + 報價",
+    "process.s2.desc":"24–48 小時內收到書面方案：包含技術選型、工作流程圖、時程表、明細報價。您決定才收費。",
+    "process.s2.meta":"⏱ 諮詢後 48 小時",
+    "process.s3.tag":"第三步","process.s3.title":"啟動專案",
+    "process.s3.desc":"簽約後即刻 kickoff：釐清成功指標（KPIs）、開設共享 Notion 看板、訂下每週進度滙報節奏。",
+    "process.s3.meta":"⏱ 簽約後 3 天",
+    "process.s4.tag":"第四步","process.s4.title":"開發 + 測試",
+    "process.s4.desc":"系統建設、模組整合、自動化流程編寫。每週展示進度，邀請您試用 + 即時回饋調整。",
+    "process.s4.meta":"⏱ 1–6 週（視 scope）",
+    "process.s5.tag":"第五步","process.s5.title":"培訓 + 上線",
+    "process.s5.desc":"完整文件、操作 SOP、登入資料、流程圖一次過交接。1–2 小時遠端培訓您的團隊正式接手。",
+    "process.s5.meta":"⏱ 上線前 1 週",
+    "process.s6.tag":"第六步","process.s6.title":"持續支援",
+    "process.s6.desc":"30 天免費 bug 修正期 + KPI 追蹤檢視。後續可選月度 maintenance plan，或按需呼叫支援。",
+    "process.s6.meta":"⏱ 30 天保固期",
     "faq.eyebrow":"FAQ",
     "faq.title1":"你最想問的，","faq.title2":"我們先答",
     "faq.desc":"合作之前你會諗到的疑問，我們已經幫你準備好。",
@@ -2233,12 +2397,13 @@ const I18N = {
     "faq.ctaBtn":"免費諮詢 30 分鐘 →",
     "book.eyebrow":"預約諮詢","book.title1":"準備好了嗎？","book.title2":"預約免費諮詢",
     "book.desc":"30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。",
+    "book.altText":"或直接電郵聯絡：",
     "book.fallback1":"📅 Cal.com 預約 widget 預留位置",
     "book.fallback2":"請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：",
     "book.fallback3":"或可直接點擊下方按鈕傳送 Email：",
   },
   en:{
-    "nav.services":"Services","nav.demos":"Demos","nav.impact":"Impact","nav.about":"About","nav.faq":"FAQ","nav.book":"Book",
+    "nav.services":"Services","nav.demos":"Demos","nav.impact":"Impact","nav.about":"About","nav.process":"Process","nav.faq":"FAQ","nav.book":"Book",
     "hero.eyebrow":"AI · AUTOMATION · WEB",
     "hero.title":["Free yourself","from busywork"],
     "hero.typing":["AI workflows that run while you sleep","Websites & content, reimagined with AI","Transform · Build · Create"],
@@ -2308,6 +2473,27 @@ const I18N = {
     "about.p2":"From workflow design to AI model integration, we live by Transform · Build · Create — freeing your business from busywork, rebuilding it, and creating what's next.",
     "about.role":"FOUNDER · TBC Solutions",
     "about.stat1":"Tools integrated","about.stat2":"Always-on","about.stat3":"Possibilities",
+    "process.eyebrow":"PROCESS",
+    "process.title1":"Six steps,","process.title2":"from call to delivery",
+    "process.desc":"Transparent collaboration — clear deliverables and timelines at every step.",
+    "process.s1.tag":"Step 1","process.s1.title":"Free consultation",
+    "process.s1.desc":"30-minute Cal.com call to understand your goals, current systems and pain points. We'll honestly tell you whether AI fits.",
+    "process.s1.meta":"⏱ Bookable within 1 day",
+    "process.s2.tag":"Step 2","process.s2.title":"Proposal + quote",
+    "process.s2.desc":"Within 24–48 hours: written proposal with tech stack, workflow diagrams, timeline, line-item pricing. You only pay after you decide.",
+    "process.s2.meta":"⏱ 48 hrs after consultation",
+    "process.s3.tag":"Step 3","process.s3.title":"Project kickoff",
+    "process.s3.desc":"Right after signing: define KPIs, set up shared Notion board, agree weekly cadence for progress reports.",
+    "process.s3.meta":"⏱ 3 days after signing",
+    "process.s4.tag":"Step 4","process.s4.title":"Build + test",
+    "process.s4.desc":"System build, module integration, workflow scripting. Weekly demo and your hands-on testing — feedback baked in continuously.",
+    "process.s4.meta":"⏱ 1–6 weeks (depends on scope)",
+    "process.s5.tag":"Step 5","process.s5.title":"Training + launch",
+    "process.s5.desc":"Complete docs, SOPs, credentials and flow charts handed over. 1–2 hour remote training to make your team self-sufficient.",
+    "process.s5.meta":"⏱ 1 week before launch",
+    "process.s6.tag":"Step 6","process.s6.title":"Ongoing support",
+    "process.s6.desc":"30-day free bug-fix + KPI review. Optional monthly maintenance plan, or pay-as-you-go support afterwards.",
+    "process.s6.meta":"⏱ 30-day warranty",
     "faq.eyebrow":"FAQ",
     "faq.title1":"What you'd ask first —","faq.title2":"answered upfront",
     "faq.desc":"The questions you'd raise before working with us. We've answered them already.",
@@ -2331,10 +2517,54 @@ const I18N = {
     "faq.ctaBtn":"Free 30-minute consultation →",
     "book.eyebrow":"BOOK A CALL","book.title1":"Ready?","book.title2":"Book a free consultation",
     "book.desc":"A free 30-minute call to understand your needs and propose tailored AI-automation ideas.",
+    "book.altText":"Or email directly:",
     "book.fallback1":"📅 Cal.com booking widget placeholder",
     "book.fallback2":"Find <code>YOUR_CAL_LINK_HERE</code> in the source and replace it with your Cal.com link, e.g.:",
     "book.fallback3":"Or just send us an email:",
   }
+};
+
+// All input/textarea placeholders, keyed by element id, per language.
+// Updated together with applyLang() so the EN version never leaks Chinese.
+const PLACEHOLDERS = {
+  zh: {
+    "wf-input":      "例如：我想自動發送跟進郵件給 7 天未回覆的客戶",
+    "chat-input":    "輸入您的問題…",
+    "wg-name":       "例如：晨光咖啡",
+    "wg-industry":   "例如：餐飲 / 科技 / 教育",
+    "cg-topic":      "例如：宣傳全新推出的咖啡訂閱方案，目標客群是上班族",
+    "ia-input":      "例：我訂單已經 7 日仍未收到，再不送到我會投訴！",
+    "se-name":       "例：陳先生",
+    "se-company":    "例：晨光咖啡 / 餐飲",
+    "se-context":    "例：上週談過 AI 自動點餐系統，客戶有興趣但尚未決定",
+    "ms-input":      "貼入會議錄音轉文字 / 會議筆記原文…",
+    "tr-input":      "輸入要翻譯的句子或段落…",
+    "rv-input":      "貼入客戶評論原文…",
+    "rv-business":   "例：餐廳、酒店、零售、診所",
+    "seo-topic":     "例：企業數位轉型策略指南",
+    "seo-keyword":   "例：AI 自動化、digital transformation",
+    "pc-name":       "例：極簡陶瓷咖啡杯",
+    "pc-features":   "例：手作陶瓷、3 色可選、保溫 4 小時、可進微波爐",
+  },
+  en: {
+    "wf-input":      "e.g., Send follow-up emails automatically to clients who haven't replied in 7 days",
+    "chat-input":    "Type your question…",
+    "wg-name":       "e.g., Morning Light Coffee",
+    "wg-industry":   "e.g., F&B / Tech / Education",
+    "cg-topic":      "e.g., Promote our new coffee subscription targeting office workers",
+    "ia-input":      "e.g., My order is 7 days late and STILL not here. Filing a complaint!",
+    "se-name":       "e.g., Mr. Chan",
+    "se-company":    "e.g., Morning Light / F&B",
+    "se-context":    "e.g., Discussed AI ordering system last week — interested but undecided",
+    "ms-input":      "Paste meeting transcript / notes…",
+    "tr-input":      "Enter the sentence or paragraph to translate…",
+    "rv-input":      "Paste the customer review…",
+    "rv-business":   "e.g., Restaurant, hotel, retail, clinic",
+    "seo-topic":     "e.g., Enterprise digital transformation strategy",
+    "seo-keyword":   "e.g., AI automation, digital transformation",
+    "pc-name":       "e.g., Minimalist ceramic coffee mug",
+    "pc-features":   "e.g., Hand-thrown ceramic, 3 colours, 4-hr heat retention, microwave-safe",
+  },
 };
 
 let currentLang = "zh";
@@ -2347,6 +2577,11 @@ function applyLang(lang){
     const k = el.getAttribute("data-i18n");
     const v = I18N[lang][k];
     if(typeof v === "string"){ el.innerHTML = v; }
+  });
+  // Translate placeholders too (was missing before — caused EN mode to show Chinese)
+  Object.entries(PLACEHOLDERS[lang] || {}).forEach(([id, ph])=>{
+    const el = document.getElementById(id);
+    if(el) el.placeholder = ph;
   });
   // language toggle UI
   document.querySelectorAll(".lang-switch button").forEach(b=>{
