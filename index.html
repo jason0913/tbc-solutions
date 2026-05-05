@@ -1634,7 +1634,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="demos-intro reveal">
       <div class="eyebrow" data-i18n="demos.eyebrow">INTERACTIVE DEMOS</div>
       <h2 class="h2" style="margin-top:18px"><span data-i18n="demos.title1">不是說明，</span><span class="gradient-text" data-i18n="demos.title2">而是親身體驗</span></h2>
-      <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">每一個 Demo 都直接內嵌於本頁，零下載、零註冊。動手試試我們能為您做什麼。</p>
+      <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">11 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。</p>
     </div>
 
     <!-- ====== TABS ====== -->
@@ -2438,7 +2438,7 @@ const I18N = {
     "services.s4.desc":"針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。",
     "demos.eyebrow":"互動 DEMO","demos.counterLabel":"DEMOS",
     "demos.title1":"不是說明，","demos.title2":"而是親身體驗",
-    "demos.desc":"6 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。",
+    "demos.desc":"11 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。",
     "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，AI 即時為您拆解成屬於您的自動化流程。",
     "demo1.label":"您的業務問題","demo1.btn":"AI 拆解工作流 →","demo1.save":"平均省 25 小時/月",
     "demo1.placeholder":"輸入您的問題，AI 即時為您動態生成工作流程節點",
@@ -2559,7 +2559,7 @@ const I18N = {
     "services.s4.desc":"Tailored AI assistants, knowledge bases, smart support and decision-support systems for your business.",
     "demos.eyebrow":"INTERACTIVE DEMOS","demos.counterLabel":"DEMOS",
     "demos.title1":"Don't read about it —","demos.title2":"try it",
-    "demos.desc":"6 live demos right on this page. No download, no signup. Switch via tabs above or arrows.",
+    "demos.desc":"11 live demos right on this page. No download, no signup. Switch via tabs above or arrows.",
     "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem; AI breaks it into a workflow tailored for you.",
     "demo1.label":"Your business problem","demo1.btn":"Break it down with AI →","demo1.save":"Saves 25 hrs / month",
     "demo1.placeholder":"Type your problem and AI will generate workflow nodes live.",
@@ -2846,7 +2846,10 @@ function applyLang(lang){
 }
 
 document.querySelectorAll(".lang-switch button").forEach(b=>{
-  b.addEventListener("click", ()=> applyLang(b.dataset.lang));
+  b.addEventListener("click", ()=>{
+    applyLang(b.dataset.lang);
+    try{ localStorage.setItem("tbc-lang", b.dataset.lang); }catch(e){}
+  });
 });
 
 /* ============== THEME TOGGLE ============== */
@@ -4681,7 +4684,12 @@ async function callClaude({system, messages}){
 /* ============== INIT ============== */
 document.getElementById("yr").textContent = new Date().getFullYear();
 buildMarquee();
-applyLang("zh");
+(function initLang(){
+  let saved = "zh";
+  try{ saved = localStorage.getItem("tbc-lang") || "zh"; }catch(e){}
+  if(saved !== "zh" && saved !== "en") saved = "zh";
+  applyLang(saved);
+})();
 
 /* NOTE: We intentionally do NOT use gsap.from on .service-card / .demo-block
    because those elements also carry the .reveal class. gsap.from writes an
