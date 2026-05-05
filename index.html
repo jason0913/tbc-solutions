@@ -2705,7 +2705,109 @@ const PLACEHOLDERS = {
 };
 
 let currentLang = "zh";
+
+/* Reset every demo's UI back to its empty/default state.
+   Called when the user toggles language so that already-rendered demo
+   output (which has no data-i18n) doesn't stay stuck in the old language. */
+function resetAllDemos(){
+  // Clear all input / textarea values
+  ["wf-input","chat-input","wg-name","wg-industry","cg-topic","ia-input",
+   "se-name","se-company","se-context","ms-input","tr-input","rv-input",
+   "rv-business","seo-topic","seo-keyword","pc-name","pc-features"]
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ""; });
+
+  const i18n = I18N[currentLang] || {};
+  const txt  = (k, fb="") => (typeof i18n[k] === "string" ? i18n[k] : fb);
+
+  // Demo 1 — workflow
+  const wfDyn = document.getElementById("wf-dynamic");
+  if(wfDyn){
+    wfDyn.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px"><div style="font-size:42px;margin-bottom:10px">🧠</div><div data-i18n="demo1.placeholder">${txt("demo1.placeholder")}</div></div>`;
+  }
+  document.getElementById("wf-result")?.classList.remove("show");
+
+  // Demo 2 — chat (keep only greeting)
+  const chatMsgs = document.getElementById("chat-msgs");
+  if(chatMsgs){
+    chatMsgs.innerHTML = `<div class="chat-msg bot" data-i18n="demo2.greet">${txt("demo2.greet")}</div>`;
+  }
+  // also clear chat history JS var
+  if(typeof chatHistory !== "undefined") chatHistory.length = 0;
+
+  // Demo 3 — webgen
+  const wgUrl  = document.getElementById("wg-url");
+  if(wgUrl) wgUrl.textContent = "https://your-website.com";
+  const wgBody = document.getElementById("wg-body");
+  if(wgBody){
+    wgBody.style.removeProperty("--pv-accent");
+    wgBody.style.removeProperty("--pv-soft");
+    wgBody.style.removeProperty("--pv-accent-2");
+    wgBody.innerHTML = `<div class="preview-empty" data-i18n="demo3.empty">${txt("demo3.empty")}</div>`;
+  }
+
+  // Demo 4 — content (reset platform to Instagram)
+  const cgOut = document.getElementById("cg-output");
+  if(cgOut) cgOut.innerHTML = `<span class="placeholder" data-i18n="demo4.empty">${txt("demo4.empty")}</span>`;
+  document.querySelectorAll("#platform-row .platform-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.platform === "instagram");
+  });
+  if(typeof activePlatform !== "undefined") activePlatform = "instagram";
+
+  // Demo 5 — intent
+  ["ia-urgency","ia-mood","ia-category"].forEach(id => {
+    const el = document.getElementById(id); if(el) el.textContent = "—";
+  });
+  ["ia-chip-urgency","ia-chip-mood","ia-chip-category"].forEach(id => {
+    const el = document.getElementById(id); if(el) el.className = "intent-chip";
+  });
+  const iaReply = document.getElementById("ia-reply");
+  if(iaReply){
+    iaReply.textContent = txt("demo5.replyEmpty");
+    iaReply.setAttribute("data-i18n", "demo5.replyEmpty");
+  }
+
+  // Demo 6 — sales email
+  const seTo   = document.getElementById("se-to");      if(seTo)   seTo.textContent   = "—";
+  const seSubj = document.getElementById("se-subject"); if(seSubj) seSubj.textContent = "—";
+  const seBody = document.getElementById("se-body");
+  if(seBody) seBody.innerHTML = `<span class="placeholder" data-i18n="demo6.empty">${txt("demo6.empty")}</span>`;
+
+  // Demo 7 — meeting summary
+  const msOut = document.getElementById("ms-output");
+  if(msOut){
+    msOut.innerHTML = `<div class="ms-card empty"><div class="ms-lbl"><span class="ico">📋</span> <span data-i18n="demo7.summary">${txt("demo7.summary")}</span></div><div class="ms-content" data-i18n="demo7.empty">${txt("demo7.empty")}</div></div>`;
+  }
+
+  // Demo 8 — translation (reset tone to formal)
+  const trOut = document.getElementById("tr-output");
+  if(trOut) trOut.innerHTML = `<span class="placeholder" data-i18n="demo8.empty">${txt("demo8.empty")}</span>`;
+  document.querySelectorAll("#tr-tone-row .platform-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.tone === "formal");
+  });
+  if(typeof trTone !== "undefined") trTone = "formal";
+
+  // Demo 9 — review reply
+  const rvOut = document.getElementById("rv-output");
+  if(rvOut){
+    rvOut.innerHTML = `<div class="rv-card show"><div class="rv-tone" data-i18n="demo9.empty">${txt("demo9.empty")}</div><div class="rv-text" style="color:var(--text-faint);font-style:italic" data-i18n="demo9.emptyText">${txt("demo9.emptyText")}</div></div>`;
+  }
+
+  // Demo 10 — SEO titles
+  const seoOut = document.getElementById("seo-output");
+  if(seoOut){
+    seoOut.innerHTML = `<div class="rv-card show"><div class="rv-tone" data-i18n="demo10.empty">${txt("demo10.empty")}</div><div class="rv-text" style="color:var(--text-faint);font-style:italic" data-i18n="demo10.emptyText">${txt("demo10.emptyText")}</div></div>`;
+  }
+
+  // Demo 11 — product copy
+  const pcOut = document.getElementById("pc-output");
+  if(pcOut) pcOut.innerHTML = `<span class="placeholder" data-i18n="demo11.empty">${txt("demo11.empty")}</span>`;
+
+  // Allow previews to replay in the new language
+  if(window.__resetPreviews) window.__resetPreviews();
+}
+
 function applyLang(lang){
+  const langChanged = currentLang !== lang;
   currentLang = lang;
   document.body.classList.toggle("lang-zh", lang === "zh");
   document.body.classList.toggle("lang-en", lang === "en");
@@ -2727,6 +2829,20 @@ function applyLang(lang){
   // reset hero title + typing for new language
   buildHeroTitle();
   startTyping();
+
+  // When the user actively switches language, reset every demo so that
+  // any rendered output (which has no data-i18n) is regenerated in the new
+  // language, and re-trigger the auto-play preview for the visible slide.
+  if(langChanged){
+    setTimeout(() => {
+      resetAllDemos();
+      const active = document.querySelector(".demo-slide.active");
+      const idx = +active?.dataset.slideIdx;
+      if(!isNaN(idx) && typeof window.__playSlide === "function"){
+        setTimeout(() => window.__playSlide(idx), 150);
+      }
+    }, 80);
+  }
 }
 
 document.querySelectorAll(".lang-switch button").forEach(b=>{
@@ -3764,6 +3880,10 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
                  playDemo7, playDemo8, playDemo9, playDemo10, playDemo11];
     fns[idx]?.(token).catch(()=>{});
   }
+
+  // Expose for external use (e.g. applyLang re-triggers after language switch)
+  window.__playSlide      = playSlide;
+  window.__resetPreviews  = () => { playedSlides.clear(); playToken++; };
 
   // Watch slides — when one becomes .active for the first time, play it.
   const slides = document.querySelectorAll(".demo-slide");
