@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>TBC Cold Email Automation</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f7f7f5;
+  --panel: #ffffff;
+  --border: #e5e5e0;
+  --border-strong: #d0d0c8;
+  --text: #1f1f1c;
+  --text-muted: #6b6b66;
+  --accent: #c75d35;
+  --accent-hover: #b04d28;
+  --success: #2f7d4f;
+  --warning: #b8860b;
+  --danger: #c0392b;
+  --pending: #6b6b66;
+  --row-alt: #faf9f6;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "PingFang SC", "Segoe UI", system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
+.app { max-width: 1100px; margin: 0 auto; padding: 16px; }
+header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+header .sub { color: var(--text-muted); font-size: 12px; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 16px; flex-wrap: wrap; }
+.tab { padding: 8px 14px; cursor: pointer; border: 1px solid transparent; border-bottom: none; border-radius: 6px 6px 0 0; color: var(--text-muted); background: transparent; font-size: 13px; }
+.tab:hover { color: var(--text); background: var(--panel); }
+.tab.active { background: var(--panel); color: var(--text); border-color: var(--border); border-bottom: 1px solid var(--panel); margin-bottom: -1px; font-weight: 500; }
+.panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.panel h2 { font-size: 15px; margin: 0 0 12px; font-weight: 600; }
+.panel h3 { font-size: 13px; margin: 16px 0 8px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+button { background: var(--accent); color: white; border: none; padding: 7px 14px; border-radius: 5px; font-size: 13px; cursor: pointer; font-family: inherit; transition: background 0.1s; }
+button:hover:not(:disabled) { background: var(--accent-hover); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+button.secondary { background: white; color: var(--text); border: 1px solid var(--border-strong); }
+button.secondary:hover:not(:disabled) { background: var(--row-alt); }
+button.danger { background: var(--danger); }
+button.danger:hover:not(:disabled) { background: #a32d22; }
+button.ghost { background: transparent; color: var(--text-muted); padding: 4px 8px; }
+button.ghost:hover:not(:disabled) { color: var(--text); background: var(--row-alt); }
+button.small { padding: 4px 10px; font-size: 12px; }
+input[type="text"], input[type="number"], input[type="email"], textarea, select {
+  width: 100%; padding: 7px 10px; border: 1px solid var(--border-strong); border-radius: 5px; background: white;
+  font-family: inherit; font-size: 13px; color: var(--text);
+}
+textarea { font-family: -apple-system, "PingFang TC", monospace, system-ui; resize: vertical; min-height: 200px; line-height: 1.55; }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(199,93,53,0.12); }
+label { font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px; font-weight: 500; }
+.row { display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.col { flex: 1; min-width: 200px; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-weight: 600; color: var(--text-muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; background: var(--row-alt); }
+tr:hover td { background: var(--row-alt); }
+.status-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+.status-pending { background: #ececea; color: var(--pending); }
+.status-sent { background: #dceee2; color: var(--success); }
+.status-failed { background: #f5d8d4; color: var(--danger); }
+.status-skipped { background: #f5e9d4; color: var(--warning); }
+.dropzone { border: 2px dashed var(--border-strong); border-radius: 8px; padding: 24px; text-align: center; cursor: pointer; color: var(--text-muted); transition: all 0.15s; background: var(--row-alt); }
+.dropzone:hover, .dropzone.drag { border-color: var(--accent); color: var(--accent); background: white; }
+.dropzone p { margin: 4px 0; }
+.muted { color: var(--text-muted); font-size: 12px; }
+.error { color: var(--danger); font-size: 12px; }
+.tag { display: inline-block; background: var(--row-alt); border: 1px solid var(--border); padding: 1px 7px; border-radius: 4px; font-size: 11px; color: var(--text-muted); margin-right: 4px; }
+.tag.accent { background: #fdf0e8; border-color: #f0c5a8; color: var(--accent); }
+.placeholder-hint { font-family: monospace; font-size: 11.5px; background: var(--row-alt); padding: 6px 10px; border-radius: 4px; color: var(--text-muted); margin-bottom: 8px; }
+.placeholder-hint code { background: white; padding: 1px 5px; border-radius: 3px; border: 1px solid var(--border); color: var(--accent); }
+.template-card { border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: white; }
+.template-card.editing { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(199,93,53,0.08); }
+.template-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 8px; }
+.template-header strong { font-size: 14px; }
+.preview-box { background: var(--row-alt); border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-size: 12.5px; white-space: pre-wrap; max-height: 320px; overflow-y: auto; }
+.preview-box .subject { font-weight: 600; padding-bottom: 6px; margin-bottom: 8px; border-bottom: 1px dashed var(--border); }
+.queue-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.progress-bar { background: var(--row-alt); border: 1px solid var(--border); border-radius: 4px; height: 6px; overflow: hidden; flex: 1; min-width: 200px; }
+.progress-fill { background: var(--accent); height: 100%; transition: width 0.3s; }
+.stat { display: inline-block; margin-right: 16px; font-size: 12px; }
+.stat strong { font-size: 16px; display: block; color: var(--text); }
+.stat .label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+.checkbox-cell { width: 30px; }
+.actions-cell { width: 1%; white-space: nowrap; }
+.toast { position: fixed; bottom: 16px; right: 16px; background: var(--text); color: white; padding: 10px 16px; border-radius: 6px; font-size: 13px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; animation: slideIn 0.2s; }
+.toast.error { background: var(--danger); }
+.toast.success { background: var(--success); }
+@keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.hidden { display: none; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.now-sending { background: #fdf0e8; border: 1px solid #f0c5a8; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; font-size: 13px; }
+.now-sending strong { color: var(--accent); }
+details { margin-bottom: 8px; }
+summary { cursor: pointer; font-size: 12px; color: var(--text-muted); padding: 4px 0; }
+summary:hover { color: var(--text); }
+.kv { font-size: 12px; }
+.kv span { color: var(--text-muted); margin-right: 4px; }
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div>
+    <h1>📧 Cold Email Automation</h1>
+    <div class="sub">TBC Solutions · Gmail Draft Queue</div>
+  </div>
+  <div id="header-stats" class="muted"></div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" data-tab="setup">1. Add Contacts</button>
+  <button class="tab" data-tab="templates">2. Templates</button>
+  <button class="tab" data-tab="contacts">3. Contacts &amp; Preview</button>
+  <button class="tab" data-tab="queue">4. Send Queue</button>
+  <button class="tab" data-tab="log">5. Log</button>
+</div>
+
+<!-- TAB: SETUP -->
+<div class="tab-content" id="tab-setup">
+  <div class="panel">
+    <h2>✍️ 手動加 Contact</h2>
+    <p class="muted">一個一個咁加。撳「儲存」即時入 list，可以無限加。</p>
+    <form id="manual-form">
+      <div class="row">
+        <div class="col"><label>姓名 *</label><input type="text" id="m-name" required></div>
+        <div class="col"><label>公司名 *</label><input type="text" id="m-company" required></div>
+      </div>
+      <div class="row" style="margin-top:8px;">
+        <div class="col"><label>行業</label><input type="text" id="m-industry" placeholder="e.g. Tech / Retail / 餐飲"></div>
+        <div class="col"><label>正在招聘嘅職位</label><input type="text" id="m-jobrole" placeholder="e.g. Senior Engineer"></div>
+      </div>
+      <div class="row" style="margin-top:8px;">
+        <div class="col"><label>Email *</label><input type="email" id="m-email" required></div>
+      </div>
+      <div style="margin-top:12px; display:flex; gap:8px; align-items:center;">
+        <button type="submit">+ 加入 contact list</button>
+        <button type="button" class="secondary small" id="m-clear">清空表單</button>
+        <span class="muted" id="m-feedback" style="margin-left:8px;"></span>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <details>
+      <summary>📁 或者，上載 CSV (有現成 list 先用)</summary>
+      <p class="muted" style="margin-top:8px;">CSV header 中英文都認：
+        <span class="tag">Name / 姓名</span>
+        <span class="tag">Company Name / 公司名</span>
+        <span class="tag">Industry / 行業</span>
+        <span class="tag">Email Address / 電郵</span>
+        <span class="tag">Job Role / 職位</span>
+      </p>
+      <div id="dropzone" class="dropzone">
+        <p>📁 拖 CSV 入嚟，或者 <strong>click 揀檔</strong></p>
+        <p class="muted">支援 UTF-8 / UTF-8 BOM</p>
+      </div>
+      <input type="file" id="csv-input" accept=".csv,text/csv" class="hidden">
+      <div id="upload-result" style="margin-top:12px;"></div>
+    </details>
+  </div>
+
+  <div class="panel">
+    <h2>已加入嘅 Contacts</h2>
+    <div id="setup-summary" class="muted">未有 contact，喺上面加第一個。</div>
+    <div id="setup-preview" style="margin-top:12px; overflow-x:auto;"></div>
+    <div style="margin-top:12px;">
+      <button class="secondary small" id="clear-contacts">清空所有 contacts</button>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: TEMPLATES -->
+<div class="tab-content hidden" id="tab-templates">
+  <div class="panel">
+    <h2>Email Templates</h2>
+    <div class="placeholder-hint">
+      可用 placeholders（兩種寫法都得，會自動替換）：
+      <code>{{name}}</code> <code>{{company_name}}</code> <code>{{industry}}</code> <code>{{job_role}}</code>
+      &nbsp;·&nbsp; <code>[姓名]</code> <code>[公司名]</code> <code>[行業]</code> <code>[職位]</code>
+    </div>
+    <p class="muted">每個 template 對應一個 industry。一個 contact 嘅 industry 對到邊個 template，就會用嗰個。對唔到就用標記為 <strong>「Default / 通用」</strong> 嗰個。</p>
+    <div id="templates-list"></div>
+    <button id="add-template" class="secondary small" style="margin-top:8px;">+ 新增 Template</button>
+  </div>
+</div>
+
+<!-- TAB: CONTACTS -->
+<div class="tab-content hidden" id="tab-contacts">
+  <div class="panel">
+    <div class="flex-between" style="margin-bottom:12px;">
+      <h2 style="margin:0;">Contacts &amp; Preview</h2>
+      <div>
+        <button class="secondary small" id="select-all-pending">勾哂 Pending</button>
+        <button class="secondary small" id="select-none">全部唔勾</button>
+      </div>
+    </div>
+    <div id="contacts-table-wrap" style="overflow-x:auto;"></div>
+  </div>
+
+  <div class="panel" id="preview-panel" style="display:none;">
+    <h2>Email Preview · <span id="preview-name" style="color:var(--accent);"></span></h2>
+    <div class="kv" style="margin-bottom:8px;">
+      <span>To:</span><strong id="preview-to"></strong> &nbsp;·&nbsp;
+      <span>Industry:</span><strong id="preview-industry"></strong> &nbsp;·&nbsp;
+      <span>Template:</span><strong id="preview-template"></strong>
+    </div>
+    <div class="preview-box">
+      <div class="subject" id="preview-subject"></div>
+      <div id="preview-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: QUEUE -->
+<div class="tab-content hidden" id="tab-queue">
+  <div class="panel">
+    <h2>發送設定</h2>
+    <div class="row">
+      <div class="col">
+        <label for="delay-input">每封 email 之間嘅延遲 (秒) — 30 至 120 建議</label>
+        <input type="number" id="delay-input" min="5" max="600" value="60">
+        <div class="muted" style="margin-top:4px;">延遲越長，越唔似 spam。Gmail 一日 draft 上限 ~500 封。</div>
+      </div>
+      <div class="col">
+        <label>只發送選咗嘅 contacts</label>
+        <div class="muted" id="queue-selection-info">未揀</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Queue 控制</h2>
+    <div id="now-sending" class="now-sending hidden"></div>
+    <div class="queue-controls" style="margin-bottom:12px;">
+      <button id="btn-start">▶ 開始 / 繼續</button>
+      <button id="btn-pause" class="secondary">⏸ 暫停</button>
+      <button id="btn-stop" class="danger" disabled>■ 停止</button>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span class="muted" id="progress-label">0 / 0</span>
+    </div>
+    <div>
+      <span class="stat"><strong id="stat-pending">0</strong><span class="label">Pending</span></span>
+      <span class="stat"><strong id="stat-sent" style="color:var(--success);">0</strong><span class="label">Drafted</span></span>
+      <span class="stat"><strong id="stat-failed" style="color:var(--danger);">0</strong><span class="label">Failed</span></span>
+      <span class="stat"><strong id="stat-skipped" style="color:var(--warning);">0</strong><span class="label">Skipped</span></span>
+    </div>
+    <p class="muted" style="margin-top:12px; line-height:1.6;">
+      ℹ️ 個工具會經 Gmail connector 將 email <strong>整成 draft</strong> 入你 Gmail Drafts folder。
+      你之後可以入 Gmail 一次過 review &amp; send 出去。<br>
+      Pause 之後， queue 會記住 progress，下次 Start 會由未做嘅 contact 開始。
+    </p>
+  </div>
+</div>
+
+<!-- TAB: LOG -->
+<div class="tab-content hidden" id="tab-log">
+  <div class="panel">
+    <div class="flex-between" style="margin-bottom:12px;">
+      <h2 style="margin:0;">Sending Log</h2>
+      <div>
+        <button class="secondary small" id="export-log">匯出 CSV</button>
+        <button class="ghost small" id="clear-log">清空 log</button>
+      </div>
+    </div>
+    <div id="log-table" style="overflow-x:auto;"></div>
+  </div>
+</div>
+
+</div> <!-- /.app -->
+
+<script>
+//========================================================
+// State management with localStorage
+//========================================================
+const STORAGE_KEY = "tbc-cold-email-v1";
+
+const DEFAULT_TEMPLATE_BODY = `你好 {{name}}，
+
+留意到 {{company_name}} 在 {{industry}} 的發展，想分享一個可能對你有用的方向。
+
+我是 Grouper，來自 TBC Solutions。我們專注於運用 AI 幫助企業在這個領域提升效率、節省時間與成本。
+
+很多同行的企業已經開始透過 AI 自動化重複性工作，將節省下來的時間投放在更重要的事情上。
+
+我們的網站有多個免費互動 Demo，無需註冊即可直接體驗：
+👉 solutions.tbchk.com
+
+附上一段 40 秒的短片，讓你更快了解我們：
+👉 [YouTube 私密連結]
+
+如有興趣，歡迎直接回覆，或在網站預約免費 Zoom 諮詢。
+
+期待與你交流！
+
+Grouper
+TBC Solutions`;
+
+const HIRING_TEMPLATE_BODY = `你好 {{name}}，
+
+留意到 {{company_name}} 最近正在招聘 {{job_role}}，想分享一個或者可以幫到你哋嘅方向。
+
+我是 Grouper，來自 TBC Solutions。我們專注於運用 AI 幫企業自動化重複性工作 — 對於 {{job_role}} 嘅日常 workload，AI 可以接手部分流程，等你哋嘅團隊集中做更高價值嘅嘢，亦都可以 buy 多啲時間 ramp up 新人。
+
+很多 {{industry}} 嘅企業已經開始用呢個方向，將節省落嚟嘅時間投放在更重要嘅事情上。
+
+我們的網站有多個免費互動 Demo，無需註冊即可直接體驗：
+👉 solutions.tbchk.com
+
+附上一段 40 秒的短片，讓你更快了解我們：
+👉 [YouTube 私密連結]
+
+如有興趣，歡迎直接回覆，或在網站預約免費 Zoom 諮詢。
+
+期待與你交流！
+
+Grouper
+TBC Solutions`;
+
+const DEFAULT_STATE = {
+  contacts: [],
+  templates: [
+    {
+      id: "tpl-default",
+      name: "通用 Default",
+      industry: "*",
+      isDefault: true,
+      subject: "{{company_name}} × AI — 一個值得 3 分鐘的想法",
+      body: DEFAULT_TEMPLATE_BODY
+    },
+    {
+      id: "tpl-hiring",
+      name: "招聘 Outreach (highlight job role)",
+      industry: "Hiring",
+      isDefault: false,
+      subject: "{{company_name}} 招聘 {{job_role}} — AI 可以幫到嘅地方",
+      body: HIRING_TEMPLATE_BODY
+    }
+  ],
+  delaySeconds: 60,
+  selectedContactIds: [],
+  log: [],
+  queueState: { running: false, paused: false, currentIndex: -1, queueIds: [] }
+};
+
+let state = loadState();
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    const loaded = JSON.parse(raw);
+    return Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_STATE)), loaded);
+  } catch (e) {
+    console.error("loadState failed", e);
+    return JSON.parse(JSON.stringify(DEFAULT_STATE));
+  }
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e) { console.error("saveState failed", e); }
+}
+
+//========================================================
+// Utilities
+//========================================================
+function uid(prefix) { return prefix + "-" + Math.random().toString(36).slice(2, 9); }
+function escapeHtml(s) {
+  if (s == null) return "";
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+function nowIso() { return new Date().toISOString(); }
+function formatTime(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleString();
+}
+function toast(msg, kind) {
+  const el = document.createElement("div");
+  el.className = "toast" + (kind ? " " + kind : "");
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+//========================================================
+// CSV parser (handles quotes, commas, CRLF, BOM)
+//========================================================
+function parseCSV(text) {
+  // Strip BOM
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  const rows = [];
+  let cur = [];
+  let field = "";
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i+1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += c;
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { cur.push(field); field = ""; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i+1] === '\n') i++;
+        cur.push(field); field = "";
+        if (cur.length > 1 || cur[0] !== "") rows.push(cur);
+        cur = [];
+      } else field += c;
+    }
+  }
+  if (field !== "" || cur.length > 0) { cur.push(field); rows.push(cur); }
+  return rows;
+}
+
+const HEADER_MAP = {
+  name: ["name", "姓名", "名字", "first name", "full name", "contact name"],
+  company: ["company", "company name", "公司", "公司名", "公司名稱", "organization", "org"],
+  industry: ["industry", "行業", "行业", "sector", "vertical"],
+  email: ["email", "email address", "電郵", "电邮", "電郵地址", "e-mail"],
+  jobRole: ["job role", "role", "job title", "title", "position", "職位", "職位空缺", "hiring for", "job"]
+};
+function detectColumns(headerRow) {
+  const map = { name: -1, company: -1, industry: -1, email: -1, jobRole: -1 };
+  const cleaned = headerRow.map(h => (h || "").trim().toLowerCase());
+  for (const key of Object.keys(map)) {
+    for (const variant of HEADER_MAP[key]) {
+      const idx = cleaned.indexOf(variant.toLowerCase());
+      if (idx >= 0) { map[key] = idx; break; }
+    }
+  }
+  return map;
+}
+
+//========================================================
+// Template engine
+//========================================================
+function applyTemplate(text, contact) {
+  if (!text) return "";
+  const replacements = {
+    name: contact.name || "",
+    company_name: contact.company || "",
+    company: contact.company || "",
+    industry: contact.industry || "",
+    job_role: contact.jobRole || "",
+    role: contact.jobRole || ""
+  };
+  // {{...}} syntax
+  text = text.replace(/\{\{\s*([a-zA-Z_]+)\s*\}\}/g, (_, key) => {
+    const k = key.toLowerCase();
+    return k in replacements ? replacements[k] : "{{" + key + "}}";
+  });
+  // [中文] syntax
+  const zhMap = {
+    "姓名": "name", "公司名": "company", "公司": "company",
+    "公司名稱": "company", "行業": "industry", "行业": "industry",
+    "職位": "jobRole", "職位空缺": "jobRole"
+  };
+  text = text.replace(/\[(姓名|公司名|公司|公司名稱|行業|行业|職位|職位空缺)\]/g, (_, key) => {
+    const f = zhMap[key];
+    return contact[f] || "[" + key + "]";
+  });
+  return text;
+}
+
+function pickTemplate(contact) {
+  // Match by industry name (case insensitive, contains)
+  const ind = (contact.industry || "").trim().toLowerCase();
+  if (ind) {
+    const match = state.templates.find(t =>
+      !t.isDefault && t.industry && t.industry !== "*" &&
+      (ind === t.industry.trim().toLowerCase() || ind.includes(t.industry.trim().toLowerCase()))
+    );
+    if (match) return match;
+  }
+  return state.templates.find(t => t.isDefault) || state.templates[0];
+}
+
+//========================================================
+// Tabs
+//========================================================
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(c => c.classList.add("hidden"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.remove("hidden");
+  });
+});
+
+//========================================================
+// CSV Upload
+//========================================================
+const dropzone = document.getElementById("dropzone");
+const csvInput = document.getElementById("csv-input");
+dropzone.addEventListener("click", () => csvInput.click());
+dropzone.addEventListener("dragover", e => { e.preventDefault(); dropzone.classList.add("drag"); });
+dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag"));
+dropzone.addEventListener("drop", e => {
+  e.preventDefault();
+  dropzone.classList.remove("drag");
+  if (e.dataTransfer.files[0]) handleCSVFile(e.dataTransfer.files[0]);
+});
+csvInput.addEventListener("change", e => {
+  if (e.target.files[0]) handleCSVFile(e.target.files[0]);
+});
+
+function handleCSVFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => importCSV(ev.target.result, file.name);
+  reader.onerror = () => { document.getElementById("upload-result").innerHTML = '<span class="error">讀檔失敗</span>'; };
+  reader.readAsText(file, "utf-8");
+}
+
+function importCSV(text, fileName) {
+  const rows = parseCSV(text).filter(r => r.some(c => (c||"").trim() !== ""));
+  if (rows.length < 2) {
+    document.getElementById("upload-result").innerHTML = '<span class="error">CSV 至少要有 header 一行 + 一行 data</span>';
+    return;
+  }
+  const headers = rows[0];
+  const map = detectColumns(headers);
+  const missing = [];
+  if (map.email < 0) missing.push("Email Address");
+  if (map.name < 0) missing.push("Name");
+  if (map.company < 0) missing.push("Company Name");
+  if (missing.length) {
+    document.getElementById("upload-result").innerHTML =
+      '<span class="error">搵唔到必要欄位: ' + missing.join(", ") + '</span><br>' +
+      '<span class="muted">CSV header 第一行: ' + escapeHtml(headers.join(" | ")) + '</span>';
+    return;
+  }
+  const newContacts = [];
+  for (let i = 1; i < rows.length; i++) {
+    const r = rows[i];
+    const email = (r[map.email] || "").trim();
+    if (!email) continue;
+    newContacts.push({
+      id: uid("c"),
+      name: (r[map.name] || "").trim(),
+      company: (r[map.company] || "").trim(),
+      industry: map.industry >= 0 ? (r[map.industry] || "").trim() : "",
+      email: email,
+      jobRole: map.jobRole >= 0 ? (r[map.jobRole] || "").trim() : "",
+      status: "pending",
+      error: null,
+      draftId: null,
+      sentAt: null
+    });
+  }
+  state.contacts = newContacts;
+  state.selectedContactIds = newContacts.map(c => c.id);
+  state.queueState = { running: false, paused: false, currentIndex: -1, queueIds: [] };
+  saveState();
+  document.getElementById("upload-result").innerHTML =
+    '<span style="color:var(--success);">✓ 成功載入 ' + newContacts.length + ' 個 contacts (' + escapeHtml(fileName) + ')</span>';
+  log("system", null, "imported", "Loaded " + newContacts.length + " contacts from " + fileName);
+  renderAll();
+}
+
+document.getElementById("clear-contacts").addEventListener("click", () => {
+  if (!confirm("確定清空所有 contacts？")) return;
+  state.contacts = [];
+  state.selectedContactIds = [];
+  state.queueState = { running: false, paused: false, currentIndex: -1, queueIds: [] };
+  saveState();
+  renderAll();
+});
+
+//========================================================
+// Manual contact entry
+//========================================================
+const manualForm = document.getElementById("manual-form");
+manualForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("m-name").value.trim();
+  const company = document.getElementById("m-company").value.trim();
+  const industry = document.getElementById("m-industry").value.trim();
+  const jobRole = document.getElementById("m-jobrole").value.trim();
+  const email = document.getElementById("m-email").value.trim();
+  if (!name || !company || !email) {
+    document.getElementById("m-feedback").innerHTML = '<span class="error">姓名、公司名、email 必填</span>';
+    return;
+  }
+  // Dedupe by email
+  if (state.contacts.some(c => c.email.toLowerCase() === email.toLowerCase())) {
+    if (!confirm("呢個 email 已經喺 list 入面，仲要加多次？")) return;
+  }
+  const newContact = {
+    id: uid("c"),
+    name, company, industry, email, jobRole,
+    status: "pending",
+    error: null,
+    draftId: null,
+    sentAt: null
+  };
+  state.contacts.push(newContact);
+  state.selectedContactIds.push(newContact.id);
+  saveState();
+  log("system", newContact.id, "added", "Manually added " + name + " <" + email + ">");
+  // Clear form except industry/jobRole (often same for batch entry)
+  document.getElementById("m-name").value = "";
+  document.getElementById("m-company").value = "";
+  document.getElementById("m-email").value = "";
+  document.getElementById("m-feedback").innerHTML = '<span style="color:var(--success);">✓ 加咗：' + escapeHtml(name) + '。Industry / 職位 留住喇，方便連續加同行嘅 contact。</span>';
+  document.getElementById("m-name").focus();
+  renderAll();
+});
+document.getElementById("m-clear").addEventListener("click", () => {
+  manualForm.reset();
+  document.getElementById("m-feedback").innerHTML = "";
+});
+
+//========================================================
+// Render: Setup tab
+//========================================================
+function renderSetup() {
+  const sum = document.getElementById("setup-summary");
+  const prev = document.getElementById("setup-preview");
+  if (state.contacts.length === 0) {
+    sum.textContent = "未有 contact，喺上面加第一個。";
+    prev.innerHTML = "";
+    return;
+  }
+  sum.innerHTML = '<strong>' + state.contacts.length + '</strong> 個 contacts。撳 ✎ 改，撳 ✕ 刪。詳細 preview / 發送 喺 <strong>Tab 3</strong>。';
+  let html = '<table><thead><tr><th>#</th><th>Name</th><th>Company</th><th>Industry</th><th>Job Role</th><th>Email</th><th>Status</th><th></th></tr></thead><tbody>';
+  state.contacts.forEach((c, i) => {
+    html += '<tr>';
+    html += '<td class="muted">' + (i+1) + '</td>';
+    html += '<td>' + escapeHtml(c.name) + '</td>';
+    html += '<td>' + escapeHtml(c.company) + '</td>';
+    html += '<td>' + escapeHtml(c.industry) + '</td>';
+    html += '<td>' + escapeHtml(c.jobRole) + '</td>';
+    html += '<td>' + escapeHtml(c.email) + '</td>';
+    html += '<td><span class="status-badge status-' + c.status + '">' + c.status + '</span></td>';
+    html += '<td class="actions-cell"><button class="ghost small" data-edit="' + c.id + '">✎</button><button class="ghost small" data-del="' + c.id + '" style="color:var(--danger);">✕</button></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  prev.innerHTML = html;
+  prev.querySelectorAll("button[data-edit]").forEach(b => b.addEventListener("click", e => editContact(e.target.dataset.edit)));
+  prev.querySelectorAll("button[data-del]").forEach(b => b.addEventListener("click", e => deleteContact(e.target.dataset.del)));
+}
+
+function editContact(id) {
+  const c = state.contacts.find(x => x.id === id);
+  if (!c) return;
+  const name = prompt("姓名", c.name); if (name === null) return;
+  const company = prompt("公司名", c.company); if (company === null) return;
+  const industry = prompt("行業", c.industry); if (industry === null) return;
+  const jobRole = prompt("職位空缺", c.jobRole); if (jobRole === null) return;
+  const email = prompt("Email", c.email); if (email === null) return;
+  if (!name.trim() || !company.trim() || !email.trim()) { toast("姓名/公司/email 唔可以留白", "error"); return; }
+  c.name = name.trim(); c.company = company.trim(); c.industry = industry.trim();
+  c.jobRole = jobRole.trim(); c.email = email.trim();
+  saveState();
+  log("contact", id, "edited", "Manually edited contact details");
+  renderAll();
+}
+
+function deleteContact(id) {
+  const c = state.contacts.find(x => x.id === id);
+  if (!c) return;
+  if (!confirm("刪除 " + c.name + " <" + c.email + ">？")) return;
+  state.contacts = state.contacts.filter(x => x.id !== id);
+  state.selectedContactIds = state.selectedContactIds.filter(x => x !== id);
+  saveState();
+  log("contact", id, "deleted", "Removed " + c.name + " <" + c.email + ">");
+  renderAll();
+}
+
+//========================================================
+// Render: Templates tab
+//========================================================
+function renderTemplates() {
+  const list = document.getElementById("templates-list");
+  list.innerHTML = "";
+  state.templates.forEach((t, idx) => {
+    const card = document.createElement("div");
+    card.className = "template-card";
+    card.innerHTML = `
+      <div class="template-header">
+        <div>
+          <strong>${escapeHtml(t.name)}</strong>
+          ${t.isDefault ? '<span class="tag accent">Default</span>' : '<span class="tag">' + escapeHtml(t.industry || "(no industry)") + '</span>'}
+        </div>
+        <div>
+          <button class="ghost small" data-act="dup" data-id="${t.id}">複製</button>
+          ${t.isDefault ? '' : '<button class="ghost small" data-act="default" data-id="' + t.id + '">設為 Default</button>'}
+          ${state.templates.length > 1 ? '<button class="ghost small" data-act="del" data-id="' + t.id + '" style="color:var(--danger);">刪除</button>' : ''}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="min-width:160px;">
+          <label>Template 名 (內部用)</label>
+          <input type="text" data-tpl="${t.id}" data-field="name" value="${escapeHtml(t.name)}">
+        </div>
+        <div class="col" style="min-width:160px;">
+          <label>Industry (用嚟 match contact 嘅 industry，"*" = 全部)</label>
+          <input type="text" data-tpl="${t.id}" data-field="industry" value="${escapeHtml(t.industry)}" ${t.isDefault ? 'disabled' : ''}>
+        </div>
+      </div>
+      <label style="margin-top:8px;">主旨 Subject</label>
+      <input type="text" data-tpl="${t.id}" data-field="subject" value="${escapeHtml(t.subject)}">
+      <label style="margin-top:8px;">內文 Body</label>
+      <textarea data-tpl="${t.id}" data-field="body">${escapeHtml(t.body)}</textarea>
+    `;
+    list.appendChild(card);
+  });
+  // Bindings
+  list.querySelectorAll("input[data-tpl], textarea[data-tpl]").forEach(inp => {
+    inp.addEventListener("input", e => {
+      const id = e.target.dataset.tpl;
+      const field = e.target.dataset.field;
+      const tpl = state.templates.find(t => t.id === id);
+      if (tpl) { tpl[field] = e.target.value; saveState(); }
+    });
+  });
+  list.querySelectorAll("button[data-act]").forEach(b => {
+    b.addEventListener("click", e => {
+      const id = e.target.dataset.id;
+      const act = e.target.dataset.act;
+      const idx = state.templates.findIndex(t => t.id === id);
+      if (idx < 0) return;
+      if (act === "del") {
+        if (state.templates[idx].isDefault) { toast("唔可以刪 Default template", "error"); return; }
+        if (!confirm("確定刪除呢個 template？")) return;
+        state.templates.splice(idx, 1);
+      } else if (act === "dup") {
+        const orig = state.templates[idx];
+        const copy = Object.assign({}, orig, { id: uid("tpl"), name: orig.name + " (copy)", isDefault: false });
+        state.templates.push(copy);
+      } else if (act === "default") {
+        state.templates.forEach(t => t.isDefault = false);
+        state.templates[idx].isDefault = true;
+        state.templates[idx].industry = "*";
+      }
+      saveState();
+      renderTemplates();
+      renderContacts();
+    });
+  });
+}
+document.getElementById("add-template").addEventListener("click", () => {
+  state.templates.push({
+    id: uid("tpl"),
+    name: "新 Template",
+    industry: "",
+    isDefault: false,
+    subject: "{{company_name}} — ",
+    body: "你好 {{name}}，\n\n"
+  });
+  saveState();
+  renderTemplates();
+});
+
+//========================================================
+// Render: Contacts tab
+//========================================================
+let previewedContactId = null;
+
+function renderContacts() {
+  const wrap = document.getElementById("contacts-table-wrap");
+  if (state.contacts.length === 0) {
+    wrap.innerHTML = '<p class="muted">未有 contact。先去 <strong>Tab 1</strong> 上載 CSV。</p>';
+    document.getElementById("preview-panel").style.display = "none";
+    return;
+  }
+  let html = '<table><thead><tr>';
+  html += '<th class="checkbox-cell"><input type="checkbox" id="contacts-select-all"></th>';
+  html += '<th>Name</th><th>Company</th><th>Industry</th><th>Job Role</th><th>Email</th><th>Template</th><th>Status</th><th>Sent At</th><th></th>';
+  html += '</tr></thead><tbody>';
+  state.contacts.forEach(c => {
+    const tpl = pickTemplate(c);
+    const checked = state.selectedContactIds.includes(c.id) ? "checked" : "";
+    html += '<tr>';
+    html += '<td class="checkbox-cell"><input type="checkbox" data-cid="' + c.id + '" class="row-check" ' + checked + '></td>';
+    html += '<td>' + escapeHtml(c.name) + '</td>';
+    html += '<td>' + escapeHtml(c.company) + '</td>';
+    html += '<td>' + escapeHtml(c.industry) + '</td>';
+    html += '<td>' + escapeHtml(c.jobRole) + '</td>';
+    html += '<td>' + escapeHtml(c.email) + '</td>';
+    html += '<td>' + (tpl ? escapeHtml(tpl.name) : '<span class="error">無 template</span>') + '</td>';
+    html += '<td><span class="status-badge status-' + c.status + '">' + c.status + '</span>';
+    if (c.error) html += '<br><span class="error" title="' + escapeHtml(c.error) + '">' + escapeHtml(c.error.slice(0, 40)) + '...</span>';
+    html += '</td>';
+    html += '<td>' + (c.sentAt ? '<span class="muted">' + formatTime(c.sentAt) + '</span>' : '') + '</td>';
+    html += '<td class="actions-cell"><button class="ghost small" data-preview="' + c.id + '">Preview</button>';
+    html += '<button class="ghost small" data-edit2="' + c.id + '">✎</button>';
+    html += '<button class="ghost small" data-del2="' + c.id + '" style="color:var(--danger);">✕</button>';
+    if (c.status !== "pending") html += '<button class="ghost small" data-reset="' + c.id + '">Reset</button>';
+    html += '</td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+
+  document.getElementById("contacts-select-all").addEventListener("change", e => {
+    if (e.target.checked) state.selectedContactIds = state.contacts.map(c => c.id);
+    else state.selectedContactIds = [];
+    saveState();
+    renderContacts(); updateQueueInfo();
+  });
+  wrap.querySelectorAll(".row-check").forEach(cb => {
+    cb.addEventListener("change", e => {
+      const id = e.target.dataset.cid;
+      const set = new Set(state.selectedContactIds);
+      if (e.target.checked) set.add(id); else set.delete(id);
+      state.selectedContactIds = Array.from(set);
+      saveState(); updateQueueInfo();
+    });
+  });
+  wrap.querySelectorAll("button[data-preview]").forEach(b => {
+    b.addEventListener("click", e => showPreview(e.target.dataset.preview));
+  });
+  wrap.querySelectorAll("button[data-edit2]").forEach(b => {
+    b.addEventListener("click", e => editContact(e.target.dataset.edit2));
+  });
+  wrap.querySelectorAll("button[data-del2]").forEach(b => {
+    b.addEventListener("click", e => deleteContact(e.target.dataset.del2));
+  });
+  wrap.querySelectorAll("button[data-reset]").forEach(b => {
+    b.addEventListener("click", e => {
+      const id = e.target.dataset.reset;
+      const c = state.contacts.find(x => x.id === id);
+      if (!c) return;
+      c.status = "pending"; c.error = null; c.draftId = null; c.sentAt = null;
+      saveState(); renderAll();
+    });
+  });
+}
+
+function showPreview(contactId) {
+  const c = state.contacts.find(x => x.id === contactId);
+  if (!c) return;
+  previewedContactId = contactId;
+  const tpl = pickTemplate(c);
+  document.getElementById("preview-panel").style.display = "";
+  document.getElementById("preview-name").textContent = c.name + " · " + c.company;
+  document.getElementById("preview-to").textContent = c.email;
+  document.getElementById("preview-industry").textContent = c.industry || "(none)";
+  document.getElementById("preview-template").textContent = tpl ? tpl.name : "(no template)";
+  if (tpl) {
+    document.getElementById("preview-subject").textContent = applyTemplate(tpl.subject, c);
+    document.getElementById("preview-body").textContent = applyTemplate(tpl.body, c);
+  } else {
+    document.getElementById("preview-subject").textContent = "(無 template)";
+    document.getElementById("preview-body").textContent = "";
+  }
+  document.getElementById("preview-panel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+document.getElementById("select-all-pending").addEventListener("click", () => {
+  state.selectedContactIds = state.contacts.filter(c => c.status === "pending").map(c => c.id);
+  saveState(); renderContacts(); updateQueueInfo();
+});
+document.getElementById("select-none").addEventListener("click", () => {
+  state.selectedContactIds = [];
+  saveState(); renderContacts(); updateQueueInfo();
+});
+
+//========================================================
+// Queue runner
+//========================================================
+let queueAbortController = null;
+let queueTimerId = null;
+let queueRunning = false;
+
+document.getElementById("delay-input").addEventListener("change", e => {
+  let v = parseInt(e.target.value, 10);
+  if (isNaN(v) || v < 5) v = 5;
+  if (v > 600) v = 600;
+  state.delaySeconds = v;
+  e.target.value = v;
+  saveState();
+});
+
+document.getElementById("btn-start").addEventListener("click", startQueue);
+document.getElementById("btn-pause").addEventListener("click", pauseQueue);
+document.getElementById("btn-stop").addEventListener("click", stopQueue);
+
+async function startQueue() {
+  if (queueRunning) return;
+  // Build queue: selected pending contacts, OR resume existing queue
+  let queueIds;
+  if (state.queueState.paused && state.queueState.queueIds.length > 0) {
+    queueIds = state.queueState.queueIds.filter(id => {
+      const c = state.contacts.find(x => x.id === id);
+      return c && c.status === "pending";
+    });
+  } else {
+    queueIds = state.selectedContactIds.filter(id => {
+      const c = state.contacts.find(x => x.id === id);
+      return c && c.status === "pending";
+    });
+  }
+  if (queueIds.length === 0) {
+    toast("無 pending contact 喺 queue 入面", "error"); return;
+  }
+  state.queueState = { running: true, paused: false, currentIndex: 0, queueIds };
+  queueRunning = true;
+  saveState();
+  updateQueueButtons();
+  log("system", null, "queue-start", "Started queue with " + queueIds.length + " contacts, delay " + state.delaySeconds + "s");
+  for (let i = 0; i < queueIds.length; i++) {
+    if (!queueRunning) break;
+    state.queueState.currentIndex = i;
+    saveState();
+    const c = state.contacts.find(x => x.id === queueIds[i]);
+    if (!c || c.status !== "pending") continue;
+    const tpl = pickTemplate(c);
+    if (!tpl) {
+      c.status = "failed"; c.error = "No matching template"; saveState();
+      log("contact", c.id, "no-template", "No template for industry " + c.industry);
+      renderAll(); continue;
+    }
+    setNowSending(c, tpl);
+    try {
+      const subject = applyTemplate(tpl.subject, c);
+      const body = applyTemplate(tpl.body, c);
+      const result = await window.cowork.callMcpTool(
+        "mcp__bc279266-b1fb-4cbd-8dc6-5d109c38c4c6__create_draft",
+        { to: [c.email], subject, body }
+      );
+      c.status = "sent";
+      c.sentAt = nowIso();
+      c.draftId = extractDraftId(result);
+      c.error = null;
+      log("contact", c.id, "drafted", "Draft created in Gmail" + (c.draftId ? " (id " + c.draftId + ")" : ""));
+    } catch (err) {
+      c.status = "failed";
+      c.error = (err && err.message) ? err.message : String(err);
+      log("contact", c.id, "failed", "Error: " + c.error);
+    }
+    saveState();
+    renderAll();
+    if (i < queueIds.length - 1 && queueRunning) {
+      const delayed = await sleepInterruptible(state.delaySeconds * 1000);
+      if (!delayed) break;
+    }
+  }
+  if (queueRunning) {
+    log("system", null, "queue-done", "Queue finished");
+    toast("✓ Queue 完成", "success");
+  }
+  queueRunning = false;
+  state.queueState = { running: false, paused: false, currentIndex: -1, queueIds: [] };
+  saveState();
+  setNowSending(null);
+  updateQueueButtons();
+  renderAll();
+}
+
+function pauseQueue() {
+  if (!queueRunning) return;
+  queueRunning = false;
+  state.queueState.paused = true;
+  state.queueState.running = false;
+  // Keep currentIndex and queueIds so we can resume
+  saveState();
+  if (queueAbortController) queueAbortController();
+  log("system", null, "queue-pause", "Queue paused");
+  toast("⏸ 暫停咗");
+  setNowSending(null);
+  updateQueueButtons();
+  renderAll();
+}
+function stopQueue() {
+  queueRunning = false;
+  state.queueState = { running: false, paused: false, currentIndex: -1, queueIds: [] };
+  saveState();
+  if (queueAbortController) queueAbortController();
+  log("system", null, "queue-stop", "Queue stopped");
+  setNowSending(null);
+  updateQueueButtons();
+  renderAll();
+}
+
+function sleepInterruptible(ms) {
+  return new Promise(resolve => {
+    queueTimerId = setTimeout(() => {
+      queueAbortController = null;
+      resolve(true);
+    }, ms);
+    queueAbortController = () => {
+      clearTimeout(queueTimerId);
+      queueAbortController = null;
+      resolve(false);
+    };
+  });
+}
+
+function extractDraftId(result) {
+  if (!result) return null;
+  if (typeof result === "string") return result;
+  if (result.id) return result.id;
+  if (result.draftId) return result.draftId;
+  if (result.draft && result.draft.id) return result.draft.id;
+  if (result.content && Array.isArray(result.content)) {
+    // MCP standard wrapped: text content
+    for (const part of result.content) {
+      if (part.type === "text" && part.text) {
+        const m = part.text.match(/[a-zA-Z0-9_-]{8,}/);
+        if (m) return m[0];
+      }
+    }
+  }
+  return null;
+}
+
+function setNowSending(c, tpl) {
+  const el = document.getElementById("now-sending");
+  if (!c) { el.classList.add("hidden"); return; }
+  el.classList.remove("hidden");
+  el.innerHTML = "正在處理: <strong>" + escapeHtml(c.name) + "</strong> @ " + escapeHtml(c.company) + " — using template <strong>" + escapeHtml(tpl.name) + "</strong>";
+}
+
+function updateQueueButtons() {
+  document.getElementById("btn-start").disabled = queueRunning;
+  document.getElementById("btn-pause").disabled = !queueRunning;
+  document.getElementById("btn-stop").disabled = !queueRunning && !state.queueState.paused;
+  if (state.queueState.paused && !queueRunning) {
+    document.getElementById("btn-start").textContent = "▶ 繼續 Resume";
+  } else {
+    document.getElementById("btn-start").textContent = "▶ 開始 / 繼續";
+  }
+}
+
+function updateQueueInfo() {
+  const sel = state.selectedContactIds.length;
+  const pending = state.contacts.filter(c => state.selectedContactIds.includes(c.id) && c.status === "pending").length;
+  document.getElementById("queue-selection-info").innerHTML = sel + " 個揀咗 · <strong>" + pending + "</strong> 個 pending 會入 queue";
+}
+
+function updateStats() {
+  const counts = { pending: 0, sent: 0, failed: 0, skipped: 0 };
+  state.contacts.forEach(c => { counts[c.status] = (counts[c.status] || 0) + 1; });
+  document.getElementById("stat-pending").textContent = counts.pending;
+  document.getElementById("stat-sent").textContent = counts.sent;
+  document.getElementById("stat-failed").textContent = counts.failed;
+  document.getElementById("stat-skipped").textContent = counts.skipped;
+  // Progress
+  const total = (state.queueState.queueIds && state.queueState.queueIds.length) || state.selectedContactIds.length;
+  const done = state.queueState.queueIds ? state.queueState.queueIds.filter(id => {
+    const c = state.contacts.find(x => x.id === id);
+    return c && c.status !== "pending";
+  }).length : 0;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("progress-label").textContent = done + " / " + total;
+  // Header
+  document.getElementById("header-stats").textContent =
+    state.contacts.length + " contacts · " + counts.sent + " drafted · " + counts.failed + " failed";
+}
+
+//========================================================
+// Log
+//========================================================
+function log(scope, contactId, action, message) {
+  state.log.push({ ts: nowIso(), scope, contactId, action, message });
+  if (state.log.length > 2000) state.log = state.log.slice(-2000);
+  saveState();
+  renderLog();
+}
+function renderLog() {
+  const wrap = document.getElementById("log-table");
+  if (state.log.length === 0) {
+    wrap.innerHTML = '<p class="muted">未有 log</p>'; return;
+  }
+  const rows = state.log.slice().reverse().slice(0, 500);
+  let html = '<table><thead><tr><th>Time</th><th>Scope</th><th>Contact</th><th>Action</th><th>Message</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    const c = r.contactId ? state.contacts.find(x => x.id === r.contactId) : null;
+    html += '<tr>';
+    html += '<td>' + escapeHtml(formatTime(r.ts)) + '</td>';
+    html += '<td>' + escapeHtml(r.scope) + '</td>';
+    html += '<td>' + (c ? escapeHtml(c.name + " <" + c.email + ">") : '<span class="muted">—</span>') + '</td>';
+    html += '<td><span class="tag">' + escapeHtml(r.action) + '</span></td>';
+    html += '<td>' + escapeHtml(r.message) + '</td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  if (state.log.length > 500) html += '<p class="muted" style="margin-top:8px;">顯示最近 500 條，總共 ' + state.log.length + '</p>';
+  wrap.innerHTML = html;
+}
+document.getElementById("clear-log").addEventListener("click", () => {
+  if (!confirm("清空 log？")) return;
+  state.log = []; saveState(); renderLog();
+});
+document.getElementById("export-log").addEventListener("click", () => {
+  const head = ["Time", "Scope", "Contact Name", "Contact Email", "Action", "Message"];
+  const rows = state.log.map(r => {
+    const c = r.contactId ? state.contacts.find(x => x.id === r.contactId) : null;
+    return [r.ts, r.scope, c ? c.name : "", c ? c.email : "", r.action, r.message];
+  });
+  const csv = [head, ...rows].map(row =>
+    row.map(v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"').join(",")
+  ).join("\n");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "cold-email-log-" + Date.now() + ".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+});
+
+//========================================================
+// Init
+//========================================================
+function renderAll() {
+  renderSetup();
+  renderTemplates();
+  renderContacts();
+  renderLog();
+  updateStats();
+  updateQueueInfo();
+  updateQueueButtons();
+  document.getElementById("delay-input").value = state.delaySeconds;
+}
+
+// On load: detect interrupted queue
+window.addEventListener("DOMContentLoaded", () => {
+  if (state.queueState && state.queueState.running) {
+    // page was reloaded while queue was running — mark as paused
+    state.queueState.running = false;
+    state.queueState.paused = true;
+    saveState();
+    log("system", null, "queue-interrupted", "Queue interrupted by reload — marked as paused");
+  }
+  renderAll();
+});
+</script>
+</body>
+</html>

@@ -998,6 +998,64 @@ main,nav,section,footer{position:relative;z-index:2}
 .rv-text{font-size:14px;line-height:1.7;color:var(--text);white-space:pre-wrap}
 [data-theme="light"] .rv-card{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
 
+/* Warehouse cards (Demo 12) */
+.warehouse-grid{display:flex;flex-direction:column;gap:10px}
+.wh-card{
+  position:relative;padding:14px 16px;border-radius:12px;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line-strong);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+  opacity:0;transform:translateX(10px);
+  transition:opacity .4s, transform .4s, border-color var(--t-fast);
+}
+.wh-card.show{opacity:1;transform:translateX(0)}
+.wh-card.recommended{
+  border-color:rgba(124,92,255,.5);
+  background:linear-gradient(160deg, rgba(124,92,255,.18), rgba(92,215,255,.06));
+  box-shadow:0 6px 22px rgba(124,92,255,.18);
+}
+.wh-card.recommended::before{
+  content:"✨ AI";
+  position:absolute;top:-10px;right:14px;
+  padding:3px 11px;border-radius:999px;
+  background:var(--grad);color:#fff;
+  font-size:9.5px;letter-spacing:.22em;font-weight:800;
+  box-shadow:0 4px 14px rgba(124,92,255,.45);
+}
+.wh-card .wh-info{flex:1;min-width:0}
+.wh-card .wh-name{font-family:'Syne',sans-serif;font-weight:700;font-size:15.5px;letter-spacing:-.005em;margin-bottom:5px;color:var(--text)}
+.wh-card .wh-meta{font-size:11.5px;color:var(--text-dim);display:flex;gap:14px;flex-wrap:wrap}
+.wh-card .wh-meta span{display:inline-flex;align-items:center;gap:4px}
+.wh-card .wh-reason{margin-top:6px;font-size:12px;color:#c8b9ff;font-weight:500}
+.wh-card .wh-stock{text-align:right;flex-shrink:0}
+.wh-card .wh-stock .num{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;line-height:1;color:var(--text)}
+.wh-card .wh-stock .lbl{font-size:9.5px;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;font-weight:600}
+.wh-card.lowstock .wh-stock .num{color:#ffae7e}
+.wh-card.outofstock{opacity:.55}
+.wh-card.outofstock .wh-stock .num{color:#888}
+
+.wh-insights{margin-top:6px;display:flex;flex-direction:column;gap:7px}
+.wh-insight{
+  padding:10px 14px;border-radius:10px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+  font-size:13px;line-height:1.55;display:flex;align-items:flex-start;gap:10px;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .4s, transform .4s;
+}
+.wh-insight.show{opacity:1;transform:translateY(0)}
+.wh-insight.warning{background:rgba(255,140,140,.10);border-color:rgba(255,140,140,.32);color:#ffd1d1}
+.wh-insight.suggestion{background:rgba(124,92,255,.10);border-color:rgba(124,92,255,.32);color:#d9cefb}
+.wh-insight.saving{background:rgba(123,232,163,.10);border-color:rgba(123,232,163,.32);color:#cdf1d8}
+.wh-insight .ico{font-size:17px;line-height:1.3;flex-shrink:0}
+
+[data-theme="light"] .wh-card{background:linear-gradient(160deg,rgba(0,0,0,.025),rgba(0,0,0,.005));border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .wh-card.recommended{background:linear-gradient(160deg, rgba(124,92,255,.10), rgba(92,215,255,.04));border-color:rgba(124,92,255,.4)}
+[data-theme="light"] .wh-card .wh-reason{color:#5a3fd6}
+[data-theme="light"] .wh-insight{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .wh-insight.warning{background:rgba(220,90,90,.08);border-color:rgba(220,90,90,.3);color:#a83232}
+[data-theme="light"] .wh-insight.suggestion{background:rgba(124,92,255,.08);border-color:rgba(124,92,255,.3);color:#5a3fd6}
+[data-theme="light"] .wh-insight.saving{background:rgba(60,180,100,.08);border-color:rgba(60,180,100,.3);color:#1f7a3e}
+
 /* Demo savings badge */
 .demo-save{
   display:inline-flex;align-items:center;gap:6px;
@@ -1634,7 +1692,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="demos-intro reveal">
       <div class="eyebrow" data-i18n="demos.eyebrow">INTERACTIVE DEMOS</div>
       <h2 class="h2" style="margin-top:18px"><span data-i18n="demos.title1">不是說明，</span><span class="gradient-text" data-i18n="demos.title2">而是親身體驗</span></h2>
-      <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">11 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。</p>
+      <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">12 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。</p>
     </div>
 
     <!-- ====== TABS ====== -->
@@ -1650,6 +1708,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="8"><span class="num">09</span> <span data-i18n="demo9.title">AI 評論回覆</span></button>
       <button class="demo-tab-btn"        data-slide="9"><span class="num">10</span> <span data-i18n="demo10.title">AI SEO 標題</span></button>
       <button class="demo-tab-btn"        data-slide="10"><span class="num">11</span> <span data-i18n="demo11.title">AI 產品文案</span></button>
+      <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
     </div>
 
     <div class="demos-carousel-wrap reveal">
@@ -2078,6 +2137,46 @@ main,nav,section,footer{position:relative;z-index:2}
           </div>
         </div>
 
+        <!-- ===== SLIDE 12 : DEMO 12 — WAREHOUSE SMART ROUTING ===== -->
+        <div class="demo-slide" data-slide-idx="11">
+          <div class="demo-block" id="demo12">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 12</div>
+                  <div class="demo-save" data-i18n="demo12.save">調貨成本 ↓ 30%</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo12.title">AI 多倉庫智能調貨</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo12.desc">輸入 SKU 與訂購數量，AI 即時掌握各倉庫實時庫存，自動推薦最佳出貨點 + 智能補貨警示。</p>
+              </div>
+            </div>
+            <div class="demo-grid">
+              <div>
+                <div class="field">
+                  <label data-i18n="demo12.l1">產品 SKU / 名稱</label>
+                  <input type="text" class="input" id="wh-sku" placeholder="例：USB-C 多功能轉接器" />
+                </div>
+                <div class="field">
+                  <label data-i18n="demo12.l2">訂購數量</label>
+                  <input type="number" class="input" id="wh-qty" placeholder="200" min="1" max="100000" />
+                </div>
+                <button class="btn btn-primary" id="wh-run" style="width:100%;justify-content:center" data-i18n="demo12.btn">AI 智能調貨 →</button>
+              </div>
+              <div>
+                <div class="warehouse-grid" id="wh-output">
+                  <div class="wh-card show">
+                    <div class="wh-info">
+                      <div class="wh-name" data-i18n="demo12.empty">輸入 SKU 與數量後 →</div>
+                      <div class="wh-meta" data-i18n="demo12.emptyText">AI 會顯示三個倉庫的實時庫存、運費、預計送達時間，並自動推薦最佳出貨點。</div>
+                    </div>
+                    <div class="wh-stock"><div class="num">—</div><div class="lbl" data-i18n="demo12.stockLabel">件庫存</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /demos-carousel -->
     </div><!-- /demos-carousel-wrap -->
 
@@ -2438,7 +2537,7 @@ const I18N = {
     "services.s4.desc":"針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。",
     "demos.eyebrow":"互動 DEMO","demos.counterLabel":"DEMOS",
     "demos.title1":"不是說明，","demos.title2":"而是親身體驗",
-    "demos.desc":"11 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。",
+    "demos.desc":"12 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。",
     "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，AI 即時為您拆解成屬於您的自動化流程。",
     "demo1.label":"您的業務問題","demo1.btn":"AI 拆解工作流 →","demo1.save":"平均省 25 小時/月",
     "demo1.placeholder":"輸入您的問題，AI 即時為您動態生成工作流程節點",
@@ -2472,6 +2571,10 @@ const I18N = {
     "demo11.title":"AI 電商產品文案","demo11.desc":"輸入產品名 + 主要特色，AI 生成符合電商平台風格的完整商品文案。",
     "demo11.l1":"產品名稱","demo11.l2":"主要特色 / 賣點","demo11.btn":"AI 撰寫商品文案 →",
     "demo11.empty":"商品文案會在這裡顯示…","demo11.save":"電商轉換率 ↑ 25%",
+    "demo12.title":"AI 多倉庫智能調貨","demo12.desc":"輸入 SKU 與訂購數量，AI 即時掌握各倉庫實時庫存，自動推薦最佳出貨點 + 智能補貨警示。",
+    "demo12.l1":"產品 SKU / 名稱","demo12.l2":"訂購數量","demo12.btn":"AI 智能調貨 →",
+    "demo12.empty":"輸入 SKU 與數量後 →","demo12.emptyText":"AI 會顯示三個倉庫的實時庫存、運費、預計送達時間，並自動推薦最佳出貨點。",
+    "demo12.stockLabel":"件庫存","demo12.save":"調貨成本 ↓ 30%",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
     "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
@@ -2559,7 +2662,7 @@ const I18N = {
     "services.s4.desc":"Tailored AI assistants, knowledge bases, smart support and decision-support systems for your business.",
     "demos.eyebrow":"INTERACTIVE DEMOS","demos.counterLabel":"DEMOS",
     "demos.title1":"Don't read about it —","demos.title2":"try it",
-    "demos.desc":"11 live demos right on this page. No download, no signup. Switch via tabs above or arrows.",
+    "demos.desc":"12 live demos right on this page. No download, no signup. Switch via tabs above or arrows.",
     "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem; AI breaks it into a workflow tailored for you.",
     "demo1.label":"Your business problem","demo1.btn":"Break it down with AI →","demo1.save":"Saves 25 hrs / month",
     "demo1.placeholder":"Type your problem and AI will generate workflow nodes live.",
@@ -2593,6 +2696,10 @@ const I18N = {
     "demo11.title":"AI E-commerce Product Copy","demo11.desc":"Type product name + features — AI writes complete e-commerce product description.",
     "demo11.l1":"Product name","demo11.l2":"Key features / selling points","demo11.btn":"Write copy with AI →",
     "demo11.empty":"Product copy will appear here…","demo11.save":"+25% conversion",
+    "demo12.title":"AI Warehouse Smart Routing","demo12.desc":"Drop in a SKU + quantity — AI checks live stock across warehouses and auto-recommends the best fulfilment point with restock alerts.",
+    "demo12.l1":"Product SKU / Name","demo12.l2":"Order quantity","demo12.btn":"Route with AI →",
+    "demo12.empty":"Enter SKU and quantity →","demo12.emptyText":"AI will show live stock, shipping cost and ETA across three warehouses, and auto-recommend the best fulfilment point.",
+    "demo12.stockLabel":"IN STOCK","demo12.save":"−30% fulfilment cost",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"Real time and cost","impact.title2":"saved.",
     "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
@@ -2713,7 +2820,8 @@ function resetAllDemos(){
   // Clear all input / textarea values
   ["wf-input","chat-input","wg-name","wg-industry","cg-topic","ia-input",
    "se-name","se-company","se-context","ms-input","tr-input","rv-input",
-   "rv-business","seo-topic","seo-keyword","pc-name","pc-features"]
+   "rv-business","seo-topic","seo-keyword","pc-name","pc-features",
+   "wh-sku","wh-qty"]
     .forEach(id => { const el = document.getElementById(id); if(el) el.value = ""; });
 
   const i18n = I18N[currentLang] || {};
@@ -2801,6 +2909,12 @@ function resetAllDemos(){
   // Demo 11 — product copy
   const pcOut = document.getElementById("pc-output");
   if(pcOut) pcOut.innerHTML = `<span class="placeholder" data-i18n="demo11.empty">${txt("demo11.empty")}</span>`;
+
+  // Demo 12 — warehouse routing
+  const whOut = document.getElementById("wh-output");
+  if(whOut){
+    whOut.innerHTML = `<div class="wh-card show"><div class="wh-info"><div class="wh-name" data-i18n="demo12.empty">${txt("demo12.empty")}</div><div class="wh-meta" data-i18n="demo12.emptyText">${txt("demo12.emptyText")}</div></div><div class="wh-stock"><div class="num">—</div><div class="lbl" data-i18n="demo12.stockLabel">${txt("demo12.stockLabel")}</div></div></div>`;
+  }
 
   // Allow previews to replay in the new language
   if(window.__resetPreviews) window.__resetPreviews();
@@ -3875,12 +3989,76 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     if(!await typeText(out, s.output, token, 11)) return;
   }
 
+  function S12(){
+    return currentLang === "zh" ? {
+      sku:"USB-C 多功能轉接器",
+      qty:200,
+      warehouses:[
+        {name:"🇭🇰 香港中央倉",   stock:850,  delivery:"1-2 日", shipping:"HK$ 80",  status:"normal"},
+        {name:"🇨🇳 深圳跨境倉",   stock:1240, delivery:"2-3 日", shipping:"HK$ 320", status:"normal"},
+        {name:"🇹🇼 台北倉",       stock:95,   delivery:"3-4 日", shipping:"HK$ 480", status:"low"},
+      ],
+      recommended_index:0,
+      reason:"庫存充足、最快送達、運費最低",
+      insights:[
+        {type:"warning",    ico:"⚠️", text:"台北倉庫存低於安全水位（剩 95 件，閾值 150 件）"},
+        {type:"suggestion", ico:"📦", text:"建議下次補貨 600 件 — 過去 30 日銷量趨勢顯示需求穩定上升"},
+        {type:"saving",    ico:"💸", text:"本次調貨節省 HK$ 240 運費 + 縮短 2 日交付時間"},
+      ],
+      thinkLabel:"AI 正在分析三個倉庫的庫存與運費…",
+    } : {
+      sku:"USB-C Multi Adapter",
+      qty:200,
+      warehouses:[
+        {name:"🇭🇰 HK Central",      stock:850,  delivery:"1-2 days", shipping:"HK$ 80",  status:"normal"},
+        {name:"🇨🇳 Shenzhen Cross-border", stock:1240, delivery:"2-3 days", shipping:"HK$ 320", status:"normal"},
+        {name:"🇹🇼 Taipei",          stock:95,   delivery:"3-4 days", shipping:"HK$ 480", status:"low"},
+      ],
+      recommended_index:0,
+      reason:"Highest stock, fastest delivery, lowest shipping cost",
+      insights:[
+        {type:"warning",    ico:"⚠️", text:"Taipei stock below safety threshold (95 units, threshold 150)"},
+        {type:"suggestion", ico:"📦", text:"Suggest reordering 600 units — 30-day sales trend shows rising demand"},
+        {type:"saving",    ico:"💸", text:"This route saves HK$ 240 shipping and 2 days of delivery time"},
+      ],
+      thinkLabel:"AI is checking stock and routing across warehouses…",
+    };
+  }
+
+  async function playDemo12(token){
+    const skuEl = document.getElementById("wh-sku");
+    const qtyEl = document.getElementById("wh-qty");
+    const out   = document.getElementById("wh-output");
+    if(!skuEl) return;
+    const s = S12();
+    if(!await typeInput(skuEl, s.sku, token, 26)) return;
+    if(!await gate(220, token)) return;
+    qtyEl.value = "";
+    const qtyStr = String(s.qty);
+    for(const ch of qtyStr){
+      if(token !== playToken) return;
+      qtyEl.value += ch;
+      await wait(60);
+    }
+    if(!await gate(450, token)) return;
+    out.innerHTML = `<div class="wh-card show"><div class="wh-info"><div class="wh-name"><div class="dot-typing"><span></span><span></span><span></span></div></div><div class="wh-meta">${s.thinkLabel}</div></div></div>`;
+    if(!await gate(1300, token)) return;
+    if(typeof renderWarehouseResult === "function"){
+      renderWarehouseResult(out, {
+        warehouses: s.warehouses,
+        recommended_index: s.recommended_index,
+        reason: s.reason,
+        insights: s.insights,
+      });
+    }
+  }
+
   function playSlide(idx){
     if(playedSlides.has(idx)) return;
     playedSlides.add(idx);
     const token = ++playToken;
     const fns = [playDemo1, playDemo2, playDemo3, playDemo4, playDemo5, playDemo6,
-                 playDemo7, playDemo8, playDemo9, playDemo10, playDemo11];
+                 playDemo7, playDemo8, playDemo9, playDemo10, playDemo11, playDemo12];
     fns[idx]?.(token).catch(()=>{});
   }
 
@@ -3920,7 +4098,8 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   ["wf-input","wf-run","chat-input","chat-send","wg-name","wg-industry","wg-run",
    "cg-topic","cg-run","ia-input","ia-run","se-name","se-company","se-context","se-run",
    "ms-input","ms-run","tr-input","tr-lang","tr-run","rv-input","rv-business","rv-run",
-   "seo-topic","seo-keyword","seo-run","pc-name","pc-features","pc-run"]
+   "seo-topic","seo-keyword","seo-run","pc-name","pc-features","pc-run",
+   "wh-sku","wh-qty","wh-run"]
     .forEach(id => {
       const el = document.getElementById(id);
       if(!el) return;
@@ -4643,6 +4822,119 @@ Keep to 90-130 words. Output only the copy, no preamble.`;
     pcRun.disabled = false;
   }
 });
+
+/* ===========================================================
+   DEMO 12 — WAREHOUSE SMART ROUTING
+   =========================================================== */
+const whRun = document.getElementById("wh-run");
+whRun?.addEventListener("click", async ()=>{
+  const sku = (document.getElementById("wh-sku").value || "").trim();
+  const qty = +(document.getElementById("wh-qty").value || 0);
+  const out = document.getElementById("wh-output");
+  if(!sku || !qty){
+    out.innerHTML = `<div class="wh-card show"><div class="wh-info"><div class="wh-name">${currentLang==="zh"?"請填入 SKU 與訂購數量":"Please fill in SKU and quantity."}</div></div></div>`;
+    return;
+  }
+  whRun.disabled = true;
+  out.innerHTML = `<div class="wh-card show"><div class="wh-info"><div class="wh-name"><div class="dot-typing"><span></span><span></span><span></span></div></div><div class="wh-meta">${currentLang==="zh"?"AI 正在分析三個倉庫的庫存與運費…":"AI is checking stock and routing across warehouses…"}</div></div></div>`;
+
+  const sysPrompt = currentLang === "zh"
+    ? `你是 B2B 倉儲調貨 AI 顧問。用戶提供產品 SKU 與訂購數量，請模擬一個跨地區倉庫網絡（3 個倉庫，含旗幟 emoji，地點可在亞太地區），根據產品類型估算合理庫存數字、預計送達時間、運費、庫存狀態，並推薦最佳出貨倉。
+
+**只回覆 JSON**，不要其他文字：
+{
+  "warehouses": [
+    {
+      "name": "倉庫名稱 (含旗幟 emoji，如：🇭🇰 香港中央倉)",
+      "stock": 整數庫存數字,
+      "delivery": "預計送達 (例：1-2 日)",
+      "shipping": "運費 (例：HK$ 80)",
+      "status": "normal | low | out"
+    },
+    第二個倉庫,
+    第三個倉庫
+  ],
+  "recommended_index": 0,
+  "reason": "推薦原因 (15-30 字)",
+  "insights": [
+    {"type": "warning|suggestion|saving", "ico": "emoji", "text": "洞察文字 (15-35 字)"},
+    再來 1-2 個洞察
+  ]
+}`
+    : `You are a B2B warehouse routing AI advisor. Given a product SKU and order quantity, simulate a 3-warehouse network (with flag emojis, Asia-Pacific locations), estimate realistic stock counts, delivery times, shipping costs and stock status, then recommend the best warehouse.
+
+**Reply ONLY with JSON**, no other text:
+{
+  "warehouses": [
+    {
+      "name": "Warehouse name (with flag emoji, e.g., 🇭🇰 HK Central)",
+      "stock": integer,
+      "delivery": "Estimated delivery (e.g., 1-2 days)",
+      "shipping": "Shipping cost (e.g., HK$ 80)",
+      "status": "normal | low | out"
+    },
+    second warehouse,
+    third warehouse
+  ],
+  "recommended_index": 0,
+  "reason": "Why this warehouse (10-20 words)",
+  "insights": [
+    {"type": "warning|suggestion|saving", "ico": "emoji", "text": "Insight text (10-25 words)"},
+    1-2 more insights
+  ]
+}`;
+
+  try{
+    const reply = await callClaude({
+      system: sysPrompt,
+      messages: [{role:"user", content:`SKU: ${sku}\nQuantity: ${qty}`}],
+      max_tokens: 900,
+    });
+    const json = extractJSON(reply);
+    if(!json || !Array.isArray(json.warehouses)) throw new Error("Invalid JSON from AI");
+    renderWarehouseResult(out, json);
+  }catch(e){
+    out.innerHTML = `<div class="wh-card show"><div class="wh-info"><div class="wh-name">⚠️ ${e.message || e}</div></div></div>`;
+  }finally{
+    whRun.disabled = false;
+  }
+});
+
+function renderWarehouseResult(out, json){
+  const recIdx = typeof json.recommended_index === "number" ? json.recommended_index : 0;
+  const stockLabel = currentLang === "zh" ? "件庫存" : "IN STOCK";
+  const cards = json.warehouses.map((w,i)=>{
+    const statusClass = w.status === "low" ? "lowstock" : w.status === "out" ? "outofstock" : "";
+    const recClass = i === recIdx ? "recommended" : "";
+    return `<div class="wh-card ${recClass} ${statusClass}">
+      <div class="wh-info">
+        <div class="wh-name">${escapeHtml(w.name || "")}</div>
+        <div class="wh-meta">
+          <span>🚚 ${escapeHtml(w.delivery || "")}</span>
+          <span>💰 ${escapeHtml(w.shipping || "")}</span>
+        </div>
+        ${i===recIdx && json.reason ? `<div class="wh-reason">${escapeHtml(json.reason)}</div>` : ""}
+      </div>
+      <div class="wh-stock">
+        <div class="num">${Number(w.stock||0).toLocaleString()}</div>
+        <div class="lbl">${stockLabel}</div>
+      </div>
+    </div>`;
+  }).join("");
+
+  const insights = Array.isArray(json.insights) ? json.insights : [];
+  const insightsHTML = insights.length
+    ? `<div class="wh-insights">${insights.map(i=>`
+        <div class="wh-insight ${escapeHtml(i.type||"")}">
+          <div class="ico">${escapeHtml(i.ico||"💡")}</div>
+          <div>${escapeHtml(i.text||"")}</div>
+        </div>`).join("")}</div>`
+    : "";
+
+  out.innerHTML = cards + insightsHTML;
+  out.querySelectorAll(".wh-card").forEach((c,i)=>setTimeout(()=>c.classList.add("show"), i*180));
+  out.querySelectorAll(".wh-insight").forEach((c,i)=>setTimeout(()=>c.classList.add("show"), 600 + i*150));
+}
 
 /* ===========================================================
    AI BACKEND CALL — via serverless proxy (/api/claude)
