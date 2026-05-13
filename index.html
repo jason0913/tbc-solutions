@@ -497,28 +497,151 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 .email-body .placeholder{color:var(--text-faint);font-style:italic}
 
-/* Workflow step that renders dynamically — richer than the old static one */
+/* Workflow step — upgraded with gradient border on hover + better polish */
 .wf-dynamic{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
 }
 .wf-step-card{
-  padding:14px;border-radius:12px;
+  padding:16px;border-radius:14px;
   background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(255,92,177,.04));
   border:1px solid rgba(255,255,255,.08);
   opacity:0;transform:translateY(10px) scale(.95);
-  transition:opacity .4s, transform .4s;
-  position:relative;
+  transition:opacity .4s, transform .4s, border-color var(--t-fast), box-shadow var(--t-med);
+  position:relative;overflow:hidden;
 }
+.wf-step-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity var(--t-med);pointer-events:none;
+}
+.wf-step-card:hover{box-shadow:0 8px 22px rgba(124,92,255,.16)}
+.wf-step-card:hover::before{opacity:.8}
 .wf-step-card.show{opacity:1;transform:translateY(0) scale(1)}
 .wf-step-card .step-num{
-  position:absolute;top:8px;right:10px;
+  position:absolute;top:10px;right:12px;
   font-family:'Syne',sans-serif;font-weight:800;font-size:11px;
-  color:var(--text-faint);letter-spacing:.1em;
+  background:var(--grad);-webkit-background-clip:text;color:transparent;
+  letter-spacing:.08em;opacity:.85;
 }
-.wf-step-card .icon{font-size:24px;line-height:1;margin-bottom:6px}
-.wf-step-card .title{font-weight:700;font-size:14px;margin-bottom:4px}
-.wf-step-card .desc{font-size:12px;color:var(--text-dim);line-height:1.5}
+.wf-step-card .icon{
+  font-size:26px;line-height:1;margin-bottom:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(140deg,rgba(124,92,255,.18),rgba(255,92,177,.08));
+  border:1px solid rgba(255,255,255,.06);
+}
+.wf-step-card .title{font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:-.005em;margin-bottom:4px}
+.wf-step-card .desc{font-size:12.5px;color:var(--text-dim);line-height:1.55}
 [data-theme="light"] .wf-step-card{background:linear-gradient(160deg,rgba(124,92,255,.08),rgba(255,92,177,.03));border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .wf-step-card .icon{background:linear-gradient(140deg,rgba(124,92,255,.14),rgba(255,92,177,.06));border-color:rgba(0,0,0,.05)}
+
+/* Demo 5: intent chip upgrades — emoji indicator + confidence visual */
+.intent-chip{position:relative;overflow:hidden}
+.intent-chip .val{display:flex;align-items:center;gap:8px}
+.intent-chip .val::before{
+  font-size:20px;line-height:1;
+}
+.intent-chip.urgency-high   .val::before{content:"🚨"}
+.intent-chip.urgency-medium .val::before{content:"🟡"}
+.intent-chip.urgency-low    .val::before{content:"🟢"}
+.intent-chip.mood-positive  .val::before{content:"😊"}
+.intent-chip.mood-neutral   .val::before{content:"😐"}
+.intent-chip.mood-negative  .val::before{content:"😟"}
+.intent-chip::after{
+  content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;
+  background:linear-gradient(to right,transparent,currentColor,transparent);
+  opacity:0;transition:opacity .4s;
+}
+.intent-chip.urgency-high::after,
+.intent-chip.urgency-medium::after,
+.intent-chip.urgency-low::after,
+.intent-chip.mood-positive::after,
+.intent-chip.mood-neutral::after,
+.intent-chip.mood-negative::after{opacity:.6}
+.intent-chip.urgency-high::after  {color:#ff6b6b}
+.intent-chip.urgency-medium::after{color:#ffb84d}
+.intent-chip.urgency-low::after   {color:#7be8a3}
+.intent-chip.mood-positive::after {color:#7be8a3}
+.intent-chip.mood-neutral::after  {color:#a8b3c6}
+.intent-chip.mood-negative::after {color:#ff6b6b}
+
+/* Demo 5: intent reply — make it look more like an email reply card */
+.intent-reply{
+  position:relative;
+}
+.intent-reply::before{
+  content:"💬";position:absolute;top:14px;right:14px;font-size:18px;opacity:.4;
+}
+
+/* Demo 9: review reply card upgrades — tone-specific accent */
+.rv-card .rv-tone{position:relative;padding-left:22px}
+.rv-card .rv-tone::before{
+  content:"🎭";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  font-size:12px;letter-spacing:0;
+}
+.rv-card:nth-child(1) .rv-tone::before{content:"💼"}  /* formal */
+.rv-card:nth-child(2) .rv-tone::before{content:"💛"}  /* friendly */
+.rv-card:nth-child(3) .rv-tone::before{content:"🙏"}  /* apologetic */
+.rv-card{position:relative}
+.rv-card::before{
+  content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;
+  background:var(--grad);opacity:0;transition:opacity var(--t-fast);
+}
+.rv-card:hover::before{opacity:.7}
+
+/* Mobile tab scroll polish — fade indicators */
+.demos-tabs{position:relative}
+.demos-tabs::before,.demos-tabs::after{
+  content:"";position:absolute;top:0;bottom:1px;width:30px;pointer-events:none;
+  z-index:2;opacity:0;transition:opacity .2s;
+}
+@media(max-width:760px){
+  .demos-tabs{scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .demos-tabs::-webkit-scrollbar{display:none}
+  .demos-tabs::before{left:0;background:linear-gradient(to right,var(--bg),transparent);opacity:1}
+  .demos-tabs::after {right:0;background:linear-gradient(to left, var(--bg),transparent);opacity:1}
+  [data-theme="light"] .demos-tabs::before{background:linear-gradient(to right,var(--bg),transparent)}
+  [data-theme="light"] .demos-tabs::after {background:linear-gradient(to left, var(--bg),transparent)}
+}
+
+/* P1 #6: Cal.com loading skeleton */
+.book-frame-wrap{position:relative}
+.cal-skeleton{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 30px;text-align:center;gap:20px;
+  background:linear-gradient(160deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+  z-index:1;pointer-events:none;
+  opacity:1;transition:opacity .5s;
+}
+.cal-skeleton.hidden{opacity:0;pointer-events:none}
+.cal-skeleton .sk-spinner{
+  width:42px;height:42px;border-radius:50%;
+  border:3px solid rgba(124,92,255,.15);border-top-color:var(--accent);
+  animation:skSpin 1s linear infinite;
+}
+@keyframes skSpin{to{transform:rotate(360deg)}}
+.cal-skeleton .sk-text{font-size:14px;color:var(--text-dim);letter-spacing:.04em}
+.cal-skeleton .sk-bars{display:flex;flex-direction:column;gap:10px;width:280px;max-width:80%}
+.cal-skeleton .sk-bar{height:14px;border-radius:7px;background:rgba(255,255,255,.05);position:relative;overflow:hidden}
+.cal-skeleton .sk-bar::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(124,92,255,.18),transparent);
+  animation:skShimmer 1.4s infinite;
+}
+.cal-skeleton .sk-bar:nth-child(2){width:80%}
+.cal-skeleton .sk-bar:nth-child(3){width:60%}
+@keyframes skShimmer{to{transform:translateX(100%)}}
+[data-theme="light"] .cal-skeleton{background:linear-gradient(160deg,rgba(0,0,0,.02),rgba(0,0,0,.01))}
+[data-theme="light"] .cal-skeleton .sk-bar{background:rgba(0,0,0,.05)}
+
+/* P2 #5: ROI chip mobile — tighter wrap */
+@media(max-width:540px){
+  .area-chips{gap:6px}
+  .area-chip{padding:8px 12px;font-size:12px}
+}
 
 @media(max-width:760px){
   .demos-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -998,7 +1121,289 @@ main,nav,section,footer{position:relative;z-index:2}
 .rv-text{font-size:14px;line-height:1.7;color:var(--text);white-space:pre-wrap}
 [data-theme="light"] .rv-card{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
 
-/* Warehouse cards (Demo 12) */
+/* =====================================================================
+   DEMO 13: Wizard — 3-step business diagnosis
+   ===================================================================== */
+
+/* Put demo 13's tab first visually (left), even though data-slide="12" */
+.demo-tab-btn[data-slide="12"]{order:-1}
+.demo-tab-btn[data-slide="12"] .num{
+  background:var(--grad);-webkit-background-clip:text;color:transparent;
+  opacity:1;letter-spacing:0;font-size:14px;
+}
+
+.wizard-container{
+  display:flex;flex-direction:column;gap:24px;min-height:520px;
+}
+
+/* Stepper / progress */
+.wizard-stepper{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 22px;border-radius:14px;
+  background:linear-gradient(160deg,rgba(124,92,255,.08),rgba(255,92,177,.04));
+  border:1px solid rgba(124,92,255,.2);
+}
+.wizard-stepper .wz-step-pill{
+  display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+  letter-spacing:.02em;color:var(--text-dim);transition:color var(--t-fast);
+}
+.wizard-stepper .wz-step-pill .wz-circle{
+  width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.06);border:1px solid var(--line-strong);
+  font-family:'Syne',sans-serif;font-weight:800;font-size:11px;color:var(--text-dim);
+  transition:all var(--t-fast);
+}
+.wizard-stepper .wz-step-pill.done .wz-circle,
+.wizard-stepper .wz-step-pill.current .wz-circle{
+  background:var(--grad);border-color:transparent;color:#fff;
+  box-shadow:0 4px 14px rgba(124,92,255,.4);
+}
+.wizard-stepper .wz-step-pill.done,
+.wizard-stepper .wz-step-pill.current{color:var(--text)}
+.wizard-stepper .wz-dash{
+  flex:1;height:2px;border-radius:2px;background:rgba(255,255,255,.06);
+  position:relative;overflow:hidden;
+}
+.wizard-stepper .wz-dash::after{
+  content:"";position:absolute;left:0;top:0;height:100%;width:var(--fill,0%);
+  background:var(--grad);transition:width .6s cubic-bezier(.2,.7,.2,1);
+}
+[data-theme="light"] .wizard-stepper{
+  background:linear-gradient(160deg,rgba(124,92,255,.06),rgba(255,92,177,.03));
+  border-color:rgba(124,92,255,.18);
+}
+[data-theme="light"] .wizard-stepper .wz-step-pill .wz-circle{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}
+[data-theme="light"] .wizard-stepper .wz-dash{background:rgba(0,0,0,.08)}
+
+/* Step panes */
+.wizard-pane{display:none;animation:wzSlide .45s cubic-bezier(.2,.7,.2,1)}
+.wizard-pane.active{display:block}
+@keyframes wzSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+.wizard-pane h4{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.01em;
+  margin-bottom:6px;
+}
+.wizard-pane .sub{color:var(--text-dim);font-size:14px;margin-bottom:22px}
+
+/* Field rows */
+.wizard-pane .field-row{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.wizard-pane .field-row > label{
+  font-size:12px;letter-spacing:.18em;color:var(--text-dim);
+  text-transform:uppercase;font-weight:600;
+}
+
+/* Segmented control */
+.wz-segments{display:flex;flex-wrap:wrap;gap:6px}
+.wz-seg{
+  flex:1;min-width:80px;padding:11px 12px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line-strong);
+  border-radius:10px;font-size:13px;font-weight:600;color:var(--text);
+  letter-spacing:.01em;transition:all var(--t-fast);cursor:pointer;
+}
+.wz-seg:hover{background:rgba(255,255,255,.08)}
+.wz-seg.active{
+  background:var(--grad);border-color:transparent;color:#fff;
+  box-shadow:0 6px 18px rgba(124,92,255,.35);
+}
+[data-theme="light"] .wz-seg{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.12)}
+[data-theme="light"] .wz-seg:hover{background:rgba(0,0,0,.06)}
+
+/* Pain chips */
+.wz-chips{display:flex;flex-wrap:wrap;gap:8px}
+.wz-chip{
+  padding:11px 16px;border-radius:999px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line-strong);
+  font-size:13.5px;font-weight:500;color:var(--text);
+  display:inline-flex;align-items:center;gap:8px;
+  cursor:pointer;transition:all var(--t-fast);
+}
+.wz-chip::before{
+  content:"";width:16px;height:16px;border-radius:4px;
+  border:1.5px solid var(--line-strong);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:all var(--t-fast);
+}
+.wz-chip:hover{background:rgba(255,255,255,.08)}
+.wz-chip.checked{
+  background:rgba(124,92,255,.18);border-color:rgba(124,92,255,.5);
+  color:var(--text);
+}
+.wz-chip.checked::before{
+  content:"✓";background:var(--grad);border-color:transparent;
+  color:#fff;font-size:11px;font-weight:800;
+}
+[data-theme="light"] .wz-chip{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.12)}
+[data-theme="light"] .wz-chip.checked{background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.4);color:#0a0a14}
+
+/* Action buttons row */
+.wz-actions{display:flex;gap:10px;margin-top:24px}
+.wz-actions .btn{flex:1;justify-content:center}
+
+/* Report (Step 3) */
+.wizard-report{display:flex;flex-direction:column;gap:14px}
+.wz-card{
+  padding:20px 22px;border-radius:14px;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s, transform .5s, border-color var(--t-fast);
+}
+.wz-card.show{opacity:1;transform:translateY(0)}
+[data-theme="light"] .wz-card{background:linear-gradient(160deg,rgba(0,0,0,.025),rgba(0,0,0,.005));border-color:rgba(0,0,0,.08)}
+
+.wz-card-head{
+  display:flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.22em;
+  color:var(--text-dim);text-transform:uppercase;font-weight:700;margin-bottom:14px;
+}
+.wz-card-head .ico{font-size:14px;letter-spacing:0}
+
+/* Diagnosis */
+.wz-diagnosis{
+  background:linear-gradient(160deg,rgba(124,92,255,.14),rgba(92,215,255,.05));
+  border-color:rgba(124,92,255,.3);
+}
+.wz-diagnosis-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.wz-score-ring{
+  width:104px;height:104px;flex-shrink:0;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.wz-score-ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.wz-score-ring .ring-bg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:8}
+.wz-score-ring .ring-fg{
+  fill:none;stroke:url(#wz-grad);stroke-width:8;stroke-linecap:round;
+  stroke-dasharray:283;stroke-dashoffset:283;
+  transition:stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1);
+}
+[data-theme="light"] .wz-score-ring .ring-bg{stroke:rgba(0,0,0,.08)}
+.wz-score-ring .num{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:36px;letter-spacing:-.02em;
+  background:var(--grad);-webkit-background-clip:text;color:transparent;
+  line-height:1;
+}
+.wz-score-meta{flex:1;min-width:200px}
+.wz-score-meta .label{font-size:11px;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase;font-weight:700}
+.wz-score-meta .gap-summary{font-size:14.5px;line-height:1.6;color:var(--text);margin-top:8px}
+.wz-score-meta .bench{font-size:13px;line-height:1.55;color:var(--text-dim);margin-top:8px}
+
+/* Solutions */
+.wz-solutions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wz-solution{
+  padding:14px 14px;border-radius:11px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line-strong);
+  transition:transform var(--t-fast),border-color var(--t-fast);
+}
+.wz-solution:hover{transform:translateY(-2px);border-color:var(--accent)}
+.wz-solution .ico{font-size:24px;line-height:1;margin-bottom:8px}
+.wz-solution h5{font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;margin-bottom:5px;color:var(--text)}
+.wz-solution p{font-size:12px;color:var(--text-dim);line-height:1.55;margin-bottom:10px}
+.wz-solution .hours{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:12.5px;
+  padding:4px 9px;border-radius:999px;
+  background:rgba(124,92,255,.18);color:#c8b9ff;
+}
+[data-theme="light"] .wz-solution{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .wz-solution .hours{background:rgba(124,92,255,.12);color:#5a3fd6}
+
+/* ROI block */
+.wz-roi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:18px 22px}
+.wz-roi .item{text-align:center}
+.wz-roi .item .num{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:28px;letter-spacing:-.01em;
+  background:var(--grad);-webkit-background-clip:text;color:transparent;line-height:1;
+}
+.wz-roi .item .label{
+  font-size:11px;letter-spacing:.2em;color:var(--text-dim);
+  text-transform:uppercase;font-weight:600;margin-top:6px;
+}
+
+/* Final CTA */
+.wz-cta{
+  padding:24px;border-radius:14px;text-align:center;
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));
+  color:#fff;position:relative;overflow:hidden;
+}
+.wz-cta::before{
+  content:"";position:absolute;width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,.14);filter:blur(40px);
+  top:-100px;right:-50px;pointer-events:none;
+}
+.wz-cta h5{
+  font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.01em;
+  position:relative;z-index:1;
+}
+.wz-cta p{font-size:13px;opacity:.92;margin-top:6px;position:relative;z-index:1}
+.wz-cta a{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:14px;padding:11px 24px;background:#fff;color:#0a0a14;
+  border-radius:999px;font-size:13.5px;font-weight:700;text-decoration:none;
+  position:relative;z-index:1;
+  box-shadow:0 6px 18px rgba(0,0,0,.22);
+  transition:transform var(--t-fast);
+}
+.wz-cta a:hover{transform:translateY(-2px)}
+
+/* Preview banner — shown only when auto-play renders the sample report */
+.wz-preview-banner{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:14px 18px;border-radius:12px;
+  background:linear-gradient(120deg,rgba(124,92,255,.16),rgba(255,92,177,.10));
+  border:1px solid rgba(124,92,255,.4);
+  margin-bottom:14px;
+  opacity:0;transform:translateY(-6px);
+  transition:opacity .5s, transform .5s;
+}
+.wz-preview-banner.show{opacity:1;transform:translateY(0)}
+.wz-preview-banner .wz-banner-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:999px;
+  background:var(--grad);color:#fff;
+  font-size:11px;letter-spacing:.18em;font-weight:800;text-transform:uppercase;
+  white-space:nowrap;flex-shrink:0;
+}
+.wz-preview-banner .wz-banner-text{flex:1;min-width:160px;font-size:14px;color:var(--text);line-height:1.5}
+.wz-preview-banner .wz-banner-text strong{font-weight:700}
+.wz-reset-btn{
+  padding:10px 18px;border-radius:999px;
+  background:#fff;color:#0a0a14;
+  font-size:13px;font-weight:700;letter-spacing:.02em;border:none;
+  display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  transition:transform var(--t-fast),box-shadow var(--t-fast);
+  flex-shrink:0;
+}
+.wz-reset-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.24)}
+[data-theme="light"] .wz-preview-banner{
+  background:linear-gradient(120deg,rgba(124,92,255,.10),rgba(255,92,177,.06));
+  border-color:rgba(124,92,255,.35);
+}
+[data-theme="light"] .wz-reset-btn{background:#0a0a14;color:#fff}
+
+/* Solution card — make clickable jump to corresponding demo */
+.wz-solution{cursor:pointer}
+.wz-solution .ico-row{display:flex;justify-content:space-between;align-items:flex-start}
+.wz-solution .jump-arrow{font-size:14px;color:var(--text-dim);transition:transform var(--t-fast),color var(--t-fast)}
+.wz-solution:hover .jump-arrow{color:var(--accent);transform:translateX(3px)}
+
+/* Wizard loading */
+.wz-loading{
+  text-align:center;padding:60px 20px;color:var(--text-dim);font-size:14px;
+}
+.wz-loading .dot-typing{justify-content:center;margin-bottom:14px}
+
+/* Mobile */
+@media(max-width:760px){
+  .wz-solutions{grid-template-columns:1fr;gap:8px}
+  .wz-roi{grid-template-columns:1fr;gap:18px}
+  .wizard-stepper{flex-wrap:wrap;gap:8px}
+  .wizard-stepper .wz-dash{flex:0 0 100%;height:2px;order:99}
+}
+
+/* =====================================================================
+   Warehouse cards (Demo 12)
+   ===================================================================== */
 .warehouse-grid{display:flex;flex-direction:column;gap:10px}
 .wh-card{
   position:relative;padding:14px 16px;border-radius:12px;
@@ -1692,7 +2097,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="demos-intro reveal">
       <div class="eyebrow" data-i18n="demos.eyebrow">INTERACTIVE DEMOS</div>
       <h2 class="h2" style="margin-top:18px"><span data-i18n="demos.title1">不是說明，</span><span class="gradient-text" data-i18n="demos.title2">而是親身體驗</span></h2>
-      <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">12 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。</p>
+      <p class="muted" style="margin-top:18px;max-width:680px;margin-inline:auto" data-i18n="demos.desc">13 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。</p>
     </div>
 
     <!-- ====== TABS ====== -->
@@ -1709,6 +2114,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="9"><span class="num">10</span> <span data-i18n="demo10.title">AI SEO 標題</span></button>
       <button class="demo-tab-btn"        data-slide="10"><span class="num">11</span> <span data-i18n="demo11.title">AI 產品文案</span></button>
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
+      <button class="demo-tab-btn"        data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
     </div>
 
     <div class="demos-carousel-wrap reveal">
@@ -1718,7 +2124,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <div class="demos-carousel" id="demos-carousel">
 
         <!-- ===== SLIDE 1 : DEMO 1 — WORKFLOW ===== -->
-        <div class="demo-slide active" data-slide-idx="0">
+        <div class="demo-slide" data-slide-idx="0">
           <div class="demo-block" id="demo1">
             <div class="demo-head">
               <div>
@@ -2177,6 +2583,108 @@ main,nav,section,footer{position:relative;z-index:2}
           </div>
         </div>
 
+        <!-- ===== SLIDE 13 : DEMO 13 — BUSINESS DIAGNOSIS WIZARD (visually first) ===== -->
+        <div class="demo-slide active" data-slide-idx="12">
+          <div class="demo-block" id="demo13">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag" style="background:var(--grad);color:#fff;border-color:transparent">✨ <span data-i18n="demo13.tag">先試呢個</span></div>
+                  <div class="demo-save" data-i18n="demo13.save">60 秒得到專屬方案</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo13.title">AI 商業診斷 + 方案匹配</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo13.desc">3 步填資料，AI 即時生成屬於您嘅商業診斷報告 + 量身定做嘅 AI 自動化方案。</p>
+              </div>
+            </div>
+
+            <!-- Stepper -->
+            <div class="wizard-stepper">
+              <div class="wz-step-pill current" data-step="1"><div class="wz-circle">1</div><span data-i18n="demo13.s1.label">公司資料</span></div>
+              <div class="wz-dash" id="wz-dash" style="--fill:0%"></div>
+              <div class="wz-step-pill" data-step="2"><div class="wz-circle">2</div><span data-i18n="demo13.s2.label">痛點</span></div>
+              <div class="wz-dash" id="wz-dash-2" style="--fill:0%"></div>
+              <div class="wz-step-pill" data-step="3"><div class="wz-circle">3</div><span data-i18n="demo13.s3.label">AI 方案</span></div>
+            </div>
+
+            <div class="wizard-container">
+
+              <!-- STEP 1 -->
+              <div class="wizard-pane active" id="wz-pane-1">
+                <h4 data-i18n="demo13.s1.title">告訴我們您的公司</h4>
+                <p class="sub" data-i18n="demo13.s1.sub">3 個基本資料，30 秒搞掂。</p>
+
+                <div class="field-row">
+                  <label data-i18n="demo13.l1">公司名稱</label>
+                  <input type="text" class="input" id="wz-company" placeholder="例：晨光咖啡" />
+                </div>
+                <div class="field-row">
+                  <label data-i18n="demo13.l2">行業</label>
+                  <input type="text" class="input" id="wz-industry" list="wz-ind-list" placeholder="例：餐飲 / 科技 / 教育" />
+                  <datalist id="wz-ind-list">
+                    <option value="餐飲"><option value="零售 / 電商"><option value="專業服務"><option value="教育培訓"><option value="科技 / SaaS"><option value="醫美 / 健康"><option value="物流 / 倉儲"><option value="創意 / 設計">
+                  </datalist>
+                </div>
+                <div class="field-row">
+                  <label data-i18n="demo13.l3">員工人數</label>
+                  <div class="wz-segments" id="wz-headcount">
+                    <button class="wz-seg" data-val="1-5">1–5</button>
+                    <button class="wz-seg" data-val="6-20">6–20</button>
+                    <button class="wz-seg" data-val="21-50">21–50</button>
+                    <button class="wz-seg" data-val="51-200">51–200</button>
+                    <button class="wz-seg" data-val="200+">200+</button>
+                  </div>
+                </div>
+
+                <div class="wz-actions">
+                  <button class="btn btn-primary" id="wz-next-1" data-i18n="demo13.btnNext">下一步 →</button>
+                </div>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="wizard-pane" id="wz-pane-2">
+                <h4 data-i18n="demo13.s2.title">您目前最大的挑戰係咩？</h4>
+                <p class="sub" data-i18n="demo13.s2.sub">最多選 3 個 — AI 會根據您揀的痛點推薦最匹配方案。</p>
+
+                <div class="wz-chips" id="wz-pains">
+                  <button class="wz-chip" data-pain="follow-up" data-i18n="demo13.p1">客戶跟進耗時、易遺漏</button>
+                  <button class="wz-chip" data-pain="content" data-i18n="demo13.p2">內容產出唔夠快</button>
+                  <button class="wz-chip" data-pain="report" data-i18n="demo13.p3">報表 / 資料整理太耗時</button>
+                  <button class="wz-chip" data-pain="warehouse" data-i18n="demo13.p4">多倉庫 / 庫存管理混亂</button>
+                  <button class="wz-chip" data-pain="support" data-i18n="demo13.p5">客服回覆積壓</button>
+                  <button class="wz-chip" data-pain="sales" data-i18n="demo13.p6">銷售跟進效率低</button>
+                  <button class="wz-chip" data-pain="translate" data-i18n="demo13.p7">翻譯 / 國際溝通慢</button>
+                  <button class="wz-chip" data-pain="review" data-i18n="demo13.p8">多語客戶評論未回</button>
+                </div>
+
+                <div class="wz-actions">
+                  <button class="btn btn-ghost" id="wz-back-2" data-i18n="demo13.btnBack">← 上一步</button>
+                  <button class="btn btn-primary" id="wz-generate" data-i18n="demo13.btnGenerate">AI 生成方案 →</button>
+                </div>
+              </div>
+
+              <!-- STEP 3 — Report -->
+              <div class="wizard-pane" id="wz-pane-3">
+                <div id="wz-report-container">
+                  <div class="wz-loading">
+                    <div class="dot-typing"><span></span><span></span><span></span></div>
+                    <div data-i18n="demo13.thinkLabel">AI 正在分析您的業務、配對方案 …</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SVG defs for ring gradient -->
+              <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+                <defs>
+                  <linearGradient id="wz-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#7c5cff"/>
+                    <stop offset="100%" stop-color="#ff5cb1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /demos-carousel -->
     </div><!-- /demos-carousel-wrap -->
 
@@ -2450,6 +2958,16 @@ main,nav,section,footer{position:relative;z-index:2}
     </div>
 
     <div class="book-frame-wrap reveal">
+      <!-- Loading skeleton — auto-hides when iframe load fires -->
+      <div class="cal-skeleton" id="cal-skeleton">
+        <div class="sk-spinner"></div>
+        <div class="sk-text" data-i18n="book.loading">正在載入預約日曆…</div>
+        <div class="sk-bars">
+          <div class="sk-bar"></div>
+          <div class="sk-bar"></div>
+          <div class="sk-bar"></div>
+        </div>
+      </div>
       <!--
         ⬇️ Cal.com 預約 widget — 將下方 iframe 的 src 換成您的 Cal.com 連結即可
         例：https://cal.com/grouper/30min
@@ -2461,6 +2979,7 @@ main,nav,section,footer{position:relative;z-index:2}
         title="Book a meeting via Cal.com"
         loading="lazy"
         allow="camera *; microphone *; autoplay; clipboard-write; encrypted-media; fullscreen; geolocation"
+        onload="document.getElementById('cal-skeleton')?.classList.add('hidden')"
       ></iframe>
 
       <div class="book-fallback" id="book-fallback">
@@ -2521,7 +3040,7 @@ const I18N = {
     "hero.eyebrow":"AI · 自動化 · 網頁",
     "hero.title": ["從繁瑣事務中","解放出來"],
     "hero.typing":["為您打造 AI 自動化工作流程","用 AI 重塑您的網站與內容","Transform · Build · Create"],
-    "hero.cta":"預約免費諮詢", "hero.cta2":"體驗 Demo", "hero.scroll":"向下滾動",
+    "hero.cta":"預約免費諮詢", "hero.cta2":"60 秒商業診斷 →", "hero.scroll":"向下滾動",
     "tools.label":"我們熟悉的工具 · POWERED WITH",
     "services.eyebrow":"服務內容",
     "services.title1":"為您打造","services.title2":"智能商業未來",
@@ -2537,7 +3056,7 @@ const I18N = {
     "services.s4.desc":"針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。",
     "demos.eyebrow":"互動 DEMO","demos.counterLabel":"DEMOS",
     "demos.title1":"不是說明，","demos.title2":"而是親身體驗",
-    "demos.desc":"12 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。",
+    "demos.desc":"13 個 Demo 直接在本頁互動，零下載、零註冊。點擊上面 tab 或左右箭頭切換。",
     "demo1.title":"AI 自動化模擬器", "demo1.desc":"輸入您的業務問題，AI 即時為您拆解成屬於您的自動化流程。",
     "demo1.label":"您的業務問題","demo1.btn":"AI 拆解工作流 →","demo1.save":"平均省 25 小時/月",
     "demo1.placeholder":"輸入您的問題，AI 即時為您動態生成工作流程節點",
@@ -2575,6 +3094,17 @@ const I18N = {
     "demo12.l1":"產品 SKU / 名稱","demo12.l2":"訂購數量","demo12.btn":"AI 智能調貨 →",
     "demo12.empty":"輸入 SKU 與數量後 →","demo12.emptyText":"AI 會顯示三個倉庫的實時庫存、運費、預計送達時間，並自動推薦最佳出貨點。",
     "demo12.stockLabel":"件庫存","demo12.save":"調貨成本 ↓ 30%",
+    "demo13.title":"AI 商業診斷 + 方案匹配","demo13.desc":"3 步填資料，AI 即時生成屬於您的商業診斷報告 + 量身定做的 AI 自動化方案。",
+    "demo13.tabLabel":"商業診斷","demo13.tag":"先試這個","demo13.save":"60 秒得到專屬方案",
+    "demo13.s1.label":"公司資料","demo13.s2.label":"痛點","demo13.s3.label":"AI 方案",
+    "demo13.s1.title":"告訴我們您的公司","demo13.s1.sub":"3 個基本資料，30 秒搞定。",
+    "demo13.s2.title":"您目前最大的挑戰是甚麼？","demo13.s2.sub":"最多選 3 個 — AI 會根據您選的痛點推薦最匹配方案。",
+    "demo13.l1":"公司名稱","demo13.l2":"行業","demo13.l3":"員工人數",
+    "demo13.p1":"客戶跟進耗時、易遺漏","demo13.p2":"內容產出不夠快","demo13.p3":"報表 / 資料整理太耗時",
+    "demo13.p4":"多倉庫 / 庫存管理混亂","demo13.p5":"客服回覆積壓","demo13.p6":"銷售跟進效率低",
+    "demo13.p7":"翻譯 / 國際溝通慢","demo13.p8":"多語客戶評論未回",
+    "demo13.btnNext":"下一步 →","demo13.btnBack":"← 上一步","demo13.btnGenerate":"AI 生成方案 →",
+    "demo13.thinkLabel":"AI 正在分析您的業務、配對方案 …",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
     "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
@@ -2637,6 +3167,7 @@ const I18N = {
     "book.eyebrow":"預約諮詢","book.title1":"準備好了嗎？","book.title2":"預約免費諮詢",
     "book.desc":"30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。",
     "book.altText":"或直接電郵聯絡：",
+    "book.loading":"正在載入預約日曆 …",
     "book.fallback1":"📅 Cal.com 預約 widget 預留位置",
     "book.fallback2":"請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：",
     "book.fallback3":"或可直接點擊下方按鈕傳送 Email：",
@@ -2646,7 +3177,7 @@ const I18N = {
     "hero.eyebrow":"AI · AUTOMATION · WEB",
     "hero.title":["Free yourself","from busywork"],
     "hero.typing":["AI workflows that run while you sleep","Websites & content, reimagined with AI","Transform · Build · Create"],
-    "hero.cta":"Book a free call","hero.cta2":"Try the demos","hero.scroll":"SCROLL",
+    "hero.cta":"Book a free call","hero.cta2":"60-sec business diagnosis →","hero.scroll":"SCROLL",
     "tools.label":"POWERED WITH",
     "services.eyebrow":"SERVICES",
     "services.title1":"Build the","services.title2":"intelligent business",
@@ -2662,7 +3193,7 @@ const I18N = {
     "services.s4.desc":"Tailored AI assistants, knowledge bases, smart support and decision-support systems for your business.",
     "demos.eyebrow":"INTERACTIVE DEMOS","demos.counterLabel":"DEMOS",
     "demos.title1":"Don't read about it —","demos.title2":"try it",
-    "demos.desc":"12 live demos right on this page. No download, no signup. Switch via tabs above or arrows.",
+    "demos.desc":"13 live demos right on this page. No download, no signup. Switch via tabs above or arrows.",
     "demo1.title":"AI Automation Simulator","demo1.desc":"Type a business problem; AI breaks it into a workflow tailored for you.",
     "demo1.label":"Your business problem","demo1.btn":"Break it down with AI →","demo1.save":"Saves 25 hrs / month",
     "demo1.placeholder":"Type your problem and AI will generate workflow nodes live.",
@@ -2700,6 +3231,17 @@ const I18N = {
     "demo12.l1":"Product SKU / Name","demo12.l2":"Order quantity","demo12.btn":"Route with AI →",
     "demo12.empty":"Enter SKU and quantity →","demo12.emptyText":"AI will show live stock, shipping cost and ETA across three warehouses, and auto-recommend the best fulfilment point.",
     "demo12.stockLabel":"IN STOCK","demo12.save":"−30% fulfilment cost",
+    "demo13.title":"AI Business Diagnosis + Solution Match","demo13.desc":"3-step form, AI instantly generates a personalised business diagnosis + tailored AI automation roadmap.",
+    "demo13.tabLabel":"Diagnosis","demo13.tag":"Start here","demo13.save":"Personalised plan in 60s",
+    "demo13.s1.label":"Company","demo13.s2.label":"Pain points","demo13.s3.label":"AI plan",
+    "demo13.s1.title":"Tell us about your company","demo13.s1.sub":"3 quick fields, 30 seconds.",
+    "demo13.s2.title":"What's eating your time the most?","demo13.s2.sub":"Pick up to 3 — AI will match the best-fit solutions.",
+    "demo13.l1":"Company name","demo13.l2":"Industry","demo13.l3":"Team size",
+    "demo13.p1":"Customer follow-up is slow and leaky","demo13.p2":"Content production isn't fast enough","demo13.p3":"Reporting / data ops take too long",
+    "demo13.p4":"Multi-warehouse / inventory chaos","demo13.p5":"Customer support backlog","demo13.p6":"Sales follow-up is inefficient",
+    "demo13.p7":"Translation / cross-border comms","demo13.p8":"Multi-language reviews piling up",
+    "demo13.btnNext":"Next →","demo13.btnBack":"← Back","demo13.btnGenerate":"Generate plan with AI →",
+    "demo13.thinkLabel":"AI is analysing your business and matching solutions…",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"Real time and cost","impact.title2":"saved.",
     "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
@@ -2762,6 +3304,7 @@ const I18N = {
     "book.eyebrow":"BOOK A CALL","book.title1":"Ready?","book.title2":"Book a free consultation",
     "book.desc":"A free 30-minute call to understand your needs and propose tailored AI-automation ideas.",
     "book.altText":"Or email directly:",
+    "book.loading":"Loading booking calendar …",
     "book.fallback1":"📅 Cal.com booking widget placeholder",
     "book.fallback2":"Find <code>YOUR_CAL_LINK_HERE</code> in the source and replace it with your Cal.com link, e.g.:",
     "book.fallback3":"Or just send us an email:",
@@ -2915,6 +3458,9 @@ function resetAllDemos(){
   if(whOut){
     whOut.innerHTML = `<div class="wh-card show"><div class="wh-info"><div class="wh-name" data-i18n="demo12.empty">${txt("demo12.empty")}</div><div class="wh-meta" data-i18n="demo12.emptyText">${txt("demo12.emptyText")}</div></div><div class="wh-stock"><div class="num">—</div><div class="lbl" data-i18n="demo12.stockLabel">${txt("demo12.stockLabel")}</div></div></div>`;
   }
+
+  // Demo 13 — wizard
+  if(typeof window.__wizardReset === "function") window.__wizardReset();
 
   // Allow previews to replay in the new language
   if(window.__resetPreviews) window.__resetPreviews();
@@ -3484,13 +4030,28 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   if(!slides.length) return;
   total.textContent = slides.length;
 
-  let idx = 0;
+  // Display order: demo13 (idx 12) appears as position 1, then demo1 (idx 0) = 2, ...
+  const DISPLAY_ORDER = [12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const displayPos = (i) => {
+    const p = DISPLAY_ORDER.indexOf(i);
+    return p === -1 ? i + 1 : p + 1;
+  };
+  const nextDisplayIdx = (cur) => DISPLAY_ORDER[(DISPLAY_ORDER.indexOf(cur) + 1) % DISPLAY_ORDER.length];
+  const prevDisplayIdx = (cur) => DISPLAY_ORDER[(DISPLAY_ORDER.indexOf(cur) - 1 + DISPLAY_ORDER.length) % DISPLAY_ORDER.length];
+
+  // initial idx = the slide that currently has .active (so we honour HTML default)
+  const initActive = document.querySelector(".demo-slide.active");
+  let idx = initActive ? +initActive.dataset.slideIdx : 0;
+  if(isNaN(idx)) idx = 0;
+
   function go(i){
     idx = (i + slides.length) % slides.length;
-    slides.forEach((s,k)=>s.classList.toggle("active", k === idx));
-    tabs  .forEach((t,k)=>t.classList.toggle("active", k === idx));
-    cur.textContent = idx + 1;
+    slides.forEach(s => s.classList.toggle("active", +s.dataset.slideIdx === idx));
+    tabs  .forEach(t => t.classList.toggle("active", +t.dataset.slide === idx));
+    cur.textContent = displayPos(idx);
   }
+  // sync counter to initial active slide
+  cur.textContent = displayPos(idx);
   tabs.forEach(t => t.addEventListener("click", ()=>go(+t.dataset.slide)));
   prev.addEventListener("click", ()=>go(idx - 1));
   next.addEventListener("click", ()=>go(idx + 1));
@@ -4053,12 +4614,102 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     }
   }
 
+  function S13(){
+    return currentLang === "zh" ? {
+      company:"晨光咖啡",
+      industry:"餐飲",
+      headcount:"6-20",
+      pains:["follow-up","content","review"],
+      thinkLabel:"AI 正在分析您的業務、配對方案 …",
+      diagnosis:{
+        score:62,
+        industry_benchmark:"餐飲業 AI 採用率約 28%，多數仲停留在 POS 系統",
+        gap_summary:"您嘅團隊規模適合啟動 AI 自動化，主要 gap 在客戶溝通同內容產出環節",
+      },
+      solutions:[
+        {icon:"✉️", title:"AI 客戶跟進自動化", demo_ref:6, desc:"自動跟進未回覆客戶，個人化內容",  monthly_hours_saved:22},
+        {icon:"📱", title:"AI 社交內容生成",   demo_ref:4, desc:"每週批量生成 IG / FB 貼文文案", monthly_hours_saved:18},
+        {icon:"💬", title:"AI 評論回覆助手",   demo_ref:9, desc:"OpenRice / Google 評論 30 秒回覆", monthly_hours_saved:10},
+      ],
+      roi:{ total_hours:50, estimated_savings_hkd:15000, payback_months:3 },
+    } : {
+      company:"Morning Light",
+      industry:"F&B",
+      headcount:"6-20",
+      pains:["follow-up","content","review"],
+      thinkLabel:"AI is analysing your business and matching solutions…",
+      diagnosis:{
+        score:62,
+        industry_benchmark:"F&B AI adoption sits around 28% — most still on POS only",
+        gap_summary:"Your team size is right to start AI automation; biggest gaps in customer comms and content",
+      },
+      solutions:[
+        {icon:"✉️", title:"AI customer follow-up",  demo_ref:6, desc:"Auto-personalised follow-ups for silent leads", monthly_hours_saved:22},
+        {icon:"📱", title:"AI social content",      demo_ref:4, desc:"Batch IG / FB posts every week",              monthly_hours_saved:18},
+        {icon:"💬", title:"AI review replies",      demo_ref:9, desc:"Reply to Google / Yelp reviews in 30 sec",    monthly_hours_saved:10},
+      ],
+      roi:{ total_hours:50, estimated_savings_hkd:15000, payback_months:3 },
+    };
+  }
+
+  async function playDemo13(token){
+    if(typeof window.__wizardReset === "function") window.__wizardReset();
+    const companyEl   = document.getElementById("wz-company");
+    const industryEl  = document.getElementById("wz-industry");
+    const segs        = document.querySelectorAll("#wz-headcount .wz-seg");
+    const chips       = document.querySelectorAll("#wz-pains .wz-chip");
+    if(!companyEl) return;
+    const s = S13();
+    // Step 1 typing
+    if(!await typeInput(companyEl, s.company, token, 26)) return;
+    if(!await gate(200, token)) return;
+    if(!await typeInput(industryEl, s.industry, token, 28)) return;
+    if(!await gate(280, token)) return;
+    // headcount segment
+    if(token !== playToken) return;
+    const seg = Array.from(segs).find(s2 => s2.dataset.val === s.headcount);
+    if(seg){ seg.click(); }
+    if(!await gate(450, token)) return;
+    // Move to step 2
+    if(token !== playToken) return;
+    if(typeof window.__wizardGoto === "function") window.__wizardGoto(2);
+    if(!await gate(600, token)) return;
+    // Toggle pain chips one by one
+    for(const pain of s.pains){
+      if(token !== playToken) return;
+      const chip = Array.from(chips).find(c => c.dataset.pain === pain);
+      if(chip){ chip.click(); }
+      await wait(280);
+    }
+    if(!await gate(500, token)) return;
+    // Move to step 3 and render report directly with sample
+    if(token !== playToken) return;
+    if(typeof window.__wizardGoto === "function") window.__wizardGoto(3);
+    if(!await gate(400, token)) return;
+    // Inject sample report (skip API for preview)
+    const container = document.getElementById("wz-report-container");
+    if(!container) return;
+    container.innerHTML = `<div class="wz-loading"><div class="dot-typing"><span></span><span></span><span></span></div><div>${s.thinkLabel}</div></div>`;
+    if(!await gate(1300, token)) return;
+    if(token !== playToken) return;
+    // Render the same way real handler does, but flag as preview so banner shows
+    if(typeof window.__renderWizardReport === "function"){
+      window.__renderWizardReport(
+        container,
+        {diagnosis:s.diagnosis, solutions:s.solutions, roi:s.roi, _industry:s.industry},
+        s.company,
+        true  // isPreview
+      );
+    }
+  }
+
   function playSlide(idx){
     if(playedSlides.has(idx)) return;
     playedSlides.add(idx);
     const token = ++playToken;
     const fns = [playDemo1, playDemo2, playDemo3, playDemo4, playDemo5, playDemo6,
-                 playDemo7, playDemo8, playDemo9, playDemo10, playDemo11, playDemo12];
+                 playDemo7, playDemo8, playDemo9, playDemo10, playDemo11, playDemo12,
+                 playDemo13];
     fns[idx]?.(token).catch(()=>{});
   }
 
@@ -4080,13 +4731,15 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     slides.forEach(s => obs.observe(s, {attributes:true, attributeFilter:["class"]}));
   }
 
-  // Trigger Demo 1 only after the demos section actually scrolls into view
+  // Trigger the visually-first (current .active) slide on viewport entry
   const demosCarousel = document.getElementById("demos-carousel");
   if(demosCarousel){
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if(e.isIntersecting){
-          setTimeout(()=>playSlide(0), 600);
+          const initialActive = document.querySelector(".demo-slide.active");
+          const initialIdx = initialActive ? +initialActive.dataset.slideIdx : 0;
+          setTimeout(()=>playSlide(isNaN(initialIdx) ? 0 : initialIdx), 600);
           io.disconnect();
         }
       });
@@ -4099,7 +4752,8 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
    "cg-topic","cg-run","ia-input","ia-run","se-name","se-company","se-context","se-run",
    "ms-input","ms-run","tr-input","tr-lang","tr-run","rv-input","rv-business","rv-run",
    "seo-topic","seo-keyword","seo-run","pc-name","pc-features","pc-run",
-   "wh-sku","wh-qty","wh-run"]
+   "wh-sku","wh-qty","wh-run",
+   "wz-company","wz-industry","wz-next-1","wz-back-2","wz-generate"]
     .forEach(id => {
       const el = document.getElementById(id);
       if(!el) return;
@@ -4935,6 +5589,315 @@ function renderWarehouseResult(out, json){
   out.querySelectorAll(".wh-card").forEach((c,i)=>setTimeout(()=>c.classList.add("show"), i*180));
   out.querySelectorAll(".wh-insight").forEach((c,i)=>setTimeout(()=>c.classList.add("show"), 600 + i*150));
 }
+
+/* ===========================================================
+   DEMO 13 — BUSINESS DIAGNOSIS WIZARD
+   =========================================================== */
+(function wizard(){
+  const state = { step:1, company:"", industry:"", headcount:"", pains:[] };
+
+  // segmented control — headcount
+  const segs = document.querySelectorAll("#wz-headcount .wz-seg");
+  segs.forEach(s => s.addEventListener("click", ()=>{
+    segs.forEach(x => x.classList.remove("active"));
+    s.classList.add("active");
+    state.headcount = s.dataset.val;
+  }));
+
+  // pain chips (max 3)
+  const chips = document.querySelectorAll("#wz-pains .wz-chip");
+  chips.forEach(c => c.addEventListener("click", ()=>{
+    const v = c.dataset.pain;
+    if(c.classList.contains("checked")){
+      c.classList.remove("checked");
+      state.pains = state.pains.filter(x => x !== v);
+    } else {
+      if(state.pains.length >= 3){
+        // shake animation feedback
+        c.animate([{transform:"translateX(0)"},{transform:"translateX(-4px)"},{transform:"translateX(4px)"},{transform:"translateX(0)"}], {duration:240});
+        return;
+      }
+      c.classList.add("checked");
+      state.pains.push(v);
+    }
+  }));
+
+  function gotoStep(n){
+    state.step = n;
+    document.querySelectorAll(".wizard-pane").forEach(p => p.classList.remove("active"));
+    document.getElementById("wz-pane-"+n).classList.add("active");
+    document.querySelectorAll(".wz-step-pill").forEach(p => {
+      const s = +p.dataset.step;
+      p.classList.toggle("current", s === n);
+      p.classList.toggle("done", s < n);
+    });
+    document.getElementById("wz-dash").style.setProperty("--fill", n >= 2 ? "100%" : "0%");
+    document.getElementById("wz-dash-2").style.setProperty("--fill", n >= 3 ? "100%" : "0%");
+  }
+
+  // Step 1 → 2
+  document.getElementById("wz-next-1")?.addEventListener("click", ()=>{
+    state.company  = (document.getElementById("wz-company").value || "").trim();
+    state.industry = (document.getElementById("wz-industry").value || "").trim();
+    if(!state.company || !state.industry || !state.headcount){
+      const msg = currentLang === "zh" ? "請填齊公司名、行業同員工人數" : "Please fill in company, industry and team size.";
+      const tip = document.createElement("div");
+      tip.style.cssText = "padding:10px 14px;border-radius:10px;background:rgba(255,140,140,.10);border:1px solid rgba(255,140,140,.32);color:#ffd1d1;font-size:13px;margin-top:10px";
+      tip.textContent = msg;
+      const old = document.querySelector("#wz-pane-1 .wz-validation");
+      if(old) old.remove();
+      tip.className = "wz-validation";
+      document.querySelector("#wz-pane-1 .wz-actions").after(tip);
+      setTimeout(()=>tip.remove(), 3500);
+      return;
+    }
+    gotoStep(2);
+  });
+
+  // Step 2 back / generate
+  document.getElementById("wz-back-2")?.addEventListener("click", ()=> gotoStep(1));
+  document.getElementById("wz-generate")?.addEventListener("click", async ()=>{
+    if(state.pains.length === 0){
+      const c = document.querySelectorAll("#wz-pains .wz-chip")[0];
+      c.animate([{transform:"translateX(0)"},{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"translateX(0)"}], {duration:280});
+      return;
+    }
+    gotoStep(3);
+    await runWizardAI();
+  });
+
+  // SVG path constant for score ring (r=45 circumference ≈ 283)
+  async function runWizardAI(){
+    const container = document.getElementById("wz-report-container");
+    container.innerHTML = `<div class="wz-loading"><div class="dot-typing"><span></span><span></span><span></span></div><div>${currentLang==="zh"?"AI 正在分析您的業務、配對方案 …":"AI is analysing your business and matching solutions…"}</div></div>`;
+
+    const PAIN_LABELS = currentLang === "zh" ? {
+      "follow-up":"客戶跟進", "content":"內容產出", "report":"報表彙整",
+      "warehouse":"多倉庫管理", "support":"客服回覆", "sales":"銷售跟進",
+      "translate":"多語翻譯", "review":"客戶評論回覆",
+    } : {
+      "follow-up":"Customer follow-up", "content":"Content production", "report":"Reporting",
+      "warehouse":"Multi-warehouse", "support":"Customer support", "sales":"Sales follow-up",
+      "translate":"Translation", "review":"Review replies",
+    };
+
+    const sysPrompt = currentLang === "zh"
+      ? `你是 AI 自動化策略顧問。根據用戶嘅公司資料 + 痛點，為佢生成一份個人化嘅商業診斷報告。
+
+可用嘅 AI 解決方案（demo_ref 對應 demo 編號）：
+1=AI 工作流程自動化、2=AI 聊天助手、3=AI 網頁/品牌內容、4=AI 社交媒體內容、5=AI 客戶意圖分析、6=AI 銷售跟進信、7=AI 會議紀要、8=AI 多語翻譯、9=AI 評論回覆、10=AI SEO 標題、11=AI 電商產品文案、12=AI 多倉庫智能調貨
+
+**只回覆 JSON**：
+{
+  "diagnosis": {
+    "score": 30-90 嘅整數（根據員工人數 × 痛點數量 × 行業 AI 成熟度）,
+    "industry_benchmark": "用戶行業嘅自動化程度描述（15-25 字）",
+    "gap_summary": "用戶 vs 行業差距總結（20-35 字）"
+  },
+  "solutions": [
+    {"icon":"emoji","title":"方案名（6-12 字）","demo_ref":1-12 整數,"desc":"方案如何解決痛點（15-25 字）","monthly_hours_saved":整數 8-50},
+    再來 2 個
+  ],
+  "roi": {
+    "total_hours": 三個方案小時數總和,
+    "estimated_savings_hkd": total_hours × 300,
+    "payback_months": 2-6 整數
+  }
+}`
+      : `You are an AI automation strategy advisor. Generate a personalised business diagnosis report based on the user's company info + pain points.
+
+Available AI solutions (demo_ref maps to demo number):
+1=AI Workflow Automation, 2=AI Chat Assistant, 3=AI Web/Brand Copy, 4=AI Social Content, 5=Customer Intent, 6=Sales Follow-up, 7=Meeting Summary, 8=Translation, 9=Review Reply, 10=SEO Title, 11=Product Copy, 12=Warehouse Routing
+
+**Reply ONLY with JSON**:
+{
+  "diagnosis": {
+    "score": integer 30-90 (based on team size × pain count × industry AI maturity),
+    "industry_benchmark": "describe automation maturity of user's industry (10-18 words)",
+    "gap_summary": "user vs industry gap summary (12-20 words)"
+  },
+  "solutions": [
+    {"icon":"emoji","title":"solution name (2-5 words)","demo_ref":1-12 int,"desc":"how it solves the pain (8-15 words)","monthly_hours_saved":int 8-50},
+    2 more
+  ],
+  "roi": {
+    "total_hours": sum of three hours,
+    "estimated_savings_hkd": total_hours × 300,
+    "payback_months": int 2-6
+  }
+}`;
+
+    const painList = state.pains.map(p => PAIN_LABELS[p] || p).join(", ");
+    const userMsg = currentLang === "zh"
+      ? `公司：${state.company}\n行業：${state.industry}\n員工人數：${state.headcount}\n痛點：${painList}`
+      : `Company: ${state.company}\nIndustry: ${state.industry}\nHeadcount: ${state.headcount}\nPain points: ${painList}`;
+
+    try{
+      const reply = await callClaude({system:sysPrompt, messages:[{role:"user", content:userMsg}], max_tokens:900});
+      const json = extractJSON(reply);
+      if(!json || !json.diagnosis) throw new Error("Invalid JSON from AI");
+      renderWizardReport(container, json);
+    }catch(e){
+      container.innerHTML = `<div class="wz-card show"><div class="wz-card-head"><span class="ico">⚠️</span> Error</div><div>${e.message || e}</div></div>`;
+    }
+  }
+
+  function renderWizardReport(container, json, overrideCompany, isPreview){
+    const lang = currentLang;
+    const company = overrideCompany || state.company || (lang==="zh"?"您的公司":"your company");
+    const industry = json._industry || state.industry || "";
+    const L_DIAGNOSIS = lang==="zh" ? "公司診斷" : "Diagnosis";
+    const L_BENCH     = lang==="zh" ? "行業 benchmark：" : "Industry benchmark: ";
+    const L_SOLUTIONS = lang==="zh" ? "為您推薦的 3 個方案" : "3 recommended solutions";
+    const L_ROI       = lang==="zh" ? "預估 ROI" : "Estimated ROI";
+    const L_HOURS     = lang==="zh" ? "節省 {n} 小時/月" : "Saves {n} hrs/month";
+    const L_R1        = lang==="zh" ? "每月節省小時" : "Hours saved / mo";
+    const L_R2        = lang==="zh" ? "估算月省金額" : "Monthly savings";
+    const L_R3        = lang==="zh" ? "預估回本月數" : "Payback months";
+    const L_CTA_TITLE = lang==="zh" ? `為「${company}」打造這套方案` : `Build this for ${company}`;
+    const L_CTA_SUB   = lang==="zh" ? "預約 30 分鐘免費策略諮詢，落地這份報告。" : "Book a free 30-min strategy call to put this report into action.";
+    const L_CTA_BTN   = lang==="zh" ? `為「${company}」預約免費諮詢 →` : `Book a free call for ${company} →`;
+    const L_BANNER_TAG  = lang==="zh" ? "範例" : "EXAMPLE";
+    const L_BANNER_TEXT = lang==="zh"
+      ? `這份係 <strong>${escapeHtml(company)}</strong>${industry?` · ${escapeHtml(industry)}`:""} 的範例報告 — 想睇您自己公司的？`
+      : `This is a sample report for <strong>${escapeHtml(company)}</strong>${industry?` · ${escapeHtml(industry)}`:""}. Want one for your own?`;
+    const L_BANNER_BTN  = lang==="zh" ? "✏️ 用您的公司試一次 →" : "✏️ Try with your company →";
+    const L_JUMP_TIP    = lang==="zh" ? "撳卡片即試 →" : "Click to try →";
+
+    const d = json.diagnosis;
+    const score = Math.max(0, Math.min(100, +d.score || 0));
+    const dashOffset = 283 - (283 * score / 100);
+
+    const solutionsHtml = (json.solutions || []).slice(0,3).map(s => {
+      const demoRef = +s.demo_ref || 0;
+      const slideIdx = (demoRef >= 1 && demoRef <= 12) ? (demoRef - 1) : null;
+      return `<div class="wz-solution" ${slideIdx !== null ? `data-jump-slide="${slideIdx}"` : ""}>
+        <div class="ico-row"><div class="ico">${escapeHtml(s.icon||"✨")}</div>${slideIdx !== null ? `<span class="jump-arrow">→</span>` : ""}</div>
+        <h5>${escapeHtml(s.title||"")}</h5>
+        <p>${escapeHtml(s.desc||"")}</p>
+        <span class="hours">⏱ ${escapeHtml(L_HOURS.replace("{n}", String(s.monthly_hours_saved||0)))}</span>
+      </div>`;
+    }).join("");
+
+    // Build preview banner HTML if needed
+    const bannerHtml = isPreview ? `
+      <div class="wz-preview-banner">
+        <span class="wz-banner-tag">📋 ${L_BANNER_TAG}</span>
+        <div class="wz-banner-text">${L_BANNER_TEXT}</div>
+        <button class="wz-reset-btn">${L_BANNER_BTN}</button>
+      </div>` : "";
+
+    const r = json.roi || {};
+    const totalHrs = +r.total_hours || 0;
+    const savings  = (+r.estimated_savings_hkd || 0).toLocaleString();
+    const payback  = +r.payback_months || 0;
+
+    container.innerHTML = `
+      ${bannerHtml}
+      <div class="wz-card wz-diagnosis">
+        <div class="wz-card-head"><span class="ico">📊</span> ${L_DIAGNOSIS}</div>
+        <div class="wz-diagnosis-row">
+          <div class="wz-score-ring">
+            <svg viewBox="0 0 100 100" width="104" height="104">
+              <circle class="ring-bg" cx="50" cy="50" r="45"/>
+              <circle class="ring-fg" cx="50" cy="50" r="45" style="stroke-dashoffset:283"/>
+            </svg>
+            <div class="num" id="wz-score">0</div>
+          </div>
+          <div class="wz-score-meta">
+            <div class="gap-summary">${escapeHtml(d.gap_summary||"")}</div>
+            <div class="bench">${L_BENCH}${escapeHtml(d.industry_benchmark||"")}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wz-card">
+        <div class="wz-card-head"><span class="ico">🎯</span> ${L_SOLUTIONS}</div>
+        <div class="wz-solutions">${solutionsHtml}</div>
+      </div>
+
+      <div class="wz-card wz-roi">
+        <div class="item"><div class="num">${totalHrs}<span style="font-size:.55em;color:var(--text-dim);margin-left:3px">h</span></div><div class="label">${L_R1}</div></div>
+        <div class="item"><div class="num">HK$ ${savings}</div><div class="label">${L_R2}</div></div>
+        <div class="item"><div class="num">${payback}<span style="font-size:.55em;color:var(--text-dim);margin-left:3px">${lang==="zh"?"月":"mo"}</span></div><div class="label">${L_R3}</div></div>
+      </div>
+
+      <div class="wz-card wz-cta">
+        <h5>${L_CTA_TITLE}</h5>
+        <p>${L_CTA_SUB}</p>
+        <a href="#book">${L_CTA_BTN} <span class="arrow">→</span></a>
+      </div>
+    `;
+
+    // Animate banner + cards in
+    const banner = container.querySelector(".wz-preview-banner");
+    if(banner) setTimeout(()=>banner.classList.add("show"), 100);
+    const cards = container.querySelectorAll(".wz-card");
+    cards.forEach((c,i)=>setTimeout(()=>c.classList.add("show"), 200 + i*220));
+
+    // Reset button — restart wizard with user's own data
+    const resetBtn = container.querySelector(".wz-reset-btn");
+    if(resetBtn){
+      resetBtn.addEventListener("click", () => {
+        if(window.__wizardReset) window.__wizardReset();
+        const demoEl = document.getElementById("demo13");
+        if(demoEl) demoEl.scrollIntoView({behavior:"smooth", block:"start"});
+        setTimeout(() => {
+          const c = document.getElementById("wz-company");
+          if(c) c.focus();
+        }, 600);
+      });
+    }
+
+    // Solution card — click to jump to corresponding demo
+    container.querySelectorAll(".wz-solution[data-jump-slide]").forEach(card => {
+      card.addEventListener("click", () => {
+        const targetIdx = +card.dataset.jumpSlide;
+        if(isNaN(targetIdx)) return;
+        const targetTab = document.querySelector(`.demo-tab-btn[data-slide="${targetIdx}"]`);
+        if(targetTab){
+          targetTab.click();
+          const demosEl = document.getElementById("demos");
+          if(demosEl) demosEl.scrollIntoView({behavior:"smooth", block:"start"});
+        }
+      });
+    });
+
+    // Animate score ring + number
+    setTimeout(()=>{
+      const ring = container.querySelector(".ring-fg");
+      if(ring) ring.style.strokeDashoffset = dashOffset;
+      const scoreEl = container.querySelector("#wz-score");
+      if(scoreEl){
+        const start = performance.now();
+        const dur = 1300;
+        (function tick(now){
+          const t = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1-t, 3);
+          scoreEl.textContent = Math.round(score * eased);
+          if(t < 1) requestAnimationFrame(tick);
+        })(start);
+      }
+    }, 400);
+  }
+
+  // Expose for preview replay
+  window.__wizardGoto = gotoStep;
+  window.__wizardState = state;
+  window.__renderWizardReport = renderWizardReport;
+  window.__wizardReset = function(){
+    state.step = 1;
+    state.company = state.industry = state.headcount = "";
+    state.pains = [];
+    document.getElementById("wz-company").value = "";
+    document.getElementById("wz-industry").value = "";
+    document.querySelectorAll("#wz-headcount .wz-seg").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll("#wz-pains .wz-chip").forEach(c => c.classList.remove("checked"));
+    gotoStep(1);
+    const c = document.getElementById("wz-report-container");
+    if(c) c.innerHTML = `<div class="wz-loading"><div class="dot-typing"><span></span><span></span><span></span></div><div>${currentLang==="zh"?"AI 正在分析您的業務、配對方案 …":"AI is analysing your business and matching solutions…"}</div></div>`;
+  };
+})();
 
 /* ===========================================================
    AI BACKEND CALL — via serverless proxy (/api/claude)
