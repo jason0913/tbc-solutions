@@ -1125,8 +1125,9 @@ main,nav,section,footer{position:relative;z-index:2}
    DEMO 13: Wizard — 3-step business diagnosis
    ===================================================================== */
 
-/* Put demo 13's tab first visually (left), even though data-slide="12" */
-.demo-tab-btn[data-slide="12"]{order:-1}
+/* Put demo 13's tab first visually (left), then demo 14 second, even though data-slide=12/13 */
+.demo-tab-btn[data-slide="12"]{order:-2}
+.demo-tab-btn[data-slide="13"]{order:-1}
 .demo-tab-btn[data-slide="12"] .num{
   background:var(--grad);-webkit-background-clip:text;color:transparent;
   opacity:1;letter-spacing:0;font-size:14px;
@@ -1399,6 +1400,222 @@ main,nav,section,footer{position:relative;z-index:2}
   .wz-roi{grid-template-columns:1fr;gap:18px}
   .wizard-stepper{flex-wrap:wrap;gap:8px}
   .wizard-stepper .wz-dash{flex:0 0 100%;height:2px;order:99}
+}
+
+/* =====================================================================
+   DEMO 14: Warehouse Dashboard
+   ===================================================================== */
+/* Tab styling — gradient num like demo13 but with chart icon */
+.demo-tab-btn[data-slide="13"] .num{
+  background:linear-gradient(135deg,#5cd7ff,#7c5cff);-webkit-background-clip:text;color:transparent;
+  font-weight:800;
+}
+
+/* Filter segmented control */
+.dash-filter{
+  display:inline-flex;align-items:center;gap:2px;padding:4px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;
+}
+.dash-fseg{
+  padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--text-dim);
+  background:transparent;border:0;border-radius:7px;cursor:pointer;
+  transition:all var(--t-fast);font-family:inherit;letter-spacing:.02em;
+}
+.dash-fseg:hover{color:var(--text)}
+.dash-fseg.active{
+  background:var(--grad);color:#fff;
+  box-shadow:0 4px 14px rgba(124,92,255,.35);
+}
+[data-theme="light"] .dash-filter{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
+
+/* KPI Row */
+.dash-kpi-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;
+}
+.dash-kpi{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line-strong);position:relative;overflow:hidden;
+  transition:border-color var(--t-fast), box-shadow var(--t-med), transform var(--t-fast);
+}
+.dash-kpi:hover{border-color:rgba(124,92,255,.35);box-shadow:0 8px 22px rgba(124,92,255,.14);transform:translateY(-2px)}
+.dash-kpi::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--grad);opacity:.5;border-radius:14px 0 0 14px;
+}
+.dash-kpi[data-kpi="lowstock"]::before{background:linear-gradient(180deg,#ff9c6e,#ff5cb1)}
+.dash-kpi[data-kpi="warehouses"]::before{background:linear-gradient(180deg,#5cd7ff,#7c5cff)}
+.dash-kpi-ico{
+  font-size:24px;width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,rgba(124,92,255,.18),rgba(255,92,177,.08));
+  border:1px solid rgba(255,255,255,.06);
+}
+.dash-kpi-ico.warn{background:linear-gradient(140deg,rgba(255,156,110,.22),rgba(255,92,177,.10))}
+.dash-kpi-body{flex:1;min-width:0}
+.dash-kpi-l{font-size:11.5px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-bottom:4px}
+.dash-kpi-row2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.dash-kpi-num{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.01em;color:var(--text);line-height:1}
+.dash-kpi-frac{font-size:14px;color:var(--text-dim);font-weight:600;margin-left:4px}
+.dash-kpi-delta{font-size:11.5px;font-weight:600;color:var(--text-faint)}
+.dash-kpi-delta.up{color:#7ee0a8}
+.dash-kpi-delta.dn{color:#ff9c6e}
+.dash-kpi-delta.warn{color:#ffae7e}
+[data-theme="light"] .dash-kpi{background:linear-gradient(160deg,rgba(0,0,0,.025),rgba(0,0,0,.005));border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .dash-kpi-ico{background:linear-gradient(140deg,rgba(124,92,255,.14),rgba(255,92,177,.06));border-color:rgba(0,0,0,.05)}
+
+/* Main grid: chart + alerts sidebar */
+.dash-main{
+  display:grid;grid-template-columns:7fr 5fr;gap:16px;margin-bottom:18px;
+}
+.dash-card{
+  padding:18px 20px;border-radius:14px;
+  background:linear-gradient(160deg,rgba(255,255,255,.03),rgba(255,255,255,.005));
+  border:1px solid var(--line);position:relative;
+}
+.dash-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.dash-card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:-.005em;color:var(--text);display:flex;align-items:center;gap:8px}
+.dash-card-title .ico{font-size:16px;opacity:.9}
+[data-theme="light"] .dash-card{background:linear-gradient(160deg,rgba(0,0,0,.02),rgba(0,0,0,.004));border-color:rgba(0,0,0,.08)}
+
+/* Chart */
+.dash-legend{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--text-dim);flex-wrap:wrap}
+.dash-leg-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px}
+.dash-chart-wrap{
+  position:relative;height:260px;display:grid;grid-template-columns:34px 1fr;
+  grid-template-rows:1fr 24px;gap:6px 8px;
+}
+.dash-yaxis{
+  display:flex;flex-direction:column;justify-content:space-between;
+  font-size:10px;color:var(--text-faint);text-align:right;padding-top:2px;
+}
+.dash-yaxis div{line-height:1}
+.dash-bars{
+  position:relative;display:flex;align-items:flex-end;justify-content:space-around;gap:18px;
+  border-left:1px solid var(--line);border-bottom:1px solid var(--line);padding:0 6px;
+}
+.dash-bar-group{
+  display:flex;align-items:flex-end;gap:4px;height:100%;flex:1;
+}
+.dash-bar{
+  flex:1;border-radius:6px 6px 0 0;
+  background:var(--bar-grad,linear-gradient(180deg,#7c5cff,rgba(124,92,255,.4)));
+  height:0;transition:height .9s cubic-bezier(.2,.7,.2,1);
+  position:relative;cursor:pointer;min-height:0;
+}
+.dash-bar:hover{filter:brightness(1.15)}
+.dash-bar .dash-bar-tip{
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#1a1a26;color:#fff;font-size:11px;font-weight:600;
+  padding:6px 10px;border-radius:7px;white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .2s;box-shadow:0 6px 18px rgba(0,0,0,.4);z-index:5;
+  border:1px solid rgba(124,92,255,.4);
+}
+.dash-bar:hover .dash-bar-tip{opacity:1}
+.dash-bar.low{background:linear-gradient(180deg,#ff9c6e,rgba(255,92,177,.5))}
+.dash-xaxis{
+  grid-column:2;display:flex;justify-content:space-around;align-items:center;
+  font-size:11px;color:var(--text-dim);font-weight:600;padding:0 6px;
+}
+.dash-xaxis div{flex:1;text-align:center}
+.dash-safety-line{
+  position:absolute;left:42px;right:6px;bottom:43px;/* approx where 150 sits in 800 max */
+  height:1px;background:repeating-linear-gradient(90deg,rgba(255,156,110,.7) 0 4px,transparent 4px 8px);
+  pointer-events:none;
+}
+.dash-safety-line span{
+  position:absolute;right:0;top:-16px;font-size:9.5px;color:#ff9c6e;font-weight:700;
+  letter-spacing:.06em;background:var(--bg);padding:0 4px;
+}
+
+/* AI Alerts feed */
+.dash-live{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:#7ee0a8;font-weight:800;letter-spacing:.14em}
+.dash-live-dot{width:7px;height:7px;border-radius:50%;background:#7ee0a8;box-shadow:0 0 0 0 rgba(126,224,168,.6);animation:dashPulse 1.6s infinite}
+@keyframes dashPulse{0%{box-shadow:0 0 0 0 rgba(126,224,168,.6)}70%{box-shadow:0 0 0 10px rgba(126,224,168,0)}100%{box-shadow:0 0 0 0 rgba(126,224,168,0)}}
+.dash-alerts-feed{display:flex;flex-direction:column;gap:9px;max-height:240px;overflow-y:auto;padding-right:4px}
+.dash-alerts-feed::-webkit-scrollbar{width:6px}
+.dash-alerts-feed::-webkit-scrollbar-thumb{background:rgba(124,92,255,.3);border-radius:3px}
+.dash-alert{
+  display:flex;gap:10px;padding:10px 12px;border-radius:10px;
+  background:rgba(255,255,255,.03);border:1px solid var(--line);
+  opacity:0;transform:translateX(10px);
+  transition:opacity .35s, transform .35s, border-color var(--t-fast);
+}
+.dash-alert.show{opacity:1;transform:translateX(0)}
+.dash-alert:hover{border-color:rgba(124,92,255,.4)}
+.dash-alert.critical{border-color:rgba(255,90,90,.4);background:linear-gradient(160deg,rgba(255,90,90,.10),rgba(255,90,90,.02))}
+.dash-alert.warning{border-color:rgba(255,170,90,.4);background:linear-gradient(160deg,rgba(255,170,90,.10),rgba(255,170,90,.02))}
+.dash-alert.info{border-color:rgba(92,215,255,.35);background:linear-gradient(160deg,rgba(92,215,255,.08),rgba(92,215,255,.01))}
+.dash-alert-ico{font-size:16px;flex-shrink:0;line-height:1.3}
+.dash-alert-body{flex:1;min-width:0}
+.dash-alert-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px}
+.dash-alert-title{font-size:12.5px;font-weight:700;color:var(--text);line-height:1.3}
+.dash-alert-time{font-size:10px;color:var(--text-faint);font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.dash-alert-desc{font-size:11.5px;color:var(--text-dim);line-height:1.5}
+[data-theme="light"] .dash-alert{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.08)}
+
+/* AI Recommendations row */
+.dash-recs{
+  padding:16px 18px;border-radius:14px;
+  background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(255,92,177,.04));
+  border:1px solid rgba(124,92,255,.25);
+}
+.dash-recs-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.dash-recs-head .ico{font-size:18px}
+.dash-recs-head>span:nth-child(2){font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)}
+.dash-recs-sub{font-size:11.5px;color:var(--text-dim);font-weight:500;margin-left:auto}
+.dash-recs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dash-rec{
+  padding:14px 14px 12px;border-radius:11px;
+  background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;gap:10px;
+  transition:border-color var(--t-fast), transform var(--t-fast), box-shadow var(--t-med);
+  opacity:0;transform:translateY(8px);
+}
+.dash-rec.show{opacity:1;transform:translateY(0)}
+.dash-rec:hover{border-color:rgba(124,92,255,.45);transform:translateY(-2px);box-shadow:0 8px 22px rgba(124,92,255,.16)}
+.dash-rec-body{display:flex;gap:10px}
+.dash-rec-ico{font-size:18px;flex-shrink:0;line-height:1.2}
+.dash-rec-text{flex:1;font-size:12.5px;color:var(--text);line-height:1.55;font-weight:500}
+.dash-rec-save{font-size:11px;color:#7ee0a8;font-weight:700;margin-top:4px;letter-spacing:.02em}
+.dash-rec-btn{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 12px;border-radius:8px;border:1px solid rgba(124,92,255,.4);
+  background:rgba(124,92,255,.10);color:var(--text);
+  font-size:11.5px;font-weight:700;font-family:inherit;cursor:pointer;
+  transition:all var(--t-fast);letter-spacing:.02em;
+}
+.dash-rec-btn:hover{background:var(--grad);border-color:transparent;color:#fff;transform:translateX(2px)}
+.dash-rec.done{border-color:rgba(126,224,168,.45);background:linear-gradient(160deg,rgba(126,224,168,.10),rgba(126,224,168,.02))}
+.dash-rec.done .dash-rec-btn{background:rgba(126,224,168,.18);border-color:rgba(126,224,168,.4);color:#7ee0a8;pointer-events:none}
+[data-theme="light"] .dash-rec{background:linear-gradient(160deg,rgba(255,255,255,.7),rgba(255,255,255,.4));border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .dash-recs{background:linear-gradient(160deg,rgba(124,92,255,.06),rgba(255,92,177,.025));border-color:rgba(124,92,255,.2)}
+
+/* Toast for "executed" feedback */
+.dash-toast{
+  position:absolute;bottom:18px;left:50%;transform:translate(-50%,16px);
+  display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;
+  background:linear-gradient(140deg,#7c5cff,#ff5cb1);color:#fff;
+  font-size:13px;font-weight:700;box-shadow:0 12px 32px rgba(124,92,255,.45);
+  opacity:0;transition:opacity .3s, transform .3s;pointer-events:none;z-index:30;
+}
+.dash-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Responsive */
+@media(max-width:1000px){
+  .dash-main{grid-template-columns:1fr}
+  .dash-kpi-row{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+  .dash-kpi-row{grid-template-columns:1fr 1fr;gap:10px}
+  .dash-kpi{padding:14px;gap:10px}
+  .dash-kpi-num{font-size:22px}
+  .dash-kpi-ico{width:36px;height:36px;font-size:20px}
+  .dash-recs-grid{grid-template-columns:1fr;gap:10px}
+  .dash-chart-wrap{height:220px}
+  .dash-bars{gap:10px}
+  .dash-recs-sub{margin-left:0;width:100%}
 }
 
 /* =====================================================================
@@ -2114,6 +2331,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="9"><span class="num">10</span> <span data-i18n="demo10.title">AI SEO 標題</span></button>
       <button class="demo-tab-btn"        data-slide="10"><span class="num">11</span> <span data-i18n="demo11.title">AI 產品文案</span></button>
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
+      <button class="demo-tab-btn"        data-slide="13"><span class="num">14</span> <span data-i18n="demo14.tabLabel">倉庫 Dashboard</span></button>
       <button class="demo-tab-btn active" data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
     </div>
 
@@ -2685,6 +2903,131 @@ main,nav,section,footer{position:relative;z-index:2}
           </div>
         </div>
 
+        <!-- ===== SLIDE 14 : DEMO 14 — WAREHOUSE DASHBOARD ===== -->
+        <div class="demo-slide" data-slide-idx="13">
+          <div class="demo-block" id="demo14">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 14</div>
+                  <div class="demo-save" data-i18n="demo14.save">即時可視化 + AI 警示</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo14.title">AI 倉庫即時 Dashboard</h3>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo14.desc">多倉庫實時庫存、AI 警示、智能推薦 — 一頁睇晒倉儲健康。</p>
+              </div>
+              <!-- Filter segments -->
+              <div class="dash-filter" id="dash-filter" role="tablist" aria-label="time range">
+                <button class="dash-fseg active" data-range="1" data-i18n="demo14.f1">今日</button>
+                <button class="dash-fseg" data-range="7" data-i18n="demo14.f7">7 日</button>
+                <button class="dash-fseg" data-range="30" data-i18n="demo14.f30">30 日</button>
+              </div>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="dash-kpi-row">
+              <div class="dash-kpi" data-kpi="stock">
+                <div class="dash-kpi-ico">📦</div>
+                <div class="dash-kpi-body">
+                  <div class="dash-kpi-l" data-i18n="demo14.kpi1">總庫存件數</div>
+                  <div class="dash-kpi-row2">
+                    <div class="dash-kpi-num" data-target="12480">0</div>
+                    <div class="dash-kpi-delta dn" data-i18n="demo14.kpi1d">↓ 2.3% vs 上週</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-kpi" data-kpi="shipping">
+                <div class="dash-kpi-ico">🚚</div>
+                <div class="dash-kpi-body">
+                  <div class="dash-kpi-l" data-i18n="demo14.kpi2">今日出貨</div>
+                  <div class="dash-kpi-row2">
+                    <div class="dash-kpi-num" data-target="248">0</div>
+                    <div class="dash-kpi-delta up" data-i18n="demo14.kpi2d">↑ 18% vs 平均</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-kpi" data-kpi="lowstock">
+                <div class="dash-kpi-ico warn">⚠️</div>
+                <div class="dash-kpi-body">
+                  <div class="dash-kpi-l" data-i18n="demo14.kpi3">低庫存 SKU</div>
+                  <div class="dash-kpi-row2">
+                    <div class="dash-kpi-num" data-target="3">0</div>
+                    <div class="dash-kpi-delta warn" data-i18n="demo14.kpi3d">3 項需補貨</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-kpi" data-kpi="warehouses">
+                <div class="dash-kpi-ico">🏭</div>
+                <div class="dash-kpi-body">
+                  <div class="dash-kpi-l" data-i18n="demo14.kpi4">活躍倉庫</div>
+                  <div class="dash-kpi-row2">
+                    <div class="dash-kpi-num"><span data-target="4">0</span><span class="dash-kpi-frac">/ 5</span></div>
+                    <div class="dash-kpi-delta dn" data-i18n="demo14.kpi4d">北京倉離線</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Main grid: Chart + Alerts -->
+            <div class="dash-main">
+              <!-- Chart -->
+              <div class="dash-card dash-chart">
+                <div class="dash-card-head">
+                  <div class="dash-card-title"><span class="ico">📊</span> <span data-i18n="demo14.chartTitle">各倉庫庫存量（按 SKU 分組）</span></div>
+                  <div class="dash-legend">
+                    <span class="dash-leg-dot" style="background:#7c5cff"></span><span data-i18n="demo14.sku1">USB-C 轉接器</span>
+                    <span class="dash-leg-dot" style="background:#ff5cb1"></span><span data-i18n="demo14.sku2">無線耳機</span>
+                    <span class="dash-leg-dot" style="background:#5cd7ff"></span><span data-i18n="demo14.sku3">行動電源</span>
+                  </div>
+                </div>
+                <div class="dash-chart-wrap" id="dash-chart-wrap" aria-label="warehouse stock chart">
+                  <!-- Y-axis labels -->
+                  <div class="dash-yaxis">
+                    <div>800</div><div>600</div><div>400</div><div>200</div><div>0</div>
+                  </div>
+                  <!-- Bars area -->
+                  <div class="dash-bars" id="dash-bars">
+                    <!-- Generated by JS -->
+                  </div>
+                  <div class="dash-xaxis" id="dash-xaxis">
+                    <div data-i18n="demo14.wh1">香港倉</div>
+                    <div data-i18n="demo14.wh2">台北倉</div>
+                    <div data-i18n="demo14.wh3">廣州倉</div>
+                    <div data-i18n="demo14.wh4">上海倉</div>
+                    <div data-i18n="demo14.wh5">北京倉</div>
+                  </div>
+                  <!-- Safety line -->
+                  <div class="dash-safety-line" aria-label="safety stock line">
+                    <span data-i18n="demo14.safety">安全線 150</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Alerts feed -->
+              <div class="dash-card dash-alerts">
+                <div class="dash-card-head">
+                  <div class="dash-card-title"><span class="ico">🤖</span> <span data-i18n="demo14.alertsTitle">AI 即時警示</span></div>
+                  <div class="dash-live"><span class="dash-live-dot"></span> <span data-i18n="demo14.live">LIVE</span></div>
+                </div>
+                <div class="dash-alerts-feed" id="dash-alerts-feed">
+                  <!-- Generated by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Recommendations row -->
+            <div class="dash-recs">
+              <div class="dash-recs-head">
+                <span class="ico">✨</span>
+                <span data-i18n="demo14.recsTitle">AI 智能推薦行動</span>
+                <span class="dash-recs-sub" data-i18n="demo14.recsSub">一鍵自動建立 n8n 工作流</span>
+              </div>
+              <div class="dash-recs-grid" id="dash-recs-grid">
+                <!-- Generated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /demos-carousel -->
     </div><!-- /demos-carousel-wrap -->
 
@@ -3105,6 +3448,19 @@ const I18N = {
     "demo13.p7":"翻譯 / 國際溝通慢","demo13.p8":"多語客戶評論未回",
     "demo13.btnNext":"下一步 →","demo13.btnBack":"← 上一步","demo13.btnGenerate":"AI 生成方案 →",
     "demo13.thinkLabel":"AI 正在分析您的業務、配對方案 …",
+    "demo14.tabLabel":"倉庫 Dashboard","demo14.save":"即時可視化 + AI 警示",
+    "demo14.title":"AI 倉庫即時 Dashboard","demo14.desc":"多倉庫實時庫存、AI 警示、智能推薦 — 一頁睇晒倉儲健康。",
+    "demo14.f1":"今日","demo14.f7":"7 日","demo14.f30":"30 日",
+    "demo14.kpi1":"總庫存件數","demo14.kpi1d":"↓ 2.3% vs 上週",
+    "demo14.kpi2":"今日出貨","demo14.kpi2d":"↑ 18% vs 平均",
+    "demo14.kpi3":"低庫存 SKU","demo14.kpi3d":"3 項需補貨",
+    "demo14.kpi4":"活躍倉庫","demo14.kpi4d":"北京倉離線",
+    "demo14.chartTitle":"各倉庫庫存量（按 SKU 分組）",
+    "demo14.sku1":"USB-C 轉接器","demo14.sku2":"無線耳機","demo14.sku3":"行動電源",
+    "demo14.wh1":"香港倉","demo14.wh2":"台北倉","demo14.wh3":"廣州倉","demo14.wh4":"上海倉","demo14.wh5":"北京倉",
+    "demo14.safety":"安全線 150",
+    "demo14.alertsTitle":"AI 即時警示","demo14.live":"LIVE",
+    "demo14.recsTitle":"AI 智能推薦行動","demo14.recsSub":"一鍵自動建立 n8n 工作流",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
     "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
@@ -3242,6 +3598,19 @@ const I18N = {
     "demo13.p7":"Translation / cross-border comms","demo13.p8":"Multi-language reviews piling up",
     "demo13.btnNext":"Next →","demo13.btnBack":"← Back","demo13.btnGenerate":"Generate plan with AI →",
     "demo13.thinkLabel":"AI is analysing your business and matching solutions…",
+    "demo14.tabLabel":"Warehouse Dashboard","demo14.save":"Live visibility + AI alerts",
+    "demo14.title":"AI Real-time Warehouse Dashboard","demo14.desc":"Multi-warehouse live inventory, AI alerts and smart actions — entire stock health on one page.",
+    "demo14.f1":"Today","demo14.f7":"7 days","demo14.f30":"30 days",
+    "demo14.kpi1":"Total stock units","demo14.kpi1d":"↓ 2.3% vs last week",
+    "demo14.kpi2":"Shipped today","demo14.kpi2d":"↑ 18% vs avg",
+    "demo14.kpi3":"Low stock SKUs","demo14.kpi3d":"3 to restock",
+    "demo14.kpi4":"Active warehouses","demo14.kpi4d":"Beijing offline",
+    "demo14.chartTitle":"Stock by warehouse (grouped by SKU)",
+    "demo14.sku1":"USB-C adapter","demo14.sku2":"Wireless headphones","demo14.sku3":"Power bank",
+    "demo14.wh1":"HK","demo14.wh2":"Taipei","demo14.wh3":"Guangzhou","demo14.wh4":"Shanghai","demo14.wh5":"Beijing",
+    "demo14.safety":"Safety line 150",
+    "demo14.alertsTitle":"AI Real-time Alerts","demo14.live":"LIVE",
+    "demo14.recsTitle":"AI Recommended Actions","demo14.recsSub":"One-click n8n workflow setup",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"Real time and cost","impact.title2":"saved.",
     "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
@@ -3461,6 +3830,12 @@ function resetAllDemos(){
 
   // Demo 13 — wizard
   if(typeof window.__wizardReset === "function") window.__wizardReset();
+
+  // Demo 14 — dashboard: re-render with new lang strings
+  if(typeof window.__renderDashboard14 === "function"){
+    const activeRange = document.querySelector("#dash-filter .dash-fseg.active")?.dataset.range || "7";
+    window.__renderDashboard14(activeRange, false);
+  }
 
   // Allow previews to replay in the new language
   if(window.__resetPreviews) window.__resetPreviews();
@@ -4030,8 +4405,8 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   if(!slides.length) return;
   total.textContent = slides.length;
 
-  // Display order: demo13 (idx 12) appears as position 1, then demo1 (idx 0) = 2, ...
-  const DISPLAY_ORDER = [12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  // Display order: demo13 (idx 12) appears as position 1, demo14 (idx 13) = 2, then demo1..12
+  const DISPLAY_ORDER = [12, 13, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   const displayPos = (i) => {
     const p = DISPLAY_ORDER.indexOf(i);
     return p === -1 ? i + 1 : p + 1;
@@ -4703,19 +5078,243 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     }
   }
 
+  // ---------------- DEMO 14: WAREHOUSE DASHBOARD ----------------
+  function S14(){
+    // 5 warehouses × 3 SKUs (USB-C / Headphones / PowerBank) — values per filter range
+    const wh_zh = ["香港倉","台北倉","廣州倉","上海倉","北京倉"];
+    const wh_en = ["HK","Taipei","Guangzhou","Shanghai","Beijing"];
+    const sku = ["USB-C","Headphones","PowerBank"];
+    const colors = ["#7c5cff","#ff5cb1","#5cd7ff"];
+    // Stock numbers (USB-C, Headphones, PowerBank) per warehouse per range
+    const stockByRange = {
+      "1":[ [420,310,280],[ 95,260,310],[680,520,440],[510,390,350],[  0,  0,  0] ],
+      "7":[ [380,290,260],[ 80,240,290],[640,490,420],[490,370,330],[  0,  0,  0] ],
+      "30":[[340,270,240],[120,260,300],[600,460,400],[460,350,310],[  0,  0,  0] ],
+    };
+    return currentLang === "zh" ? {
+      warehouses:wh_zh, sku, colors, stockByRange,
+      kpis:{
+        "1":  {stock:12480, shipping:248, lowstock:3, warehouses:4, stockDelta:"↓ 2.3% vs 上週", shippingDelta:"↑ 18% vs 平均", lowstockDelta:"3 項需補貨", whDelta:"北京倉離線"},
+        "7":  {stock:12860, shipping:1620,lowstock:5, warehouses:4, stockDelta:"↓ 1.8% vs 上月", shippingDelta:"↑ 9% vs 上週",  lowstockDelta:"5 項需補貨", whDelta:"北京倉離線"},
+        "30": {stock:13420, shipping:7850,lowstock:7, warehouses:4, stockDelta:"↑ 4.5% vs 季度", shippingDelta:"↑ 12% vs 季度",  lowstockDelta:"7 項需補貨", whDelta:"北京倉離線"},
+      },
+      alerts:[
+        {sev:"critical", ico:"🚨", title:"北京倉離線中",     time:"08 分鐘前", desc:"心跳監測中斷 8 分鐘 — 已自動轉發訂單到上海倉"},
+        {sev:"critical", ico:"⚠️", title:"USB-C 轉接器低庫存", time:"23 分鐘前", desc:"台北倉 80 件 < 安全線 150 — 建議由廣州倉調 200 件"},
+        {sev:"warning",  ico:"📉", title:"無線耳機售出加速",   time:"1 小時前",  desc:"7 日銷量 +42%，預計 5 日後台北倉缺貨"},
+        {sev:"info",     ico:"🚚", title:"今日大宗出貨完成",   time:"2 小時前",  desc:"248 件已分批寄出 — 比平均提早 1.5 小時"},
+        {sev:"info",     ico:"✨", title:"AI 模型更新完成",   time:"5 小時前",  desc:"新的銷量預測模型上線，準確度提升 8%"},
+      ],
+      recs:[
+        {ico:"🔄", text:"自動由廣州倉調 200 件 USB-C 轉接器去台北倉，預計 2 日到貨", save:"節省 HK$ 240 + 避免缺貨", btn:"一鍵執行 →"},
+        {ico:"📦", text:"補貨：無線耳機 × 500，由深圳工廠下單", save:"基於 30 日銷量預測", btn:"生成採購單 →"},
+        {ico:"💸", text:"重新分配 7 月出貨：香港倉 → 廣州倉中轉", save:"節省 HK$ 8,400 / 月", btn:"查看詳情 →"},
+      ],
+      toast:"✓ 已自動建立 n8n 工作流",
+    } : {
+      warehouses:wh_en, sku, colors, stockByRange,
+      kpis:{
+        "1":  {stock:12480, shipping:248, lowstock:3, warehouses:4, stockDelta:"↓ 2.3% vs last week",  shippingDelta:"↑ 18% vs avg",    lowstockDelta:"3 to restock", whDelta:"Beijing offline"},
+        "7":  {stock:12860, shipping:1620,lowstock:5, warehouses:4, stockDelta:"↓ 1.8% vs last month", shippingDelta:"↑ 9% vs last wk", lowstockDelta:"5 to restock", whDelta:"Beijing offline"},
+        "30": {stock:13420, shipping:7850,lowstock:7, warehouses:4, stockDelta:"↑ 4.5% vs quarter",   shippingDelta:"↑ 12% vs quarter",lowstockDelta:"7 to restock", whDelta:"Beijing offline"},
+      },
+      alerts:[
+        {sev:"critical", ico:"🚨", title:"Beijing warehouse offline", time:"8 min ago",  desc:"Heartbeat lost — orders auto-rerouted to Shanghai"},
+        {sev:"critical", ico:"⚠️", title:"USB-C adapter low stock",   time:"23 min ago", desc:"Taipei 80 < safety 150 — recommend pulling 200 from Guangzhou"},
+        {sev:"warning",  ico:"📉", title:"Headphones sales surge",    time:"1 hr ago",   desc:"7-day sales +42% — Taipei stock-out predicted in 5 days"},
+        {sev:"info",     ico:"🚚", title:"Bulk shipment completed",   time:"2 hr ago",   desc:"248 units shipped — 1.5 hr ahead of avg"},
+        {sev:"info",     ico:"✨", title:"AI model updated",          time:"5 hr ago",   desc:"New forecast model live — accuracy +8%"},
+      ],
+      recs:[
+        {ico:"🔄", text:"Auto-transfer 200 USB-C adapters from Guangzhou to Taipei, ETA 2 days", save:"Save HK$ 240 + avoid stockout", btn:"Execute →"},
+        {ico:"📦", text:"Restock: 500 wireless headphones, order from Shenzhen factory",        save:"Based on 30-day forecast",     btn:"Generate PO →"},
+        {ico:"💸", text:"Reroute July shipments: HK → Guangzhou transit hub",                   save:"Save HK$ 8,400 / month",       btn:"View details →"},
+      ],
+      toast:"✓ n8n workflow created automatically",
+    };
+  }
+
+  function renderDashboard14(range, animate){
+    const data = S14();
+    const k = data.kpis[range] || data.kpis["7"];
+    // KPIs — set targets + delta texts
+    const root = document.getElementById("demo14");
+    if(!root) return;
+    const setKpi = (sel, target, delta) => {
+      const el = root.querySelector(sel);
+      if(!el) return;
+      const numEl = el.querySelector(".dash-kpi-num [data-target]") || el.querySelector(".dash-kpi-num");
+      const deltaEl = el.querySelector(".dash-kpi-delta");
+      if(numEl){
+        numEl.dataset.target = String(target);
+        animateNumber(numEl, target, animate ? 900 : 0);
+      }
+      if(deltaEl && delta != null) deltaEl.textContent = delta;
+    };
+    setKpi('[data-kpi="stock"]',      k.stock,    k.stockDelta);
+    setKpi('[data-kpi="shipping"]',   k.shipping, k.shippingDelta);
+    setKpi('[data-kpi="lowstock"]',   k.lowstock, k.lowstockDelta);
+    setKpi('[data-kpi="warehouses"]', k.warehouses, k.whDelta);
+
+    // Chart bars
+    const barsRoot = document.getElementById("dash-bars");
+    if(barsRoot){
+      const stocks = data.stockByRange[range] || data.stockByRange["7"];
+      const max = 800;
+      barsRoot.innerHTML = "";
+      stocks.forEach((whVals, whIdx) => {
+        const group = document.createElement("div");
+        group.className = "dash-bar-group";
+        whVals.forEach((v, sIdx) => {
+          const pct = Math.max(0, Math.min(100, (v / max) * 100));
+          const low = v > 0 && v < 150;
+          const bar = document.createElement("div");
+          bar.className = "dash-bar" + (low ? " low" : "");
+          bar.style.setProperty("--bar-grad", `linear-gradient(180deg,${data.colors[sIdx]},${data.colors[sIdx]}55)`);
+          bar.innerHTML = `<div class="dash-bar-tip">${data.sku[sIdx]} · ${v}${currentLang==="zh"?" 件":""}${low?` · ${currentLang==="zh"?"低於安全線":"below safety"}`:""}</div>`;
+          group.appendChild(bar);
+          // animate height
+          requestAnimationFrame(() => {
+            setTimeout(() => { bar.style.height = pct + "%"; }, animate ? (whIdx * 80 + sIdx * 50) : 0);
+          });
+        });
+        barsRoot.appendChild(group);
+      });
+    }
+
+    // Alerts feed
+    const feedRoot = document.getElementById("dash-alerts-feed");
+    if(feedRoot){
+      feedRoot.innerHTML = "";
+      data.alerts.forEach((a, i) => {
+        const el = document.createElement("div");
+        el.className = `dash-alert ${a.sev}`;
+        el.innerHTML = `
+          <div class="dash-alert-ico">${a.ico}</div>
+          <div class="dash-alert-body">
+            <div class="dash-alert-head">
+              <div class="dash-alert-title">${a.title}</div>
+              <div class="dash-alert-time">${a.time}</div>
+            </div>
+            <div class="dash-alert-desc">${a.desc}</div>
+          </div>`;
+        feedRoot.appendChild(el);
+        if(animate){
+          setTimeout(() => el.classList.add("show"), 200 + i * 140);
+        } else {
+          el.classList.add("show");
+        }
+      });
+    }
+
+    // AI Recommendations
+    const recsRoot = document.getElementById("dash-recs-grid");
+    if(recsRoot){
+      recsRoot.innerHTML = "";
+      data.recs.forEach((r, i) => {
+        const el = document.createElement("div");
+        el.className = "dash-rec";
+        el.innerHTML = `
+          <div class="dash-rec-body">
+            <div class="dash-rec-ico">${r.ico}</div>
+            <div class="dash-rec-text">${r.text}<div class="dash-rec-save">${r.save}</div></div>
+          </div>
+          <button class="dash-rec-btn" type="button">${r.btn}</button>`;
+        const btn = el.querySelector(".dash-rec-btn");
+        btn.addEventListener("click", () => {
+          el.classList.add("done");
+          btn.textContent = currentLang==="zh" ? "✓ 已執行" : "✓ Executed";
+          showDashToast(data.toast);
+        });
+        recsRoot.appendChild(el);
+        if(animate){
+          setTimeout(() => el.classList.add("show"), 700 + i * 160);
+        } else {
+          el.classList.add("show");
+        }
+      });
+    }
+  }
+
+  function animateNumber(el, target, durationMs){
+    if(!el) return;
+    if(!durationMs){ el.textContent = target.toLocaleString(); return; }
+    const start = 0;
+    const startTime = performance.now();
+    function tick(now){
+      const t = Math.min(1, (now - startTime) / durationMs);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const val = Math.round(start + (target - start) * eased);
+      el.textContent = val.toLocaleString();
+      if(t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function showDashToast(msg){
+    const root = document.getElementById("demo14");
+    if(!root) return;
+    let t = root.querySelector(".dash-toast");
+    if(!t){
+      t = document.createElement("div");
+      t.className = "dash-toast";
+      root.appendChild(t);
+    }
+    t.textContent = msg;
+    requestAnimationFrame(() => t.classList.add("show"));
+    setTimeout(() => t.classList.remove("show"), 2200);
+  }
+
+  async function playDemo14(token){
+    // Pre-warm: reset filter to default "1" (今日) — matches HTML default active
+    const filterRoot = document.getElementById("dash-filter");
+    if(filterRoot){
+      filterRoot.querySelectorAll(".dash-fseg").forEach(b => b.classList.toggle("active", b.dataset.range === "1"));
+    }
+    if(token !== playToken) return;
+    renderDashboard14("1", true);
+    // Mid-preview: switch to "7 日" to demonstrate filter interaction
+    if(!await gate(3400, token)) return;
+    if(filterRoot){
+      const btn = filterRoot.querySelector('.dash-fseg[data-range="7"]');
+      if(btn) btn.click();
+    }
+  }
+
+  // Filter switch wiring (once)
+  (function dashboardWiring(){
+    const filterRoot = document.getElementById("dash-filter");
+    if(filterRoot){
+      filterRoot.addEventListener("click", e => {
+        const btn = e.target.closest(".dash-fseg");
+        if(!btn) return;
+        filterRoot.querySelectorAll(".dash-fseg").forEach(b => b.classList.toggle("active", b === btn));
+        renderDashboard14(btn.dataset.range, true);
+      });
+    }
+    // Initial silent render so the dashboard isn't empty if user manually navigates here
+    setTimeout(() => {
+      if(!playedSlides.has(13)){
+        const activeBtn = filterRoot?.querySelector(".dash-fseg.active");
+        renderDashboard14(activeBtn?.dataset.range || "7", false);
+      }
+    }, 0);
+  })();
+
   function playSlide(idx){
     if(playedSlides.has(idx)) return;
     playedSlides.add(idx);
     const token = ++playToken;
     const fns = [playDemo1, playDemo2, playDemo3, playDemo4, playDemo5, playDemo6,
                  playDemo7, playDemo8, playDemo9, playDemo10, playDemo11, playDemo12,
-                 playDemo13];
+                 playDemo13, playDemo14];
     fns[idx]?.(token).catch(()=>{});
   }
 
   // Expose for external use (e.g. applyLang re-triggers after language switch)
-  window.__playSlide      = playSlide;
-  window.__resetPreviews  = () => { playedSlides.clear(); playToken++; };
+  window.__playSlide        = playSlide;
+  window.__resetPreviews    = () => { playedSlides.clear(); playToken++; };
+  window.__renderDashboard14 = renderDashboard14;
 
   // Watch slides — when one becomes .active for the first time, play it.
   const slides = document.querySelectorAll(".demo-slide");
@@ -4755,7 +5354,8 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
    "ms-input","ms-run","tr-input","tr-lang","tr-run","rv-input","rv-business","rv-run",
    "seo-topic","seo-keyword","seo-run","pc-name","pc-features","pc-run",
    "wh-sku","wh-qty","wh-run",
-   "wz-company","wz-industry","wz-next-1","wz-back-2","wz-generate"]
+   "wz-company","wz-industry","wz-next-1","wz-back-2","wz-generate",
+   "dash-filter"]
     .forEach(id => {
       const el = document.getElementById(id);
       if(!el) return;
