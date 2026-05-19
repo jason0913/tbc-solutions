@@ -1404,7 +1404,7 @@ main,nav,section,footer{position:relative;z-index:2}
 /* =====================================================================
    Warehouse cards (Demo 12)
    ===================================================================== */
-.warehouse-grid{display:flex;flex-direction:column;gap:10px}
+.warehouse-grid{display:flex;flex-direction:column;gap:10px;padding-top:14px}
 .wh-card{
   position:relative;padding:14px 16px;border-radius:12px;
   background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
@@ -1421,7 +1421,7 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 .wh-card.recommended::before{
   content:"✨ AI";
-  position:absolute;top:-10px;right:14px;
+  position:absolute;top:-10px;right:14px;z-index:2;
   padding:3px 11px;border-radius:999px;
   background:var(--grad);color:#fff;
   font-size:9.5px;letter-spacing:.22em;font-weight:800;
@@ -2102,7 +2102,7 @@ main,nav,section,footer{position:relative;z-index:2}
 
     <!-- ====== TABS ====== -->
     <div class="demos-tabs reveal" id="demos-tabs">
-      <button class="demo-tab-btn active" data-slide="0"><span class="num">01</span> <span data-i18n="demo1.title">AI 自動化模擬器</span></button>
+      <button class="demo-tab-btn" data-slide="0"><span class="num">01</span> <span data-i18n="demo1.title">AI 自動化模擬器</span></button>
       <button class="demo-tab-btn"        data-slide="1"><span class="num">02</span> <span data-i18n="demo2.title">AI 聊天助手</span></button>
       <button class="demo-tab-btn"        data-slide="2"><span class="num">03</span> <span data-i18n="demo3.title">網頁生成預覽</span></button>
       <button class="demo-tab-btn"        data-slide="3"><span class="num">04</span> <span data-i18n="demo4.title">AI 內容生成器</span></button>
@@ -2114,7 +2114,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="9"><span class="num">10</span> <span data-i18n="demo10.title">AI SEO 標題</span></button>
       <button class="demo-tab-btn"        data-slide="10"><span class="num">11</span> <span data-i18n="demo11.title">AI 產品文案</span></button>
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
-      <button class="demo-tab-btn"        data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
+      <button class="demo-tab-btn active" data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
     </div>
 
     <div class="demos-carousel-wrap reveal">
@@ -4731,20 +4731,22 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
     slides.forEach(s => obs.observe(s, {attributes:true, attributeFilter:["class"]}));
   }
 
-  // Trigger the visually-first (current .active) slide on viewport entry
-  const demosCarousel = document.getElementById("demos-carousel");
-  if(demosCarousel){
+  // Trigger the visually-first (current .active) slide on viewport entry.
+  // Eager: fire as soon as any pixel of the demos section enters viewport
+  // (rootMargin extends bottom by 300px so it pre-warms before user scrolls in).
+  const demosSection = document.getElementById("demos") || document.getElementById("demos-carousel");
+  if(demosSection){
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if(e.isIntersecting){
           const initialActive = document.querySelector(".demo-slide.active");
           const initialIdx = initialActive ? +initialActive.dataset.slideIdx : 0;
-          setTimeout(()=>playSlide(isNaN(initialIdx) ? 0 : initialIdx), 600);
+          setTimeout(()=>playSlide(isNaN(initialIdx) ? 0 : initialIdx), 400);
           io.disconnect();
         }
       });
-    }, {threshold:.25});
-    io.observe(demosCarousel);
+    }, {threshold:0.01, rootMargin:"0px 0px 300px 0px"});
+    io.observe(demosSection);
   }
 
   // User interaction → cancel any running preview
