@@ -1125,9 +1125,8 @@ main,nav,section,footer{position:relative;z-index:2}
    DEMO 13: Wizard — 3-step business diagnosis
    ===================================================================== */
 
-/* Put demo 13's tab first visually (left), then demo 14 second, even though data-slide=12/13 */
-.demo-tab-btn[data-slide="12"]{order:-2}
-.demo-tab-btn[data-slide="13"]{order:-1}
+/* Put Wizard's tab first visually (left); Dashboard falls in natural HTML order — last */
+.demo-tab-btn[data-slide="12"]{order:-1}
 .demo-tab-btn[data-slide="12"] .num{
   background:var(--grad);-webkit-background-clip:text;color:transparent;
   opacity:1;letter-spacing:0;font-size:14px;
@@ -2331,7 +2330,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="9"><span class="num">10</span> <span data-i18n="demo10.title">AI SEO 標題</span></button>
       <button class="demo-tab-btn"        data-slide="10"><span class="num">11</span> <span data-i18n="demo11.title">AI 產品文案</span></button>
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
-      <button class="demo-tab-btn"        data-slide="13"><span class="num">14</span> <span data-i18n="demo14.tabLabel">倉庫 Dashboard</span></button>
+      <button class="demo-tab-btn"        data-slide="13"><span class="num">13</span> <span data-i18n="demo14.tabLabel">倉庫 Dashboard</span></button>
       <button class="demo-tab-btn active" data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
     </div>
 
@@ -2909,7 +2908,7 @@ main,nav,section,footer{position:relative;z-index:2}
             <div class="demo-head">
               <div>
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                  <div class="demo-tag">DEMO 14</div>
+                  <div class="demo-tag">DEMO 13</div>
                   <div class="demo-save" data-i18n="demo14.save">即時可視化 + AI 警示</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo14.title">AI 倉庫即時 Dashboard</h3>
@@ -4405,8 +4404,8 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   if(!slides.length) return;
   total.textContent = slides.length;
 
-  // Display order: demo13 (idx 12) appears as position 1, demo14 (idx 13) = 2, then demo1..12
-  const DISPLAY_ORDER = [12, 13, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  // Display order: Wizard (idx 12) = pos 1, then demo1..demo12, then Dashboard (idx 13) last
+  const DISPLAY_ORDER = [12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13];
   const displayPos = (i) => {
     const p = DISPLAY_ORDER.indexOf(i);
     return p === -1 ? i + 1 : p + 1;
