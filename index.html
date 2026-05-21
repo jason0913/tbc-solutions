@@ -249,8 +249,18 @@ main,nav,section,footer{position:relative;z-index:2}
 .hero-inner{max-width:1100px;margin:0 auto}
 .hero h1 .word{display:inline-block;overflow:hidden;vertical-align:top}
 .hero h1 .word span{display:inline-block;transform:translateY(110%)}
+.hero-descriptor{
+  margin-top:20px;font-size:clamp(15px,1.3vw,18px);font-weight:600;letter-spacing:.01em;
+  color:var(--text);max-width:680px;margin-left:auto;margin-right:auto;line-height:1.5;
+  background:linear-gradient(120deg,#fff 0%,rgba(255,255,255,.78) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+[data-theme="light"] .hero-descriptor{
+  background:linear-gradient(120deg,#0a0a14 0%,rgba(26,26,38,.78) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
 .hero-sub{
-  margin-top:28px;font-size:clamp(16px,1.4vw,20px);color:var(--text-dim);
+  margin-top:18px;font-size:clamp(16px,1.4vw,20px);color:var(--text-dim);
   min-height:32px;font-weight:400;letter-spacing:.02em;
 }
 .typing-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:3px;vertical-align:middle;animation:blink 1s step-end infinite}
@@ -1713,6 +1723,34 @@ main,nav,section,footer{position:relative;z-index:2}
 .founder-tag .role{font-size:12px;color:var(--text-dim);letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
 .about-text p{font-size:17px;line-height:1.8;color:var(--text-dim);margin-top:20px}
 .about-text p strong{color:#fff;font-weight:600}
+.about-intro{
+  font-family:'Syne',sans-serif;font-size:18px !important;font-weight:600;color:var(--text) !important;
+  letter-spacing:-.005em;line-height:1.6 !important;
+  padding:18px 20px;border-radius:14px;
+  background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(255,92,177,.04));
+  border:1px solid rgba(124,92,255,.25);
+  margin-top:24px !important;
+}
+.about-intro strong{color:var(--accent) !important}
+.about-status{
+  display:inline-flex;align-items:center;gap:10px;margin-top:24px;
+  padding:9px 16px;border-radius:999px;
+  background:rgba(126,224,168,.10);border:1px solid rgba(126,224,168,.35);
+  font-size:12.5px;font-weight:600;color:var(--text);letter-spacing:.005em;
+}
+.about-status .status-dot{
+  width:8px;height:8px;border-radius:50%;background:#7ee0a8;
+  box-shadow:0 0 0 0 rgba(126,224,168,.7);
+  animation:statusPulse 1.8s infinite;
+}
+@keyframes statusPulse{
+  0%{box-shadow:0 0 0 0 rgba(126,224,168,.6)}
+  70%{box-shadow:0 0 0 8px rgba(126,224,168,0)}
+  100%{box-shadow:0 0 0 0 rgba(126,224,168,0)}
+}
+[data-theme="light"] .about-intro strong{color:#5a3fd6 !important}
+.about-cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+.about-cta .btn{font-size:14px;padding:14px 24px}
 .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
 .stat{padding:18px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
 .stat .n{font-family:'Syne',sans-serif;font-weight:800;font-size:30px;background:var(--grad);-webkit-background-clip:text;color:transparent;line-height:1}
@@ -2320,6 +2358,82 @@ main,nav,section,footer{position:relative;z-index:2}
   background:linear-gradient(120deg,rgba(124,92,255,.16),rgba(255,92,177,.10));
   border-bottom-color:var(--accent);padding:1px 4px;border-radius:4px;
 }
+
+/* =====================================================================
+   PAIN SECTION
+   ===================================================================== */
+.pain-section{padding-top:80px}
+.pain-hook, .pain-personal{text-align:center;max-width:1080px;margin-inline:auto}
+.pain-hook .eyebrow, .pain-personal .eyebrow{justify-content:center}
+.pain-hook .h2, .pain-personal .h2{margin-top:18px}
+.pain-hook .muted, .pain-personal .muted{margin-top:14px;margin-bottom:36px;font-size:15px}
+.pain-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px;
+}
+.pain-card{
+  display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:14px;text-align:left;
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  font-size:13.5px;color:var(--text);font-weight:500;line-height:1.5;
+  transition:all var(--t-fast);
+}
+.pain-card:hover{border-color:rgba(124,92,255,.4);transform:translateY(-3px);box-shadow:0 8px 22px rgba(124,92,255,.14)}
+.pain-ico{font-size:24px;flex-shrink:0;line-height:1}
+.pain-cta{display:flex;flex-direction:column;align-items:center;gap:14px}
+.pain-tagline{
+  font-family:'Syne',sans-serif;font-size:17px;font-weight:600;color:var(--text);
+  letter-spacing:-.005em;margin-bottom:6px;
+}
+.pain-cta .btn{font-size:14px;padding:14px 26px}
+.pain-cta a + a{margin-top:4px}
+.pain-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:32px}
+.pain-tag{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
+  background:linear-gradient(140deg,rgba(124,92,255,.16),rgba(255,92,177,.08));
+  border:1px solid rgba(124,92,255,.35);color:var(--text);font-size:13.5px;font-weight:600;
+}
+.pain-tag .ic{font-size:15px}
+[data-theme="light"] .pain-card{background:linear-gradient(160deg,rgba(0,0,0,.02),rgba(0,0,0,.005));border-color:rgba(0,0,0,.08)}
+@media(max-width:1000px){.pain-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){
+  .pain-grid{grid-template-columns:1fr;gap:10px}
+  .pain-card{padding:13px 14px;font-size:13px}
+  .pain-tagline{font-size:15px}
+  .pain-cta .btn{width:100%;justify-content:center}
+}
+
+/* =====================================================================
+   MOBILE STICKY CTA (mobile-only)
+   ===================================================================== */
+.mobile-sticky-cta{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;
+  display:none;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top, rgba(7,7,14,.95) 50%, rgba(7,7,14,.7));
+  backdrop-filter:blur(12px);
+  border-top:1px solid rgba(124,92,255,.25);
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.7,.2,1);
+  pointer-events:none;
+}
+.mobile-sticky-cta.show{transform:translateY(0);pointer-events:auto}
+.mobile-sticky-cta .msc-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 20px;border-radius:12px;
+  background:var(--grad);color:#fff;text-decoration:none;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:.01em;
+  box-shadow:0 14px 36px rgba(124,92,255,.5);
+  transition:transform var(--t-fast);
+}
+.mobile-sticky-cta .msc-btn:active{transform:scale(.98)}
+.mobile-sticky-cta .msc-ico{font-size:17px;line-height:1}
+.mobile-sticky-cta .msc-arrow{font-size:17px;font-weight:800;margin-left:2px}
+[data-theme="light"] .mobile-sticky-cta{
+  background:linear-gradient(to top, rgba(255,255,255,.95) 50%, rgba(255,255,255,.7));
+  border-top-color:rgba(124,92,255,.2);
+}
+@media(max-width:780px){
+  .mobile-sticky-cta{display:block}
+}
 #demos-tabs.collapsed .demo-tab-btn.dim{display:none}
 .demos-expand{
   display:none;padding:8px 14px;border-radius:8px;border:1px solid rgba(124,92,255,.3);
@@ -2413,6 +2527,15 @@ main,nav,section,footer{position:relative;z-index:2}
   </div>
 </div>
 
+<!-- ======================== MOBILE STICKY CTA (mobile only) ======================== -->
+<div class="mobile-sticky-cta" id="mobile-cta" hidden>
+  <a href="#book" class="msc-btn">
+    <span class="msc-ico">💬</span>
+    <span class="msc-text" data-i18n="msc.text">Book Free AI Consultation</span>
+    <span class="msc-arrow">→</span>
+  </a>
+</div>
+
 <!-- ======================== BG / PARTICLES ======================== -->
 <div id="bg-canvas"></div>
 <canvas id="particles"></canvas>
@@ -2498,6 +2621,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <h1 class="h1" id="hero-title" style="margin-top:18px">
       <!-- words injected by JS for animation -->
     </h1>
+    <p class="hero-descriptor reveal" data-i18n="hero.descriptor">AI Systems That Automate Repetitive Business Work</p>
     <p class="hero-sub">
       <span id="typed"></span><span class="typing-cursor"></span>
     </p>
@@ -2603,6 +2727,51 @@ main,nav,section,footer{position:relative;z-index:2}
           <p data-i18n="services.s4.desc">針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。</p>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PAIN POINTS ======================== -->
+<section class="section pain-section" id="pain">
+  <div class="container">
+    <!-- Universal hook (no profile) -->
+    <div class="pain-hook reveal" id="pain-hook">
+      <div class="eyebrow" data-i18n="pain.eyebrow">YOUR DAILY PAIN</div>
+      <h2 class="h2"><span data-i18n="pain.title1">您而家係咪有</span> <span class="gradient-text" data-i18n="pain.title2">以下呢啲煩惱？</span></h2>
+      <p class="muted" data-i18n="pain.desc">如果有任何一樣中咗，AI 自動化就係為您而設。</p>
+
+      <div class="pain-grid">
+        <div class="pain-card"><span class="pain-ico">📨</span><span data-i18n="pain.b1">客戶 follow-up 嘅 email 寫到手軟？</span></div>
+        <div class="pain-card"><span class="pain-ico">📱</span><span data-i18n="pain.b2">每星期要出社交內容但諗到頭爆？</span></div>
+        <div class="pain-card"><span class="pain-ico">💬</span><span data-i18n="pain.b3">客服訊息積壓，回唔切又怕得罪客？</span></div>
+        <div class="pain-card"><span class="pain-ico">📊</span><span data-i18n="pain.b4">月底每次都因 report 加班到深夜？</span></div>
+        <div class="pain-card"><span class="pain-ico">📦</span><span data-i18n="pain.b5">幾個倉庫嘅庫存對唔上、出錯貨？</span></div>
+        <div class="pain-card"><span class="pain-ico">🌍</span><span data-i18n="pain.b6">外國客評論 / inquiry 要逐個翻譯？</span></div>
+        <div class="pain-card"><span class="pain-ico">⏰</span><span data-i18n="pain.b7">會議筆記寫到手抽筋，重點仲漏咗？</span></div>
+        <div class="pain-card"><span class="pain-ico">😩</span><span data-i18n="pain.b8">員工被重複工作壓住，做唔到真正生意？</span></div>
+      </div>
+
+      <div class="pain-cta">
+        <div class="pain-tagline" data-i18n="pain.tagline">Then let AI automate the process — 由今日開始。</div>
+        <a href="#book" class="btn btn-primary"><span data-i18n="pain.cta">Book Free Consultation</span> <span class="arrow">→</span></a>
+        <a href="#demos" class="btn btn-ghost" data-i18n="pain.cta2">See AI In Action ↓</a>
+      </div>
+    </div>
+
+    <!-- Personalised confirmation (profile set) -->
+    <div class="pain-personal reveal" id="pain-personal" hidden>
+      <div class="eyebrow" data-i18n="pain.peyebrow">PERSONALISED FOR YOU</div>
+      <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
+      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用嘅工具 — 已 filter 完。</p>
+
+      <div class="pain-tags" id="pain-tags">
+        <!-- Filled by JS: list of pain tags user picked -->
+      </div>
+
+      <div class="pain-cta">
+        <a href="#demos" class="btn btn-primary"><span data-i18n="pain.pcta">Try Live Demo</span> <span class="arrow">→</span></a>
+        <a href="#book" class="btn btn-ghost" data-i18n="pain.pcta2">Book Free Consultation</a>
+      </div>
     </div>
   </div>
 </section>
@@ -3454,14 +3623,28 @@ main,nav,section,footer{position:relative;z-index:2}
         </div>
       </div>
       <div class="about-text reveal">
-        <div class="eyebrow" data-i18n="about.eyebrow">ABOUT</div>
-        <h2 class="h2" style="margin-top:18px"><span data-i18n="about.title1">每一間企業都值得</span> <span class="gradient-text" data-i18n="about.title2">智能系統</span></h2>
-        <p data-i18n="about.p1">TBC Solutions 由 <strong>Grouper</strong> 創立，專注於為企業提供 <strong>AI 自動化解決方案</strong>。我們相信每一間企業都值得擁有智能系統，讓您專注於真正重要的事。</p>
-        <p data-i18n="about.p2">從工作流程設計到 AI 模型整合，我們以「Transform · Build · Create」為核心，把您的業務從繁瑣中解放，重新打造，並創造新的可能。</p>
+        <div class="eyebrow" data-i18n="about.eyebrow">ABOUT THE FOUNDER</div>
+        <h2 class="h2" style="margin-top:18px"><span data-i18n="about.title1">由我親自打造</span> <span class="gradient-text" data-i18n="about.title2">為您度身定做</span></h2>
+
+        <p class="about-intro" data-i18n="about.intro">Built by <strong>Grouper</strong> — an AI creator focused on helping small &amp; medium businesses automate repetitive workflows.</p>
+
+        <p data-i18n="about.p1">TBC Solutions 由 <strong>Grouper</strong> 一手創立，專注於 <strong>AI 自動化解決方案</strong>。我相信每一間企業都值得擁有屬於自己的智能系統，讓老闆和員工從繁瑣中解放，專注於真正重要的事。</p>
+
+        <p data-i18n="about.p2">為甚麼我特別熱愛 AI 自動化？因為我親眼見過太多中小企老闆，被重複性工作壓住，明明有更高價值的決策要做，卻被 email、報表、客戶跟進拖死。AI 不是要取代人，而是把人從機械工作中釋放出來，讓您做返真正屬於人的事 — 創造、判斷、建立關係。</p>
+
+        <div class="about-status">
+          <span class="status-dot"></span>
+          <span data-i18n="about.status">Currently building AI systems &amp; workflow demos for modern businesses</span>
+        </div>
+
         <div class="about-stats">
           <div class="stat"><div class="n">10+</div><div class="l" data-i18n="about.stat1">整合工具</div></div>
           <div class="stat"><div class="n">24/7</div><div class="l" data-i18n="about.stat2">自動運作</div></div>
           <div class="stat"><div class="n">∞</div><div class="l" data-i18n="about.stat3">無限可能</div></div>
+        </div>
+
+        <div class="about-cta">
+          <a href="#book" class="btn btn-primary"><span data-i18n="about.cta">同我傾一傾，免費</span> <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
@@ -3689,6 +3872,7 @@ const I18N = {
     "hero.title": ["從繁瑣事務中","解放出來"],
     "hero.typing":["為您打造 AI 自動化工作流程","用 AI 重塑您的網站與內容","Transform · Build · Create"],
     "hero.cta":"預約免費諮詢", "hero.cta2":"60 秒商業診斷 →", "hero.scroll":"向下滾動",
+    "hero.descriptor":"用 AI 自動化系統，把您從繁瑣重複的工作中解放出來",
     "tools.label":"我們熟悉的工具 · POWERED WITH",
     "services.eyebrow":"服務內容",
     "services.title1":"為您打造","services.title2":"智能商業未來",
@@ -3766,6 +3950,20 @@ const I18N = {
     "demo14.safety":"安全線 150",
     "demo14.alertsTitle":"AI 即時警示","demo14.live":"LIVE",
     "demo14.recsTitle":"AI 智能推薦行動","demo14.recsSub":"一鍵自動建立 n8n 工作流",
+    "pain.eyebrow":"YOUR DAILY PAIN",
+    "pain.title1":"您而家係咪有","pain.title2":"以下呢啲煩惱？",
+    "pain.desc":"如果有任何一樣中咗，AI 自動化就係為您而設。",
+    "pain.b1":"客戶 follow-up 嘅 email 寫到手軟？","pain.b2":"每星期要出社交內容但諗到頭爆？",
+    "pain.b3":"客服訊息積壓，回唔切又怕得罪客？","pain.b4":"月底每次都因 report 加班到深夜？",
+    "pain.b5":"幾個倉庫嘅庫存對唔上、出錯貨？","pain.b6":"外國客評論 / inquiry 要逐個翻譯？",
+    "pain.b7":"會議筆記寫到手抽筋，重點仲漏咗？","pain.b8":"員工被重複工作壓住，做唔到真正生意？",
+    "pain.tagline":"AI 可以幫您處理晒呢啲 — 由今日開始。",
+    "pain.cta":"預約免費諮詢","pain.cta2":"先睇 AI Demo ↓",
+    "pain.peyebrow":"PERSONALISED FOR YOU",
+    "pain.ptitle1":"我們已為您針對","pain.ptitle2":"配對方案",
+    "pain.pdesc":"下方 demo 區只顯示對您行業最有用嘅工具 — 已 filter 完。",
+    "pain.pcta":"即試方案 Demo","pain.pcta2":"預約免費諮詢",
+    "msc.text":"預約免費 AI 諮詢",
     "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
     "welcome.askIndustry":"您嘅公司屬於邊個行業？",
     "welcome.askName":"您嘅稱呼","welcome.optional":"（選填）",
@@ -3788,9 +3986,12 @@ const I18N = {
     "calc.hour":"小時","calc.perHour":"/小時","calc.month":"/ 月",
     "calc.resLabel":"每月可節省","calc.resSub":"這些時間可以用來：陪家人、開發新客戶、創造下一個產品。",
     "calc.equals":"≈","calc.cta":"為您打造這個方案",
-    "about.eyebrow":"關於我們","about.title1":"每一間企業都值得","about.title2":"智能系統",
-    "about.p1":"TBC Solutions 由 <strong>Grouper</strong> 創立，專注於為企業提供 <strong>AI 自動化解決方案</strong>。我們相信每一間企業都值得擁有智能系統，讓您專注於真正重要的事。",
-    "about.p2":"從工作流程設計到 AI 模型整合，我們以「Transform · Build · Create」為核心，把您的業務從繁瑣中解放，重新打造，並創造新的可能。",
+    "about.eyebrow":"關於創辦人","about.title1":"由我親自打造","about.title2":"為您度身定做",
+    "about.intro":"由 <strong>Grouper</strong> 親自打造 — 一位專注於幫中小企自動化重複性工作流程嘅 AI Creator。",
+    "about.p1":"TBC Solutions 由 <strong>Grouper</strong> 一手創立，專注於 <strong>AI 自動化解決方案</strong>。我相信每一間企業都值得擁有屬於自己嘅智能系統，讓老闆同員工從繁瑣中解放，專注於真正重要嘅事。",
+    "about.p2":"為甚麼我特別熱愛 AI 自動化？因為我親眼見過太多中小企老闆，被重複性工作壓住，明明有更高價值嘅決策要做，卻被 email、報表、客戶跟進拖死。AI 唔係要取代人，而係把人從機械工作中釋放出嚟，讓您做返真正屬於人嘅事 — 創造、判斷、建立關係。",
+    "about.status":"目前持續為現代企業打造 AI 系統同 workflow demos",
+    "about.cta":"同我傾一傾，免費",
     "about.role":"創辦人 · TBC Solutions",
     "about.stat1":"整合工具","about.stat2":"自動運作","about.stat3":"無限可能",
     "process.eyebrow":"PROCESS",
@@ -3851,6 +4052,7 @@ const I18N = {
     "hero.title":["Free yourself","from busywork"],
     "hero.typing":["AI workflows that run while you sleep","Websites & content, reimagined with AI","Transform · Build · Create"],
     "hero.cta":"Book a free call","hero.cta2":"60-sec business diagnosis →","hero.scroll":"SCROLL",
+    "hero.descriptor":"AI Systems That Automate Repetitive Business Work",
     "tools.label":"POWERED WITH",
     "services.eyebrow":"SERVICES",
     "services.title1":"Build the","services.title2":"intelligent business",
@@ -3928,6 +4130,20 @@ const I18N = {
     "demo14.safety":"Safety line 150",
     "demo14.alertsTitle":"AI Real-time Alerts","demo14.live":"LIVE",
     "demo14.recsTitle":"AI Recommended Actions","demo14.recsSub":"One-click n8n workflow setup",
+    "pain.eyebrow":"YOUR DAILY PAIN",
+    "pain.title1":"Are you facing","pain.title2":"any of these problems?",
+    "pain.desc":"If any of these hit home, AI automation is built for you.",
+    "pain.b1":"Customer follow-up emails endlessly piling up?","pain.b2":"Struggling to push out weekly social content?",
+    "pain.b3":"Support tickets backlogged, losing customers?","pain.b4":"Stuck till midnight every month-end on reports?",
+    "pain.b5":"Inventory mismatch across warehouses, shipping wrong items?","pain.b6":"Foreign customer reviews / inquiries piling up untranslated?",
+    "pain.b7":"Hand-cramping meeting notes — and still missing key points?","pain.b8":"Team drowning in repetitive admin, no time for real work?",
+    "pain.tagline":"Let AI handle all of this — starting today.",
+    "pain.cta":"Book Free Consultation","pain.cta2":"See AI In Action ↓",
+    "pain.peyebrow":"PERSONALISED FOR YOU",
+    "pain.ptitle1":"We've matched solutions for","pain.ptitle2":"",
+    "pain.pdesc":"The demos below only show tools most useful for your industry — already filtered.",
+    "pain.pcta":"Try Live Demo","pain.pcta2":"Book Free Consultation",
+    "msc.text":"Book Free AI Consultation",
     "welcome.tagline":"Let AI tailor a plan for your business 🎯",
     "welcome.askIndustry":"What industry are you in?",
     "welcome.askName":"What should we call you?","welcome.optional":"(optional)",
@@ -3950,9 +4166,12 @@ const I18N = {
     "calc.hour":"hrs","calc.perHour":"/ hr","calc.month":"/ month",
     "calc.resLabel":"Saved every month","calc.resSub":"Use that time for: family, new clients, building the next thing.",
     "calc.equals":"≈","calc.cta":"Build this for me",
-    "about.eyebrow":"ABOUT","about.title1":"Every business deserves","about.title2":"an intelligent system",
-    "about.p1":"TBC Solutions was founded by <strong>Grouper</strong> to bring <strong>AI automation</strong> within reach of every business — so you can focus on what truly matters.",
-    "about.p2":"From workflow design to AI model integration, we live by Transform · Build · Create — freeing your business from busywork, rebuilding it, and creating what's next.",
+    "about.eyebrow":"ABOUT THE FOUNDER","about.title1":"Built by hand","about.title2":"tailored for you",
+    "about.intro":"Built by <strong>Grouper</strong> — an AI creator focused on helping small &amp; medium businesses automate repetitive workflows.",
+    "about.p1":"TBC Solutions was founded by <strong>Grouper</strong>, focused on <strong>AI automation solutions</strong>. I believe every business deserves its own intelligent system — freeing owners and staff from busywork so they can focus on what truly matters.",
+    "about.p2":"Why am I obsessed with AI automation? Because I've watched too many SME owners get crushed by repetitive work — they have high-value decisions to make, but they're dragged down by email, reports, and follow-ups. AI isn't here to replace people; it's here to free people from the mechanical so we can do what's truly human — create, judge, build relationships.",
+    "about.status":"Currently building AI systems & workflow demos for modern businesses",
+    "about.cta":"Talk to me, free",
     "about.role":"FOUNDER · TBC Solutions",
     "about.stat1":"Tools integrated","about.stat2":"Always-on","about.stat3":"Possibilities",
     "process.eyebrow":"PROCESS",
@@ -4337,6 +4556,7 @@ function applyProfile(profile){
     resetHeroFromI18N();
     resetDemoTabsFromProfile();
     resetCalcFromProfile();
+    resetPainFromProfile();
     return;
   }
 
@@ -4384,6 +4604,64 @@ function applyProfile(profile){
 
   // 4) ROI calculator pre-fill
   applyCalcForProfile(profile);
+
+  // 5) Pain section — switch to personalised confirmation
+  applyPainForProfile(profile);
+}
+
+const PAIN_LABEL_ZH = {
+  "follow-up":"客戶跟進","content":"內容產出","report":"報表整理",
+  "warehouse":"倉庫管理","support":"客服回覆","sales":"銷售跟進",
+  "translate":"翻譯溝通","review":"評論回覆",
+};
+const PAIN_LABEL_EN = {
+  "follow-up":"Customer follow-up","content":"Content output","report":"Reporting",
+  "warehouse":"Warehouse ops","support":"Customer support","sales":"Sales follow-up",
+  "translate":"Translation","review":"Review reply",
+};
+const PAIN_ICO = {
+  "follow-up":"📨","content":"📱","report":"📊",
+  "warehouse":"📦","support":"💬","sales":"💼",
+  "translate":"🌍","review":"⭐",
+};
+function applyPainForProfile(profile){
+  const hook = document.getElementById("pain-hook");
+  const personal = document.getElementById("pain-personal");
+  const tagsRoot = document.getElementById("pain-tags");
+  const indLabel = document.getElementById("pain-industry-label");
+  if(!hook || !personal) return;
+
+  const pains = (profile.pains && profile.pains.length)
+    ? profile.pains
+    : (INDUSTRY_DEFAULT_PAINS[profile.industry] || []);
+  if(!pains.length){
+    // No pains derivable — show generic hook
+    hook.hidden = false;
+    personal.hidden = true;
+    return;
+  }
+  // Show personalised, hide hook
+  hook.hidden = true;
+  personal.hidden = false;
+  // Label industry
+  if(indLabel){
+    indLabel.textContent = profile.industry
+      ? (currentLang === "zh" ? `${profile.industry}業` : profile.industry)
+      : (currentLang === "zh" ? "您的業務" : "your business");
+  }
+  // Render pain tags
+  if(tagsRoot){
+    const labels = currentLang === "zh" ? PAIN_LABEL_ZH : PAIN_LABEL_EN;
+    tagsRoot.innerHTML = pains.map(p => `
+      <div class="pain-tag"><span class="ic">${PAIN_ICO[p] || "✓"}</span><span>${labels[p] || p}</span></div>
+    `).join("");
+  }
+}
+function resetPainFromProfile(){
+  const hook = document.getElementById("pain-hook");
+  const personal = document.getElementById("pain-personal");
+  if(hook) hook.hidden = false;
+  if(personal) personal.hidden = true;
 }
 
 function resetHeroFromI18N(){
@@ -4631,6 +4909,42 @@ function submitWelcome(){
     }
     btn.querySelector("span:last-child").textContent = collapsed ? "↓" : "↑";
   });
+})();
+
+/* ----------------- MOBILE STICKY CTA ----------------- */
+(function bindMobileSticky(){
+  const cta = document.getElementById("mobile-cta");
+  if(!cta) return;
+  cta.hidden = false; // CSS media query gates desktop hide
+  let isShown = false;
+  function update(){
+    const isMobile = window.matchMedia("(max-width: 780px)").matches;
+    if(!isMobile){
+      if(isShown){ cta.classList.remove("show"); isShown = false; }
+      return;
+    }
+    const scrollY = window.scrollY || window.pageYOffset;
+    const hero = document.getElementById("top");
+    const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 600;
+    const book = document.getElementById("book");
+    const bookTop = book ? book.getBoundingClientRect().top + scrollY : Infinity;
+    // Show when scrolled past hero AND book section not yet in viewport
+    const viewportBottom = scrollY + window.innerHeight;
+    const shouldShow = scrollY > heroBottom * 0.6 && viewportBottom < bookTop + 200;
+    if(shouldShow !== isShown){
+      cta.classList.toggle("show", shouldShow);
+      isShown = shouldShow;
+    }
+  }
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if(!ticking){
+      requestAnimationFrame(() => { update(); ticking = false; });
+      ticking = true;
+    }
+  }, {passive:true});
+  window.addEventListener("resize", update, {passive:true});
+  setTimeout(update, 300);
 })();
 
 /* ----------------- BOOT: decide initial flow ----------------- */
