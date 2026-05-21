@@ -2114,9 +2114,304 @@ main,nav,section,footer{position:relative;z-index:2}
   .wf-arrow{font-size:14px}
   .preview-cards{grid-template-columns:repeat(3,1fr)}
 }
+
+/* =====================================================================
+   WELCOME PAGE (first visit; fullscreen)
+   ===================================================================== */
+.welcome{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#07070a 0%,#0d0d1a 60%,#1a0d20 100%);
+  overflow:hidden;opacity:1;transition:opacity .6s ease;
+}
+.welcome.hidden{display:none}
+.welcome.leaving{opacity:0;pointer-events:none}
+
+.welcome-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.welcome-orb{
+  position:absolute;border-radius:50%;filter:blur(60px);opacity:.6;
+  animation:welOrb 14s ease-in-out infinite alternate;
+}
+.welcome-orb.o1{width:520px;height:520px;background:radial-gradient(circle,rgba(124,92,255,.55),transparent 70%);top:-10%;left:-5%}
+.welcome-orb.o2{width:480px;height:480px;background:radial-gradient(circle,rgba(255,92,177,.45),transparent 70%);bottom:-10%;right:-10%;animation-delay:-3s}
+.welcome-orb.o3{width:420px;height:420px;background:radial-gradient(circle,rgba(92,215,255,.40),transparent 70%);top:40%;left:50%;animation-delay:-7s}
+@keyframes welOrb{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(60px,-40px) scale(1.15)}
+}
+
+.welcome-skip{
+  position:absolute;top:24px;right:24px;z-index:2;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.78);font-family:inherit;font-size:12px;font-weight:600;
+  letter-spacing:.03em;padding:9px 16px;border-radius:999px;cursor:pointer;
+  transition:all var(--t-fast);
+}
+.welcome-skip:hover{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.28)}
+
+.welcome-inner{
+  position:relative;z-index:1;width:100%;max-width:680px;padding:48px 32px;
+  display:flex;flex-direction:column;align-items:center;gap:36px;text-align:center;
+  animation:welFadeIn .65s cubic-bezier(.2,.7,.2,1) .1s both;
+}
+@keyframes welFadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.welcome-brand{display:flex;flex-direction:column;align-items:center;gap:14px}
+.welcome-mascot svg{display:block;filter:drop-shadow(0 12px 36px rgba(124,92,255,.5))}
+.welcome-mascot .wel-fish-g{transform-origin:130px 115px;animation:welFish 1.8s cubic-bezier(.2,.7,.2,1) .2s both}
+.welcome-mascot .wel-line, .welcome-mascot .wel-hook{animation:welLine .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes welFish{
+  from{opacity:0;transform:translateX(80px) scale(.85) rotate(-8deg)}
+  60%{opacity:1;transform:translateX(-8px) scale(1.05) rotate(3deg)}
+  to{opacity:1;transform:translateX(0) scale(1) rotate(0deg)}
+}
+@keyframes welLine{from{opacity:0}to{opacity:.85}}
+.welcome-mascot .wel-spark{animation:welSpark 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.welcome-mascot .s1{animation-delay:.3s}
+.welcome-mascot .s2{animation-delay:.6s}
+.welcome-mascot .s3{animation-delay:.9s}
+.welcome-mascot .s4{animation-delay:.45s}
+@keyframes welSpark{
+  0%,100%{opacity:.2;transform:scale(.6)}
+  50%{opacity:1;transform:scale(1.5)}
+}
+
+.welcome-logo{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:46px;letter-spacing:-.02em;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:welFadeUp .65s cubic-bezier(.2,.7,.2,1) .35s both;line-height:1;
+}
+.welcome-logo span{
+  font-weight:600;font-size:28px;color:rgba(255,255,255,.85);
+  background:none;-webkit-background-clip:initial;background-clip:initial;-webkit-text-fill-color:initial;
+  margin-left:8px;letter-spacing:0;
+}
+.welcome-slogan{
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:.32em;
+  color:rgba(255,255,255,.6);text-transform:uppercase;
+  animation:welFadeUp .65s cubic-bezier(.2,.7,.2,1) .5s both;
+}
+.welcome-tagline{
+  font-size:16px;color:rgba(255,255,255,.82);font-weight:500;line-height:1.6;
+  animation:welFadeUp .65s cubic-bezier(.2,.7,.2,1) .65s both;
+}
+@keyframes welFadeUp{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Form */
+.welcome-form{
+  width:100%;display:flex;flex-direction:column;gap:22px;
+  animation:welFadeUp .65s cubic-bezier(.2,.7,.2,1) .85s both;
+}
+.welcome-field{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
+.welcome-label{
+  font-size:13.5px;font-weight:600;color:rgba(255,255,255,.78);letter-spacing:.01em;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.welcome-optional{font-weight:500;font-size:11.5px;color:rgba(255,255,255,.45)}
+
+.welcome-chips{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:560px;
+}
+.wel-chip{
+  padding:13px 12px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.92);font-family:inherit;font-size:13px;font-weight:500;
+  cursor:pointer;transition:all var(--t-fast);letter-spacing:.005em;
+  text-align:center;line-height:1.3;
+}
+.wel-chip:hover{border-color:rgba(124,92,255,.5);background:rgba(124,92,255,.10);transform:translateY(-2px)}
+.wel-chip.checked{
+  background:var(--grad);border-color:transparent;color:#fff;font-weight:700;
+  box-shadow:0 10px 28px rgba(124,92,255,.45);transform:translateY(-2px);
+}
+
+.welcome-input{
+  width:100%;max-width:340px;padding:13px 16px;border-radius:12px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+  color:#fff;font-family:inherit;font-size:14px;text-align:center;
+  transition:all var(--t-fast);
+}
+.welcome-input:focus{outline:none;border-color:rgba(124,92,255,.6);background:rgba(124,92,255,.06);box-shadow:0 0 0 4px rgba(124,92,255,.18)}
+.welcome-input::placeholder{color:rgba(255,255,255,.35)}
+
+.welcome-enter{
+  margin-top:8px;padding:16px 36px;border-radius:12px;border:0;
+  background:var(--grad);color:#fff;font-family:inherit;font-size:14.5px;font-weight:700;
+  letter-spacing:.02em;cursor:pointer;transition:all var(--t-fast);
+  box-shadow:0 14px 40px rgba(124,92,255,.45);
+  opacity:1;
+}
+.welcome-enter:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.welcome-enter:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 18px 48px rgba(124,92,255,.55)}
+.welcome-hint{font-size:11.5px;color:rgba(255,255,255,.55);font-weight:500;margin-top:-6px}
+.welcome-hint.ready{color:#7ee0a8}
+
+[data-theme="light"] .welcome{background:linear-gradient(180deg,#f6f5fa 0%,#ebe9f5 60%,#f0e6ec 100%)}
+[data-theme="light"] .welcome-logo span{color:#1a1a26}
+[data-theme="light"] .welcome-slogan{color:rgba(26,26,38,.6)}
+[data-theme="light"] .welcome-tagline{color:rgba(26,26,38,.8)}
+[data-theme="light"] .welcome-label{color:rgba(26,26,38,.75)}
+[data-theme="light"] .welcome-optional{color:rgba(26,26,38,.45)}
+[data-theme="light"] .wel-chip{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.10);color:#1a1a26}
+[data-theme="light"] .wel-chip:hover{background:rgba(124,92,255,.08)}
+[data-theme="light"] .welcome-input{background:rgba(0,0,0,.025);border-color:rgba(0,0,0,.10);color:#1a1a26}
+[data-theme="light"] .welcome-input::placeholder{color:rgba(26,26,38,.35)}
+[data-theme="light"] .welcome-skip{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.12);color:rgba(26,26,38,.7)}
+
+@keyframes wzShake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-4px)}
+  50%{transform:translateX(4px)}
+  75%{transform:translateX(-2px)}
+}
+
+@media(max-width:720px){
+  .welcome-chips{grid-template-columns:repeat(2,1fr)}
+  .welcome-logo{font-size:38px}
+  .welcome-logo span{font-size:22px}
+  .welcome-tagline{font-size:14px}
+  .welcome-mascot svg{width:130px;height:108px}
+  .welcome-inner{padding:36px 22px;gap:28px}
+}
+@media(max-width:380px){
+  .welcome-chips{grid-template-columns:1fr 1fr;gap:8px}
+  .wel-chip{padding:11px 8px;font-size:12px}
+  .welcome-skip{font-size:11px;padding:7px 12px}
+}
+
+/* =====================================================================
+   NAV PROFILE BADGE
+   ===================================================================== */
+.nav-profile{
+  display:none;align-items:center;gap:8px;
+  padding:6px 12px 6px 10px;border-radius:999px;
+  background:linear-gradient(140deg,rgba(124,92,255,.18),rgba(255,92,177,.10));
+  border:1px solid rgba(124,92,255,.35);
+  color:var(--text);font-family:inherit;font-size:12.5px;font-weight:600;letter-spacing:.01em;
+  cursor:pointer;transition:all var(--t-fast);margin-right:10px;
+}
+.nav-profile.show{display:inline-flex}
+.nav-profile:hover{border-color:rgba(124,92,255,.55);background:linear-gradient(140deg,rgba(124,92,255,.25),rgba(255,92,177,.15))}
+.nav-profile .np-ico{font-size:13px}
+.nav-profile .np-reset{
+  font-size:10.5px;opacity:.7;font-weight:500;
+}
+
+/* =====================================================================
+   DEMO TABS — collapse non-relevant
+   ===================================================================== */
+.demo-tab-btn.dim{opacity:.4;transition:opacity var(--t-fast)}
+.demo-tab-btn.dim:hover{opacity:.85}
+.demo-tab-btn.hidden-by-profile{display:none !important}
+.demo-slide.hidden-by-profile{display:none !important}
+.area-chip.hidden-by-profile{display:none !important}
+.faq-link{
+  color:var(--accent);text-decoration:none;font-weight:700;
+  border-bottom:1px solid rgba(124,92,255,.4);
+  transition:all var(--t-fast);
+}
+.faq-link:hover{
+  background:linear-gradient(120deg,rgba(124,92,255,.16),rgba(255,92,177,.10));
+  border-bottom-color:var(--accent);padding:1px 4px;border-radius:4px;
+}
+#demos-tabs.collapsed .demo-tab-btn.dim{display:none}
+.demos-expand{
+  display:none;padding:8px 14px;border-radius:8px;border:1px solid rgba(124,92,255,.3);
+  background:rgba(124,92,255,.06);color:var(--text);font-family:inherit;font-size:12.5px;font-weight:600;
+  cursor:pointer;transition:all var(--t-fast);white-space:nowrap;
+}
+.demos-expand.show{display:inline-flex;align-items:center;gap:6px}
+.demos-expand:hover{background:rgba(124,92,255,.14);border-color:rgba(124,92,255,.5)}
 </style>
 </head>
 <body class="lang-zh">
+
+<!-- ======================== WELCOME PAGE (first visit) ======================== -->
+<div id="welcome" class="welcome hidden" aria-hidden="true">
+  <div class="welcome-bg" aria-hidden="true">
+    <div class="welcome-orb o1"></div>
+    <div class="welcome-orb o2"></div>
+    <div class="welcome-orb o3"></div>
+  </div>
+
+  <button class="welcome-skip" id="welcome-skip" type="button" data-i18n="welcome.skip">跳過 · 睇晒所有方案 →</button>
+
+  <div class="welcome-inner">
+    <!-- Logo + mascot animation -->
+    <div class="welcome-brand">
+      <div class="welcome-mascot" aria-hidden="true">
+        <svg viewBox="0 0 220 180" width="160" height="130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wel-fish" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7c5cff"/>
+              <stop offset="100%" stop-color="#ff5cb1"/>
+            </linearGradient>
+            <linearGradient id="wel-tail" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#5cd7ff"/>
+              <stop offset="100%" stop-color="#7c5cff"/>
+            </linearGradient>
+          </defs>
+          <path class="wel-line" d="M70 6 L70 80" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+          <path class="wel-hook" d="M70 80 q0 16 14 18 q14 2 14 -10" stroke="rgba(255,255,255,.6)" stroke-width="1.6" fill="none"/>
+          <g class="wel-fish-g">
+            <ellipse cx="130" cy="115" rx="58" ry="28" fill="url(#wel-fish)"/>
+            <path d="M188 115 q14 -22 26 -22 v44 q-12 0 -26 -22 z" fill="url(#wel-tail)"/>
+            <circle cx="106" cy="108" r="4" fill="#fff"/>
+            <circle cx="105" cy="107" r="2" fill="#1a1a26"/>
+            <path d="M120 90 q10 -14 26 -8 q-6 8 -8 16 z" fill="rgba(255,255,255,.22)"/>
+            <path d="M120 140 q8 12 22 8 q-6 -8 -6 -14 z" fill="rgba(255,255,255,.18)"/>
+          </g>
+          <circle class="wel-spark s1" cx="40"  cy="50"  r="2.2" fill="#fff"/>
+          <circle class="wel-spark s2" cx="180" cy="40"  r="1.6" fill="#fff"/>
+          <circle class="wel-spark s3" cx="200" cy="80"  r="2.4" fill="#fff"/>
+          <circle class="wel-spark s4" cx="30"  cy="120" r="1.8" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="welcome-logo">TBC <span>Solutions</span></div>
+      <div class="welcome-slogan">Transform · Build · Create</div>
+      <div class="welcome-tagline" data-i18n="welcome.tagline">讓 AI 為您度身打造方案 🎯</div>
+    </div>
+
+    <!-- Form -->
+    <div class="welcome-form">
+      <!-- Industry -->
+      <div class="welcome-field">
+        <label class="welcome-label" data-i18n="welcome.askIndustry">您嘅公司屬於邊個行業？</label>
+        <div class="welcome-chips" id="welcome-industries">
+          <button class="wel-chip" data-ind="餐飲" data-i18n="welcome.i1" type="button">🍱 餐飲</button>
+          <button class="wel-chip" data-ind="零售" data-i18n="welcome.i2" type="button">🛍️ 零售 / 電商</button>
+          <button class="wel-chip" data-ind="專業服務" data-i18n="welcome.i3" type="button">💼 專業服務</button>
+          <button class="wel-chip" data-ind="教育" data-i18n="welcome.i4" type="button">🎓 教育培訓</button>
+          <button class="wel-chip" data-ind="科技" data-i18n="welcome.i5" type="button">💻 科技 / SaaS</button>
+          <button class="wel-chip" data-ind="醫美" data-i18n="welcome.i6" type="button">💆 醫美 / 健康</button>
+          <button class="wel-chip" data-ind="物流" data-i18n="welcome.i7" type="button">📦 物流 / 倉儲</button>
+          <button class="wel-chip" data-ind="創意" data-i18n="welcome.i8" type="button">🎨 創意 / 設計</button>
+        </div>
+      </div>
+
+      <!-- Name (optional) -->
+      <div class="welcome-field">
+        <label class="welcome-label" for="welcome-name">
+          <span data-i18n="welcome.askName">您嘅稱呼</span>
+          <span class="welcome-optional" data-i18n="welcome.optional">（選填）</span>
+        </label>
+        <input type="text" id="welcome-name" class="welcome-input" placeholder="陳生 / Anna / ..." maxlength="40" autocomplete="off" />
+      </div>
+
+      <!-- Enter button -->
+      <button class="welcome-enter" id="welcome-enter" type="button" disabled>
+        <span data-i18n="welcome.enter">進入網站 →</span>
+      </button>
+      <div class="welcome-hint" id="welcome-hint" data-i18n="welcome.hint">先揀一個行業，AI 即時為您度身打造方案</div>
+    </div>
+  </div>
+</div>
 
 <!-- ======================== BG / PARTICLES ======================== -->
 <div id="bg-canvas"></div>
@@ -2145,6 +2440,11 @@ main,nav,section,footer{position:relative;z-index:2}
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
+    <button class="nav-profile" id="nav-profile" type="button" aria-label="Reset profile">
+      <span class="np-ico">📍</span>
+      <span class="np-label" id="np-label">行業</span>
+      <span class="np-reset" data-i18n="nav.reset">重新診斷</span>
+    </button>
     <button class="theme-toggle" id="theme-toggle" aria-label="切換主題 / Toggle theme" title="切換淺色 / 深色">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -2332,6 +2632,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
       <button class="demo-tab-btn"        data-slide="13"><span class="num">13</span> <span data-i18n="demo14.tabLabel">倉庫 Dashboard</span></button>
       <button class="demo-tab-btn active" data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
+      <button class="demos-expand" id="demos-expand" type="button"><span data-i18n="demos.expand">睇晒 14 個方案</span> <span>↓</span></button>
     </div>
 
     <div class="demos-carousel-wrap reveal">
@@ -3277,6 +3578,11 @@ main,nav,section,footer{position:relative;z-index:2}
         <button class="faq-q"><span class="q-text" data-i18n="faq.q8">適合哪些行業？</span><span class="ic">+</span></button>
         <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a8">我們合作過的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。</div></div>
       </div>
+
+      <div class="faq-item">
+        <button class="faq-q"><span class="q-text" data-i18n="faq.q9">如果搵唔到我相關嘅領域呢？</span><span class="ic">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a9">完全冇問題！呢個網站列出嘅只係常見行業 — AI 自動化嘅應用範圍其實遠遠唔止呢幾個。每個業務都有獨特嘅流程、痛點、同自動化機會，最直接嘅做法係 <a href="#book" class="faq-link">即刻預約一個 30 分鐘免費諮詢</a>，我哋一齊傾下你嘅情況，睇下有冇合作可能性。即使最後我哋覺得 AI 對你公司未係最佳時機，我哋都會誠實咁話畀你聽，唔會 hard sell。</div></div>
+      </div>
     </div>
 
     <div class="faq-cta-row reveal">
@@ -3460,6 +3766,16 @@ const I18N = {
     "demo14.safety":"安全線 150",
     "demo14.alertsTitle":"AI 即時警示","demo14.live":"LIVE",
     "demo14.recsTitle":"AI 智能推薦行動","demo14.recsSub":"一鍵自動建立 n8n 工作流",
+    "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
+    "welcome.askIndustry":"您嘅公司屬於邊個行業？",
+    "welcome.askName":"您嘅稱呼","welcome.optional":"（選填）",
+    "welcome.enter":"進入網站 →","welcome.skip":"跳過 · 睇晒所有方案 →",
+    "welcome.hint":"先揀一個行業，AI 即時為您度身打造方案",
+    "welcome.hintReady":"✓ 已 match 您行業嘅 AI 方案",
+    "welcome.i1":"🍱 餐飲","welcome.i2":"🛍️ 零售 / 電商","welcome.i3":"💼 專業服務","welcome.i4":"🎓 教育培訓",
+    "welcome.i5":"💻 科技 / SaaS","welcome.i6":"💆 醫美 / 健康","welcome.i7":"📦 物流 / 倉儲","welcome.i8":"🎨 創意 / 設計",
+    "nav.reset":"重新診斷",
+    "demos.expand":"睇晒所有方案","demos.collapse":"只睇相關方案",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
     "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
@@ -3517,6 +3833,8 @@ const I18N = {
     "faq.a7":"我們每個 project 在 kickoff 時都會釐清成功指標（例如：每月節省 X 小時、回覆速度提升 Y%、訂單轉換率上升 Z%）。如果交付的系統未達標，我們會免費修正直至達標。我們對自己的 deliverables 有信心。",
     "faq.q8":"適合哪些行業？",
     "faq.a8":"我們合作過的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。",
+    "faq.q9":"如果搵唔到我相關嘅領域呢？",
+    "faq.a9":"完全冇問題！呢個網站列出嘅只係常見行業 — AI 自動化嘅應用範圍其實遠遠唔止呢幾個。每個業務都有獨特嘅流程、痛點、同自動化機會，最直接嘅做法係 <a href=\"#book\" class=\"faq-link\">即刻預約一個 30 分鐘免費諮詢</a>，我哋一齊傾下你嘅情況，睇下有冇合作可能性。即使最後我哋覺得 AI 對你公司未係最佳時機，我哋都會誠實咁話畀你聽，唔會 hard sell。",
     "faq.ctaText":"還有其他問題？最快的方法是直接談。",
     "faq.ctaBtn":"免費諮詢 30 分鐘 →",
     "book.eyebrow":"預約諮詢","book.title1":"準備好了嗎？","book.title2":"預約免費諮詢",
@@ -3610,6 +3928,16 @@ const I18N = {
     "demo14.safety":"Safety line 150",
     "demo14.alertsTitle":"AI Real-time Alerts","demo14.live":"LIVE",
     "demo14.recsTitle":"AI Recommended Actions","demo14.recsSub":"One-click n8n workflow setup",
+    "welcome.tagline":"Let AI tailor a plan for your business 🎯",
+    "welcome.askIndustry":"What industry are you in?",
+    "welcome.askName":"What should we call you?","welcome.optional":"(optional)",
+    "welcome.enter":"Enter site →","welcome.skip":"Skip · browse all solutions →",
+    "welcome.hint":"Pick an industry — AI matches solutions instantly",
+    "welcome.hintReady":"✓ Matched the AI solutions for your industry",
+    "welcome.i1":"🍱 F&B","welcome.i2":"🛍️ Retail / e-commerce","welcome.i3":"💼 Professional services","welcome.i4":"🎓 Education",
+    "welcome.i5":"💻 Tech / SaaS","welcome.i6":"💆 Medical / Wellness","welcome.i7":"📦 Logistics","welcome.i8":"🎨 Creative / Design",
+    "nav.reset":"Re-diagnose",
+    "demos.expand":"See all solutions","demos.collapse":"Show relevant only",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"Real time and cost","impact.title2":"saved.",
     "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
@@ -3665,6 +3993,8 @@ const I18N = {
     "faq.a6":"Yes. We provide complete documentation + handover training — credentials, flow diagrams, operational logic, and SOPs all transferred to you. If you'd rather we handle ongoing support, choose a monthly maintenance plan (priority handling + system health monitoring) or pay-as-you-go.",
     "faq.q7":"What if it doesn't work?",
     "faq.a7":"Every project has clear success metrics defined at kickoff (e.g., X hours saved monthly, Y% faster response, Z% conversion lift). If delivery doesn't meet those metrics, we fix it free until it does. We back our work.",
+    "faq.q9":"My industry isn't on your list. Can you still help?",
+    "faq.a9":"Absolutely. The industries we list are just common ones — AI automation goes far beyond. Every business has unique processes, pain points and automation opportunities. The most direct way to find out: <a href=\"#book\" class=\"faq-link\">book a free 30-minute chat</a> and we'll talk through your situation and see if there's a fit. Even if we feel AI isn't the right move for you yet, we'll tell you honestly — no hard sell.",
     "faq.q8":"Which industries do you work with?",
     "faq.a8":"We've worked across F&B, retail / e-commerce, education, professional services (legal / accounting / consulting), creative studios, real estate, aesthetics, and SaaS startups. Any business with repetitive workflows, high customer-message volume, or content-at-scale needs is a fit for AI.",
     "faq.ctaText":"Got more questions? Quickest way is to talk.",
@@ -3864,6 +4194,12 @@ function applyLang(lang){
   buildHeroTitle();
   startTyping();
 
+  // Re-apply profile so personalised hero copy / demo dim / ROI prefill
+  // get re-translated. (Returns early if no profile.)
+  if(typeof applyProfile === "function" && CURRENT_PROFILE){
+    applyProfile(CURRENT_PROFILE);
+  }
+
   // When the user actively switches language, reset every demo so that
   // any rendered output (which has no data-i18n) is regenerated in the new
   // language, and re-trigger the auto-play preview for the visible slide.
@@ -3903,6 +4239,417 @@ function applyTheme(theme){
 document.getElementById("theme-toggle").addEventListener("click", ()=>{
   applyTheme(currentTheme === "dark" ? "light" : "dark");
 });
+
+/* ===========================================================
+   PROFILE STATE + WELCOME PAGE
+   First-visit flow: welcome page (logo + industry + name) →
+   personalised main site. Skippable. localStorage persists
+   profile so returning visitors land directly on personalised state.
+   =========================================================== */
+const PROFILE_KEY = "tbc-profile-v2";
+
+// Industry → personalisation rules
+const INDUSTRY_HERO = {
+  zh: {
+    "餐飲":   ["為餐飲業","量身打造嘅 AI 方案"],
+    "零售":   ["為零售與電商","度身打造嘅 AI 方案"],
+    "專業服務":["為專業服務","度身打造嘅 AI 方案"],
+    "教育":   ["為教育培訓","度身打造嘅 AI 方案"],
+    "科技":   ["為科技與 SaaS","度身打造嘅 AI 方案"],
+    "醫美":   ["為醫美與健康","度身打造嘅 AI 方案"],
+    "物流":   ["為物流與倉儲","度身打造嘅 AI 方案"],
+    "創意":   ["為創意與設計","度身打造嘅 AI 方案"],
+  },
+  en: {
+    "餐飲":   ["AI solutions","tailored for F&B"],
+    "零售":   ["AI solutions","tailored for retail & e-commerce"],
+    "專業服務":["AI solutions","tailored for professional services"],
+    "教育":   ["AI solutions","tailored for education"],
+    "科技":   ["AI solutions","tailored for tech & SaaS"],
+    "醫美":   ["AI solutions","tailored for medical & wellness"],
+    "物流":   ["AI solutions","tailored for logistics"],
+    "創意":   ["AI solutions","tailored for creative & design"],
+  },
+};
+
+// Pain → demo idx — tight mapping (only highly relevant demos per pain)
+const PAIN_DEMO_MAP = {
+  "follow-up": [5],         // Demo 6 sales follow-up
+  "content":   [3, 10],     // Demo 4 content + Demo 11 product copy
+  "report":    [6],         // Demo 7 meeting notes
+  "warehouse": [13, 11],    // Dashboard + Demo 12 warehouse routing
+  "support":   [1],         // Demo 2 chat
+  "sales":     [5, 4],      // Demo 6 follow-up + Demo 5 intent analyser
+  "translate": [7],         // Demo 8 translation
+  "review":    [8],         // Demo 9 review reply
+};
+
+// Industry default pains (used when user only picks industry, skips pain step)
+const INDUSTRY_DEFAULT_PAINS = {
+  "餐飲":   ["follow-up","review","content"],
+  "零售":   ["content","sales","review"],
+  "專業服務":["follow-up","report","sales"],
+  "教育":   ["content","follow-up","translate"],
+  "科技":   ["report","content","sales"],
+  "醫美":   ["follow-up","content","review"],
+  "物流":   ["warehouse","report","follow-up"],
+  "創意":   ["content","follow-up","translate"],
+};
+
+// Pain → ROI calculator area chip (data-area attr)
+const PAIN_TO_CALC_AREA = {
+  "follow-up":"email",
+  "content":"content",
+  "report":"report",
+  "warehouse":"report",
+  "support":"support",
+  "sales":"sales",
+  "translate":"translate",
+  "review":"review",
+};
+
+let CURRENT_PROFILE = null;
+
+function loadProfile(){
+  try{
+    const raw = localStorage.getItem(PROFILE_KEY);
+    if(!raw) return null;
+    const p = JSON.parse(raw);
+    if(!p || typeof p !== "object") return null;
+    return p;
+  }catch(e){ return null; }
+}
+function saveProfile(p){
+  try{ localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); }catch(e){}
+}
+function clearProfile(){
+  try{ localStorage.removeItem(PROFILE_KEY); }catch(e){}
+}
+
+function applyProfile(profile){
+  CURRENT_PROFILE = profile;
+  const navProfile = document.getElementById("nav-profile");
+  const npLabel    = document.getElementById("np-label");
+
+  if(!profile || (!profile.industry && (!profile.pains || profile.pains.length === 0))){
+    // No profile — reset everything to default
+    if(navProfile) navProfile.classList.remove("show");
+    resetHeroFromI18N();
+    resetDemoTabsFromProfile();
+    resetCalcFromProfile();
+    return;
+  }
+
+  // 1) Update nav badge — "Name · Industry" or "Industry" if no name
+  if(navProfile && npLabel){
+    const ind = profile.industry || (currentLang==="zh"?"已個人化":"Personalised");
+    npLabel.textContent = profile.name ? `${profile.name} · ${ind}` : ind;
+    navProfile.classList.add("show");
+  }
+
+  // 2) Hero copy — industry-specific title
+  if(profile.industry){
+    const map = INDUSTRY_HERO[currentLang] || INDUSTRY_HERO.zh;
+    const words = map[profile.industry];
+    if(words){
+      const titleEl = document.getElementById("hero-title");
+      if(titleEl){
+        titleEl.innerHTML = words.map((w,i) => {
+          const cls = i === 1 ? "gradient-text" : "";
+          return `<span class="word"><span class="${cls}">${w}</span></span>`;
+        }).join(" ");
+        if(window.gsap){
+          gsap.fromTo("#hero-title .word > span",
+            {y:"100%",opacity:0,rotate:6},
+            {y:"0%",opacity:1,rotate:0,duration:.7,stagger:.06,ease:"power3.out"});
+        }
+      }
+    }
+  }
+
+  // 2b) Hero typed subtitle — personalised greeting (overrides the cycling typing)
+  if(profile.name){
+    try{ clearTimeout(typeTimer); }catch(e){}
+    const typedEl = document.getElementById("typed");
+    if(typedEl){
+      const greeting = currentLang === "zh"
+        ? `Hi ${profile.name}，呢度有為您揀好嘅 AI 方案 ↓`
+        : `Hi ${profile.name}, here are the AI solutions we picked for you ↓`;
+      typedEl.textContent = greeting;
+    }
+  }
+
+  // 3) Demo tabs — dim non-relevant, surface relevant
+  applyDemoTabsForProfile(profile);
+
+  // 4) ROI calculator pre-fill
+  applyCalcForProfile(profile);
+}
+
+function resetHeroFromI18N(){
+  // Restore default hero title from I18N
+  if(typeof buildHeroTitle === "function") buildHeroTitle();
+}
+
+function resetDemoTabsFromProfile(){
+  document.querySelectorAll(".demo-tab-btn").forEach(t => {
+    t.classList.remove("dim","hidden-by-profile");
+  });
+  document.querySelectorAll(".demo-slide").forEach(s => {
+    s.classList.remove("hidden-by-profile");
+  });
+  const expandBtn = document.getElementById("demos-expand");
+  if(expandBtn) expandBtn.classList.remove("show");
+  const tabs = document.getElementById("demos-tabs");
+  if(tabs) tabs.classList.remove("collapsed");
+}
+
+function resetCalcFromProfile(){
+  document.querySelectorAll("#area-chips .area-chip").forEach(c => c.classList.remove("hidden-by-profile"));
+}
+
+function applyDemoTabsForProfile(profile){
+  const pains = (profile.pains && profile.pains.length)
+    ? profile.pains
+    : (INDUSTRY_DEFAULT_PAINS[profile.industry] || []);
+  if(!pains.length){ resetDemoTabsFromProfile(); return; }
+
+  // Build relevance set: demos referenced by any of the user's pains.
+  // Wizard (idx 12) is INTENTIONALLY EXCLUDED — user already filled it on welcome page.
+  const relevant = new Set();
+  pains.forEach(p => {
+    (PAIN_DEMO_MAP[p] || []).forEach(idx => relevant.add(idx));
+  });
+
+  // Hard-hide non-relevant demos + Wizard (display:none via .hidden-by-profile)
+  document.querySelectorAll(".demo-tab-btn").forEach(t => {
+    const idx = +t.dataset.slide;
+    const visible = relevant.has(idx);
+    t.classList.toggle("hidden-by-profile", !visible);
+    t.classList.remove("dim"); // legacy class — clear
+  });
+  document.querySelectorAll(".demo-slide").forEach(s => {
+    const idx = +s.dataset.slideIdx;
+    const visible = relevant.has(idx);
+    s.classList.toggle("hidden-by-profile", !visible);
+  });
+
+  // Hide the legacy expand button (no longer used in welcome flow)
+  const expandBtn = document.getElementById("demos-expand");
+  if(expandBtn) expandBtn.classList.remove("show");
+  const tabsContainer = document.getElementById("demos-tabs");
+  if(tabsContainer) tabsContainer.classList.remove("collapsed");
+
+  // Pick the first relevant demo as the active one (welcome-flow visitors should
+  // land directly on a demo that solves their problem). Use carousel's
+  // go() helper so counters stay in sync.
+  const firstPain = pains[0];
+  const firstDemoIdx = (PAIN_DEMO_MAP[firstPain] || []).find(i => relevant.has(i));
+  if(typeof firstDemoIdx === "number"){
+    window.__profileFirstDemo = firstDemoIdx;
+    if(typeof window.__carouselSetActive === "function"){
+      window.__carouselSetActive(firstDemoIdx);
+    } else {
+      // Fallback: set active manually (carousel IIFE hasn't run yet)
+      document.querySelectorAll(".demo-slide").forEach(s => {
+        s.classList.toggle("active", +s.dataset.slideIdx === firstDemoIdx);
+      });
+      document.querySelectorAll(".demo-tab-btn").forEach(t => {
+        t.classList.toggle("active", +t.dataset.slide === firstDemoIdx);
+      });
+    }
+  }
+  // Refresh carousel total counter (excludes hidden slides)
+  if(typeof window.__carouselSyncTotal === "function") window.__carouselSyncTotal();
+}
+
+function resetCalcChips(){
+  document.querySelectorAll("#area-chips .area-chip").forEach(c => c.classList.remove("hidden-by-profile"));
+}
+
+function applyCalcForProfile(profile){
+  const pains = (profile.pains && profile.pains.length)
+    ? profile.pains
+    : (INDUSTRY_DEFAULT_PAINS[profile.industry] || []);
+  if(!pains.length){ resetCalcChips(); return; }
+
+  // Build the set of calc areas relevant to this profile's pains
+  const relevantAreas = new Set();
+  pains.forEach(p => {
+    const a = PAIN_TO_CALC_AREA[p];
+    if(a) relevantAreas.add(a);
+  });
+  if(!relevantAreas.size){ resetCalcChips(); return; }
+
+  // Hide non-relevant area chips
+  document.querySelectorAll("#area-chips .area-chip").forEach(c => {
+    c.classList.toggle("hidden-by-profile", !relevantAreas.has(c.dataset.area));
+  });
+
+  // Make the top-pain area the active one
+  const topArea = PAIN_TO_CALC_AREA[pains[0]] || Array.from(relevantAreas)[0];
+  const chips = document.querySelectorAll("#area-chips .area-chip");
+  chips.forEach(c => c.classList.toggle("active", c.dataset.area === topArea));
+
+  const activeChip = document.querySelector(`#area-chips .area-chip[data-area="${topArea}"]`);
+  if(activeChip){
+    const hoursInput = document.getElementById("calc-hours");
+    if(hoursInput && +hoursInput.value < 5){
+      hoursInput.value = 10;
+      const hoursLbl = document.getElementById("calc-hours-val");
+      if(hoursLbl) hoursLbl.textContent = "10";
+    }
+    activeChip.dispatchEvent(new Event("click", {bubbles:true}));
+  }
+}
+
+/* ----------------- WELCOME CONTROLLER ----------------- */
+let __welState = { industry:null, name:"" };
+
+function showWelcome(){
+  const w = document.getElementById("welcome");
+  if(!w) return;
+  w.classList.remove("hidden","leaving");
+  w.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  // Reset selections
+  document.querySelectorAll("#welcome-industries .wel-chip").forEach(c => c.classList.remove("checked"));
+  const nameInput = document.getElementById("welcome-name");
+  if(nameInput) nameInput.value = "";
+  __welState = { industry:null, name:"" };
+  updateWelcomeEnter();
+}
+
+function hideWelcome(){
+  const w = document.getElementById("welcome");
+  if(!w) return;
+  w.classList.add("leaving");
+  document.body.style.overflow = "";
+  setTimeout(() => { w.classList.add("hidden"); w.setAttribute("aria-hidden", "true"); }, 600);
+}
+
+function updateWelcomeEnter(){
+  const enter = document.getElementById("welcome-enter");
+  const hint  = document.getElementById("welcome-hint");
+  if(!enter) return;
+  const ok = !!__welState.industry;
+  enter.disabled = !ok;
+  if(hint){
+    if(ok){
+      hint.textContent = I18N[currentLang]["welcome.hintReady"] || "✓ 已 match 您行業嘅 AI 方案";
+      hint.classList.add("ready");
+    } else {
+      hint.textContent = I18N[currentLang]["welcome.hint"] || "先揀一個行業，AI 即時為您度身打造方案";
+      hint.classList.remove("ready");
+    }
+  }
+}
+
+function submitWelcome(){
+  if(!__welState.industry) return;
+  const nameInput = document.getElementById("welcome-name");
+  __welState.name = (nameInput?.value || "").trim();
+  const profile = {
+    industry: __welState.industry,
+    name: __welState.name || null,
+    // Derive pains from industry default (we don't ask pains on welcome page)
+    pains: (INDUSTRY_DEFAULT_PAINS[__welState.industry] || []).slice(),
+    lang: currentLang,
+    ts: Date.now(),
+  };
+  saveProfile(profile);
+  hideWelcome();
+  setTimeout(() => applyProfile(profile), 400);
+}
+
+(function bindWelcome(){
+  // Industry chips
+  document.querySelectorAll("#welcome-industries .wel-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll("#welcome-industries .wel-chip").forEach(c => c.classList.remove("checked"));
+      chip.classList.add("checked");
+      __welState.industry = chip.dataset.ind;
+      updateWelcomeEnter();
+    });
+  });
+  // Name input — also Enter key submits
+  const nameInput = document.getElementById("welcome-name");
+  if(nameInput){
+    nameInput.addEventListener("keydown", e => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        submitWelcome();
+      }
+    });
+  }
+  // Enter button
+  const enter = document.getElementById("welcome-enter");
+  if(enter) enter.addEventListener("click", submitWelcome);
+  // Skip
+  const skip = document.getElementById("welcome-skip");
+  if(skip) skip.addEventListener("click", () => {
+    // Skip = save dismissal flag (no profile) so we don't show welcome again next visit
+    try{ localStorage.setItem("tbc-welcome-dismissed", "1"); }catch(e){}
+    hideWelcome();
+  });
+  // Esc key
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape"){
+      const w = document.getElementById("welcome");
+      if(w && !w.classList.contains("hidden") && !w.classList.contains("leaving")){
+        try{ localStorage.setItem("tbc-welcome-dismissed", "1"); }catch(e2){}
+        hideWelcome();
+      }
+    }
+  });
+})();
+
+/* ----------------- NAV PROFILE BADGE ----------------- */
+(function bindNavProfile(){
+  const btn = document.getElementById("nav-profile");
+  if(!btn) return;
+  btn.addEventListener("click", () => {
+    clearProfile();
+    try{ localStorage.removeItem("tbc-welcome-dismissed"); }catch(e){}
+    applyProfile(null);
+    showWelcome();
+  });
+})();
+
+/* ----------------- DEMOS EXPAND BUTTON ----------------- */
+(function bindDemosExpand(){
+  const btn = document.getElementById("demos-expand");
+  const tabs = document.getElementById("demos-tabs");
+  if(!btn || !tabs) return;
+  btn.addEventListener("click", () => {
+    const collapsed = tabs.classList.toggle("collapsed");
+    const span = btn.querySelector("[data-i18n='demos.expand']");
+    if(span){
+      span.textContent = collapsed
+        ? I18N[currentLang]["demos.expand"]
+        : I18N[currentLang]["demos.collapse"];
+    }
+    btn.querySelector("span:last-child").textContent = collapsed ? "↓" : "↑";
+  });
+})();
+
+/* ----------------- BOOT: decide initial flow ----------------- */
+(function bootProfileFlow(){
+  setTimeout(() => {
+    const saved = loadProfile();
+    if(saved){
+      // Returning visitor — apply directly, no welcome page
+      applyProfile(saved);
+    } else {
+      // First-time visitor — show welcome page unless they previously dismissed it
+      let dismissed = false;
+      try{ dismissed = !!localStorage.getItem("tbc-welcome-dismissed"); }catch(e){}
+      if(!dismissed && !window.location.hash){
+        showWelcome();
+      }
+    }
+  }, 200);
+})();
 
 /* ============== HERO TITLE ANIMATION ============== */
 function buildHeroTitle(){
@@ -4402,16 +5149,38 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   const cur    = document.getElementById("carousel-current");
   const total  = document.getElementById("carousel-total");
   if(!slides.length) return;
-  total.textContent = slides.length;
 
-  // Display order: Wizard (idx 12) = pos 1, then demo1..demo12, then Dashboard (idx 13) last
-  const DISPLAY_ORDER = [12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13];
-  const displayPos = (i) => {
-    const p = DISPLAY_ORDER.indexOf(i);
-    return p === -1 ? i + 1 : p + 1;
-  };
-  const nextDisplayIdx = (cur) => DISPLAY_ORDER[(DISPLAY_ORDER.indexOf(cur) + 1) % DISPLAY_ORDER.length];
-  const prevDisplayIdx = (cur) => DISPLAY_ORDER[(DISPLAY_ORDER.indexOf(cur) - 1 + DISPLAY_ORDER.length) % DISPLAY_ORDER.length];
+  // Default visual order (no profile): Wizard first, then 01..12, then Dashboard
+  const DEFAULT_ORDER = [12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13];
+
+  // Visible order = profile-filtered list if profile is active, else DEFAULT_ORDER
+  function visibleOrder(){
+    return DEFAULT_ORDER.filter(i => {
+      const slide = document.querySelector(`.demo-slide[data-slide-idx="${i}"]`);
+      return slide && !slide.classList.contains("hidden-by-profile");
+    });
+  }
+  function displayPos(i){
+    const order = visibleOrder();
+    const p = order.indexOf(i);
+    return p === -1 ? 1 : p + 1;
+  }
+  function syncTotal(){
+    total.textContent = String(visibleOrder().length);
+  }
+  function nextVisible(curIdx){
+    const order = visibleOrder();
+    if(!order.length) return curIdx;
+    const p = order.indexOf(curIdx);
+    return order[(p + 1 + order.length) % order.length];
+  }
+  function prevVisible(curIdx){
+    const order = visibleOrder();
+    if(!order.length) return curIdx;
+    const p = order.indexOf(curIdx);
+    return order[(p - 1 + order.length) % order.length];
+  }
+  syncTotal();
 
   // initial idx = the slide that currently has .active (so we honour HTML default)
   const initActive = document.querySelector(".demo-slide.active");
@@ -4419,7 +5188,12 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   if(isNaN(idx)) idx = 0;
 
   function go(i){
-    idx = (i + slides.length) % slides.length;
+    // Don't navigate to a hidden slide — fall back to next visible
+    const target = document.querySelector(`.demo-slide[data-slide-idx="${i}"]`);
+    if(target && target.classList.contains("hidden-by-profile")){
+      i = nextVisible(idx);
+    }
+    idx = i;
     slides.forEach(s => s.classList.toggle("active", +s.dataset.slideIdx === idx));
     tabs  .forEach(t => t.classList.toggle("active", +t.dataset.slide === idx));
     cur.textContent = displayPos(idx);
@@ -4427,14 +5201,18 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   // sync counter to initial active slide
   cur.textContent = displayPos(idx);
   tabs.forEach(t => t.addEventListener("click", ()=>go(+t.dataset.slide)));
-  prev.addEventListener("click", ()=>go(idx - 1));
-  next.addEventListener("click", ()=>go(idx + 1));
+  prev.addEventListener("click", ()=>go(prevVisible(idx)));
+  next.addEventListener("click", ()=>go(nextVisible(idx)));
   // keyboard arrows when carousel area is in view
   document.addEventListener("keydown", e=>{
     if(["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)) return;
-    if(e.key === "ArrowLeft")  go(idx - 1);
-    if(e.key === "ArrowRight") go(idx + 1);
+    if(e.key === "ArrowLeft")  go(prevVisible(idx));
+    if(e.key === "ArrowRight") go(nextVisible(idx));
   });
+
+  // Expose so applyProfile can refresh counter after hiding slides
+  window.__carouselSyncTotal = syncTotal;
+  window.__carouselSetActive = (i) => go(i);
 })();
 
 /* ===========================================================
