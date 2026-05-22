@@ -12,3 +12,38 @@
   to = "/.netlify/functions/claude"
   status = 200
   force = true
+
+# === Cache-busting headers ===========================================
+# HTML pages must never be cached by the browser/CDN so users always
+# pick up the latest deploy. (Assets can keep default caching.)
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Static images can cache for 1 week (faster repeat visits, safe because
+# image content changes far less often than the page itself).
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
