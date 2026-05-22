@@ -2693,7 +2693,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="welcome-orb o3"></div>
   </div>
 
-  <button class="welcome-skip" id="welcome-skip" type="button" data-i18n="welcome.skip">跳過 · 查看所有方案 →</button>
+  <button class="welcome-skip" id="welcome-skip" type="button" data-i18n="welcome.skip">跳過 · 睇晒所有方案 →</button>
 
   <div class="welcome-inner">
     <!-- Logo + mascot animation -->
@@ -2735,7 +2735,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="welcome-form">
       <!-- Industry -->
       <div class="welcome-field">
-        <label class="welcome-label" data-i18n="welcome.askIndustry">您的公司屬於哪個行業？</label>
+        <label class="welcome-label" data-i18n="welcome.askIndustry">您嘅公司屬於邊個行業？</label>
         <div class="welcome-chips" id="welcome-industries">
           <button class="wel-chip" data-ind="餐飲" data-i18n="welcome.i1" type="button">🍱 餐飲</button>
           <button class="wel-chip" data-ind="零售" data-i18n="welcome.i2" type="button">🛍️ 零售 / 電商</button>
@@ -2751,7 +2751,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <!-- Name (optional) -->
       <div class="welcome-field">
         <label class="welcome-label" for="welcome-name">
-          <span data-i18n="welcome.askName">您的稱呼</span>
+          <span data-i18n="welcome.askName">您嘅稱呼</span>
           <span class="welcome-optional" data-i18n="welcome.optional">（選填）</span>
         </label>
         <input type="text" id="welcome-name" class="welcome-input" placeholder="陳生 / Anna / ..." maxlength="40" autocomplete="off" />
@@ -2761,7 +2761,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="welcome-enter" id="welcome-enter" type="button" disabled>
         <span data-i18n="welcome.enter">進入網站 →</span>
       </button>
-      <div class="welcome-hint" id="welcome-hint" data-i18n="welcome.hint">先選一個行業，AI 即時為您度身打造方案</div>
+      <div class="welcome-hint" id="welcome-hint" data-i18n="welcome.hint">先揀一個行業，AI 即時為您度身打造方案</div>
     </div>
   </div>
 </div>
@@ -2774,7 +2774,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <span class="msc-chan-ico">💬</span>
       <span class="msc-chan-meta">
         <span class="msc-chan-label" data-i18n="msc.wa">WhatsApp</span>
-        <span class="msc-chan-handle" data-i18n="msc.waSub">即時對話，1 分鐘回覆</span>
+        <span class="msc-chan-handle" data-i18n="msc.waSub">即時傾，1 分鐘回覆</span>
       </span>
     </a>
     <a class="msc-chan tg" id="msc-tg" href="#" target="_blank" rel="noopener">
@@ -2996,18 +2996,18 @@ main,nav,section,footer{position:relative;z-index:2}
     <!-- Universal hook (no profile) -->
     <div class="pain-hook reveal" id="pain-hook">
       <div class="eyebrow" data-i18n="pain.eyebrow">YOUR DAILY PAIN</div>
-      <h2 class="h2"><span data-i18n="pain.title1">您現在是否有</span> <span class="gradient-text" data-i18n="pain.title2">以下這些煩惱？</span></h2>
-      <p class="muted" data-i18n="pain.desc">如果有任何一項符合，AI 自動化就是為您而設。</p>
+      <h2 class="h2"><span data-i18n="pain.title1">您而家係咪有</span> <span class="gradient-text" data-i18n="pain.title2">以下呢啲煩惱？</span></h2>
+      <p class="muted" data-i18n="pain.desc">如果有任何一樣中咗，AI 自動化就係為您而設。</p>
 
       <div class="pain-grid">
-        <div class="pain-card"><span class="pain-ico">📨</span><span data-i18n="pain.b1">客戶 follow-up 的 email 寫到手酸？</span></div>
-        <div class="pain-card"><span class="pain-ico">📱</span><span data-i18n="pain.b2">每星期要出社交內容但想到頭痛？</span></div>
-        <div class="pain-card"><span class="pain-ico">💬</span><span data-i18n="pain.b3">客服訊息積壓，回覆不及又怕得罪客戶？</span></div>
+        <div class="pain-card"><span class="pain-ico">📨</span><span data-i18n="pain.b1">客戶 follow-up 嘅 email 寫到手軟？</span></div>
+        <div class="pain-card"><span class="pain-ico">📱</span><span data-i18n="pain.b2">每星期要出社交內容但諗到頭爆？</span></div>
+        <div class="pain-card"><span class="pain-ico">💬</span><span data-i18n="pain.b3">客服訊息積壓，回唔切又怕得罪客？</span></div>
         <div class="pain-card"><span class="pain-ico">📊</span><span data-i18n="pain.b4">月底每次都因 report 加班到深夜？</span></div>
-        <div class="pain-card"><span class="pain-ico">📦</span><span data-i18n="pain.b5">幾個倉庫的庫存對不上、出錯貨？</span></div>
+        <div class="pain-card"><span class="pain-ico">📦</span><span data-i18n="pain.b5">幾個倉庫嘅庫存對唔上、出錯貨？</span></div>
         <div class="pain-card"><span class="pain-ico">🌍</span><span data-i18n="pain.b6">外國客評論 / inquiry 要逐個翻譯？</span></div>
-        <div class="pain-card"><span class="pain-ico">⏰</span><span data-i18n="pain.b7">會議筆記寫到手抽筋，重點還是漏掉？</span></div>
-        <div class="pain-card"><span class="pain-ico">😩</span><span data-i18n="pain.b8">員工被重複工作困住，做不到真正生意？</span></div>
+        <div class="pain-card"><span class="pain-ico">⏰</span><span data-i18n="pain.b7">會議筆記寫到手抽筋，重點仲漏咗？</span></div>
+        <div class="pain-card"><span class="pain-ico">😩</span><span data-i18n="pain.b8">員工被重複工作壓住，做唔到真正生意？</span></div>
       </div>
 
       <div class="pain-cta">
@@ -3021,7 +3021,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="pain-personal reveal" id="pain-personal" hidden>
       <div class="eyebrow" data-i18n="pain.peyebrow">PERSONALISED FOR YOU</div>
       <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
-      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。</p>
+      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用嘅工具 — 已 filter 完。</p>
 
       <div class="pain-tags" id="pain-tags">
         <!-- Filled by JS: list of pain tags user picked -->
@@ -3050,8 +3050,8 @@ main,nav,section,footer{position:relative;z-index:2}
 <section class="who-for reveal" id="who-for" aria-label="Who this is for">
   <div class="wf-head">
     <span class="wf-eyebrow" data-i18n="wf.eyebrow">WHO THIS IS FOR</span>
-    <h2 class="wf-title"><span data-i18n="wf.title1">最適合這類</span> <span class="gradient-text" data-i18n="wf.title2">業務</span></h2>
-    <p class="wf-sub" data-i18n="wf.sub">如果您是以下其中一類，AI 自動化可以即時為您節省時間和成本。</p>
+    <h2 class="wf-title"><span data-i18n="wf.title1">最適合呢類</span> <span class="gradient-text" data-i18n="wf.title2">業務</span></h2>
+    <p class="wf-sub" data-i18n="wf.sub">如果您係以下其中一類，AI 自動化可以即時為您慳時間慳成本。</p>
   </div>
   <div class="wf-grid">
     <div class="wf-card">
@@ -3067,12 +3067,12 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="wf-card">
       <div class="wf-ico">🚀</div>
       <div class="wf-name" data-i18n="wf.c3.name">初創 / Startup</div>
-      <div class="wf-desc" data-i18n="wf.c3.desc">想用 AI workflow 取代請人，節省成本快速 scale</div>
+      <div class="wf-desc" data-i18n="wf.c3.desc">想用 AI workflow 取代請人，慳成本快速 scale</div>
     </div>
     <div class="wf-card">
       <div class="wf-ico">😩</div>
-      <div class="wf-name" data-i18n="wf.c4.name">被重複工作困住的團隊</div>
-      <div class="wf-desc" data-i18n="wf.c4.desc">每日都在處理 follow-up email、抄資料、報表</div>
+      <div class="wf-name" data-i18n="wf.c4.name">被重複工作壓住嘅團隊</div>
+      <div class="wf-desc" data-i18n="wf.c4.desc">每日都做緊 follow-up email、抄資料、報表</div>
     </div>
   </div>
 </section>
@@ -3102,7 +3102,7 @@ main,nav,section,footer{position:relative;z-index:2}
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
       <button class="demo-tab-btn"        data-slide="13"><span class="num">13</span> <span data-i18n="demo14.tabLabel">倉庫 Dashboard</span></button>
       <button class="demo-tab-btn active" data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
-      <button class="demos-expand" id="demos-expand" type="button"><span data-i18n="demos.expand">查看 14 個方案</span> <span>↓</span></button>
+      <button class="demos-expand" id="demos-expand" type="button"><span data-i18n="demos.expand">睇晒 14 個方案</span> <span>↓</span></button>
     </div>
 
     <div class="demos-carousel-wrap reveal">
@@ -3383,7 +3383,7 @@ main,nav,section,footer{position:relative;z-index:2}
                   <div class="demo-save" data-i18n="demo8.save">支援 30+ 語言</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo8.title">AI 多語翻譯（含語氣/文化備註）</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo8.desc">不只是翻譯 — AI 會根據您選的語氣 + 文化背景調整表達方式。</p>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo8.desc">不只係翻譯 — AI 會根據您選的語氣 + 文化背景調整表達方式。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -3577,11 +3577,11 @@ main,nav,section,footer{position:relative;z-index:2}
             <div class="demo-head">
               <div>
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                  <div class="demo-tag" style="background:var(--grad);color:#fff;border-color:transparent">✨ <span data-i18n="demo13.tag">先試這個</span></div>
+                  <div class="demo-tag" style="background:var(--grad);color:#fff;border-color:transparent">✨ <span data-i18n="demo13.tag">先試呢個</span></div>
                   <div class="demo-save" data-i18n="demo13.save">60 秒得到專屬方案</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo13.title">AI 商業診斷 + 方案匹配</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo13.desc">3 步填資料，AI 即時生成屬於您的商業診斷報告 + 量身定做的 AI 自動化方案。</p>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo13.desc">3 步填資料，AI 即時生成屬於您嘅商業診斷報告 + 量身定做嘅 AI 自動化方案。</p>
               </div>
             </div>
 
@@ -3599,7 +3599,7 @@ main,nav,section,footer{position:relative;z-index:2}
               <!-- STEP 1 -->
               <div class="wizard-pane active" id="wz-pane-1">
                 <h4 data-i18n="demo13.s1.title">告訴我們您的公司</h4>
-                <p class="sub" data-i18n="demo13.s1.sub">3 個基本資料，30 秒完成。</p>
+                <p class="sub" data-i18n="demo13.s1.sub">3 個基本資料，30 秒搞掂。</p>
 
                 <div class="field-row">
                   <label data-i18n="demo13.l1">公司名稱</label>
@@ -3630,12 +3630,12 @@ main,nav,section,footer{position:relative;z-index:2}
 
               <!-- STEP 2 -->
               <div class="wizard-pane" id="wz-pane-2">
-                <h4 data-i18n="demo13.s2.title">您目前最大的挑戰是什麼？</h4>
-                <p class="sub" data-i18n="demo13.s2.sub">最多選 3 個 — AI 會根據您選的痛點推薦最匹配方案。</p>
+                <h4 data-i18n="demo13.s2.title">您目前最大的挑戰係咩？</h4>
+                <p class="sub" data-i18n="demo13.s2.sub">最多選 3 個 — AI 會根據您揀的痛點推薦最匹配方案。</p>
 
                 <div class="wz-chips" id="wz-pains">
                   <button class="wz-chip" data-pain="follow-up" data-i18n="demo13.p1">客戶跟進耗時、易遺漏</button>
-                  <button class="wz-chip" data-pain="content" data-i18n="demo13.p2">內容產出不夠快</button>
+                  <button class="wz-chip" data-pain="content" data-i18n="demo13.p2">內容產出唔夠快</button>
                   <button class="wz-chip" data-pain="report" data-i18n="demo13.p3">報表 / 資料整理太耗時</button>
                   <button class="wz-chip" data-pain="warehouse" data-i18n="demo13.p4">多倉庫 / 庫存管理混亂</button>
                   <button class="wz-chip" data-pain="support" data-i18n="demo13.p5">客服回覆積壓</button>
@@ -3683,7 +3683,7 @@ main,nav,section,footer{position:relative;z-index:2}
                   <div class="demo-save" data-i18n="demo14.save">即時可視化 + AI 警示</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo14.title">AI 倉庫即時 Dashboard</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo14.desc">多倉庫實時庫存、AI 警示、智能推薦 — 一頁掌握倉儲健康。</p>
+                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo14.desc">多倉庫實時庫存、AI 警示、智能推薦 — 一頁睇晒倉儲健康。</p>
               </div>
               <!-- Filter segments -->
               <div class="dash-filter" id="dash-filter" role="tablist" aria-label="time range">
@@ -3931,7 +3931,7 @@ main,nav,section,footer{position:relative;z-index:2}
 
         <p data-i18n="about.p1">TBC Solutions 由 <strong>Grouper</strong> 一手創立，專注於 <strong>AI 自動化解決方案</strong>。我相信每一間企業都值得擁有屬於自己的智能系統，讓老闆和員工從繁瑣中解放，專注於真正重要的事。</p>
 
-        <p data-i18n="about.p2">為甚麼我特別熱愛 AI 自動化？因為我親眼見過太多中小企老闆，被重複性工作困住，明明有更高價值的決策要做，卻被 email、報表、客戶跟進拖死。AI 不是要取代人，而是把人從機械工作中釋放出來，讓您專注真正屬於人的事 — 創造、判斷、建立關係。</p>
+        <p data-i18n="about.p2">為甚麼我特別熱愛 AI 自動化？因為我親眼見過太多中小企老闆，被重複性工作壓住，明明有更高價值的決策要做，卻被 email、報表、客戶跟進拖死。AI 不是要取代人，而是把人從機械工作中釋放出來，讓您做返真正屬於人的事 — 創造、判斷、建立關係。</p>
 
         <div class="about-status">
           <span class="status-dot"></span>
@@ -3945,7 +3945,7 @@ main,nav,section,footer{position:relative;z-index:2}
         </div>
 
         <div class="about-cta">
-          <a href="#book" class="btn btn-primary"><span data-i18n="about.cta">與我聊聊，免費</span> <span class="arrow">→</span></a>
+          <a href="#book" class="btn btn-primary"><span data-i18n="about.cta">同我傾一傾，免費</span> <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
@@ -4019,7 +4019,7 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
       <div class="eyebrow" style="justify-content:center" data-i18n="faq.eyebrow">FAQ</div>
       <h2 class="h2"><span data-i18n="faq.title1">你最想問的，</span><span class="gradient-text" data-i18n="faq.title2">我們先答</span></h2>
-      <p class="muted" data-i18n="faq.desc">合作之前你會想到的疑問，我們已經幫你準備好。</p>
+      <p class="muted" data-i18n="faq.desc">合作之前你會諗到的疑問，我們已經幫你準備好。</p>
     </div>
 
     <div class="faq-list reveal" id="faq-list">
@@ -4230,7 +4230,7 @@ const I18N = {
     "demo13.title":"AI 商業診斷 + 方案匹配","demo13.desc":"3 步填資料，AI 即時生成屬於您的商業診斷報告 + 量身定做的 AI 自動化方案。",
     "demo13.tabLabel":"商業診斷","demo13.tag":"先試這個","demo13.save":"60 秒得到專屬方案",
     "demo13.s1.label":"公司資料","demo13.s2.label":"痛點","demo13.s3.label":"AI 方案",
-    "demo13.s1.title":"告訴我們您的公司","demo13.s1.sub":"3 個基本資料，30 秒完成。",
+    "demo13.s1.title":"告訴我們您的公司","demo13.s1.sub":"3 個基本資料，30 秒搞定。",
     "demo13.s2.title":"您目前最大的挑戰是甚麼？","demo13.s2.sub":"最多選 3 個 — AI 會根據您選的痛點推薦最匹配方案。",
     "demo13.l1":"公司名稱","demo13.l2":"行業","demo13.l3":"員工人數",
     "demo13.p1":"客戶跟進耗時、易遺漏","demo13.p2":"內容產出不夠快","demo13.p3":"報表 / 資料整理太耗時",
@@ -4239,7 +4239,7 @@ const I18N = {
     "demo13.btnNext":"下一步 →","demo13.btnBack":"← 上一步","demo13.btnGenerate":"AI 生成方案 →",
     "demo13.thinkLabel":"AI 正在分析您的業務、配對方案 …",
     "demo14.tabLabel":"倉庫 Dashboard","demo14.save":"即時可視化 + AI 警示",
-    "demo14.title":"AI 倉庫即時 Dashboard","demo14.desc":"多倉庫實時庫存、AI 警示、智能推薦 — 一頁掌握倉儲健康。",
+    "demo14.title":"AI 倉庫即時 Dashboard","demo14.desc":"多倉庫實時庫存、AI 警示、智能推薦 — 一頁睇晒倉儲健康。",
     "demo14.f1":"今日","demo14.f7":"7 日","demo14.f30":"30 日",
     "demo14.kpi1":"總庫存件數","demo14.kpi1d":"↓ 2.3% vs 上週",
     "demo14.kpi2":"今日出貨","demo14.kpi2d":"↑ 18% vs 平均",
@@ -4252,40 +4252,40 @@ const I18N = {
     "demo14.alertsTitle":"AI 即時警示","demo14.live":"LIVE",
     "demo14.recsTitle":"AI 智能推薦行動","demo14.recsSub":"一鍵自動建立 n8n 工作流",
     "pain.eyebrow":"YOUR DAILY PAIN",
-    "pain.title1":"您現在是否有","pain.title2":"以下這些煩惱？",
-    "pain.desc":"如果有任何一項符合，AI 自動化就是為您而設。",
-    "pain.b1":"客戶 follow-up 的 email 寫到手酸？","pain.b2":"每星期要出社交內容但想到頭痛？",
-    "pain.b3":"客服訊息積壓，回覆不及又怕得罪客戶？","pain.b4":"月底每次都因 report 加班到深夜？",
-    "pain.b5":"幾個倉庫的庫存對不上、出錯貨？","pain.b6":"外國客評論 / inquiry 要逐個翻譯？",
-    "pain.b7":"會議筆記寫到手抽筋，重點還是漏掉？","pain.b8":"員工被重複工作困住，做不到真正生意？",
-    "pain.tagline":"AI 可以幫您處理晒這些 — 由今日開始。",
-    "pain.cta":"預約免費諮詢","pain.cta2":"先看 AI Demo ↓",
+    "pain.title1":"您而家係咪有","pain.title2":"以下呢啲煩惱？",
+    "pain.desc":"如果有任何一樣中咗，AI 自動化就係為您而設。",
+    "pain.b1":"客戶 follow-up 嘅 email 寫到手軟？","pain.b2":"每星期要出社交內容但諗到頭爆？",
+    "pain.b3":"客服訊息積壓，回唔切又怕得罪客？","pain.b4":"月底每次都因 report 加班到深夜？",
+    "pain.b5":"幾個倉庫嘅庫存對唔上、出錯貨？","pain.b6":"外國客評論 / inquiry 要逐個翻譯？",
+    "pain.b7":"會議筆記寫到手抽筋，重點仲漏咗？","pain.b8":"員工被重複工作壓住，做唔到真正生意？",
+    "pain.tagline":"AI 可以幫您處理晒呢啲 — 由今日開始。",
+    "pain.cta":"預約免費諮詢","pain.cta2":"先睇 AI Demo ↓",
     "pain.peyebrow":"PERSONALISED FOR YOU",
     "pain.ptitle1":"我們已為您針對","pain.ptitle2":"配對方案",
-    "pain.pdesc":"下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。",
+    "pain.pdesc":"下方 demo 區只顯示對您行業最有用嘅工具 — 已 filter 完。",
     "pain.pcta":"即試方案 Demo","pain.pcta2":"預約免費諮詢",
     "ts.hk":"香港本地團隊","ts.personal":"為您度身定做 AI 工作流",
     "ts.demos":"14 個即時互動 Demo","ts.support":"30 日 Bug Fix 保固","ts.free":"免費 30 分鐘諮詢",
-    "wf.eyebrow":"哪類業務最合適","wf.title1":"最適合這類","wf.title2":"業務",
-    "wf.sub":"如果您是以下其中一類，AI 自動化可以即時為您節省時間和成本。",
+    "wf.eyebrow":"邊類業務最啱","wf.title1":"最適合呢類","wf.title2":"業務",
+    "wf.sub":"如果您係以下其中一類，AI 自動化可以即時為您慳時間慳成本。",
     "wf.c1.name":"診所 / 醫美","wf.c1.desc":"客戶預約、跟進、提醒自動化",
     "wf.c2.name":"中小企老闆","wf.c2.desc":"人手有限但又要做 marketing、客服、report",
-    "wf.c3.name":"初創 / Startup","wf.c3.desc":"想用 AI workflow 取代請人，節省成本快速 scale",
-    "wf.c4.name":"被重複工作困住的團隊","wf.c4.desc":"每日都在處理 follow-up email、抄資料、報表",
-    "demo.cta.title":"想將這類 AI 自動化引入您的業務？","demo.cta.sub":"免費 30 分鐘諮詢，我們會為您的行業度身設計一套 workflow。",
-    "demo.cta.book":"預約免費諮詢","demo.cta.wa":"WhatsApp 直接聯絡",
+    "wf.c3.name":"初創 / Startup","wf.c3.desc":"想用 AI workflow 取代請人，慳成本快速 scale",
+    "wf.c4.name":"被重複工作壓住嘅團隊","wf.c4.desc":"每日都做緊 follow-up email、抄資料、報表",
+    "demo.cta.title":"想要呢類 AI 自動化用喺您嘅業務？","demo.cta.sub":"免費 30 分鐘諮詢，我哋會度身為您嘅行業設計一套 workflow。",
+    "demo.cta.book":"預約免費諮詢","demo.cta.wa":"WhatsApp 直接傾",
     "msc.text":"預約免費 AI 諮詢",
-    "msc.wa":"WhatsApp","msc.waSub":"即時對話，1 分鐘回覆","msc.tg":"Telegram",
+    "msc.wa":"WhatsApp","msc.waSub":"即時傾，1 分鐘回覆","msc.tg":"Telegram",
     "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
-    "welcome.askIndustry":"您的公司屬於哪個行業？",
-    "welcome.askName":"您的稱呼","welcome.optional":"（選填）",
-    "welcome.enter":"進入網站 →","welcome.skip":"跳過 · 查看所有方案 →",
-    "welcome.hint":"先選一個行業，AI 即時為您度身打造方案",
-    "welcome.hintReady":"✓ 已 match 您行業的 AI 方案",
+    "welcome.askIndustry":"您嘅公司屬於邊個行業？",
+    "welcome.askName":"您嘅稱呼","welcome.optional":"（選填）",
+    "welcome.enter":"進入網站 →","welcome.skip":"跳過 · 睇晒所有方案 →",
+    "welcome.hint":"先揀一個行業，AI 即時為您度身打造方案",
+    "welcome.hintReady":"✓ 已 match 您行業嘅 AI 方案",
     "welcome.i1":"🍱 餐飲","welcome.i2":"🛍️ 零售 / 電商","welcome.i3":"💼 專業服務","welcome.i4":"🎓 教育培訓",
     "welcome.i5":"💻 科技 / SaaS","welcome.i6":"💆 醫美 / 健康","welcome.i7":"📦 物流 / 倉儲","welcome.i8":"🎨 創意 / 設計",
     "nav.reset":"重新診斷",
-    "demos.expand":"查看所有方案","demos.collapse":"只看相關方案",
+    "demos.expand":"睇晒所有方案","demos.collapse":"只睇相關方案",
     "impact.eyebrow":"REAL IMPACT",
     "impact.title1":"真實節省的","impact.title2":"時間與成本",
     "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
@@ -4299,11 +4299,11 @@ const I18N = {
     "calc.resLabel":"每月可節省","calc.resSub":"這些時間可以用來：陪家人、開發新客戶、創造下一個產品。",
     "calc.equals":"≈","calc.cta":"為您打造這個方案",
     "about.eyebrow":"關於創辦人","about.title1":"由我親自打造","about.title2":"為您度身定做",
-    "about.intro":"由 <strong>Grouper</strong> 親自打造 — 一位專注於幫中小企自動化重複性工作流程的 AI Creator。",
-    "about.p1":"TBC Solutions 由 <strong>Grouper</strong> 一手創立，專注於 <strong>AI 自動化解決方案</strong>。我相信每一間企業都值得擁有屬於自己的智能系統，讓老闆與員工從繁瑣中解放，專注於真正重要的事。",
-    "about.p2":"為甚麼我特別熱愛 AI 自動化？因為我親眼見過太多中小企老闆，被重複性工作困住，明明有更高價值的決策要做，卻被 email、報表、客戶跟進拖死。AI 不是要取代人，而是把人從機械工作中釋放出來，讓您專注真正屬於人的事 — 創造、判斷、建立關係。",
+    "about.intro":"由 <strong>Grouper</strong> 親自打造 — 一位專注於幫中小企自動化重複性工作流程嘅 AI Creator。",
+    "about.p1":"TBC Solutions 由 <strong>Grouper</strong> 一手創立，專注於 <strong>AI 自動化解決方案</strong>。我相信每一間企業都值得擁有屬於自己嘅智能系統，讓老闆同員工從繁瑣中解放，專注於真正重要嘅事。",
+    "about.p2":"為甚麼我特別熱愛 AI 自動化？因為我親眼見過太多中小企老闆，被重複性工作壓住，明明有更高價值嘅決策要做，卻被 email、報表、客戶跟進拖死。AI 唔係要取代人，而係把人從機械工作中釋放出嚟，讓您做返真正屬於人嘅事 — 創造、判斷、建立關係。",
     "about.status":"目前持續為現代企業打造 AI 系統同 workflow demos",
-    "about.cta":"與我聊聊，免費",
+    "about.cta":"同我傾一傾，免費",
     "about.role":"創辦人 · TBC Solutions",
     "about.stat1":"整合工具","about.stat2":"自動運作","about.stat3":"無限可能",
     "process.eyebrow":"PROCESS",
@@ -4329,7 +4329,7 @@ const I18N = {
     "process.s6.meta":"⏱ 30 天保固期",
     "faq.eyebrow":"FAQ",
     "faq.title1":"你最想問的，","faq.title2":"我們先答",
-    "faq.desc":"合作之前你會想到的疑問，我們已經幫你準備好。",
+    "faq.desc":"合作之前你會諗到的疑問，我們已經幫你準備好。",
     "faq.q1":"我沒技術背景／公司不大，可以用嗎？",
     "faq.a1":"完全可以。我們會根據您的實際業務需求做完整方案：包括選工具、做 setup、寫工作流、培訓員工。您只需要告訴我們業務目標。其實 AI 自動化最大的紅利往往在小團隊 — 一個 5 人公司每月省下 30 小時，已經抵掉成本好多倍。",
     "faq.q2":"收費如何計算？有沒套餐？",
@@ -4793,14 +4793,14 @@ const PROFILE_KEY = "tbc-profile-v2";
 // Industry → personalisation rules
 const INDUSTRY_HERO = {
   zh: {
-    "餐飲":   ["為餐飲業","量身打造的 AI 方案"],
-    "零售":   ["為零售與電商","度身打造的 AI 方案"],
-    "專業服務":["為專業服務","度身打造的 AI 方案"],
-    "教育":   ["為教育培訓","度身打造的 AI 方案"],
-    "科技":   ["為科技與 SaaS","度身打造的 AI 方案"],
-    "醫美":   ["為醫美與健康","度身打造的 AI 方案"],
-    "物流":   ["為物流與倉儲","度身打造的 AI 方案"],
-    "創意":   ["為創意與設計","度身打造的 AI 方案"],
+    "餐飲":   ["為餐飲業","量身打造嘅 AI 方案"],
+    "零售":   ["為零售與電商","度身打造嘅 AI 方案"],
+    "專業服務":["為專業服務","度身打造嘅 AI 方案"],
+    "教育":   ["為教育培訓","度身打造嘅 AI 方案"],
+    "科技":   ["為科技與 SaaS","度身打造嘅 AI 方案"],
+    "醫美":   ["為醫美與健康","度身打造嘅 AI 方案"],
+    "物流":   ["為物流與倉儲","度身打造嘅 AI 方案"],
+    "創意":   ["為創意與設計","度身打造嘅 AI 方案"],
   },
   en: {
     "餐飲":   ["AI solutions","tailored for F&B"],
@@ -4916,7 +4916,7 @@ function applyProfile(profile){
     const typedEl = document.getElementById("typed");
     if(typedEl){
       const greeting = currentLang === "zh"
-        ? `Hi ${profile.name}，這裡有為您選好的 AI 方案 ↓`
+        ? `Hi ${profile.name}，呢度有為您揀好嘅 AI 方案 ↓`
         : `Hi ${profile.name}, here are the AI solutions we picked for you ↓`;
       typedEl.textContent = greeting;
     }
@@ -5179,10 +5179,10 @@ function updateWelcomeEnter(){
   enter.disabled = !ok;
   if(hint){
     if(ok){
-      hint.textContent = I18N[currentLang]["welcome.hintReady"] || "✓ 已 match 您行業的 AI 方案";
+      hint.textContent = I18N[currentLang]["welcome.hintReady"] || "✓ 已 match 您行業嘅 AI 方案";
       hint.classList.add("ready");
     } else {
-      hint.textContent = I18N[currentLang]["welcome.hint"] || "先選一個行業，AI 即時為您度身打造方案";
+      hint.textContent = I18N[currentLang]["welcome.hint"] || "先揀一個行業，AI 即時為您度身打造方案";
       hint.classList.remove("ready");
     }
   }
@@ -5298,15 +5298,15 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
     cta.className = "demo-end-cta";
     cta.innerHTML = `
       <div class="dec-text">
-        <div class="dec-title" data-i18n="demo.cta.title">想將這類 AI 自動化引入您的業務？</div>
-        <div class="dec-sub" data-i18n="demo.cta.sub">免費 30 分鐘諮詢，我們會為您的行業度身設計一套 workflow。</div>
+        <div class="dec-title" data-i18n="demo.cta.title">想要呢類 AI 自動化用喺您嘅業務？</div>
+        <div class="dec-sub" data-i18n="demo.cta.sub">免費 30 分鐘諮詢，我哋會度身為您嘅行業設計一套 workflow。</div>
       </div>
       <div class="dec-actions">
         <a href="#book" class="dec-btn primary" data-cta-source="demo-end">
           <span data-i18n="demo.cta.book">預約免費諮詢</span> →
         </a>
         <a href="${CONTACT_WHATSAPP_URL}" target="_blank" rel="noopener" class="dec-btn ghost" data-cta-source="demo-end-wa">
-          <span>💬</span> <span data-i18n="demo.cta.wa">WhatsApp 直接聯絡</span>
+          <span>💬</span> <span data-i18n="demo.cta.wa">WhatsApp 直接傾</span>
         </a>
       </div>
     `;
@@ -6055,7 +6055,7 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
         {icon:"🎓", title:"咖啡課程", desc:"週末小班授課，從入門到杯測"},
       ],
       testimonial:{
-        quote:"咖啡香氣濃郁但不苦澀，每月都有驚喜。送禮自用都得體，已介紹同事一起訂。",
+        quote:"咖啡香氣濃郁但不苦澀，每月都有驚喜。送禮自用都得體，已介紹同事一齊訂。",
         author:"Anna 陳 · 廣告公司創意總監",
       },
       final_title:"今日就讓咖啡香喚醒你",
@@ -6311,7 +6311,7 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   }
   function S9(){
     return currentLang === "zh" ? {
-      input:"餐廳食物美味但服務員態度好差，等位等了 30 分鐘無人理。再不會來。",
+      input:"餐廳食物好食但服務員態度好差，等位等了 30 分鐘無人理。再不會來。",
       biz:"餐廳",
       replies:[
         {tone:"正式專業", text:"感謝您的反饋。對於服務上的不足，我們深表歉意。已將您的意見轉達相關主管，並會立即加強員工培訓。希望能有機會讓我們重新為您服務。"},
@@ -6542,8 +6542,8 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
       thinkLabel:"AI 正在分析您的業務、配對方案 …",
       diagnosis:{
         score:62,
-        industry_benchmark:"餐飲業 AI 採用率約 28%，多數仍停留在 POS 系統",
-        gap_summary:"您的團隊規模適合啟動 AI 自動化，主要 gap 在客戶溝通同內容產出環節",
+        industry_benchmark:"餐飲業 AI 採用率約 28%，多數仲停留在 POS 系統",
+        gap_summary:"您嘅團隊規模適合啟動 AI 自動化，主要 gap 在客戶溝通同內容產出環節",
       },
       solutions:[
         {icon:"✉️", title:"AI 客戶跟進自動化", demo_ref:6, desc:"自動跟進未回覆客戶，個人化內容",  monthly_hours_saved:22},
@@ -6963,7 +6963,7 @@ Then estimate monthly hours saved (savings_hours).
     await wait(300);
     const hrs = json.savings_hours || Math.max(8, Math.round(json.nodes.length * 6));
     wfResult.innerHTML = lang === "zh"
-      ? `✅ <strong>${json.nodes.length} 步流程設計完成</strong> · 預估每月節省 <strong>${hrs} 小時</strong>。<br><span style="color:var(--text-dim);font-size:13px">交給 TBC Solutions 為您打造完整自動化系統。</span>`
+      ? `✅ <strong>${json.nodes.length} 步流程設計完成</strong> · 預估每月節省 <strong>${hrs} 小時</strong>。<br><span style="color:var(--text-dim);font-size:13px">交俾 TBC Solutions 為您打造完整自動化系統。</span>`
       : `✅ <strong>${json.nodes.length}-step workflow ready</strong> · estimated savings: <strong>${hrs} hrs / month</strong>.<br><span style="color:var(--text-dim);font-size:13px">Let TBC Solutions build the full automation for you.</span>`;
     wfResult.classList.add("show");
   }catch(e){
@@ -7503,7 +7503,7 @@ rvRun?.addEventListener("click", async ()=>{
   out.innerHTML = `<div class="rv-card show"><div class="rv-text"><div class="dot-typing"><span></span><span></span><span></span></div> ${currentLang==="zh"?"AI 撰寫中…":"AI drafting replies…"}</div></div>`;
 
   const sysPrompt = currentLang === "zh"
-    ? `你是品牌客戶關係專家。根據用戶提供的客戶評論，為「${biz}」撰寫 3 個不同風格的回覆。判斷評論是正面/負面，調整語氣。**只回覆 JSON**：
+    ? `你是品牌客戶關係專家。根據用戶提供的客戶評論，為「${biz}」撰寫 3 個不同風格的回覆。判斷評論係正面/負面，調整語氣。**只回覆 JSON**：
 {
   "replies": [
     {"tone": "正式專業", "text": "..."},
@@ -7828,16 +7828,16 @@ function renderWarehouseResult(out, json){
     };
 
     const sysPrompt = currentLang === "zh"
-      ? `你是 AI 自動化策略顧問。根據用戶的公司資料 + 痛點，為佢生成一份個人化的商業診斷報告。
+      ? `你是 AI 自動化策略顧問。根據用戶嘅公司資料 + 痛點，為佢生成一份個人化嘅商業診斷報告。
 
-可用的 AI 解決方案（demo_ref 對應 demo 編號）：
+可用嘅 AI 解決方案（demo_ref 對應 demo 編號）：
 1=AI 工作流程自動化、2=AI 聊天助手、3=AI 網頁/品牌內容、4=AI 社交媒體內容、5=AI 客戶意圖分析、6=AI 銷售跟進信、7=AI 會議紀要、8=AI 多語翻譯、9=AI 評論回覆、10=AI SEO 標題、11=AI 電商產品文案、12=AI 多倉庫智能調貨
 
 **只回覆 JSON**：
 {
   "diagnosis": {
-    "score": 30-90 的整數（根據員工人數 × 痛點數量 × 行業 AI 成熟度）,
-    "industry_benchmark": "用戶行業的自動化程度描述（15-25 字）",
+    "score": 30-90 嘅整數（根據員工人數 × 痛點數量 × 行業 AI 成熟度）,
+    "industry_benchmark": "用戶行業嘅自動化程度描述（15-25 字）",
     "gap_summary": "用戶 vs 行業差距總結（20-35 字）"
   },
   "solutions": [
@@ -7903,15 +7903,15 @@ Available AI solutions (demo_ref maps to demo number):
     const L_CTA_TITLE = lang==="zh" ? `為「${company}」打造這套方案` : `Build this for ${company}`;
     const L_CTA_SUB   = lang==="zh" ? "留低聯絡，30 秒安排免費策略諮詢，幫您落地呢份報告。" : "Leave your details — we'll set up a free strategy call to put this report into action.";
     const L_CTA_BTN   = lang==="zh" ? `為「${company}」預約免費諮詢 →` : `Get my personalised AI consultation →`;
-    const L_FORM_NAME    = lang==="zh" ? "您的名" : "Your name";
+    const L_FORM_NAME    = lang==="zh" ? "您嘅名" : "Your name";
     const L_FORM_EMAIL   = lang==="zh" ? "Email" : "Email";
     const L_FORM_BIZ     = lang==="zh" ? "業務類型 (例：診所 / 物流 / 餐廳…)" : "Business type (e.g., Clinic / Logistics / Restaurant…)";
     const L_FORM_PHONE   = lang==="zh" ? "WhatsApp / 電話（可選）" : "WhatsApp / phone (optional)";
-    const L_FORM_THANKS  = lang==="zh" ? "✅ 收到！正在為您安排預約 …" : "✅ Got it — taking you to booking…";
-    const L_FORM_ALT     = lang==="zh" ? "或者用 Cal.com 直接選時間 ↓" : "Or pick a time on Cal.com ↓";
+    const L_FORM_THANKS  = lang==="zh" ? "✅ 收到！我哋安排緊預約 …" : "✅ Got it — taking you to booking…";
+    const L_FORM_ALT     = lang==="zh" ? "或者用 Cal.com 直接揀時間 ↓" : "Or pick a time on Cal.com ↓";
     const L_BANNER_TAG  = lang==="zh" ? "範例" : "EXAMPLE";
     const L_BANNER_TEXT = lang==="zh"
-      ? `這份是 <strong>${escapeHtml(company)}</strong>${industry?` · ${escapeHtml(industry)}`:""} 的範例報告 — 想看您自己公司的？`
+      ? `這份係 <strong>${escapeHtml(company)}</strong>${industry?` · ${escapeHtml(industry)}`:""} 的範例報告 — 想睇您自己公司的？`
       : `This is a sample report for <strong>${escapeHtml(company)}</strong>${industry?` · ${escapeHtml(industry)}`:""}. Want one for your own?`;
     const L_BANNER_BTN  = lang==="zh" ? "✏️ 用您的公司試一次 →" : "✏️ Try with your company →";
     const L_JUMP_TIP    = lang==="zh" ? "撳卡片即試 →" : "Click to try →";
