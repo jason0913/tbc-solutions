@@ -2460,81 +2460,64 @@ main,nav,section,footer{position:relative;z-index:2}
   pointer-events:none;
 }
 .mobile-sticky-cta.show{transform:translateY(0);pointer-events:auto}
-.msc-row{display:flex;align-items:center;gap:8px}
-.mobile-sticky-cta .msc-expand{
-  flex:0 0 auto;width:46px;height:46px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.40);
-  color:#fff;font-size:18px;cursor:pointer;
-  transition:all var(--t-fast);
+
+/* Top row: WhatsApp + Telegram chips — always visible */
+.mobile-sticky-cta .msc-chips{
+  display:flex;gap:8px;margin-bottom:8px;
 }
-.mobile-sticky-cta .msc-expand:active{transform:scale(.94)}
-.mobile-sticky-cta .msc-expand[aria-expanded="true"]{
-  background:rgba(124,92,255,.30);border-color:rgba(124,92,255,.70);
-  box-shadow:inset 0 0 0 2px rgba(255,255,255,.10);
+.mobile-sticky-cta .msc-chip{
+  flex:1 1 0;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:9px 10px;border-radius:10px;text-decoration:none;color:#fff;
+  font-size:13px;font-weight:700;letter-spacing:.2px;
+  transition:transform var(--t-fast),filter var(--t-fast);
+  min-width:0;
 }
+.mobile-sticky-cta .msc-chip:active{transform:scale(.97)}
+.mobile-sticky-cta .msc-chip:hover{filter:brightness(1.08)}
+.mobile-sticky-cta .msc-chip.wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+.mobile-sticky-cta .msc-chip.tg{background:linear-gradient(135deg,#37AEE2,#2575A4)}
+.mobile-sticky-cta .msc-chip-ico{font-size:15px;line-height:1}
+.mobile-sticky-cta .msc-chip-label{
+  font-size:13px;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* Main book CTA */
 .mobile-sticky-cta .msc-btn{
-  flex:1 1 auto;
   display:flex;align-items:center;justify-content:center;gap:10px;
-  padding:14px 18px;border-radius:14px;
+  padding:13px 18px;border-radius:12px;
   background:var(--grad);color:#fff;text-decoration:none;
-  font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:.01em;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:.01em;
   box-shadow:0 14px 36px rgba(124,92,255,.5);
   transition:transform var(--t-fast);
   min-width:0;
 }
 .mobile-sticky-cta .msc-btn:active{transform:scale(.98)}
-.mobile-sticky-cta .msc-ico{font-size:17px;line-height:1}
+.mobile-sticky-cta .msc-ico{font-size:16px;line-height:1}
 .mobile-sticky-cta .msc-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mobile-sticky-cta .msc-arrow{font-size:17px;font-weight:800;margin-left:2px}
-
-/* Quick-contact drawer (above the row) */
-.mobile-sticky-cta .msc-drawer{
-  display:flex;flex-direction:column;gap:8px;
-  margin-bottom:8px;padding:10px;
-  border-radius:14px;
-  background:rgba(20,20,30,.92);
-  border:1px solid rgba(124,92,255,.38);
-  box-shadow:0 -10px 30px rgba(0,0,0,.4);
-  max-height:0;opacity:0;overflow:hidden;
-  transform:translateY(6px);
-  transition:max-height .28s ease, opacity .22s ease, transform .28s cubic-bezier(.2,.7,.2,1), padding .28s ease, margin .28s ease;
-}
-.mobile-sticky-cta .msc-drawer.open{
-  max-height:200px;opacity:1;transform:translateY(0);
-}
-.mobile-sticky-cta .msc-drawer.closed-resting{
-  padding:0;margin-bottom:0;border-width:0;
-}
-.mobile-sticky-cta .msc-chan{
-  display:flex;align-items:center;gap:10px;
-  padding:11px 14px;border-radius:10px;text-decoration:none;
-  font-size:14px;font-weight:700;color:#fff;
-  transition:transform var(--t-fast),background var(--t-fast);
-}
-.mobile-sticky-cta .msc-chan:active{transform:scale(.98)}
-.mobile-sticky-cta .msc-chan.wa{background:linear-gradient(135deg,#25D366,#128C7E)}
-.mobile-sticky-cta .msc-chan.tg{background:linear-gradient(135deg,#37AEE2,#2575A4)}
-.mobile-sticky-cta .msc-chan .msc-chan-ico{font-size:18px;line-height:1}
-.mobile-sticky-cta .msc-chan .msc-chan-meta{
-  display:flex;flex-direction:column;line-height:1.15;
-}
-.mobile-sticky-cta .msc-chan .msc-chan-label{font-size:14.5px;font-weight:700}
-.mobile-sticky-cta .msc-chan .msc-chan-handle{font-size:11.5px;opacity:.88;font-weight:500}
+.mobile-sticky-cta .msc-arrow{font-size:16px;font-weight:800;margin-left:2px}
 
 [data-theme="light"] .mobile-sticky-cta{
   background:linear-gradient(to top, rgba(255,255,255,.95) 50%, rgba(255,255,255,.7));
   border-top-color:rgba(124,92,255,.2);
 }
-[data-theme="light"] .mobile-sticky-cta .msc-expand{
-  background:rgba(124,92,255,.10);border-color:rgba(124,92,255,.32);color:#1a1a2e;
-}
-[data-theme="light"] .mobile-sticky-cta .msc-drawer{
-  background:#fff;border-color:rgba(124,92,255,.32);
-  box-shadow:0 -10px 30px rgba(0,0,0,.15);
-}
 @media(max-width:780px){
   .mobile-sticky-cta{display:block}
+  /* Clear the sticky CTA (2-row: chips + main = ~120px) from covering the
+     last bit of every section's content. */
+  body{padding-bottom:calc(130px + env(safe-area-inset-bottom))}
+  /* Pain cards: bump vertical breathing when stacked single-column */
+  .pain-grid{gap:14px !important}
+  .pain-card{padding:16px 18px;font-size:13.5px}
+  /* Section vertical rhythm: ensure between-section gaps don't collapse */
+  .pain-section{padding-top:60px;padding-bottom:30px}
+  /* Demo end CTA: bump bottom margin so it doesn't hug the next card */
+  .demo-end-cta{margin-top:32px}
+}
+@media(max-width:360px){
+  .mobile-sticky-cta .msc-chip{padding:8px 8px;font-size:12px}
+  .mobile-sticky-cta .msc-chip-label{font-size:12px}
 }
 #demos-tabs.collapsed .demo-tab-btn.dim{display:none}
 .demos-expand{
@@ -2590,15 +2573,61 @@ main,nav,section,footer{position:relative;z-index:2}
   .demo-end-cta .dec-btn{flex:1;justify-content:center;padding:13px 16px}
 }
 
-/* ======================== TRUST SIGNALS ROW ======================== */
-.trust-signals{
-  padding:40px 0 20px;
+/* ======================== FOR-YOU (merged trust + audience) ======================== */
+.for-you{
+  padding:80px 0 60px;position:relative;
 }
-.trust-signals .ts-row{
+.for-you .fy-head{
+  text-align:center;max-width:780px;margin-inline:auto;padding-inline:16px;
+}
+.for-you .fy-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  background:rgba(124,92,255,.10);color:var(--accent);
+  font-size:11.5px;letter-spacing:1.2px;font-weight:700;text-transform:uppercase;
+}
+.for-you .fy-title{
+  margin-top:18px;font-size:clamp(26px,3.2vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.15;
+}
+.for-you .fy-sub{
+  margin-top:14px;color:var(--text-dim);font-size:15px;line-height:1.55;
+}
+/* Audience grid */
+.for-you .fy-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  max-width:1080px;margin:36px auto 0;padding-inline:16px;
+}
+.for-you .fy-card{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;
+  padding:24px 18px;border-radius:18px;
+  background:linear-gradient(180deg, rgba(124,92,255,.06), rgba(124,92,255,.02));
+  border:1px solid rgba(124,92,255,.18);
+  transition:all var(--t-fast);
+}
+.for-you .fy-card:hover{
+  transform:translateY(-4px);
+  background:linear-gradient(180deg, rgba(124,92,255,.12), rgba(124,92,255,.04));
+  border-color:rgba(124,92,255,.40);
+  box-shadow:0 10px 30px -10px rgba(124,92,255,.35);
+}
+.for-you .fy-ico{
+  font-size:30px;line-height:1;
+  width:56px;height:56px;display:flex;align-items:center;justify-content:center;
+  border-radius:14px;
+  background:rgba(124,92,255,.12);
+  border:1px solid rgba(124,92,255,.30);
+}
+.for-you .fy-name{font-size:15px;font-weight:700;color:var(--text)}
+.for-you .fy-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
+[data-theme="light"] .for-you .fy-card{
+  background:linear-gradient(180deg, rgba(124,92,255,.05), rgba(255,255,255,.6));
+  border-color:rgba(124,92,255,.22);
+}
+/* Trust pill row — sits below the audience grid */
+.for-you .fy-trust{
   display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px;
-  max-width:1080px;margin-inline:auto;padding-inline:16px;
+  max-width:1080px;margin:32px auto 0;padding-inline:16px;
 }
-.trust-signals .ts-pill{
+.for-you .fy-pill{
   display:inline-flex;align-items:center;gap:8px;
   padding:10px 16px;border-radius:999px;
   background:rgba(124,92,255,.06);
@@ -2606,80 +2635,31 @@ main,nav,section,footer{position:relative;z-index:2}
   color:var(--text);font-size:13.5px;font-weight:600;letter-spacing:.2px;
   transition:all var(--t-fast);
 }
-.trust-signals .ts-pill:hover{
+.for-you .fy-pill:hover{
   background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.45);
   transform:translateY(-2px);
 }
-.trust-signals .ts-pill .ts-ico{font-size:16px;line-height:1}
-.trust-signals .ts-pill .ts-txt{white-space:nowrap}
-[data-theme="light"] .trust-signals .ts-pill{
+.for-you .fy-pill-ico{font-size:16px;line-height:1}
+.for-you .fy-pill-txt{white-space:nowrap}
+[data-theme="light"] .for-you .fy-pill{
   background:rgba(124,92,255,.05);border-color:rgba(124,92,255,.28);color:#1a1a2e;
 }
-[data-theme="light"] .trust-signals .ts-pill:hover{
+[data-theme="light"] .for-you .fy-pill:hover{
   background:rgba(124,92,255,.10);border-color:rgba(124,92,255,.5);
 }
-@media (max-width:680px){
-  .trust-signals{padding:28px 0 12px}
-  .trust-signals .ts-pill{padding:8px 13px;font-size:12.5px}
-  .trust-signals .ts-pill .ts-ico{font-size:14px}
-}
-
-/* ======================== WHO THIS IS FOR ======================== */
-.who-for{
-  padding:60px 0 40px;
-}
-.who-for .wf-head{
-  text-align:center;max-width:780px;margin-inline:auto 24px;margin-inline:auto;padding-inline:16px;
-}
-.who-for .wf-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
-  background:rgba(124,92,255,.10);color:var(--accent);
-  font-size:11.5px;letter-spacing:1.2px;font-weight:700;text-transform:uppercase;
-}
-.who-for .wf-title{
-  margin-top:18px;font-size:clamp(26px,3.2vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.15;
-}
-.who-for .wf-sub{
-  margin-top:14px;color:var(--text-dim);font-size:15px;line-height:1.55;
-}
-.who-for .wf-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
-  max-width:1080px;margin:36px auto 0;padding-inline:16px;
-}
-.who-for .wf-card{
-  display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;
-  padding:24px 18px;border-radius:18px;
-  background:linear-gradient(180deg, rgba(124,92,255,.06), rgba(124,92,255,.02));
-  border:1px solid rgba(124,92,255,.18);
-  transition:all var(--t-fast);
-}
-.who-for .wf-card:hover{
-  transform:translateY(-4px);
-  background:linear-gradient(180deg, rgba(124,92,255,.12), rgba(124,92,255,.04));
-  border-color:rgba(124,92,255,.40);
-  box-shadow:0 10px 30px -10px rgba(124,92,255,.35);
-}
-.who-for .wf-ico{
-  font-size:30px;line-height:1;
-  width:56px;height:56px;display:flex;align-items:center;justify-content:center;
-  border-radius:14px;
-  background:rgba(124,92,255,.12);
-  border:1px solid rgba(124,92,255,.30);
-}
-.who-for .wf-name{font-size:15px;font-weight:700;color:var(--text)}
-.who-for .wf-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
-[data-theme="light"] .who-for .wf-card{
-  background:linear-gradient(180deg, rgba(124,92,255,.05), rgba(255,255,255,.6));
-  border-color:rgba(124,92,255,.22);
-}
+/* Responsive */
 @media (max-width:880px){
-  .who-for .wf-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .for-you{padding:60px 0 44px}
+  .for-you .fy-grid{grid-template-columns:repeat(2,1fr);gap:14px}
 }
 @media (max-width:480px){
-  .who-for{padding:40px 0 24px}
-  .who-for .wf-grid{grid-template-columns:1fr;gap:12px}
-  .who-for .wf-card{padding:20px 16px}
-  .who-for .wf-ico{font-size:26px;width:48px;height:48px}
+  .for-you{padding:48px 18px 36px}
+  .for-you .fy-grid{grid-template-columns:1fr;gap:14px;margin-top:28px}
+  .for-you .fy-card{padding:22px 18px;gap:14px}
+  .for-you .fy-ico{font-size:26px;width:50px;height:50px}
+  .for-you .fy-trust{gap:8px 10px;margin-top:24px}
+  .for-you .fy-pill{padding:9px 14px;font-size:12.5px}
+  .for-you .fy-pill-ico{font-size:14px}
 }
 </style>
 </head>
@@ -2768,31 +2748,23 @@ main,nav,section,footer{position:relative;z-index:2}
 
 <!-- ======================== MOBILE STICKY CTA (mobile only) ======================== -->
 <div class="mobile-sticky-cta" id="mobile-cta" hidden>
-  <!-- Quick-contact drawer (collapses upward) -->
-  <div class="msc-drawer closed-resting" id="msc-drawer" hidden>
-    <a class="msc-chan wa" id="msc-wa" href="#" target="_blank" rel="noopener">
-      <span class="msc-chan-ico">💬</span>
-      <span class="msc-chan-meta">
-        <span class="msc-chan-label" data-i18n="msc.wa">WhatsApp</span>
-        <span class="msc-chan-handle" data-i18n="msc.waSub">即時對話，1 分鐘回覆</span>
-      </span>
+  <!-- Quick-contact chips: WhatsApp + Telegram always visible -->
+  <div class="msc-chips" id="msc-chips">
+    <a class="msc-chip wa" id="msc-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <span class="msc-chip-ico">💬</span>
+      <span class="msc-chip-label">WhatsApp</span>
     </a>
-    <a class="msc-chan tg" id="msc-tg" href="#" target="_blank" rel="noopener">
-      <span class="msc-chan-ico">✈️</span>
-      <span class="msc-chan-meta">
-        <span class="msc-chan-label" data-i18n="msc.tg">Telegram</span>
-        <span class="msc-chan-handle">@grouper0913</span>
-      </span>
+    <a class="msc-chip tg" id="msc-tg" href="#" target="_blank" rel="noopener" aria-label="Telegram">
+      <span class="msc-chip-ico">✈️</span>
+      <span class="msc-chip-label">Telegram</span>
     </a>
   </div>
-  <div class="msc-row">
-    <button class="msc-expand" id="msc-expand" type="button" aria-label="Quick contact" aria-expanded="false" aria-controls="msc-drawer">⚡</button>
-    <a href="#book" class="msc-btn">
-      <span class="msc-ico">💬</span>
-      <span class="msc-text" data-i18n="msc.text">Book Free AI Consultation</span>
-      <span class="msc-arrow">→</span>
-    </a>
-  </div>
+  <!-- Main booking CTA -->
+  <a href="#book" class="msc-btn">
+    <span class="msc-ico">📅</span>
+    <span class="msc-text" data-i18n="msc.text">Book Free AI Consultation</span>
+    <span class="msc-arrow">→</span>
+  </a>
 </div>
 
 <!-- ======================== BG / PARTICLES ======================== -->
@@ -3035,45 +3007,43 @@ main,nav,section,footer{position:relative;z-index:2}
   </div>
 </section>
 
-<!-- ======================== TRUST SIGNALS ROW ======================== -->
-<section class="trust-signals reveal" id="trust-signals" aria-label="Trust signals">
-  <div class="ts-row">
-    <div class="ts-pill"><span class="ts-ico">🇭🇰</span> <span class="ts-txt" data-i18n="ts.hk">Hong Kong Based</span></div>
-    <div class="ts-pill"><span class="ts-ico">⚡</span> <span class="ts-txt" data-i18n="ts.personal">為您度身定做 AI 工作流</span></div>
-    <div class="ts-pill"><span class="ts-ico">🎯</span> <span class="ts-txt" data-i18n="ts.demos">14 個即時互動 Demo</span></div>
-    <div class="ts-pill"><span class="ts-ico">🛡️</span> <span class="ts-txt" data-i18n="ts.support">30 日 Bug Fix 保固</span></div>
-    <div class="ts-pill"><span class="ts-ico">🎁</span> <span class="ts-txt" data-i18n="ts.free">免費 30 分鐘諮詢</span></div>
+<!-- ======================== FOR YOU (merged Trust + Who-For) ======================== -->
+<section class="for-you reveal" id="for-you" aria-label="Built for you">
+  <div class="fy-head">
+    <span class="fy-eyebrow" data-i18n="fy.eyebrow">為您而設</span>
+    <h2 class="fy-title"><span data-i18n="fy.title1">最適合這類</span> <span class="gradient-text" data-i18n="fy.title2">業務</span></h2>
+    <p class="fy-sub" data-i18n="fy.sub">如果您是以下其中一類，AI 自動化可以即時為您節省時間和成本。</p>
   </div>
-</section>
-
-<!-- ======================== WHO THIS IS FOR ======================== -->
-<section class="who-for reveal" id="who-for" aria-label="Who this is for">
-  <div class="wf-head">
-    <span class="wf-eyebrow" data-i18n="wf.eyebrow">WHO THIS IS FOR</span>
-    <h2 class="wf-title"><span data-i18n="wf.title1">最適合這類</span> <span class="gradient-text" data-i18n="wf.title2">業務</span></h2>
-    <p class="wf-sub" data-i18n="wf.sub">如果您是以下其中一類，AI 自動化可以即時為您節省時間和成本。</p>
+  <!-- Audience tiles -->
+  <div class="fy-grid">
+    <div class="fy-card">
+      <div class="fy-ico">🏥</div>
+      <div class="fy-name" data-i18n="wf.c1.name">診所 / 醫美</div>
+      <div class="fy-desc" data-i18n="wf.c1.desc">客戶預約、跟進、提醒自動化</div>
+    </div>
+    <div class="fy-card">
+      <div class="fy-ico">🏪</div>
+      <div class="fy-name" data-i18n="wf.c2.name">中小企老闆</div>
+      <div class="fy-desc" data-i18n="wf.c2.desc">人手有限但又要做 marketing、客服、report</div>
+    </div>
+    <div class="fy-card">
+      <div class="fy-ico">🚀</div>
+      <div class="fy-name" data-i18n="wf.c3.name">初創 / Startup</div>
+      <div class="fy-desc" data-i18n="wf.c3.desc">想用 AI workflow 取代請人，節省成本快速 scale</div>
+    </div>
+    <div class="fy-card">
+      <div class="fy-ico">😩</div>
+      <div class="fy-name" data-i18n="wf.c4.name">被重複工作困住的團隊</div>
+      <div class="fy-desc" data-i18n="wf.c4.desc">每日都在處理 follow-up email、抄資料、報表</div>
+    </div>
   </div>
-  <div class="wf-grid">
-    <div class="wf-card">
-      <div class="wf-ico">🏥</div>
-      <div class="wf-name" data-i18n="wf.c1.name">診所 / 醫美</div>
-      <div class="wf-desc" data-i18n="wf.c1.desc">客戶預約、跟進、提醒自動化</div>
-    </div>
-    <div class="wf-card">
-      <div class="wf-ico">🏪</div>
-      <div class="wf-name" data-i18n="wf.c2.name">中小企老闆</div>
-      <div class="wf-desc" data-i18n="wf.c2.desc">人手有限但又要做 marketing、客服、report</div>
-    </div>
-    <div class="wf-card">
-      <div class="wf-ico">🚀</div>
-      <div class="wf-name" data-i18n="wf.c3.name">初創 / Startup</div>
-      <div class="wf-desc" data-i18n="wf.c3.desc">想用 AI workflow 取代請人，節省成本快速 scale</div>
-    </div>
-    <div class="wf-card">
-      <div class="wf-ico">😩</div>
-      <div class="wf-name" data-i18n="wf.c4.name">被重複工作困住的團隊</div>
-      <div class="wf-desc" data-i18n="wf.c4.desc">每日都在處理 follow-up email、抄資料、報表</div>
-    </div>
+  <!-- Trust signals row -->
+  <div class="fy-trust">
+    <div class="fy-pill"><span class="fy-pill-ico">🇭🇰</span><span class="fy-pill-txt" data-i18n="ts.hk">香港本地團隊</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico">⚡</span><span class="fy-pill-txt" data-i18n="ts.personal">為您度身定做 AI 工作流</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico">🎯</span><span class="fy-pill-txt" data-i18n="ts.demos">14 個即時互動 Demo</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico">🛡️</span><span class="fy-pill-txt" data-i18n="ts.support">30 日 Bug Fix 保固</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico">🎁</span><span class="fy-pill-txt" data-i18n="ts.free">免費 30 分鐘諮詢</span></div>
   </div>
 </section>
 
@@ -4264,6 +4234,8 @@ const I18N = {
     "pain.ptitle1":"我們已為您針對","pain.ptitle2":"配對方案",
     "pain.pdesc":"下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。",
     "pain.pcta":"即試方案 Demo","pain.pcta2":"預約免費諮詢",
+    "fy.eyebrow":"為您而設","fy.title1":"最適合這類","fy.title2":"業務",
+    "fy.sub":"如果您是以下其中一類，AI 自動化可以即時為您節省時間和成本。",
     "ts.hk":"香港本地團隊","ts.personal":"為您度身定做 AI 工作流",
     "ts.demos":"14 個即時互動 Demo","ts.support":"30 日 Bug Fix 保固","ts.free":"免費 30 分鐘諮詢",
     "wf.eyebrow":"哪類業務最合適","wf.title1":"最適合這類","wf.title2":"業務",
@@ -4455,6 +4427,8 @@ const I18N = {
     "pain.ptitle1":"We've matched solutions for","pain.ptitle2":"",
     "pain.pdesc":"The demos below only show tools most useful for your industry — already filtered.",
     "pain.pcta":"Try Live Demo","pain.pcta2":"Book Free Consultation",
+    "fy.eyebrow":"BUILT FOR YOU","fy.title1":"Built for","fy.title2":"businesses like yours",
+    "fy.sub":"If you fit any of these, AI automation can save you time and money — starting today.",
     "ts.hk":"Hong Kong Based","ts.personal":"Personalized AI Workflows",
     "ts.demos":"14 Live Interactive Demos","ts.support":"30-Day Bug Fix Included","ts.free":"Free 30-min Consultation",
     "wf.eyebrow":"WHO THIS IS FOR","wf.title1":"Built for","wf.title2":"businesses like yours",
@@ -5334,45 +5308,11 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
   if(waLink) waLink.href = CONTACT_WHATSAPP_URL;
   if(tgLink) tgLink.href = CONTACT_TG_URL;
 
-  // Drawer toggle
-  const expandBtn = document.getElementById("msc-expand");
-  const drawer    = document.getElementById("msc-drawer");
-  let drawerOpen = false;
-  function setDrawer(open){
-    drawerOpen = open;
-    if(!drawer || !expandBtn) return;
-    expandBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    expandBtn.textContent = open ? "×" : "⚡";
-    if(open){
-      drawer.hidden = false;
-      drawer.classList.remove("closed-resting");
-      // Defer .open so the transition actually plays from collapsed state
-      requestAnimationFrame(() => drawer.classList.add("open"));
-    } else {
-      drawer.classList.remove("open");
-      // After transition: snap back to flat (so it doesn't reserve space)
-      setTimeout(() => {
-        if(!drawerOpen){
-          drawer.classList.add("closed-resting");
-          drawer.hidden = true;
-        }
-      }, 300);
-    }
-  }
-  expandBtn?.addEventListener("click", () => setDrawer(!drawerOpen));
-  // Close drawer when a channel is tapped (so the user perceives it as launched)
-  drawer?.querySelectorAll(".msc-chan").forEach(a => {
-    a.addEventListener("click", () => setTimeout(() => setDrawer(false), 100));
-  });
-  // Close drawer if user taps the main book button (avoid leaving stale UI)
-  cta.querySelector(".msc-btn")?.addEventListener("click", () => setDrawer(false));
-
   let isShown = false;
   function update(){
     const isMobile = window.matchMedia("(max-width: 780px)").matches;
     if(!isMobile){
       if(isShown){ cta.classList.remove("show"); isShown = false; }
-      if(drawerOpen) setDrawer(false);
       return;
     }
     const scrollY = window.scrollY || window.pageYOffset;
@@ -5386,7 +5326,6 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
     if(shouldShow !== isShown){
       cta.classList.toggle("show", shouldShow);
       isShown = shouldShow;
-      if(!shouldShow && drawerOpen) setDrawer(false);
     }
   }
   let ticking = false;
