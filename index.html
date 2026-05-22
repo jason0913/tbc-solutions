@@ -4035,6 +4035,35 @@ main,nav,section,footer{position:relative;z-index:2}
      ============================================================ -->
 <script>
 /* =================================================================
+   BUILD-ID AUTO-CLEANUP
+   If this page's build differs from what's saved in localStorage,
+   wipe every "tbc-*" key so stale profile/welcome-dismissed schemas
+   don't leak across deploys. Runs FIRST, before any other script.
+   ================================================================= */
+(function buildIdGuard(){
+  const CURRENT_BUILD = "2026-05-22-R4-cleanup";
+  try{
+    const saved = localStorage.getItem("tbc-build-id");
+    if(saved !== CURRENT_BUILD){
+      // Wipe every tbc-* key (preserves any non-tbc keys other apps stored)
+      const toRemove = [];
+      for(let i = 0; i < localStorage.length; i++){
+        const k = localStorage.key(i);
+        if(k && k.startsWith("tbc-") && k !== "tbc-build-id") toRemove.push(k);
+      }
+      toRemove.forEach(k => localStorage.removeItem(k));
+      localStorage.setItem("tbc-build-id", CURRENT_BUILD);
+      if(saved){
+        // Only log if there WAS a previous build — first-time visitors are silent
+        console.info("[TBC] New build detected — cleared stale state:", toRemove);
+      }
+    }
+  }catch(e){
+    // localStorage disabled / quota exceeded — no-op
+  }
+})();
+
+/* =================================================================
    API 設定 — 已改為後端代理模式（Vercel /api/claude）
    API Key 設在 Vercel 環境變數 CLAUDE_API_KEY，前端看不到。
    ================================================================= */
