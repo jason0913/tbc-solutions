@@ -1355,6 +1355,50 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 .wz-cta a:hover{transform:translateY(-2px)}
 
+/* --- Wizard end Lead Capture Form --- */
+.wz-leadform{text-align:left}
+.wz-leadform h5{text-align:center}
+.wz-leadform p{text-align:center;margin-bottom:14px}
+.wz-lead-form{display:flex;flex-direction:column;gap:10px;margin-top:14px;position:relative;z-index:1}
+.wz-lead-form.invalid{animation:wzShake .35s}
+@keyframes wzShake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
+}
+.wz-lead-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wz-lead-form input{
+  width:100%;padding:13px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.92);color:#0a0a14;font-size:14px;font-family:inherit;
+  transition:all var(--t-fast);
+}
+.wz-lead-form input::placeholder{color:rgba(10,10,20,.5)}
+.wz-lead-form input:focus{
+  outline:none;background:#fff;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35);
+}
+.wz-lead-form input:invalid:not(:placeholder-shown){
+  border-color:#ff6b9b;background:rgba(255,235,242,.95);
+}
+.wz-lead-submit{
+  margin-top:6px;padding:14px 22px;border-radius:999px;border:0;cursor:pointer;
+  background:#fff;color:#0a0a14;font-size:14.5px;font-weight:800;letter-spacing:.2px;
+  box-shadow:0 6px 18px rgba(0,0,0,.22);transition:transform var(--t-fast),box-shadow var(--t-fast);
+  font-family:inherit;
+}
+.wz-lead-submit:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.28)}
+.wz-lead-submit:active{transform:translateY(0)}
+.wz-lead-alt{
+  text-align:center;font-size:12px;opacity:.85;margin-top:4px;
+}
+.wz-lead-thanks{
+  text-align:center;font-size:15px;font-weight:700;padding:18px 0;
+  animation:wzFadeIn .4s ease;
+}
+@keyframes wzFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:520px){
+  .wz-lead-row{grid-template-columns:1fr;gap:8px}
+}
+
 /* Preview banner — shown only when auto-play renders the sample report */
 .wz-preview-banner{
   display:flex;align-items:center;gap:14px;flex-wrap:wrap;
@@ -2416,20 +2460,78 @@ main,nav,section,footer{position:relative;z-index:2}
   pointer-events:none;
 }
 .mobile-sticky-cta.show{transform:translateY(0);pointer-events:auto}
+.msc-row{display:flex;align-items:center;gap:8px}
+.mobile-sticky-cta .msc-expand{
+  flex:0 0 auto;width:46px;height:46px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.40);
+  color:#fff;font-size:18px;cursor:pointer;
+  transition:all var(--t-fast);
+}
+.mobile-sticky-cta .msc-expand:active{transform:scale(.94)}
+.mobile-sticky-cta .msc-expand[aria-expanded="true"]{
+  background:rgba(124,92,255,.30);border-color:rgba(124,92,255,.70);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.10);
+}
 .mobile-sticky-cta .msc-btn{
+  flex:1 1 auto;
   display:flex;align-items:center;justify-content:center;gap:10px;
-  padding:14px 20px;border-radius:12px;
+  padding:14px 18px;border-radius:14px;
   background:var(--grad);color:#fff;text-decoration:none;
   font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:.01em;
   box-shadow:0 14px 36px rgba(124,92,255,.5);
   transition:transform var(--t-fast);
+  min-width:0;
 }
 .mobile-sticky-cta .msc-btn:active{transform:scale(.98)}
 .mobile-sticky-cta .msc-ico{font-size:17px;line-height:1}
+.mobile-sticky-cta .msc-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mobile-sticky-cta .msc-arrow{font-size:17px;font-weight:800;margin-left:2px}
+
+/* Quick-contact drawer (above the row) */
+.mobile-sticky-cta .msc-drawer{
+  display:flex;flex-direction:column;gap:8px;
+  margin-bottom:8px;padding:10px;
+  border-radius:14px;
+  background:rgba(20,20,30,.92);
+  border:1px solid rgba(124,92,255,.38);
+  box-shadow:0 -10px 30px rgba(0,0,0,.4);
+  max-height:0;opacity:0;overflow:hidden;
+  transform:translateY(6px);
+  transition:max-height .28s ease, opacity .22s ease, transform .28s cubic-bezier(.2,.7,.2,1), padding .28s ease, margin .28s ease;
+}
+.mobile-sticky-cta .msc-drawer.open{
+  max-height:200px;opacity:1;transform:translateY(0);
+}
+.mobile-sticky-cta .msc-drawer.closed-resting{
+  padding:0;margin-bottom:0;border-width:0;
+}
+.mobile-sticky-cta .msc-chan{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;border-radius:10px;text-decoration:none;
+  font-size:14px;font-weight:700;color:#fff;
+  transition:transform var(--t-fast),background var(--t-fast);
+}
+.mobile-sticky-cta .msc-chan:active{transform:scale(.98)}
+.mobile-sticky-cta .msc-chan.wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+.mobile-sticky-cta .msc-chan.tg{background:linear-gradient(135deg,#37AEE2,#2575A4)}
+.mobile-sticky-cta .msc-chan .msc-chan-ico{font-size:18px;line-height:1}
+.mobile-sticky-cta .msc-chan .msc-chan-meta{
+  display:flex;flex-direction:column;line-height:1.15;
+}
+.mobile-sticky-cta .msc-chan .msc-chan-label{font-size:14.5px;font-weight:700}
+.mobile-sticky-cta .msc-chan .msc-chan-handle{font-size:11.5px;opacity:.88;font-weight:500}
+
 [data-theme="light"] .mobile-sticky-cta{
   background:linear-gradient(to top, rgba(255,255,255,.95) 50%, rgba(255,255,255,.7));
   border-top-color:rgba(124,92,255,.2);
+}
+[data-theme="light"] .mobile-sticky-cta .msc-expand{
+  background:rgba(124,92,255,.10);border-color:rgba(124,92,255,.32);color:#1a1a2e;
+}
+[data-theme="light"] .mobile-sticky-cta .msc-drawer{
+  background:#fff;border-color:rgba(124,92,255,.32);
+  box-shadow:0 -10px 30px rgba(0,0,0,.15);
 }
 @media(max-width:780px){
   .mobile-sticky-cta{display:block}
@@ -2442,6 +2544,143 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 .demos-expand.show{display:inline-flex;align-items:center;gap:6px}
 .demos-expand:hover{background:rgba(124,92,255,.14);border-color:rgba(124,92,255,.5)}
+
+/* ======================== DEMO END CTA (per slide) ======================== */
+.demo-end-cta{
+  margin-top:28px;padding:22px 22px;border-radius:18px;
+  background:linear-gradient(135deg, rgba(124,92,255,.10), rgba(255,71,150,.06));
+  border:1px solid rgba(124,92,255,.28);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;
+}
+.demo-end-cta .dec-text{
+  display:flex;flex-direction:column;gap:4px;
+}
+.demo-end-cta .dec-title{
+  font-size:15.5px;font-weight:700;color:var(--text);letter-spacing:-.01em;
+}
+.demo-end-cta .dec-sub{
+  font-size:13px;color:var(--text-dim);
+}
+.demo-end-cta .dec-actions{
+  display:flex;gap:10px;flex-wrap:wrap;
+}
+.demo-end-cta .dec-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:11px 18px;border-radius:999px;
+  font-size:13.5px;font-weight:700;letter-spacing:.2px;
+  text-decoration:none;transition:all var(--t-fast);white-space:nowrap;cursor:pointer;
+}
+.demo-end-cta .dec-btn.primary{
+  background:linear-gradient(135deg, #7c5cff, #ff4796);color:#fff;
+  box-shadow:0 6px 20px -6px rgba(124,92,255,.55);
+}
+.demo-end-cta .dec-btn.primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px -8px rgba(124,92,255,.7)}
+.demo-end-cta .dec-btn.ghost{
+  background:rgba(124,92,255,.08);color:var(--text);border:1px solid rgba(124,92,255,.30);
+}
+.demo-end-cta .dec-btn.ghost:hover{background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.5)}
+[data-theme="light"] .demo-end-cta{
+  background:linear-gradient(135deg, rgba(124,92,255,.08), rgba(255,71,150,.05));
+  border-color:rgba(124,92,255,.30);
+}
+[data-theme="light"] .demo-end-cta .dec-btn.ghost{color:#1a1a2e}
+@media (max-width:640px){
+  .demo-end-cta{flex-direction:column;align-items:stretch;padding:18px}
+  .demo-end-cta .dec-actions{justify-content:stretch}
+  .demo-end-cta .dec-btn{flex:1;justify-content:center;padding:13px 16px}
+}
+
+/* ======================== TRUST SIGNALS ROW ======================== */
+.trust-signals{
+  padding:40px 0 20px;
+}
+.trust-signals .ts-row{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px;
+  max-width:1080px;margin-inline:auto;padding-inline:16px;
+}
+.trust-signals .ts-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:999px;
+  background:rgba(124,92,255,.06);
+  border:1px solid rgba(124,92,255,.22);
+  color:var(--text);font-size:13.5px;font-weight:600;letter-spacing:.2px;
+  transition:all var(--t-fast);
+}
+.trust-signals .ts-pill:hover{
+  background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.45);
+  transform:translateY(-2px);
+}
+.trust-signals .ts-pill .ts-ico{font-size:16px;line-height:1}
+.trust-signals .ts-pill .ts-txt{white-space:nowrap}
+[data-theme="light"] .trust-signals .ts-pill{
+  background:rgba(124,92,255,.05);border-color:rgba(124,92,255,.28);color:#1a1a2e;
+}
+[data-theme="light"] .trust-signals .ts-pill:hover{
+  background:rgba(124,92,255,.10);border-color:rgba(124,92,255,.5);
+}
+@media (max-width:680px){
+  .trust-signals{padding:28px 0 12px}
+  .trust-signals .ts-pill{padding:8px 13px;font-size:12.5px}
+  .trust-signals .ts-pill .ts-ico{font-size:14px}
+}
+
+/* ======================== WHO THIS IS FOR ======================== */
+.who-for{
+  padding:60px 0 40px;
+}
+.who-for .wf-head{
+  text-align:center;max-width:780px;margin-inline:auto 24px;margin-inline:auto;padding-inline:16px;
+}
+.who-for .wf-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  background:rgba(124,92,255,.10);color:var(--accent);
+  font-size:11.5px;letter-spacing:1.2px;font-weight:700;text-transform:uppercase;
+}
+.who-for .wf-title{
+  margin-top:18px;font-size:clamp(26px,3.2vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.15;
+}
+.who-for .wf-sub{
+  margin-top:14px;color:var(--text-dim);font-size:15px;line-height:1.55;
+}
+.who-for .wf-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  max-width:1080px;margin:36px auto 0;padding-inline:16px;
+}
+.who-for .wf-card{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;
+  padding:24px 18px;border-radius:18px;
+  background:linear-gradient(180deg, rgba(124,92,255,.06), rgba(124,92,255,.02));
+  border:1px solid rgba(124,92,255,.18);
+  transition:all var(--t-fast);
+}
+.who-for .wf-card:hover{
+  transform:translateY(-4px);
+  background:linear-gradient(180deg, rgba(124,92,255,.12), rgba(124,92,255,.04));
+  border-color:rgba(124,92,255,.40);
+  box-shadow:0 10px 30px -10px rgba(124,92,255,.35);
+}
+.who-for .wf-ico{
+  font-size:30px;line-height:1;
+  width:56px;height:56px;display:flex;align-items:center;justify-content:center;
+  border-radius:14px;
+  background:rgba(124,92,255,.12);
+  border:1px solid rgba(124,92,255,.30);
+}
+.who-for .wf-name{font-size:15px;font-weight:700;color:var(--text)}
+.who-for .wf-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
+[data-theme="light"] .who-for .wf-card{
+  background:linear-gradient(180deg, rgba(124,92,255,.05), rgba(255,255,255,.6));
+  border-color:rgba(124,92,255,.22);
+}
+@media (max-width:880px){
+  .who-for .wf-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+}
+@media (max-width:480px){
+  .who-for{padding:40px 0 24px}
+  .who-for .wf-grid{grid-template-columns:1fr;gap:12px}
+  .who-for .wf-card{padding:20px 16px}
+  .who-for .wf-ico{font-size:26px;width:48px;height:48px}
+}
 </style>
 </head>
 <body class="lang-zh">
@@ -2529,11 +2768,31 @@ main,nav,section,footer{position:relative;z-index:2}
 
 <!-- ======================== MOBILE STICKY CTA (mobile only) ======================== -->
 <div class="mobile-sticky-cta" id="mobile-cta" hidden>
-  <a href="#book" class="msc-btn">
-    <span class="msc-ico">💬</span>
-    <span class="msc-text" data-i18n="msc.text">Book Free AI Consultation</span>
-    <span class="msc-arrow">→</span>
-  </a>
+  <!-- Quick-contact drawer (collapses upward) -->
+  <div class="msc-drawer closed-resting" id="msc-drawer" hidden>
+    <a class="msc-chan wa" id="msc-wa" href="#" target="_blank" rel="noopener">
+      <span class="msc-chan-ico">💬</span>
+      <span class="msc-chan-meta">
+        <span class="msc-chan-label" data-i18n="msc.wa">WhatsApp</span>
+        <span class="msc-chan-handle" data-i18n="msc.waSub">即時傾，1 分鐘回覆</span>
+      </span>
+    </a>
+    <a class="msc-chan tg" id="msc-tg" href="#" target="_blank" rel="noopener">
+      <span class="msc-chan-ico">✈️</span>
+      <span class="msc-chan-meta">
+        <span class="msc-chan-label" data-i18n="msc.tg">Telegram</span>
+        <span class="msc-chan-handle">@grouper0913</span>
+      </span>
+    </a>
+  </div>
+  <div class="msc-row">
+    <button class="msc-expand" id="msc-expand" type="button" aria-label="Quick contact" aria-expanded="false" aria-controls="msc-drawer">⚡</button>
+    <a href="#book" class="msc-btn">
+      <span class="msc-ico">💬</span>
+      <span class="msc-text" data-i18n="msc.text">Book Free AI Consultation</span>
+      <span class="msc-arrow">→</span>
+    </a>
+  </div>
 </div>
 
 <!-- ======================== BG / PARTICLES ======================== -->
@@ -2772,6 +3031,48 @@ main,nav,section,footer{position:relative;z-index:2}
         <a href="#demos" class="btn btn-primary"><span data-i18n="pain.pcta">Try Live Demo</span> <span class="arrow">→</span></a>
         <a href="#book" class="btn btn-ghost" data-i18n="pain.pcta2">Book Free Consultation</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== TRUST SIGNALS ROW ======================== -->
+<section class="trust-signals reveal" id="trust-signals" aria-label="Trust signals">
+  <div class="ts-row">
+    <div class="ts-pill"><span class="ts-ico">🇭🇰</span> <span class="ts-txt" data-i18n="ts.hk">Hong Kong Based</span></div>
+    <div class="ts-pill"><span class="ts-ico">⚡</span> <span class="ts-txt" data-i18n="ts.personal">為您度身定做 AI 工作流</span></div>
+    <div class="ts-pill"><span class="ts-ico">🎯</span> <span class="ts-txt" data-i18n="ts.demos">14 個即時互動 Demo</span></div>
+    <div class="ts-pill"><span class="ts-ico">🛡️</span> <span class="ts-txt" data-i18n="ts.support">30 日 Bug Fix 保固</span></div>
+    <div class="ts-pill"><span class="ts-ico">🎁</span> <span class="ts-txt" data-i18n="ts.free">免費 30 分鐘諮詢</span></div>
+  </div>
+</section>
+
+<!-- ======================== WHO THIS IS FOR ======================== -->
+<section class="who-for reveal" id="who-for" aria-label="Who this is for">
+  <div class="wf-head">
+    <span class="wf-eyebrow" data-i18n="wf.eyebrow">WHO THIS IS FOR</span>
+    <h2 class="wf-title"><span data-i18n="wf.title1">最適合呢類</span> <span class="gradient-text" data-i18n="wf.title2">業務</span></h2>
+    <p class="wf-sub" data-i18n="wf.sub">如果您係以下其中一類，AI 自動化可以即時為您慳時間慳成本。</p>
+  </div>
+  <div class="wf-grid">
+    <div class="wf-card">
+      <div class="wf-ico">🏥</div>
+      <div class="wf-name" data-i18n="wf.c1.name">診所 / 醫美</div>
+      <div class="wf-desc" data-i18n="wf.c1.desc">客戶預約、跟進、提醒自動化</div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-ico">🏪</div>
+      <div class="wf-name" data-i18n="wf.c2.name">中小企老闆</div>
+      <div class="wf-desc" data-i18n="wf.c2.desc">人手有限但又要做 marketing、客服、report</div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-ico">🚀</div>
+      <div class="wf-name" data-i18n="wf.c3.name">初創 / Startup</div>
+      <div class="wf-desc" data-i18n="wf.c3.desc">想用 AI workflow 取代請人，慳成本快速 scale</div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-ico">😩</div>
+      <div class="wf-name" data-i18n="wf.c4.name">被重複工作壓住嘅團隊</div>
+      <div class="wf-desc" data-i18n="wf.c4.desc">每日都做緊 follow-up email、抄資料、報表</div>
     </div>
   </div>
 </section>
@@ -3963,7 +4264,18 @@ const I18N = {
     "pain.ptitle1":"我們已為您針對","pain.ptitle2":"配對方案",
     "pain.pdesc":"下方 demo 區只顯示對您行業最有用嘅工具 — 已 filter 完。",
     "pain.pcta":"即試方案 Demo","pain.pcta2":"預約免費諮詢",
+    "ts.hk":"香港本地團隊","ts.personal":"為您度身定做 AI 工作流",
+    "ts.demos":"14 個即時互動 Demo","ts.support":"30 日 Bug Fix 保固","ts.free":"免費 30 分鐘諮詢",
+    "wf.eyebrow":"邊類業務最啱","wf.title1":"最適合呢類","wf.title2":"業務",
+    "wf.sub":"如果您係以下其中一類，AI 自動化可以即時為您慳時間慳成本。",
+    "wf.c1.name":"診所 / 醫美","wf.c1.desc":"客戶預約、跟進、提醒自動化",
+    "wf.c2.name":"中小企老闆","wf.c2.desc":"人手有限但又要做 marketing、客服、report",
+    "wf.c3.name":"初創 / Startup","wf.c3.desc":"想用 AI workflow 取代請人，慳成本快速 scale",
+    "wf.c4.name":"被重複工作壓住嘅團隊","wf.c4.desc":"每日都做緊 follow-up email、抄資料、報表",
+    "demo.cta.title":"想要呢類 AI 自動化用喺您嘅業務？","demo.cta.sub":"免費 30 分鐘諮詢，我哋會度身為您嘅行業設計一套 workflow。",
+    "demo.cta.book":"預約免費諮詢","demo.cta.wa":"WhatsApp 直接傾",
     "msc.text":"預約免費 AI 諮詢",
+    "msc.wa":"WhatsApp","msc.waSub":"即時傾，1 分鐘回覆","msc.tg":"Telegram",
     "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
     "welcome.askIndustry":"您嘅公司屬於邊個行業？",
     "welcome.askName":"您嘅稱呼","welcome.optional":"（選填）",
@@ -4143,7 +4455,18 @@ const I18N = {
     "pain.ptitle1":"We've matched solutions for","pain.ptitle2":"",
     "pain.pdesc":"The demos below only show tools most useful for your industry — already filtered.",
     "pain.pcta":"Try Live Demo","pain.pcta2":"Book Free Consultation",
+    "ts.hk":"Hong Kong Based","ts.personal":"Personalized AI Workflows",
+    "ts.demos":"14 Live Interactive Demos","ts.support":"30-Day Bug Fix Included","ts.free":"Free 30-min Consultation",
+    "wf.eyebrow":"WHO THIS IS FOR","wf.title1":"Built for","wf.title2":"businesses like yours",
+    "wf.sub":"If you fit any of these, AI automation can save you time and money — starting today.",
+    "wf.c1.name":"Clinics / Beauty","wf.c1.desc":"Automate bookings, follow-ups, reminders",
+    "wf.c2.name":"SMB Owners","wf.c2.desc":"Small team but still need marketing, support, reports",
+    "wf.c3.name":"Startups","wf.c3.desc":"Use AI workflows instead of hiring — scale lean and fast",
+    "wf.c4.name":"Teams drowning in repetitive work","wf.c4.desc":"Daily follow-up emails, data entry, reports",
+    "demo.cta.title":"Want this AI workflow for your business?","demo.cta.sub":"Book a free 30-min consultation — we'll tailor a workflow for your industry.",
+    "demo.cta.book":"Book Free Consultation","demo.cta.wa":"Chat on WhatsApp",
     "msc.text":"Book Free AI Consultation",
+    "msc.wa":"WhatsApp","msc.waSub":"Quick chat, 1-min reply","msc.tg":"Telegram",
     "welcome.tagline":"Let AI tailor a plan for your business 🎯",
     "welcome.askIndustry":"What industry are you in?",
     "welcome.askName":"What should we call you?","welcome.optional":"(optional)",
@@ -4680,6 +5003,45 @@ function resetDemoTabsFromProfile(){
   if(expandBtn) expandBtn.classList.remove("show");
   const tabs = document.getElementById("demos-tabs");
   if(tabs) tabs.classList.remove("collapsed");
+  // Restore original demo numbering on tabs (clear sequential renumber)
+  restoreDemoTabNumbers();
+}
+
+// --- Sequential demo numbering helpers ---
+// On first call, snapshot every tab's original .num innerHTML into a data attr
+// so we can restore later. Then number visible (non-hidden) tabs as 01, 02, 03…
+function renumberDemoTabsSequential(){
+  const tabs = Array.from(document.querySelectorAll(".demo-tab-btn"));
+  if(!tabs.length) return;
+  // Snapshot originals once
+  tabs.forEach(t => {
+    const numEl = t.querySelector(".num");
+    if(!numEl) return;
+    if(!t.dataset.origNum){
+      t.dataset.origNum = numEl.innerHTML;
+    }
+  });
+  // Sequence visible tabs in DOM order
+  let seq = 0;
+  tabs.forEach(t => {
+    const numEl = t.querySelector(".num");
+    if(!numEl) return;
+    if(t.classList.contains("hidden-by-profile")){
+      // Keep original on hidden ones (doesn't matter, but clean)
+      return;
+    }
+    seq += 1;
+    numEl.textContent = String(seq).padStart(2,"0");
+  });
+}
+function restoreDemoTabNumbers(){
+  document.querySelectorAll(".demo-tab-btn").forEach(t => {
+    const numEl = t.querySelector(".num");
+    if(!numEl) return;
+    if(t.dataset.origNum){
+      numEl.innerHTML = t.dataset.origNum;
+    }
+  });
 }
 
 function resetCalcFromProfile(){
@@ -4739,6 +5101,9 @@ function applyDemoTabsForProfile(profile){
   }
   // Refresh carousel total counter (excludes hidden slides)
   if(typeof window.__carouselSyncTotal === "function") window.__carouselSyncTotal();
+  // Renumber visible tabs as 01, 02, 03, … so users see sequential digits
+  // instead of jumping (e.g. 02, 04, 06, 13).
+  renumberDemoTabsSequential();
 }
 
 function resetCalcChips(){
@@ -4911,16 +5276,97 @@ function submitWelcome(){
   });
 })();
 
+/* ----------------- CONTACT CHANNELS (single source of truth) ----------------- */
+// TODO: 石斑 commit 前手動填返真實 WhatsApp 號碼（去除 +、空格、dash）
+// 例：+852 1234 5678 → "85212345678"
+const CONTACT_WHATSAPP = "85200000000"; // ⬅️ REPLACE WITH REAL HK NUMBER
+const CONTACT_TG_HANDLE = "grouper0913";
+const CONTACT_WHATSAPP_URL = `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent("您好 TBC，我想了解 AI 自動化方案")}`;
+const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
+
+/* ----------------- DEMO END CTA INJECTION ----------------- */
+(function injectDemoEndCta(){
+  const slides = document.querySelectorAll(".demo-slide");
+  if(!slides.length) return;
+  slides.forEach(slide => {
+    const idx = +slide.dataset.slideIdx;
+    // Skip wizard demo (idx 12) — it has its own report CTA
+    if(idx === 12) return;
+    // Avoid double-injection on hot reloads
+    if(slide.querySelector(":scope > .demo-end-cta")) return;
+    const cta = document.createElement("div");
+    cta.className = "demo-end-cta";
+    cta.innerHTML = `
+      <div class="dec-text">
+        <div class="dec-title" data-i18n="demo.cta.title">想要呢類 AI 自動化用喺您嘅業務？</div>
+        <div class="dec-sub" data-i18n="demo.cta.sub">免費 30 分鐘諮詢，我哋會度身為您嘅行業設計一套 workflow。</div>
+      </div>
+      <div class="dec-actions">
+        <a href="#book" class="dec-btn primary" data-cta-source="demo-end">
+          <span data-i18n="demo.cta.book">預約免費諮詢</span> →
+        </a>
+        <a href="${CONTACT_WHATSAPP_URL}" target="_blank" rel="noopener" class="dec-btn ghost" data-cta-source="demo-end-wa">
+          <span>💬</span> <span data-i18n="demo.cta.wa">WhatsApp 直接傾</span>
+        </a>
+      </div>
+    `;
+    slide.appendChild(cta);
+  });
+  // Trigger i18n re-apply so injected nodes pick up their translations
+  if(typeof applyLang === "function") applyLang(currentLang);
+})();
+
 /* ----------------- MOBILE STICKY CTA ----------------- */
 (function bindMobileSticky(){
   const cta = document.getElementById("mobile-cta");
   if(!cta) return;
   cta.hidden = false; // CSS media query gates desktop hide
+
+  // Wire quick-contact channel links to the constants defined above
+  const waLink = document.getElementById("msc-wa");
+  const tgLink = document.getElementById("msc-tg");
+  if(waLink) waLink.href = CONTACT_WHATSAPP_URL;
+  if(tgLink) tgLink.href = CONTACT_TG_URL;
+
+  // Drawer toggle
+  const expandBtn = document.getElementById("msc-expand");
+  const drawer    = document.getElementById("msc-drawer");
+  let drawerOpen = false;
+  function setDrawer(open){
+    drawerOpen = open;
+    if(!drawer || !expandBtn) return;
+    expandBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    expandBtn.textContent = open ? "×" : "⚡";
+    if(open){
+      drawer.hidden = false;
+      drawer.classList.remove("closed-resting");
+      // Defer .open so the transition actually plays from collapsed state
+      requestAnimationFrame(() => drawer.classList.add("open"));
+    } else {
+      drawer.classList.remove("open");
+      // After transition: snap back to flat (so it doesn't reserve space)
+      setTimeout(() => {
+        if(!drawerOpen){
+          drawer.classList.add("closed-resting");
+          drawer.hidden = true;
+        }
+      }, 300);
+    }
+  }
+  expandBtn?.addEventListener("click", () => setDrawer(!drawerOpen));
+  // Close drawer when a channel is tapped (so the user perceives it as launched)
+  drawer?.querySelectorAll(".msc-chan").forEach(a => {
+    a.addEventListener("click", () => setTimeout(() => setDrawer(false), 100));
+  });
+  // Close drawer if user taps the main book button (avoid leaving stale UI)
+  cta.querySelector(".msc-btn")?.addEventListener("click", () => setDrawer(false));
+
   let isShown = false;
   function update(){
     const isMobile = window.matchMedia("(max-width: 780px)").matches;
     if(!isMobile){
       if(isShown){ cta.classList.remove("show"); isShown = false; }
+      if(drawerOpen) setDrawer(false);
       return;
     }
     const scrollY = window.scrollY || window.pageYOffset;
@@ -4934,6 +5380,7 @@ function submitWelcome(){
     if(shouldShow !== isShown){
       cta.classList.toggle("show", shouldShow);
       isShown = shouldShow;
+      if(!shouldShow && drawerOpen) setDrawer(false);
     }
   }
   let ticking = false;
@@ -7448,8 +7895,14 @@ Available AI solutions (demo_ref maps to demo number):
     const L_R2        = lang==="zh" ? "估算月省金額" : "Monthly savings";
     const L_R3        = lang==="zh" ? "預估回本月數" : "Payback months";
     const L_CTA_TITLE = lang==="zh" ? `為「${company}」打造這套方案` : `Build this for ${company}`;
-    const L_CTA_SUB   = lang==="zh" ? "預約 30 分鐘免費策略諮詢，落地這份報告。" : "Book a free 30-min strategy call to put this report into action.";
-    const L_CTA_BTN   = lang==="zh" ? `為「${company}」預約免費諮詢 →` : `Book a free call for ${company} →`;
+    const L_CTA_SUB   = lang==="zh" ? "留低聯絡，30 秒安排免費策略諮詢，幫您落地呢份報告。" : "Leave your details — we'll set up a free strategy call to put this report into action.";
+    const L_CTA_BTN   = lang==="zh" ? `為「${company}」預約免費諮詢 →` : `Get my personalised AI consultation →`;
+    const L_FORM_NAME    = lang==="zh" ? "您嘅名" : "Your name";
+    const L_FORM_EMAIL   = lang==="zh" ? "Email" : "Email";
+    const L_FORM_BIZ     = lang==="zh" ? "業務類型 (例：診所 / 物流 / 餐廳…)" : "Business type (e.g., Clinic / Logistics / Restaurant…)";
+    const L_FORM_PHONE   = lang==="zh" ? "WhatsApp / 電話（可選）" : "WhatsApp / phone (optional)";
+    const L_FORM_THANKS  = lang==="zh" ? "✅ 收到！我哋安排緊預約 …" : "✅ Got it — taking you to booking…";
+    const L_FORM_ALT     = lang==="zh" ? "或者用 Cal.com 直接揀時間 ↓" : "Or pick a time on Cal.com ↓";
     const L_BANNER_TAG  = lang==="zh" ? "範例" : "EXAMPLE";
     const L_BANNER_TEXT = lang==="zh"
       ? `這份係 <strong>${escapeHtml(company)}</strong>${industry?` · ${escapeHtml(industry)}`:""} 的範例報告 — 想睇您自己公司的？`
@@ -7515,10 +7968,24 @@ Available AI solutions (demo_ref maps to demo number):
         <div class="item"><div class="num">${payback}<span style="font-size:.55em;color:var(--text-dim);margin-left:3px">${lang==="zh"?"月":"mo"}</span></div><div class="label">${L_R3}</div></div>
       </div>
 
-      <div class="wz-card wz-cta">
+      <div class="wz-card wz-cta wz-leadform" id="wizard-end-form">
         <h5>${L_CTA_TITLE}</h5>
         <p>${L_CTA_SUB}</p>
-        <a href="#book">${L_CTA_BTN} <span class="arrow">→</span></a>
+        <form class="wz-lead-form" id="wz-lead-form" novalidate>
+          <div class="wz-lead-row">
+            <input type="text" name="name" required placeholder="${L_FORM_NAME}" autocomplete="name" />
+            <input type="email" name="email" required placeholder="${L_FORM_EMAIL}" autocomplete="email" />
+          </div>
+          <div class="wz-lead-row">
+            <input type="text" name="business" placeholder="${L_FORM_BIZ}" value="${escapeHtml(industry||"")}" />
+            <input type="tel" name="phone" placeholder="${L_FORM_PHONE}" autocomplete="tel" />
+          </div>
+          <button type="submit" class="wz-lead-submit">
+            <span>${L_CTA_BTN}</span>
+          </button>
+          <div class="wz-lead-alt">${L_FORM_ALT}</div>
+        </form>
+        <div class="wz-lead-thanks" id="wz-lead-thanks" hidden>${L_FORM_THANKS}</div>
       </div>
     `;
 
@@ -7539,6 +8006,47 @@ Available AI solutions (demo_ref maps to demo number):
           const c = document.getElementById("wz-company");
           if(c) c.focus();
         }, 600);
+      });
+    }
+
+    // Lead capture form — save + auto-scroll to #book
+    const leadForm = container.querySelector("#wz-lead-form");
+    if(leadForm){
+      leadForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const fd = new FormData(leadForm);
+        const lead = {
+          name:     (fd.get("name")||"").toString().trim(),
+          email:    (fd.get("email")||"").toString().trim(),
+          business: (fd.get("business")||"").toString().trim(),
+          phone:    (fd.get("phone")||"").toString().trim(),
+          company:  company,
+          industry: industry,
+          source:   "wizard-end",
+          ts:       new Date().toISOString(),
+        };
+        // Basic validation
+        if(!lead.name || !lead.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)){
+          leadForm.classList.add("invalid");
+          setTimeout(()=>leadForm.classList.remove("invalid"), 400);
+          return;
+        }
+        // Persist (multiple leads — append to array)
+        try{
+          const key = "tbc-leads";
+          const prev = JSON.parse(localStorage.getItem(key) || "[]");
+          prev.push(lead);
+          localStorage.setItem(key, JSON.stringify(prev));
+        }catch(_){}
+        // UI feedback
+        leadForm.hidden = true;
+        const thanks = container.querySelector("#wz-lead-thanks");
+        if(thanks) thanks.hidden = false;
+        // Auto-scroll to #book after 700ms
+        setTimeout(() => {
+          const bookEl = document.getElementById("book");
+          if(bookEl) bookEl.scrollIntoView({behavior:"smooth", block:"start"});
+        }, 700);
       });
     }
 
