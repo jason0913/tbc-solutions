@@ -5312,8 +5312,14 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
     `;
     slide.appendChild(cta);
   });
-  // Trigger i18n re-apply so injected nodes pick up their translations
-  if(typeof applyLang === "function") applyLang(currentLang);
+  // Defer i18n re-apply until after the script finishes parsing — calling
+  // applyLang() synchronously here triggers a TDZ ReferenceError because
+  // `typeTimer` (let-declared later in the file) hasn't been initialized yet.
+  // The injected default text is already in zh which matches the default
+  // body.lang-zh, so visual correctness is preserved on first paint.
+  setTimeout(() => {
+    if(typeof applyLang === "function") applyLang(currentLang);
+  }, 0);
 })();
 
 /* ----------------- MOBILE STICKY CTA ----------------- */
