@@ -2785,18 +2785,16 @@ main,nav,section,footer{position:relative;z-index:2}
   </a>
 
   <div class="nav-right">
-    <div class="nav-links">
-      <a href="#services" data-i18n="nav.services">服務</a>
-      <a href="#demos" data-i18n="nav.demos">互動 Demo</a>
+    <div class="nav-links">      <a href="#demos" data-i18n="nav.demos">互動 Demo</a>
       <a href="#impact" data-i18n="nav.impact">效益</a>
       <a href="#about" data-i18n="nav.about">關於</a>
-      <a href="#process" data-i18n="nav.process">流程</a>
+      <a href="#impact" data-i18n="nav.process">流程</a>
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
     <button class="nav-profile" id="nav-profile" type="button" aria-label="Reset profile">
       <span class="np-ico">📍</span>
-      <span class="np-label" id="np-label">行業</span>
+      <span class="np-label" id="np-label" data-i18n="nav.profileFallback">行業</span>
       <span class="np-reset" data-i18n="nav.reset">重新診斷</span>
     </button>
     <button class="theme-toggle" id="theme-toggle" aria-label="切換主題 / Toggle theme" title="切換淺色 / 深色">
@@ -2873,140 +2871,6 @@ main,nav,section,footer{position:relative;z-index:2}
   </div>
 </section>
 
-<!-- ======================== SERVICES ======================== -->
-<section class="section" id="services">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="eyebrow" data-i18n="services.eyebrow">SERVICES</div>
-      <h2 class="h2"><span data-i18n="services.title1">為您打造</span> <span class="gradient-text" data-i18n="services.title2">智能商業未來</span></h2>
-      <p class="muted" data-i18n="services.desc">從工作流程自動化到 AI 內容創作，我們提供端到端的解決方案，讓您從繁瑣事務中解放，專注於真正重要的事。</p>
-    </div>
-
-    <div class="services-grid">
-      <article class="service-card reveal" data-mouse>
-        <div class="head-row">
-          <div class="ico-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/>
-              <circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/>
-              <path d="M8.2 6h7.6M6 8.2v7.6M18 8.2v7.6M8.2 18h7.6"/>
-              <circle cx="12" cy="12" r="3" fill="currentColor" opacity=".25"/>
-            </svg>
-          </div>
-          <div class="num">01</div>
-        </div>
-        <div class="text-block">
-          <div class="tag" data-i18n="services.tag1">AUTOMATION</div>
-          <h3 data-i18n="services.s1.title">AI 自動化工作流程</h3>
-          <p data-i18n="services.s1.desc">透過 n8n、Make、Zapier 等工具串聯系統，自動化郵件、CRM、資料同步、報表等重複工作。</p>
-        </div>
-      </article>
-
-      <article class="service-card reveal" data-mouse>
-        <div class="head-row">
-          <div class="ico-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="16" rx="2"/>
-              <path d="M3 9h18"/>
-              <circle cx="6.5" cy="6.5" r=".6" fill="currentColor"/>
-              <circle cx="9" cy="6.5" r=".6" fill="currentColor"/>
-              <path d="M9 13l-2 2 2 2M15 13l2 2-2 2M13 12l-2 6"/>
-            </svg>
-          </div>
-          <div class="num">02</div>
-        </div>
-        <div class="text-block">
-          <div class="tag" data-i18n="services.tag2">WEB</div>
-          <h3 data-i18n="services.s2.title">網頁設計與開發</h3>
-          <p data-i18n="services.s2.desc">從品牌官網到電商平台，提供現代感、響應式、SEO 友善的網頁設計與開發。</p>
-        </div>
-      </article>
-
-      <article class="service-card reveal" data-mouse>
-        <div class="head-row">
-          <div class="ico-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6L12 3z"/>
-              <path d="M19 16l.7 2.1L22 19l-2.3.9L19 22l-.7-2.1L16 19l2.3-.9L19 16z" opacity=".7"/>
-              <path d="M5 4l.5 1.5L7 6l-1.5.5L5 8l-.5-1.5L3 6l1.5-.5L5 4z" opacity=".5"/>
-            </svg>
-          </div>
-          <div class="num">03</div>
-        </div>
-        <div class="text-block">
-          <div class="tag" data-i18n="services.tag3">CONTENT</div>
-          <h3 data-i18n="services.s3.title">AI 內容創作</h3>
-          <p data-i18n="services.s3.desc">運用 Claude / ChatGPT 為您批量生成社交媒體文案、部落格文章、產品描述、廣告素材。</p>
-        </div>
-      </article>
-
-      <article class="service-card reveal" data-mouse>
-        <div class="head-row">
-          <div class="ico-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="5" y="5" width="14" height="14" rx="2"/>
-              <rect x="9" y="9" width="6" height="6" fill="currentColor" opacity=".3"/>
-              <path d="M9 1.5v3M15 1.5v3M9 19.5v3M15 19.5v3M1.5 9h3M1.5 15h3M19.5 9h3M19.5 15h3"/>
-              <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-            </svg>
-          </div>
-          <div class="num">04</div>
-        </div>
-        <div class="text-block">
-          <div class="tag" data-i18n="services.tag4">CUSTOM AI</div>
-          <h3 data-i18n="services.s4.title">客製化 AI 解決方案</h3>
-          <p data-i18n="services.s4.desc">針對特定業務需求，打造專屬 AI 助手、知識庫問答、智能客服與決策支援系統。</p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ======================== PAIN POINTS ======================== -->
-<section class="section pain-section" id="pain">
-  <div class="container">
-    <!-- Universal hook (no profile) -->
-    <div class="pain-hook reveal" id="pain-hook">
-      <div class="eyebrow" data-i18n="pain.eyebrow">YOUR DAILY PAIN</div>
-      <h2 class="h2"><span data-i18n="pain.title1">您現在是否有</span> <span class="gradient-text" data-i18n="pain.title2">以下這些煩惱？</span></h2>
-      <p class="muted" data-i18n="pain.desc">如果有任何一項符合，AI 自動化就是為您而設。</p>
-
-      <div class="pain-grid">
-        <div class="pain-card"><span class="pain-ico">📨</span><span data-i18n="pain.b1">客戶 follow-up 的 email 寫到手酸？</span></div>
-        <div class="pain-card"><span class="pain-ico">📱</span><span data-i18n="pain.b2">每星期要出社交內容但想到頭痛？</span></div>
-        <div class="pain-card"><span class="pain-ico">💬</span><span data-i18n="pain.b3">客服訊息積壓，回覆不及又怕得罪客戶？</span></div>
-        <div class="pain-card"><span class="pain-ico">📊</span><span data-i18n="pain.b4">月底每次都因 report 加班到深夜？</span></div>
-        <div class="pain-card"><span class="pain-ico">📦</span><span data-i18n="pain.b5">幾個倉庫的庫存對不上、出錯貨？</span></div>
-        <div class="pain-card"><span class="pain-ico">🌍</span><span data-i18n="pain.b6">外國客評論 / inquiry 要逐個翻譯？</span></div>
-        <div class="pain-card"><span class="pain-ico">⏰</span><span data-i18n="pain.b7">會議筆記寫到手抽筋，重點還是漏掉？</span></div>
-        <div class="pain-card"><span class="pain-ico">😩</span><span data-i18n="pain.b8">員工被重複工作困住，做不到真正生意？</span></div>
-      </div>
-
-      <div class="pain-cta">
-        <div class="pain-tagline" data-i18n="pain.tagline">Then let AI automate the process — 由今日開始。</div>
-        <a href="#book" class="btn btn-primary"><span data-i18n="pain.cta">Book Free Consultation</span> <span class="arrow">→</span></a>
-        <a href="#demos" class="btn btn-ghost" data-i18n="pain.cta2">See AI In Action ↓</a>
-      </div>
-    </div>
-
-    <!-- Personalised confirmation (profile set) -->
-    <div class="pain-personal reveal" id="pain-personal" hidden>
-      <div class="eyebrow" data-i18n="pain.peyebrow">PERSONALISED FOR YOU</div>
-      <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
-      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。</p>
-
-      <div class="pain-tags" id="pain-tags">
-        <!-- Filled by JS: list of pain tags user picked -->
-      </div>
-
-      <div class="pain-cta">
-        <a href="#demos" class="btn btn-primary"><span data-i18n="pain.pcta">Try Live Demo</span> <span class="arrow">→</span></a>
-        <a href="#book" class="btn btn-ghost" data-i18n="pain.pcta2">Book Free Consultation</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ======================== FOR YOU (merged Trust + Who-For) ======================== -->
 <section class="for-you reveal" id="for-you" aria-label="Built for you">
   <div class="fy-head">
@@ -3044,6 +2908,50 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="fy-pill"><span class="fy-pill-ico">🎯</span><span class="fy-pill-txt" data-i18n="ts.demos">14 個即時互動 Demo</span></div>
     <div class="fy-pill"><span class="fy-pill-ico">🛡️</span><span class="fy-pill-txt" data-i18n="ts.support">30 日 Bug Fix 保固</span></div>
     <div class="fy-pill"><span class="fy-pill-ico">🎁</span><span class="fy-pill-txt" data-i18n="ts.free">免費 30 分鐘諮詢</span></div>
+  </div>
+</section>
+
+
+<!-- ======================== PAIN POINTS ======================== -->
+<section class="section pain-section" id="pain">
+  <div class="container">
+    <!-- Universal hook (no profile) -->
+    <div class="pain-hook reveal" id="pain-hook">
+      <div class="eyebrow" data-i18n="pain.eyebrow">YOUR DAILY PAIN</div>
+      <h2 class="h2"><span data-i18n="pain.title1">您現在是否有</span> <span class="gradient-text" data-i18n="pain.title2">以下這些煩惱？</span></h2>
+      <p class="muted" data-i18n="pain.desc">如果有任何一項符合，AI 自動化就是為您而設。</p>
+
+      <div class="pain-grid">
+        <div class="pain-card"><span class="pain-ico">📨</span><span data-i18n="pain.b1">客戶 follow-up 的 email 寫到手酸？</span></div>
+        <div class="pain-card"><span class="pain-ico">📱</span><span data-i18n="pain.b2">每星期要出社交內容但想到頭痛？</span></div>
+        <div class="pain-card"><span class="pain-ico">💬</span><span data-i18n="pain.b3">客服訊息積壓，回覆不及又怕得罪客戶？</span></div>
+        <div class="pain-card"><span class="pain-ico">📊</span><span data-i18n="pain.b4">月底每次都因 report 加班到深夜？</span></div>
+        <div class="pain-card"><span class="pain-ico">⏰</span><span data-i18n="pain.b7">會議筆記寫到手抽筋，重點還是漏掉？</span></div>
+        <div class="pain-card"><span class="pain-ico">😩</span><span data-i18n="pain.b8">員工被重複工作困住，做不到真正生意？</span></div>
+      </div>
+
+      <div class="pain-cta">
+        <div class="pain-tagline" data-i18n="pain.tagline">Then let AI automate the process — 由今日開始。</div>
+        <a href="#book" class="btn btn-primary"><span data-i18n="pain.cta">Book Free Consultation</span> <span class="arrow">→</span></a>
+        <a href="#demos" class="btn btn-ghost" data-i18n="pain.cta2">See AI In Action ↓</a>
+      </div>
+    </div>
+
+    <!-- Personalised confirmation (profile set) -->
+    <div class="pain-personal reveal" id="pain-personal" hidden>
+      <div class="eyebrow" data-i18n="pain.peyebrow">PERSONALISED FOR YOU</div>
+      <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label" data-i18n="pain.industryFallback">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
+      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。</p>
+
+      <div class="pain-tags" id="pain-tags">
+        <!-- Filled by JS: list of pain tags user picked -->
+      </div>
+
+      <div class="pain-cta">
+        <a href="#demos" class="btn btn-primary"><span data-i18n="pain.pcta">Try Live Demo</span> <span class="arrow">→</span></a>
+        <a href="#book" class="btn btn-ghost" data-i18n="pain.pcta2">Book Free Consultation</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -3365,19 +3273,19 @@ main,nav,section,footer{position:relative;z-index:2}
                 <div class="field">
                   <label data-i18n="demo8.langLabel">目標語言</label>
                   <select class="select" id="tr-lang">
-                    <option value="English">English (英文)</option>
-                    <option value="日本語">日本語 (日文)</option>
-                    <option value="한국어">한국어 (韓文)</option>
-                    <option value="简体中文">简体中文 (簡體)</option>
-                    <option value="Français">Français (法文)</option>
-                    <option value="Español">Español (西文)</option>
-                    <option value="Deutsch">Deutsch (德文)</option>
-                    <option value="Italiano">Italiano (義文)</option>
-                    <option value="Português">Português (葡文)</option>
-                    <option value="ภาษาไทย">ภาษาไทย (泰文)</option>
-                    <option value="Tiếng Việt">Tiếng Việt (越南文)</option>
-                    <option value="Bahasa Indonesia">Bahasa Indonesia (印尼文)</option>
-                    <option value="العربية">العربية (阿拉伯文)</option>
+                    <option value="English">English</option>
+                    <option value="日本語">日本語</option>
+                    <option value="한국어">한국어</option>
+                    <option value="简体中文">简体中文</option>
+                    <option value="Français">Français</option>
+                    <option value="Español">Español</option>
+                    <option value="Deutsch">Deutsch</option>
+                    <option value="Italiano">Italiano</option>
+                    <option value="Português">Português</option>
+                    <option value="ภาษาไทย">ภาษาไทย</option>
+                    <option value="Tiếng Việt">Tiếng Việt</option>
+                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                    <option value="العربية">العربية</option>
                   </select>
                 </div>
                 <div class="field">
@@ -3781,9 +3689,9 @@ main,nav,section,footer{position:relative;z-index:2}
 <section class="section" id="impact">
   <div class="container">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" style="justify-content:center" data-i18n="impact.eyebrow">REAL IMPACT</div>
-      <h2 class="h2"><span data-i18n="impact.title1">真實節省的</span> <span class="gradient-text" data-i18n="impact.title2">時間與成本</span></h2>
-      <p class="muted" data-i18n="impact.desc">每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。</p>
+      <div class="eyebrow" style="justify-content:center" data-i18n="impact.eyebrow">HOW WE DELIVER · REAL IMPACT</div>
+      <h2 class="h2"><span data-i18n="impact.title1">六步走完 ·</span> <span class="gradient-text" data-i18n="impact.title2">可量化的成果</span></h2>
+      <p class="muted" data-i18n="impact.desc">透明的合作流程，每一步都有清晰 deliverables，落地後即時看到時間與成本的節省。</p>
     </div>
 
     <!-- Animated counters -->
@@ -3793,7 +3701,7 @@ main,nav,section,footer{position:relative;z-index:2}
         <div class="l" data-i18n="impact.s1">重複性工作時間 ↓</div>
       </div>
       <div class="stat-big reveal">
-        <div class="n-row"><span class="n" data-target="40">0</span><span class="suffix">h<span style="opacity:.6;font-size:.5em">/月</span></span></div>
+        <div class="n-row"><span class="n" data-target="40">0</span><span class="suffix">h<span style="opacity:.6;font-size:.5em" data-i18n="stat.permonth">/月</span></span></div>
         <div class="l" data-i18n="impact.s2">平均每月節省</div>
       </div>
       <div class="stat-big reveal">
@@ -3805,6 +3713,65 @@ main,nav,section,footer{position:relative;z-index:2}
         <div class="l" data-i18n="impact.s4">不眠不休運作</div>
       </div>
     </div>
+
+    <!-- ====== Process sub-block (merged from process section) ====== -->
+    <div class="process-sub reveal" style="margin-top:60px">
+      <div class="process-sub-head" style="text-align:center;max-width:780px;margin-inline:auto 28px">
+        <div class="eyebrow" style="justify-content:center" data-i18n="process.eyebrow">PROCESS</div>
+        <h3 class="h3" style="margin-top:14px;font-size:clamp(22px,2.4vw,30px);font-weight:800"><span data-i18n="process.title1">六步走完，</span><span class="gradient-text" data-i18n="process.title2">從諮詢到交付</span></h3>
+        <p class="muted" style="margin-top:10px" data-i18n="process.desc">透明的合作流程，每一步都有清晰的 deliverables 與時程。</p>
+      </div>
+      <div class="process-grid">
+      <div class="process-step">
+        <div class="ps-num"><span class="num">01</span> <span data-i18n="process.s1.tag">第一步</span></div>
+        <div class="ps-icon">💬</div>
+        <h3 data-i18n="process.s1.title">免費諮詢</h3>
+        <p data-i18n="process.s1.desc">30 分鐘 Cal.com 視訊，了解您的業務目標、現有系統、痛點。我們會誠實判斷 AI 適不適合您。</p>
+        <div class="ps-meta" data-i18n="process.s1.meta">⏱ 1 天內可預約</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">02</span> <span data-i18n="process.s2.tag">第二步</span></div>
+        <div class="ps-icon">📋</div>
+        <h3 data-i18n="process.s2.title">方案 + 報價</h3>
+        <p data-i18n="process.s2.desc">24–48 小時內收到書面方案：包含技術選型、工作流程圖、時程表、明細報價。您決定才收費。</p>
+        <div class="ps-meta" data-i18n="process.s2.meta">⏱ 諮詢後 48 小時</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">03</span> <span data-i18n="process.s3.tag">第三步</span></div>
+        <div class="ps-icon">🚀</div>
+        <h3 data-i18n="process.s3.title">啟動專案</h3>
+        <p data-i18n="process.s3.desc">簽約後即刻 kickoff：釐清成功指標（KPIs）、開設共享 Notion 看板、訂下每週進度滙報節奏。</p>
+        <div class="ps-meta" data-i18n="process.s3.meta">⏱ 簽約後 3 天</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">04</span> <span data-i18n="process.s4.tag">第四步</span></div>
+        <div class="ps-icon">⚙️</div>
+        <h3 data-i18n="process.s4.title">開發 + 測試</h3>
+        <p data-i18n="process.s4.desc">系統建設、模組整合、自動化流程編寫。每週展示進度，邀請您試用 + 即時回饋調整。</p>
+        <div class="ps-meta" data-i18n="process.s4.meta">⏱ 1–6 週（視 scope）</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">05</span> <span data-i18n="process.s5.tag">第五步</span></div>
+        <div class="ps-icon">🎓</div>
+        <h3 data-i18n="process.s5.title">培訓 + 上線</h3>
+        <p data-i18n="process.s5.desc">完整文件、操作 SOP、登入資料、流程圖一次過交接。1–2 小時遠端培訓您的團隊正式接手。</p>
+        <div class="ps-meta" data-i18n="process.s5.meta">⏱ 上線前 1 週</div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num"><span class="num">06</span> <span data-i18n="process.s6.tag">第六步</span></div>
+        <div class="ps-icon">🤝</div>
+        <h3 data-i18n="process.s6.title">持續支援</h3>
+        <p data-i18n="process.s6.desc">30 天免費 bug 修正期 + KPI 追蹤檢視。後續可選月度 maintenance plan，或按需呼叫支援。</p>
+        <div class="ps-meta" data-i18n="process.s6.meta">⏱ 30 天保固期</div>
+      </div>
+    </div>
+    </div>
+
 
     <!-- Calculator -->
     <div class="calc reveal">
@@ -3917,67 +3884,6 @@ main,nav,section,footer{position:relative;z-index:2}
         <div class="about-cta">
           <a href="#book" class="btn btn-primary"><span data-i18n="about.cta">與我聊聊，免費</span> <span class="arrow">→</span></a>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================== PROCESS ======================== -->
-<section class="section" id="process">
-  <div class="container">
-    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" style="justify-content:center" data-i18n="process.eyebrow">PROCESS</div>
-      <h2 class="h2"><span data-i18n="process.title1">六步走完，</span><span class="gradient-text" data-i18n="process.title2">從諮詢到交付</span></h2>
-      <p class="muted" data-i18n="process.desc">透明的合作流程，每一步都有清晰的 deliverables 與時程。</p>
-    </div>
-
-    <div class="process-grid reveal">
-      <div class="process-step">
-        <div class="ps-num"><span class="num">01</span> <span data-i18n="process.s1.tag">第一步</span></div>
-        <div class="ps-icon">💬</div>
-        <h3 data-i18n="process.s1.title">免費諮詢</h3>
-        <p data-i18n="process.s1.desc">30 分鐘 Cal.com 視訊，了解您的業務目標、現有系統、痛點。我們會誠實判斷 AI 適不適合您。</p>
-        <div class="ps-meta" data-i18n="process.s1.meta">⏱ 1 天內可預約</div>
-      </div>
-
-      <div class="process-step">
-        <div class="ps-num"><span class="num">02</span> <span data-i18n="process.s2.tag">第二步</span></div>
-        <div class="ps-icon">📋</div>
-        <h3 data-i18n="process.s2.title">方案 + 報價</h3>
-        <p data-i18n="process.s2.desc">24–48 小時內收到書面方案：包含技術選型、工作流程圖、時程表、明細報價。您決定才收費。</p>
-        <div class="ps-meta" data-i18n="process.s2.meta">⏱ 諮詢後 48 小時</div>
-      </div>
-
-      <div class="process-step">
-        <div class="ps-num"><span class="num">03</span> <span data-i18n="process.s3.tag">第三步</span></div>
-        <div class="ps-icon">🚀</div>
-        <h3 data-i18n="process.s3.title">啟動專案</h3>
-        <p data-i18n="process.s3.desc">簽約後即刻 kickoff：釐清成功指標（KPIs）、開設共享 Notion 看板、訂下每週進度滙報節奏。</p>
-        <div class="ps-meta" data-i18n="process.s3.meta">⏱ 簽約後 3 天</div>
-      </div>
-
-      <div class="process-step">
-        <div class="ps-num"><span class="num">04</span> <span data-i18n="process.s4.tag">第四步</span></div>
-        <div class="ps-icon">⚙️</div>
-        <h3 data-i18n="process.s4.title">開發 + 測試</h3>
-        <p data-i18n="process.s4.desc">系統建設、模組整合、自動化流程編寫。每週展示進度，邀請您試用 + 即時回饋調整。</p>
-        <div class="ps-meta" data-i18n="process.s4.meta">⏱ 1–6 週（視 scope）</div>
-      </div>
-
-      <div class="process-step">
-        <div class="ps-num"><span class="num">05</span> <span data-i18n="process.s5.tag">第五步</span></div>
-        <div class="ps-icon">🎓</div>
-        <h3 data-i18n="process.s5.title">培訓 + 上線</h3>
-        <p data-i18n="process.s5.desc">完整文件、操作 SOP、登入資料、流程圖一次過交接。1–2 小時遠端培訓您的團隊正式接手。</p>
-        <div class="ps-meta" data-i18n="process.s5.meta">⏱ 上線前 1 週</div>
-      </div>
-
-      <div class="process-step">
-        <div class="ps-num"><span class="num">06</span> <span data-i18n="process.s6.tag">第六步</span></div>
-        <div class="ps-icon">🤝</div>
-        <h3 data-i18n="process.s6.title">持續支援</h3>
-        <p data-i18n="process.s6.desc">30 天免費 bug 修正期 + KPI 追蹤檢視。後續可選月度 maintenance plan，或按需呼叫支援。</p>
-        <div class="ps-meta" data-i18n="process.s6.meta">⏱ 30 天保固期</div>
       </div>
     </div>
   </div>
@@ -4107,10 +4013,8 @@ main,nav,section,footer{position:relative;z-index:2}
         </div>
       </div>
     </div>
-    <div class="footer-links">
-      <a href="#services" data-i18n="nav.services">服務</a>
-      <a href="#demos" data-i18n="nav.demos">Demo</a>
-      <a href="#process" data-i18n="nav.process">流程</a>
+    <div class="footer-links">      <a href="#demos" data-i18n="nav.demos">Demo</a>
+      <a href="#impact" data-i18n="nav.process">流程</a>
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
@@ -4256,11 +4160,12 @@ const I18N = {
     "welcome.hintReady":"✓ 已 match 您行業的 AI 方案",
     "welcome.i1":"🍱 餐飲","welcome.i2":"🛍️ 零售 / 電商","welcome.i3":"💼 專業服務","welcome.i4":"🎓 教育培訓",
     "welcome.i5":"💻 科技 / SaaS","welcome.i6":"💆 醫美 / 健康","welcome.i7":"📦 物流 / 倉儲","welcome.i8":"🎨 創意 / 設計",
-    "nav.reset":"重新診斷",
+    "nav.reset":"重新診斷","nav.profileFallback":"行業",
+    "pain.industryFallback":"以下痛點","stat.permonth":"/月",
     "demos.expand":"查看所有方案","demos.collapse":"只看相關方案",
-    "impact.eyebrow":"REAL IMPACT",
-    "impact.title1":"真實節省的","impact.title2":"時間與成本",
-    "impact.desc":"每一次自動化都換成可量化的成果。下面是我們的客戶平均能省下的時間。",
+    "impact.eyebrow":"HOW WE DELIVER · REAL IMPACT",
+    "impact.title1":"六步走完 ·","impact.title2":"可量化的成果",
+    "impact.desc":"透明的合作流程，每一步都有清晰 deliverables，落地後即時看到時間與成本的節省。",
     "impact.s1":"重複性工作 ↓","impact.s2":"平均每月節省","impact.s3":"內容產出速度","impact.s4":"不眠不休運作",
     "calc.title":"您能省下多少？立即試算",
     "calc.desc":"選擇您目前最花時間的領域，拉動週工時，立即看到月節省。",
@@ -4449,11 +4354,12 @@ const I18N = {
     "welcome.hintReady":"✓ Matched the AI solutions for your industry",
     "welcome.i1":"🍱 F&B","welcome.i2":"🛍️ Retail / e-commerce","welcome.i3":"💼 Professional services","welcome.i4":"🎓 Education",
     "welcome.i5":"💻 Tech / SaaS","welcome.i6":"💆 Medical / Wellness","welcome.i7":"📦 Logistics","welcome.i8":"🎨 Creative / Design",
-    "nav.reset":"Re-diagnose",
+    "nav.reset":"Re-diagnose","nav.profileFallback":"Industry",
+    "pain.industryFallback":"your pain points","stat.permonth":"/mo",
     "demos.expand":"See all solutions","demos.collapse":"Show relevant only",
-    "impact.eyebrow":"REAL IMPACT",
-    "impact.title1":"Real time and cost","impact.title2":"saved.",
-    "impact.desc":"Every automation we ship turns into measurable outcomes. Below is what our clients save on average.",
+    "impact.eyebrow":"HOW WE DELIVER · REAL IMPACT",
+    "impact.title1":"Six steps to","impact.title2":"measurable savings.",
+    "impact.desc":"Transparent six-step process with clear deliverables — landing measurable time + cost savings.",
     "impact.s1":"Less repetitive work","impact.s2":"Hours saved / month","impact.s3":"Faster content output","impact.s4":"Always on",
     "calc.title":"How much could you save? Try it.",
     "calc.desc":"Pick the area eating your time, drag the weekly hours — see your monthly savings instantly.",
