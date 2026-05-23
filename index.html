@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-22-R7-welcome-center -->
+<!-- Deploy build tag: 2026-05-22-R8-mobile-marquee -->
 
 
 <!-- ============== FONTS ============== -->
@@ -315,22 +315,24 @@ main,nav,section,footer{position:relative;z-index:2}
    ===================================================================== */
 .marquee-section{padding:60px 0;border-block:1px solid var(--line);background:rgba(255,255,255,.015);overflow:hidden}
 .marquee-label{text-align:center;font-size:11px;letter-spacing:.4em;color:var(--text-faint);text-transform:uppercase;margin-bottom:30px}
-.marquee{display:flex;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent);
-  /* Prevent Chrome from pausing animation when off-screen via content-visibility */
-  contain:layout style;
+.marquee{
+  display:flex;overflow:hidden;
+  mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent);
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent);
 }
 .marquee-track{
   display:flex;gap:60px;flex-shrink:0;
-  animation:scroll 40s linear infinite;
-  /* Keep GPU layer alive so the transform animation doesn't stall */
-  will-change:transform;
-  backface-visibility:hidden;
   padding-right:60px;
+  animation:scroll 40s linear infinite;
+  /* GPU compositing hints — keep layer alive so the transform doesn't stall */
+  will-change:transform;
+  transform:translateZ(0);
+  backface-visibility:hidden;
 }
-.marquee-track:hover{animation-play-state:paused}
-@keyframes scroll{from{transform:translateX(0)}to{transform:translate3d(-100%,0,0)}}
-@media (prefers-reduced-motion: reduce){
-  .marquee-track{animation:none;transform:none}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes scroll{
+  0%   {transform:translate3d(0,0,0)}
+  100% {transform:translate3d(-100%,0,0)}
 }
 .tool{
   display:inline-flex;align-items:center;gap:14px;
@@ -2259,10 +2261,10 @@ main,nav,section,footer{position:relative;z-index:2}
    ===================================================================== */
 .welcome{
   position:fixed;top:0;left:0;right:0;bottom:0;
-  /* Belt-and-suspenders: inset shorthand sometimes mis-applied
-     when freshness-probe causes a paint-skipped frame in Chrome.
-     Explicit corners + zeroed margin force the overlay to fill the viewport. */
-  inset:0;width:100vw;height:100vh;margin:0;padding:0;
+  /* inset:0 + explicit corners cover the viewport. NO width:100vw
+     (100vw includes scrollbar width on Win/Android, causing the page
+     underneath to shift left). */
+  margin:0;padding:0;
   z-index:9999;
   display:flex;align-items:center;justify-content:center;
   background:linear-gradient(180deg,#07070a 0%,#0d0d1a 60%,#1a0d20 100%);
@@ -4118,7 +4120,7 @@ main,nav,section,footer{position:relative;z-index:2}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-22-R7-welcome-center";
+  const CURRENT_BUILD = "2026-05-22-R8-mobile-marquee";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
