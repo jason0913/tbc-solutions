@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-22-R5-tg-desktop -->
+<!-- Deploy build tag: 2026-05-22-R6-nav-marquee -->
 
 
 <!-- ============== FONTS ============== -->
@@ -315,9 +315,23 @@ main,nav,section,footer{position:relative;z-index:2}
    ===================================================================== */
 .marquee-section{padding:60px 0;border-block:1px solid var(--line);background:rgba(255,255,255,.015);overflow:hidden}
 .marquee-label{text-align:center;font-size:11px;letter-spacing:.4em;color:var(--text-faint);text-transform:uppercase;margin-bottom:30px}
-.marquee{display:flex;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)}
-.marquee-track{display:flex;gap:60px;flex-shrink:0;animation:scroll 40s linear infinite;padding-right:60px}
-@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.marquee{display:flex;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent);
+  /* Prevent Chrome from pausing animation when off-screen via content-visibility */
+  contain:layout style;
+}
+.marquee-track{
+  display:flex;gap:60px;flex-shrink:0;
+  animation:scroll 40s linear infinite;
+  /* Keep GPU layer alive so the transform animation doesn't stall */
+  will-change:transform;
+  backface-visibility:hidden;
+  padding-right:60px;
+}
+.marquee-track:hover{animation-play-state:paused}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translate3d(-100%,0,0)}}
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{animation:none;transform:none}
+}
 .tool{
   display:inline-flex;align-items:center;gap:14px;
   padding:14px 24px;border-radius:14px;
@@ -2206,9 +2220,30 @@ main,nav,section,footer{position:relative;z-index:2}
    RESPONSIVE
    ===================================================================== */
 @media(max-width:760px){
-  .nav{padding:12px 18px}
+  .nav{padding:10px 14px;gap:10px}
   .nav-links{display:none}
   .logo-slogan{display:none}
+  /* Tighten nav-right cluster so logo + buttons have breathing room */
+  .nav-right{gap:8px;flex-wrap:nowrap}
+  .theme-toggle{width:32px;height:32px}
+  .theme-toggle svg{width:15px;height:15px}
+  .lang-switch{padding:3px}
+  .lang-switch button{padding:5px 10px;font-size:11px}
+  /* Slimmer logo on mobile */
+  .logo-block{padding:6px 10px;font-size:14px}
+  .logo-name{font-size:15px}
+  .logo-sub{font-size:8px;letter-spacing:.18em}
+  .logo-row{gap:7px}
+  /* Nav profile chip collapses to icon-only on very small screens */
+  .nav-profile{padding:6px 9px;gap:5px;max-width:140px}
+  .nav-profile .np-label{font-size:11px;max-width:60px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav-profile .np-reset{display:none}
+}
+@media(max-width:380px){
+  .nav-profile .np-label{max-width:42px}
+  .logo-name{font-size:13px}
+  .logo-sub{display:none}
+}
   .hero{padding:120px 18px 60px}
   .demo-block{padding:24px 18px}
   .wf-grid{grid-template-columns:repeat(5,1fr);gap:6px}
@@ -2816,10 +2851,9 @@ main,nav,section,footer{position:relative;z-index:2}
   </a>
 
   <div class="nav-right">
-    <div class="nav-links">      <a href="#demos" data-i18n="nav.demos">互動 Demo</a>
+    <div class="nav-links">
       <a href="#impact" data-i18n="nav.impact">效益</a>
       <a href="#about" data-i18n="nav.about">關於</a>
-      <a href="#impact" data-i18n="nav.process">流程</a>
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
@@ -4048,8 +4082,9 @@ main,nav,section,footer{position:relative;z-index:2}
         </div>
       </div>
     </div>
-    <div class="footer-links">      <a href="#demos" data-i18n="nav.demos">Demo</a>
-      <a href="#impact" data-i18n="nav.process">流程</a>
+    <div class="footer-links">
+      <a href="#impact" data-i18n="nav.impact">效益</a>
+      <a href="#about" data-i18n="nav.about">關於</a>
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
@@ -4073,7 +4108,9 @@ main,nav,section,footer{position:relative;z-index:2}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-22-R5-tg-desktop";
+  const CURRENT_BUILD = "2026-05-22-R6-nav-marquee";
+  // Expose for the freshness probe below
+  window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
     const saved = localStorage.getItem("tbc-build-id");
     if(saved !== CURRENT_BUILD){
@@ -4086,13 +4123,48 @@ main,nav,section,footer{position:relative;z-index:2}
       toRemove.forEach(k => localStorage.removeItem(k));
       localStorage.setItem("tbc-build-id", CURRENT_BUILD);
       if(saved){
-        // Only log if there WAS a previous build — first-time visitors are silent
         console.info("[TBC] New build detected — cleared stale state:", toRemove);
       }
     }
-  }catch(e){
-    // localStorage disabled / quota exceeded — no-op
+  }catch(e){}
+})();
+
+/* =================================================================
+   FRESHNESS PROBE — every 60s, fetch the live page with no-store
+   and compare its build tag to ours. If a newer build is live,
+   force a hard reload that bypasses the disk cache. Self-healing
+   against Chrome's stubborn HTTP cache.
+   ================================================================= */
+(function freshnessProbe(){
+  const RE = /Deploy build tag:\s*([A-Za-z0-9._\-+:]+)/;
+  async function check(){
+    try{
+      const res = await fetch(window.location.pathname + "?_freshprobe=" + Date.now(), {
+        cache: "no-store",
+        credentials: "omit",
+        headers: { "Cache-Control": "no-cache, no-store, max-age=0" },
+      });
+      if(!res.ok) return;
+      const text = await res.text();
+      const m = text.match(RE);
+      if(!m) return;
+      const liveBuild = m[1];
+      if(liveBuild && liveBuild !== window.__TBC_BUILD__){
+        console.warn("[TBC] Stale HTML detected. Forcing fresh reload.", {running: window.__TBC_BUILD__, live: liveBuild});
+        // location.reload(true) is deprecated; force via timestamped query
+        const url = new URL(window.location.href);
+        url.searchParams.set("_v", String(Date.now()));
+        window.location.replace(url.toString());
+      }
+    }catch(_){/* offline or network blip — try again later */}
   }
+  // First check ~5s after load (don't compete with initial render), then every 60s.
+  setTimeout(check, 5000);
+  setInterval(check, 60000);
+  // Also check when tab regains focus — fast catch-up if user came back.
+  document.addEventListener("visibilitychange", () => {
+    if(document.visibilityState === "visible") check();
+  });
 })();
 
 /* =================================================================
