@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-24-R9-copy-medspa -->
+<!-- Deploy build tag: 2026-05-24-R10-workflows-ba -->
 
 
 <!-- ============== FONTS ============== -->
@@ -3035,6 +3035,215 @@ main,nav,section,footer{position:relative;z-index:2}
   </div>
 </section>
 
+<!-- ======================== REAL WORKFLOWS ======================== -->
+<style>
+/* Real workflows section — concrete examples grid */
+.workflows-section{padding:80px 0 60px}
+.wf2-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+@media(max-width:860px){.wf2-grid{grid-template-columns:1fr;gap:18px}}
+.wf2-card{
+  position:relative;padding:28px 26px;border-radius:18px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.08);
+  transition:transform .25s ease, border-color .25s ease;
+  overflow:hidden;
+}
+[data-theme="light"] .wf2-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(248,248,252,.85));
+  border:1px solid rgba(0,0,0,.07);
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+.wf2-card::before{
+  content:"";position:absolute;inset:0;border-radius:18px;padding:1px;
+  background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .3s ease;pointer-events:none;
+}
+.wf2-card:hover::before{opacity:.6}
+.wf2-card:hover{transform:translateY(-4px)}
+.wf2-card .wf2-ico{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+  background:linear-gradient(135deg,rgba(124,92,255,.18),rgba(0,194,255,.12));
+  margin-bottom:16px;
+}
+.wf2-card h3{font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-.01em}
+.wf2-steps{list-style:none;padding:0;margin:0 0 16px 0}
+.wf2-steps li{
+  position:relative;padding:8px 0 8px 28px;font-size:14px;line-height:1.55;
+  color:var(--text-soft);
+}
+.wf2-steps li::before{
+  content:counter(wf-step);counter-increment:wf-step;
+  position:absolute;left:0;top:8px;
+  width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(135deg,#7c5cff,#00c2ff);
+  color:#fff;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.wf2-steps{counter-reset:wf-step}
+.wf2-save{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:600;letter-spacing:.02em;
+  padding:6px 12px;border-radius:999px;
+  background:linear-gradient(135deg,rgba(123,232,163,.16),rgba(0,194,255,.12));
+  color:#7be8a3;border:1px solid rgba(123,232,163,.25);
+}
+[data-theme="light"] .wf2-save{color:#0c8a3e;background:linear-gradient(135deg,rgba(12,138,62,.08),rgba(0,140,200,.06));border-color:rgba(12,138,62,.2)}
+.wf2-save::before{content:"⏱"}
+</style>
+<section class="section workflows-section" id="workflows" aria-label="Real workflows">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="eyebrow" data-i18n="wf2.eyebrow">REAL WORKFLOWS</div>
+      <h2 class="h2"><span data-i18n="wf2.title1">我們實際</span> <span class="gradient-text" data-i18n="wf2.title2">為客戶自動化的流程</span></h2>
+      <p class="muted" data-i18n="wf2.desc">這些不是 Demo — 是我們已為客戶落地的真實自動化流程。每個都可在 2–4 週內接入您的業務。</p>
+    </div>
+    <div class="wf2-grid">
+      <div class="wf2-card reveal">
+        <div class="wf2-ico">📅</div>
+        <h3 data-i18n="wf2.c1.title">預約 · 提醒 · 漏客重訪</h3>
+        <ol class="wf2-steps">
+          <li data-i18n="wf2.c1.s1">新預約自動發 WhatsApp 確認訊息</li>
+          <li data-i18n="wf2.c1.s2">前 24 小時自動發送提醒</li>
+          <li data-i18n="wf2.c1.s3">缺席客戶 24 小時內自動重新邀請</li>
+        </ol>
+        <span class="wf2-save" data-i18n="wf2.c1.save">每月省 8 小時 · 漏客率下降 30%</span>
+      </div>
+      <div class="wf2-card reveal">
+        <div class="wf2-ico">💬</div>
+        <h3 data-i18n="wf2.c2.title">WhatsApp 訊息分流</h3>
+        <ol class="wf2-steps">
+          <li data-i18n="wf2.c2.s1">新訊息即時分類為查詢 / 預約 / 投訴</li>
+          <li data-i18n="wf2.c2.s2">常見問題自動回覆並附參考資料</li>
+          <li data-i18n="wf2.c2.s3">複雜訊息轉真人並標記緊急程度</li>
+        </ol>
+        <span class="wf2-save" data-i18n="wf2.c2.save">客服回覆速度提升 5 倍</span>
+      </div>
+      <div class="wf2-card reveal">
+        <div class="wf2-ico">🔄</div>
+        <h3 data-i18n="wf2.c3.title">客戶療程後跟進</h3>
+        <ol class="wf2-steps">
+          <li data-i18n="wf2.c3.s1">療程後 24 小時自動發感謝訊息</li>
+          <li data-i18n="wf2.c3.s2">7 日後邀請客戶評分與回饋</li>
+          <li data-i18n="wf2.c3.s3">14 日後個人化續療建議與優惠</li>
+        </ol>
+        <span class="wf2-save" data-i18n="wf2.c3.save">復購率上升 25% · 員工零額外工時</span>
+      </div>
+      <div class="wf2-card reveal">
+        <div class="wf2-ico">⭐</div>
+        <h3 data-i18n="wf2.c4.title">評論回覆自動草稿</h3>
+        <ol class="wf2-steps">
+          <li data-i18n="wf2.c4.s1">即時偵測 Google / OpenRice 新評論</li>
+          <li data-i18n="wf2.c4.s2">自動草擬 3 種語氣（正式 / 親切 / 致歉）</li>
+          <li data-i18n="wf2.c4.s3">您一鍵 approve 即發送，省下草擬時間</li>
+        </ol>
+        <span class="wf2-save" data-i18n="wf2.c4.save">回覆評論時間下降 80%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== BEFORE / AFTER ======================== -->
+<style>
+/* Before / After section — side-by-side timeline comparison */
+.ba-section{padding:60px 0 80px}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+@media(max-width:860px){.ba-grid{grid-template-columns:1fr;gap:18px}}
+.ba-card{
+  position:relative;padding:28px 26px 24px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+}
+[data-theme="light"] .ba-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(248,248,252,.88));
+  border:1px solid rgba(0,0,0,.07);
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+.ba-card.before{border-top:3px solid #ff7a7a}
+.ba-card.after {border-top:3px solid #7be8a3}
+.ba-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:700;letter-spacing:.08em;
+  padding:6px 12px;border-radius:999px;margin-bottom:18px;
+}
+.ba-card.before .ba-label{background:rgba(255,122,122,.15);color:#ff9a9a}
+.ba-card.after  .ba-label{background:rgba(123,232,163,.15);color:#7be8a3}
+[data-theme="light"] .ba-card.before .ba-label{color:#c93030}
+[data-theme="light"] .ba-card.after  .ba-label{color:#0c8a3e}
+.ba-timeline{list-style:none;padding:0;margin:0 0 18px 0;position:relative}
+.ba-timeline::before{
+  content:"";position:absolute;left:50px;top:8px;bottom:8px;
+  width:1px;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02));
+}
+[data-theme="light"] .ba-timeline::before{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.02))}
+.ba-timeline li{
+  display:grid;grid-template-columns:50px 1fr;gap:18px;
+  padding:10px 0;font-size:14px;line-height:1.5;
+  align-items:flex-start;
+}
+.ba-time{
+  font-size:11px;font-weight:700;letter-spacing:.04em;
+  color:var(--text-soft);text-align:right;padding-top:2px;
+  position:relative;
+}
+.ba-time::after{
+  content:"";position:absolute;right:-8px;top:6px;width:8px;height:8px;border-radius:50%;
+  border:2px solid var(--bg);
+}
+.ba-card.before .ba-time::after{background:#ff7a7a}
+.ba-card.after  .ba-time::after{background:#7be8a3}
+.ba-evt{color:var(--text-soft)}
+.ba-total{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:18px;border-top:1px dashed rgba(255,255,255,.1);
+  font-size:13px;font-weight:600;
+}
+[data-theme="light"] .ba-total{border-top-color:rgba(0,0,0,.1)}
+.ba-card.before .ba-total{color:#ff9a9a}
+.ba-card.after  .ba-total{color:#7be8a3}
+[data-theme="light"] .ba-card.before .ba-total{color:#c93030}
+[data-theme="light"] .ba-card.after  .ba-total{color:#0c8a3e}
+.ba-total-num{font-size:18px;font-weight:800}
+</style>
+<section class="section ba-section" id="ba" aria-label="Before vs After">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="eyebrow" data-i18n="ba.eyebrow">BEFORE · AFTER</div>
+      <h2 class="h2"><span data-i18n="ba.title1">同一日 ·</span> <span class="gradient-text" data-i18n="ba.title2">兩種結果</span></h2>
+      <p class="muted" data-i18n="ba.desc">同樣 12 個客戶查詢、3 個新預約、2 個評論待回。手動處理 vs 自動化系統的真實差別。</p>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card before reveal">
+        <span class="ba-label" data-i18n="ba.beforeLabel">⏳ 手動處理</span>
+        <ol class="ba-timeline">
+          <li><span class="ba-time">09:00</span><span class="ba-evt" data-i18n="ba.bs1">回覆昨晚 12 個 WhatsApp 查詢</span></li>
+          <li><span class="ba-time">10:30</span><span class="ba-evt" data-i18n="ba.bs2">手動逐一發送預約確認</span></li>
+          <li><span class="ba-time">13:00</span><span class="ba-evt" data-i18n="ba.bs3">午餐被新查詢訊息打斷</span></li>
+          <li><span class="ba-time">15:00</span><span class="ba-evt" data-i18n="ba.bs4">手動寫提醒給明日客戶</span></li>
+          <li><span class="ba-time">17:30</span><span class="ba-evt" data-i18n="ba.bs5">逐張整理今日預約記錄</span></li>
+          <li><span class="ba-time">19:00</span><span class="ba-evt" data-i18n="ba.bs6">下班後再回 5 個未處理訊息</span></li>
+        </ol>
+        <div class="ba-total"><span data-i18n="ba.bTotalLabel">花於重複客服</span><span class="ba-total-num" data-i18n="ba.bTotalNum">約 5 小時</span></div>
+      </div>
+      <div class="ba-card after reveal">
+        <span class="ba-label" data-i18n="ba.afterLabel">⚡ 自動化系統</span>
+        <ol class="ba-timeline">
+          <li><span class="ba-time">09:00</span><span class="ba-evt" data-i18n="ba.as1">系統已自動回覆 10 個常見查詢</span></li>
+          <li><span class="ba-time">10:30</span><span class="ba-evt" data-i18n="ba.as2">查看儀表板：2 個複雜訊息已標記</span></li>
+          <li><span class="ba-time">13:00</span><span class="ba-evt" data-i18n="ba.as3">午餐安靜，自動提醒已批量發出</span></li>
+          <li><span class="ba-time">15:00</span><span class="ba-evt" data-i18n="ba.as4">親自處理 1 個高價值客戶會議</span></li>
+          <li><span class="ba-time">17:30</span><span class="ba-evt" data-i18n="ba.as5">系統已自動整理今日報表</span></li>
+          <li><span class="ba-time">19:00</span><span class="ba-evt" data-i18n="ba.as6">準時下班</span></li>
+        </ol>
+        <div class="ba-total"><span data-i18n="ba.aTotalLabel">回到真正帶來收入的工作</span><span class="ba-total-num" data-i18n="ba.aTotalNum">+4 小時</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ======================== DEMOS ======================== -->
 <section class="section" id="demos">
   <div class="container">
@@ -4120,7 +4329,7 @@ main,nav,section,footer{position:relative;z-index:2}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-24-R9-copy-medspa";
+  const CURRENT_BUILD = "2026-05-24-R10-workflows-ba";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4298,6 +4507,47 @@ const I18N = {
     "wf.c4.name":"被重複工作困住的團隊","wf.c4.desc":"每日重複處理跟進信、資料輸入與報表",
     "demo.cta.title":"想為您的業務導入這類自動化工作流？","demo.cta.sub":"免費 30 分鐘諮詢，我們會為您的行業度身設計一套工作流。",
     "demo.cta.book":"預約免費諮詢","demo.cta.wa":"WhatsApp","demo.cta.tg":"Telegram",
+    "wf2.eyebrow":"真實工作流",
+    "wf2.title1":"我們實際","wf2.title2":"為客戶自動化的流程",
+    "wf2.desc":"這些不是 Demo — 是我們已為客戶落地的真實自動化流程。每個都可在 2–4 週內接入您的業務。",
+    "wf2.c1.title":"預約 · 提醒 · 漏客重訪",
+    "wf2.c1.s1":"新預約自動發 WhatsApp 確認訊息",
+    "wf2.c1.s2":"前 24 小時自動發送提醒",
+    "wf2.c1.s3":"缺席客戶 24 小時內自動重新邀請",
+    "wf2.c1.save":"每月節省 8 小時 · 漏客率下降 30%",
+    "wf2.c2.title":"WhatsApp 訊息分流",
+    "wf2.c2.s1":"新訊息即時分類為查詢 / 預約 / 投訴",
+    "wf2.c2.s2":"常見問題自動回覆並附參考資料",
+    "wf2.c2.s3":"複雜訊息轉真人並標記緊急程度",
+    "wf2.c2.save":"客服回覆速度提升 5 倍",
+    "wf2.c3.title":"客戶療程後跟進",
+    "wf2.c3.s1":"療程後 24 小時自動發感謝訊息",
+    "wf2.c3.s2":"7 日後邀請客戶評分與回饋",
+    "wf2.c3.s3":"14 日後個人化續療建議與優惠",
+    "wf2.c3.save":"復購率上升 25% · 員工零額外工時",
+    "wf2.c4.title":"評論回覆自動草稿",
+    "wf2.c4.s1":"即時偵測 Google / OpenRice 新評論",
+    "wf2.c4.s2":"自動草擬 3 種語氣（正式 / 親切 / 致歉）",
+    "wf2.c4.s3":"您一鍵 approve 即發送，省下草擬時間",
+    "wf2.c4.save":"回覆評論時間下降 80%",
+    "ba.eyebrow":"BEFORE · AFTER",
+    "ba.title1":"同一日 ·","ba.title2":"兩種結果",
+    "ba.desc":"同樣 12 個客戶查詢、3 個新預約、2 個評論待回。手動處理 vs 自動化系統的真實差別。",
+    "ba.beforeLabel":"⏳ 手動處理","ba.afterLabel":"⚡ 自動化系統",
+    "ba.bs1":"回覆昨晚 12 個 WhatsApp 查詢",
+    "ba.bs2":"手動逐一發送預約確認",
+    "ba.bs3":"午餐被新查詢訊息打斷",
+    "ba.bs4":"手動寫提醒給明日客戶",
+    "ba.bs5":"逐張整理今日預約記錄",
+    "ba.bs6":"下班後再回 5 個未處理訊息",
+    "ba.bTotalLabel":"花於重複客服","ba.bTotalNum":"約 5 小時",
+    "ba.as1":"系統已自動回覆 10 個常見查詢",
+    "ba.as2":"查看儀表板：2 個複雜訊息已標記",
+    "ba.as3":"午餐安靜，自動提醒已批量發出",
+    "ba.as4":"親自處理 1 個高價值客戶會議",
+    "ba.as5":"系統已自動整理今日報表",
+    "ba.as6":"準時下班",
+    "ba.aTotalLabel":"回到真正帶來收入的工作","ba.aTotalNum":"+4 小時",
     "msc.text":"預約免費 AI 諮詢",
     "msc.wa":"WhatsApp","msc.waSub":"即時對話，1 分鐘回覆","msc.tg":"Telegram",
     "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
@@ -4492,6 +4742,47 @@ const I18N = {
     "wf.c4.name":"Teams drowning in repetitive work","wf.c4.desc":"Daily follow-up emails, data entry and reporting",
     "demo.cta.title":"Want this automation workflow for your business?","demo.cta.sub":"Book a free 30-min consultation — we'll tailor a workflow for your industry.",
     "demo.cta.book":"Book Free Consultation","demo.cta.wa":"WhatsApp","demo.cta.tg":"Telegram",
+    "wf2.eyebrow":"REAL WORKFLOWS",
+    "wf2.title1":"Workflows we've actually","wf2.title2":"automated for clients",
+    "wf2.desc":"Not demos — real automation flows we've shipped for clients. Each one can plug into your business in 2–4 weeks.",
+    "wf2.c1.title":"Booking · Reminder · No-show recovery",
+    "wf2.c1.s1":"New booking auto-sends a WhatsApp confirmation",
+    "wf2.c1.s2":"Reminder fires 24 hours before the appointment",
+    "wf2.c1.s3":"No-shows get an auto re-invite within 24 hours",
+    "wf2.c1.save":"Saves 8 hrs / month · −30% no-show rate",
+    "wf2.c2.title":"WhatsApp message triage",
+    "wf2.c2.s1":"New messages instantly classified — enquiry / booking / complaint",
+    "wf2.c2.s2":"Common questions get an auto-reply with reference links",
+    "wf2.c2.s3":"Complex messages route to a human with urgency tagged",
+    "wf2.c2.save":"5× faster reply time",
+    "wf2.c3.title":"Post-treatment client follow-up",
+    "wf2.c3.s1":"Thank-you message 24 hrs after treatment",
+    "wf2.c3.s2":"Day 7: invite client to leave a review",
+    "wf2.c3.s3":"Day 14: personalised rebooking suggestion with offer",
+    "wf2.c3.save":"+25% repeat rate · zero extra staff hours",
+    "wf2.c4.title":"Auto-drafted review replies",
+    "wf2.c4.s1":"New Google / OpenRice reviews detected instantly",
+    "wf2.c4.s2":"3 reply styles auto-drafted (formal / warm / apologetic)",
+    "wf2.c4.s3":"You one-click approve and send — no more drafting from scratch",
+    "wf2.c4.save":"−80% time spent on review replies",
+    "ba.eyebrow":"BEFORE · AFTER",
+    "ba.title1":"Same day ·","ba.title2":"two outcomes",
+    "ba.desc":"Same 12 WhatsApp enquiries, 3 new bookings, 2 reviews to reply. Manual vs automated — the real difference.",
+    "ba.beforeLabel":"⏳ Manual","ba.afterLabel":"⚡ Automated",
+    "ba.bs1":"Reply to 12 WhatsApp enquiries from last night",
+    "ba.bs2":"Manually send each booking confirmation",
+    "ba.bs3":"Lunch interrupted by new enquiry pings",
+    "ba.bs4":"Hand-write reminders for tomorrow's clients",
+    "ba.bs5":"Compile today's booking records by hand",
+    "ba.bs6":"After hours: reply to 5 messages you missed",
+    "ba.bTotalLabel":"Lost to repetitive support","ba.bTotalNum":"≈ 5 hours",
+    "ba.as1":"System has auto-replied to 10 common enquiries",
+    "ba.as2":"Check dashboard: 2 complex messages flagged",
+    "ba.as3":"Quiet lunch — auto-reminders already sent",
+    "ba.as4":"Take 1 high-value client meeting in person",
+    "ba.as5":"System has auto-compiled today's report",
+    "ba.as6":"Clock off on time",
+    "ba.aTotalLabel":"Back to revenue-driving work","ba.aTotalNum":"+4 hours",
     "msc.text":"Book Free AI Consultation",
     "msc.wa":"WhatsApp","msc.waSub":"Quick chat, 1-min reply","msc.tg":"Telegram",
     "welcome.tagline":"Let AI tailor a plan for your business 🎯",
