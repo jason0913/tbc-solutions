@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-24-R11-unskippable-vertical -->
+<!-- Deploy build tag: 2026-05-24-R13-lockdown-realfeel -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2274,16 +2274,27 @@ main,nav,section,footer{position:relative;z-index:2}
 .welcome.leaving{opacity:0;pointer-events:none}
 
 /* ============================================================
-   NO-PROFILE SAFETY NET
-   When the body has class "no-profile" (welcome page never resolved
-   into an industry pick), all demo / workflow / before-after content
-   is hidden so a visitor cannot see anything until they self-identify.
-   The nav link to #demos is also suppressed.
+   NO-PROFILE LOCKDOWN
+   When body.no-profile is set, the welcome overlay is the ONLY
+   interactive surface. Every other top-level page region is hidden
+   (display:none) so visitors physically cannot reach, click, focus,
+   tab to, or even see any UI other than the industry picker.
+
+   The previous "only hide demo content" approach left the nav,
+   theme toggle, language switch, FAB, sticky CTA and hero visible —
+   any of which could be a click target. CEO requirement: zero
+   clickable element exists outside the welcome chips / name input /
+   Enter button.
    ============================================================ */
-body.no-profile #demos,
-body.no-profile #workflows,
-body.no-profile #ba,
-body.no-profile .nav-links a[href="#demos"]{
+body.no-profile > *:not(#welcome):not(#bg-canvas):not(#particles){
+  display:none !important;
+}
+/* Defensive: nav, sticky CTA and FAB live outside main but are still
+   suppressed explicitly in case future markup nests them. */
+body.no-profile .nav,
+body.no-profile .mobile-sticky-cta,
+body.no-profile .back-to-top,
+body.no-profile .hero{
   display:none !important;
 }
 
@@ -2857,13 +2868,58 @@ body.no-profile .nav-links a[href="#demos"]{
   </a>
 </div>
 
+<!-- ======================== BACK-TO-TOP FAB ======================== -->
+<style>
+.back-to-top{
+  position:fixed;bottom:28px;right:28px;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(7,7,10,.72);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .25s ease, transform .25s ease, background .2s ease, border-color .2s ease;
+  z-index:100;pointer-events:none;
+}
+.back-to-top.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.back-to-top:hover{background:rgba(124,92,255,.22);border-color:rgba(124,92,255,.5)}
+.back-to-top:active{transform:translateY(0) scale(.95)}
+.back-to-top svg{width:20px;height:20px;display:block}
+[data-theme="light"] .back-to-top{
+  background:rgba(255,255,255,.92);border-color:rgba(0,0,0,.08);
+  color:#0a0a14;box-shadow:0 4px 16px rgba(0,0,0,.08);
+}
+[data-theme="light"] .back-to-top:hover{background:rgba(124,92,255,.12);border-color:rgba(124,92,255,.45);color:#1a1a26}
+/* Stay clear of the mobile sticky CTA (bottom:0, height ~70px) on small viewports */
+@media (max-width:860px){
+  .back-to-top{bottom:88px;right:14px;width:40px;height:40px}
+  .back-to-top svg{width:18px;height:18px}
+}
+/* Hide while welcome overlay is on screen — visitor shouldn't see chrome
+   until they've picked an industry. */
+body.no-profile .back-to-top{display:none !important}
+</style>
+<button class="back-to-top" id="back-to-top" type="button" aria-label="返回頂部 / Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
 <!-- ======================== BG / PARTICLES ======================== -->
 <div id="bg-canvas"></div>
 <canvas id="particles"></canvas>
 
 <!-- ======================== NAV ======================== -->
 <nav class="nav" id="nav">
-  <a href="#top" class="logo" aria-label="TBC Solutions">
+  <!-- Logo is intentionally inert (no href, not focusable, not a button).
+       Earlier the logo was <a href="#top">, which polluted the URL with
+       a #top fragment on every click and — more critically — created
+       a potential bypass surface on the welcome overlay. The logo now
+       carries only branding; users use the dedicated back-to-top FAB
+       (bottom-right) to scroll to the top of the page. -->
+  <div class="logo" role="img" aria-label="TBC Solutions" data-logo>
     <div class="logo-row">
       <div class="logo-block">TBC</div>
       <div class="logo-right">
@@ -2872,7 +2928,7 @@ body.no-profile .nav-links a[href="#demos"]{
       </div>
     </div>
     <div class="logo-slogan">Transform · Build · Create</div>
-  </a>
+  </div>
 
   <div class="nav-right">
     <div class="nav-links">
@@ -3253,6 +3309,181 @@ body.no-profile .nav-links a[href="#demos"]{
         <div class="ba-total"><span data-i18n="ba.aTotalLabel">回到真正帶來收入的工作</span><span class="ba-total-num" data-i18n="ba.aTotalNum">+4 小時</span></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ======================== REAL-FEEL (mock WhatsApp + Dashboard) ==================== -->
+<style>
+.realfeel-section{padding:60px 0 80px}
+.rf-grid{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:32px;margin-top:48px;align-items:start}
+@media(max-width:920px){.rf-grid{grid-template-columns:1fr;gap:22px;justify-items:center}}
+
+/* ===== Phone / WhatsApp mockup ===== */
+.rf-phone{
+  width:100%;max-width:340px;
+  background:#0b1410;border:1px solid rgba(255,255,255,.08);
+  border-radius:32px;padding:14px 12px;
+  box-shadow:0 30px 60px rgba(0,0,0,.4), 0 0 0 8px rgba(255,255,255,.02) inset;
+  overflow:hidden;position:relative;
+}
+[data-theme="light"] .rf-phone{
+  background:#f4f1ec;border-color:rgba(0,0,0,.07);
+  box-shadow:0 20px 40px rgba(0,0,0,.12), 0 0 0 8px rgba(0,0,0,.02) inset;
+}
+.rf-wa-header{
+  display:flex;align-items:center;gap:10px;
+  background:#075E54;color:#fff;
+  padding:10px 12px;margin:-14px -12px 0;border-radius:24px 24px 0 0;
+}
+.rf-wa-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,#bda4ec,#85b5ee);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#fff;
+}
+.rf-wa-meta{flex:1;line-height:1.15}
+.rf-wa-name{font-size:13px;font-weight:600}
+.rf-wa-status{font-size:10px;color:rgba(255,255,255,.7)}
+.rf-wa-actions{font-size:14px;letter-spacing:.2em;opacity:.7}
+.rf-wa-body{
+  background:#ECE5DD;
+  background-image:linear-gradient(rgba(236,229,221,.92),rgba(236,229,221,.92)),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><path d='M0 20h40M20 0v40' stroke='%23d8d0c2' stroke-width='.5'/></svg>");
+  margin:0 -12px;padding:12px 14px;min-height:380px;
+  display:flex;flex-direction:column;gap:8px;
+}
+[data-theme="light"] .rf-wa-body{background:#E5DDD5;background-image:linear-gradient(rgba(229,221,213,.92),rgba(229,221,213,.92)),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><path d='M0 20h40M20 0v40' stroke='%23c8c0b2' stroke-width='.5'/></svg>")}
+.rf-wa-msg{
+  position:relative;max-width:78%;padding:7px 10px 18px 10px;
+  border-radius:8px;font-size:12.5px;line-height:1.4;color:#0a0a14;
+  word-wrap:break-word;
+}
+.rf-wa-msg.in{align-self:flex-start;background:#fff;border-radius:8px 8px 8px 2px}
+.rf-wa-msg.out{align-self:flex-end;background:#DCF8C6;border-radius:8px 8px 2px 8px}
+.rf-wa-msg .rf-time{
+  position:absolute;right:8px;bottom:3px;
+  font-size:9px;color:#777;letter-spacing:.02em;
+}
+.rf-wa-msg.out .rf-time::after{content:" ✓✓";color:#4FC3F7}
+.rf-wa-msg .rf-tag{
+  display:inline-block;font-size:9px;font-weight:700;letter-spacing:.05em;
+  padding:1px 6px;border-radius:4px;
+  background:rgba(7,94,84,.15);color:#075E54;margin-bottom:4px;text-transform:uppercase;
+}
+.rf-wa-input{
+  background:#fff;color:#888;font-size:11px;
+  margin:0 -12px -14px;padding:10px 12px;
+  display:flex;align-items:center;gap:10px;
+  border-top:1px solid rgba(0,0,0,.05);
+}
+.rf-wa-input::after{content:"🎤";font-size:14px;margin-left:auto;color:#075E54}
+
+/* ===== Dashboard mockup ===== */
+.rf-dash{
+  width:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.08);border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+[data-theme="light"] .rf-dash{
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(248,248,252,.88));
+  border-color:rgba(0,0,0,.07);
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+.rf-dash-bar{
+  display:flex;align-items:center;gap:8px;padding:10px 14px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);
+}
+[data-theme="light"] .rf-dash-bar{background:rgba(0,0,0,.025);border-bottom-color:rgba(0,0,0,.06)}
+.rf-dash-dot{width:9px;height:9px;border-radius:50%}
+.rf-dash-dot.r{background:#ff5f57}.rf-dash-dot.y{background:#febc2e}.rf-dash-dot.g{background:#28c840}
+.rf-dash-url{
+  flex:1;margin-left:8px;font-size:11px;color:var(--text-soft);
+  background:rgba(255,255,255,.05);padding:4px 10px;border-radius:6px;
+  font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:.02em;
+}
+[data-theme="light"] .rf-dash-url{background:rgba(0,0,0,.04)}
+.rf-dash-head{padding:18px 22px 8px}
+.rf-dash-title{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.rf-dash-subtitle{font-size:11px;color:var(--text-soft);margin-top:2px;letter-spacing:.04em}
+.rf-dash-kpis{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 22px 6px;
+}
+@media(max-width:560px){.rf-dash-kpis{grid-template-columns:repeat(2,1fr)}}
+.rf-kpi{
+  padding:12px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(124,92,255,.12),rgba(0,194,255,.06));
+  border:1px solid rgba(124,92,255,.18);
+}
+.rf-kpi-val{font-size:22px;font-weight:800;letter-spacing:-.01em}
+.rf-kpi-label{font-size:10px;color:var(--text-soft);margin-top:2px;letter-spacing:.04em}
+.rf-dash-rows{padding:14px 22px 22px}
+.rf-row{
+  display:grid;grid-template-columns:60px 1.4fr 2fr auto;gap:10px;
+  align-items:center;padding:10px 0;
+  border-bottom:1px dashed rgba(255,255,255,.07);
+  font-size:13px;
+}
+[data-theme="light"] .rf-row{border-bottom-color:rgba(0,0,0,.07)}
+.rf-row:last-child{border-bottom:0}
+.rf-row .rf-c1{font-weight:700;color:var(--accent);font-size:12px}
+.rf-row .rf-c2{color:var(--text)}
+.rf-row .rf-c3{color:var(--text-soft);font-size:12px}
+.rf-row .rf-status{
+  font-size:10px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:999px;
+}
+.rf-status.ok  {background:rgba(123,232,163,.16);color:#7be8a3}
+.rf-status.wait{background:rgba(255,184,77,.16);color:#ffb84d}
+.rf-status.open{background:rgba(124,92,255,.16);color:#a892ff}
+[data-theme="light"] .rf-status.ok{color:#0c8a3e}
+[data-theme="light"] .rf-status.wait{color:#a25b00}
+[data-theme="light"] .rf-status.open{color:#5a3fc7}
+
+.rf-caption{
+  text-align:center;font-size:12px;color:var(--text-soft);margin-top:24px;
+  font-style:italic;letter-spacing:.02em;
+}
+</style>
+<section class="section realfeel-section" id="real-feel" aria-label="Real-feel mockups">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <div class="eyebrow" data-i18n="rf.eyebrow">真實畫面</div>
+      <h2 class="h2"><span data-i18n="rf.title1">唔係 demo —</span> <span class="gradient-text" data-i18n="rf.title2">客戶真實畫面</span></h2>
+      <p class="muted" data-i18n="rf.desc">以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。</p>
+    </div>
+    <div class="rf-grid">
+      <!-- WhatsApp phone mockup -->
+      <div class="rf-phone reveal" id="rf-phone">
+        <div class="rf-wa-header">
+          <div class="rf-wa-avatar" id="rf-wa-avatar">陳</div>
+          <div class="rf-wa-meta">
+            <div class="rf-wa-name" id="rf-wa-name">陳太太</div>
+            <div class="rf-wa-status" id="rf-wa-status">在線</div>
+          </div>
+          <div class="rf-wa-actions">⋮</div>
+        </div>
+        <div class="rf-wa-body" id="rf-wa-body"></div>
+        <div class="rf-wa-input"><span data-i18n="rf.wa.inputHint">輸入訊息</span></div>
+      </div>
+
+      <!-- Dashboard mockup -->
+      <div class="rf-dash reveal" id="rf-dash">
+        <div class="rf-dash-bar">
+          <span class="rf-dash-dot r"></span>
+          <span class="rf-dash-dot y"></span>
+          <span class="rf-dash-dot g"></span>
+          <span class="rf-dash-url" id="rf-dash-url">app.tbcsolutions.com/dashboard</span>
+        </div>
+        <div class="rf-dash-head">
+          <div class="rf-dash-title" id="rf-dash-title">今日預約管理</div>
+          <div class="rf-dash-subtitle" id="rf-dash-subtitle">2026-05-24（星期一）</div>
+        </div>
+        <div class="rf-dash-kpis" id="rf-dash-kpis"></div>
+        <div class="rf-dash-rows" id="rf-dash-rows"></div>
+      </div>
+    </div>
+    <div class="rf-caption" data-i18n="rf.caption">* 上述畫面為示意 mockup — 實際系統會根據您的品牌、流程與 KPI 度身定製。</div>
   </div>
 </section>
 
@@ -4341,7 +4572,7 @@ body.no-profile .nav-links a[href="#demos"]{
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-24-R11-unskippable-vertical";
+  const CURRENT_BUILD = "2026-05-24-R13-lockdown-realfeel";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4560,6 +4791,11 @@ const I18N = {
     "ba.as5":"系統已自動整理今日報表",
     "ba.as6":"準時下班",
     "ba.aTotalLabel":"回到真正帶來收入的工作","ba.aTotalNum":"+4 小時",
+    "rf.eyebrow":"真實畫面",
+    "rf.title1":"唔係 demo —","rf.title2":"客戶真實畫面",
+    "rf.desc":"以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。",
+    "rf.wa.inputHint":"輸入訊息",
+    "rf.caption":"* 上述畫面為示意 mockup — 實際系統會根據您的品牌、流程與 KPI 度身定製。",
     "msc.text":"預約免費 AI 諮詢",
     "msc.wa":"WhatsApp","msc.waSub":"即時對話，1 分鐘回覆","msc.tg":"Telegram",
     "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
@@ -4795,6 +5031,11 @@ const I18N = {
     "ba.as5":"System has auto-compiled today's report",
     "ba.as6":"Clock off on time",
     "ba.aTotalLabel":"Back to revenue-driving work","ba.aTotalNum":"+4 hours",
+    "rf.eyebrow":"REAL SCREENS",
+    "rf.title1":"Not a demo —","rf.title2":"what your clients actually see",
+    "rf.desc":"Below: the WhatsApp conversations and admin dashboards your clients and team actually see day-to-day (mockup). Each industry is tuned to its real usage scenario.",
+    "rf.wa.inputHint":"Type a message",
+    "rf.caption":"* These are illustrative mockups — the real system is tailored to your brand, flow and KPIs.",
     "msc.text":"Book Free AI Consultation",
     "msc.wa":"WhatsApp","msc.waSub":"Quick chat, 1-min reply","msc.tg":"Telegram",
     "welcome.tagline":"Let AI tailor a plan for your business 🎯",
@@ -5695,6 +5936,411 @@ const INDUSTRY_BA = {
   },
 };
 
+/* ============================================================
+   INDUSTRY_MOCKUPS
+   Real-feel WhatsApp + Dashboard mockup content per vertical.
+   Rendered into #rf-wa-body and #rf-dash-kpis / #rf-dash-rows
+   by renderMockupsForIndustry() — called from applyProfile.
+   Each industry should provide both `wa` and `dash`. Missing
+   industries fall back to "醫美" defaults.
+   ============================================================ */
+const INDUSTRY_MOCKUPS = {
+  zh:{
+    "醫美":{
+      wa:{ avatar:"陳", name:"陳太太", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"你好，想預約 Hydrafacial 療程", time:"09:23"},
+          {dir:"in",  text:"下星期三幾點有位？",            time:"09:23"},
+          {dir:"out", text:"陳太您好！系統已預留三個時段：14:00 / 15:30 / 17:00 ✨",
+            time:"09:23", tag:"自動回覆"},
+          {dir:"in",  text:"15:30 thanks",                  time:"09:24"},
+          {dir:"out", text:"已預約：星期三 03/06 15:30 Hydrafacial 60 分鐘。療程前 24 小時自動提醒",
+            time:"09:24", tag:"自動確認"},
+        ]},
+      dash:{ url:"app.clinic.com/bookings", title:"今日預約管理", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"今日預約",val:"12"},{label:"待確認",val:"3"},
+          {label:"新查詢",val:"8"},{label:"本週 Rebooking",val:"18"},
+        ],
+        rows:[
+          {c1:"14:00",c2:"陳太太",c3:"Hydrafacial",      status:"ok",  statusText:"已確認"},
+          {c1:"14:30",c2:"Anna L.",c3:"Botox 療程",      status:"wait",statusText:"待確認"},
+          {c1:"15:30",c2:"陳太太",c3:"Hydrafacial（新）",status:"ok",  statusText:"已確認"},
+          {c1:"16:00",c2:"Mark Y.",c3:"首次諮詢",        status:"wait",statusText:"待確認"},
+          {c1:"16:30",c2:"—",     c3:"空檔",            status:"open",statusText:"可預約"},
+        ]},
+    },
+    "教育":{
+      wa:{ avatar:"林", name:"林媽媽（家長）", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"老師你好，囡囡想試堂 P5 數學", time:"19:12"},
+          {dir:"in",  text:"星期六有冇位？",                time:"19:12"},
+          {dir:"out", text:"林媽媽您好！系統已留 3 個試堂時段：星期六 10:00 / 13:30 / 15:00 📅",
+            time:"19:13", tag:"自動回覆"},
+          {dir:"in",  text:"13:30 OK",                      time:"19:14"},
+          {dir:"out", text:"已預留：星期六 30/05 13:30 P5 數學試堂。前一日自動提醒",
+            time:"19:14", tag:"自動確認"},
+        ]},
+      dash:{ url:"app.academy.com/enrolment", title:"招生與試堂管理", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"本週試堂",val:"24"},{label:"待跟進",val:"7"},
+          {label:"續報待回",val:"15"},{label:"轉化率",val:"38%"},
+        ],
+        rows:[
+          {c1:"星期六 10:00",c2:"Lucas C.",  c3:"P3 中文 · 試堂",   status:"ok",  statusText:"已確認"},
+          {c1:"星期六 13:30",c2:"林媽媽",    c3:"P5 數學 · 試堂",   status:"ok",  statusText:"已確認"},
+          {c1:"星期日 14:00",c2:"Sarah Y.",  c3:"F.4 英文 · 試堂",  status:"wait",statusText:"待確認"},
+          {c1:"星期日 16:00",c2:"陳同學",    c3:"暑期班續報",       status:"wait",statusText:"待回覆"},
+          {c1:"—",          c2:"Top 5 lead",c3:"高潛力試堂家庭",   status:"open",statusText:"待派員"},
+        ]},
+    },
+    "專業服務":{
+      wa:{ avatar:"何", name:"何生（地產 lead）", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"想睇下太古城兩房單位",          time:"14:08"},
+          {dir:"in",  text:"預算 1,500 萬左右",              time:"14:08"},
+          {dir:"out", text:"何生您好！已為您篩出 3 個合適單位（連照片、近期成交），睇樓時段：明日 11:00 / 16:00 🏠",
+            time:"14:09", tag:"自動回覆"},
+          {dir:"in",  text:"16:00 麻煩你",                   time:"14:10"},
+          {dir:"out", text:"已預約：明日 25/05 16:00 太古城海天閣 D 室睇樓。地址導航與聯絡電話將於 24 小時前發送",
+            time:"14:10", tag:"自動確認"},
+        ]},
+      dash:{ url:"app.estate.com/leads", title:"Lead Pipeline · 今日", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"新 Lead",val:"14"},{label:"預約睇樓",val:"6"},
+          {label:"7 日內跟進",val:"23"},{label:"本月成交",val:"3"},
+        ],
+        rows:[
+          {c1:"11:00",c2:"陳先生",  c3:"康怡花園 3 房 · 第二次睇", status:"ok",  statusText:"已確認"},
+          {c1:"14:30",c2:"Anna W.", c3:"半山 studio · 首次睇",     status:"wait",statusText:"待確認"},
+          {c1:"16:00",c2:"何生",   c3:"太古城海天閣 D 室",         status:"ok",  statusText:"已確認"},
+          {c1:"Day 7",c2:"林小姐",  c3:"自動 follow-up（無回覆）", status:"wait",statusText:"已派出"},
+          {c1:"新",  c2:"3 個新盤",c3:"已自動推送匹配客戶",        status:"open",statusText:"已發送"},
+        ]},
+    },
+    "科技":{
+      wa:{ avatar:"S", name:"Sarah Chen（Trial user）", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"Hi, just signed up. How do I import my CSV?", time:"10:15"},
+          {dir:"out", text:"Hi Sarah! Welcome 👋 Drop your CSV into Settings → Import. Here's a 90-sec walkthrough: tbc.help/import",
+            time:"10:15", tag:"自動回覆"},
+          {dir:"in",  text:"Got it, thanks!",                              time:"10:18"},
+          {dir:"out", text:"Awesome. I'll check back in 2 days to see how you're settling in 🚀",
+            time:"10:18", tag:"自動跟進"},
+          {dir:"out", text:"PS: marked you as high-intent lead — Mark from sales will reach out tomorrow",
+            time:"10:18", tag:"內部分流"},
+        ]},
+      dash:{ url:"app.saas.com/crm", title:"Lead Scoring · CRM", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"新註冊",val:"30"},{label:"高分 Lead",val:"6"},
+          {label:"At-Risk",val:"4"},{label:"續費 30d",val:"12"},
+        ],
+        rows:[
+          {c1:"Score 92",c2:"Sarah Chen", c3:"Trial · 已試 5/8 features",status:"ok",  statusText:"已派 Mark"},
+          {c1:"Score 87",c2:"Acme Corp",  c3:"Enterprise demo 已睇",      status:"ok",  statusText:"已派 Jenny"},
+          {c1:"Score 14",c2:"David L.",   c3:"7 日未登入 · At-risk",     status:"wait",statusText:"已建 CSM 任務"},
+          {c1:"Renew",   c2:"Globex Inc.",c3:"續費前 30 日 · 用量 ↑ 25%", status:"ok",  statusText:"自動 upsell"},
+          {c1:"P1",      c2:"Ticket #4521",c3:"Bug · API timeout",        status:"open",statusText:"已 Slack on-call"},
+        ]},
+    },
+    "餐飲":{
+      wa:{ avatar:"L", name:"Linda（訂位查詢）", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"今晚 7 點 4 位有冇位？", time:"15:20"},
+          {dir:"out", text:"Linda 您好！7:00 已滿 — 6:30 / 7:30 / 8:00 仲有位 🍱",
+            time:"15:20", tag:"自動回覆"},
+          {dir:"in",  text:"7:30 ok thanks",        time:"15:21"},
+          {dir:"out", text:"已預留：今晚 7:30 · 4 位 · 大廳。前 2 小時會自動提醒",
+            time:"15:21", tag:"自動確認"},
+          {dir:"out", text:"記得：今日生日優惠 — 蛋糕 9 折 🎂", time:"15:21", tag:"客戶生日"},
+        ]},
+      dash:{ url:"app.bistro.com/booking", title:"訂位與營運", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"今晚訂位",val:"38"},{label:"待確認",val:"4"},
+          {label:"缺席率",val:"6%"},{label:"本週評論",val:"12"},
+        ],
+        rows:[
+          {c1:"18:30",c2:"陳先生", c3:"2 位 · 窗邊",     status:"ok",  statusText:"已確認"},
+          {c1:"19:30",c2:"Linda",  c3:"4 位 · 大廳（生日）",status:"ok",  statusText:"已確認"},
+          {c1:"20:00",c2:"David",  c3:"6 位 · 包廂",     status:"wait",statusText:"待確認"},
+          {c1:"新評論",c2:"OpenRice",c3:"4 星 · 服務好",   status:"open",statusText:"回覆草稿已備"},
+          {c1:"庫存", c2:"三文魚",  c3:"剩 8 件 · 低於警戒線",status:"wait",statusText:"已通知供應商"},
+        ]},
+    },
+    "零售":{
+      wa:{ avatar:"K", name:"Kelly（網店客戶）", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"想問下黑色短裙 M size 仲有冇貨？", time:"21:45"},
+          {dir:"out", text:"Kelly 您好！M size 黑色仲有 3 件 ✨ 連結：tbc.shop/dress42",
+            time:"21:45", tag:"自動回覆"},
+          {dir:"in",  text:"運費點計？",                       time:"21:46"},
+          {dir:"out", text:"順豐 $40，滿 $500 免運。Hong Kong 1-2 工作天 📦",
+            time:"21:46", tag:"自動回覆"},
+          {dir:"out", text:"見你之前睇過呢條裙，10 分鐘內落單可用優惠碼 SAVE10 慳 $50",
+            time:"21:47", tag:"棄車挽回"},
+        ]},
+      dash:{ url:"app.shop.com/orders", title:"訂單與庫存", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"今日訂單",val:"86"},{label:"客服待回",val:"5"},
+          {label:"棄車挽回",val:"+18%"},{label:"低庫存 SKU",val:"7"},
+        ],
+        rows:[
+          {c1:"#4521",c2:"Kelly W.",   c3:"黑色短裙 M · $390",      status:"ok",  statusText:"已確認"},
+          {c1:"#4522",c2:"Anna L.",    c3:"白 T-shirt × 2 · $480",  status:"wait",statusText:"等付款"},
+          {c1:"棄車",c2:"訪客 #88",   c3:"購物車 $620 · 已發優惠碼",status:"open",statusText:"已發送"},
+          {c1:"問", c2:"David C.",    c3:"問運費政策",              status:"wait",statusText:"自動已回覆"},
+          {c1:"庫存",c2:"SKU-T-001", c3:"剩 3 件 · 低庫存",         status:"wait",statusText:"已通知供應商"},
+        ]},
+    },
+    "物流":{
+      wa:{ avatar:"司", name:"司機阿明", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"今日有幾單？順序點？",          time:"08:10"},
+          {dir:"out", text:"阿明早！今日 18 單，已按地址 cluster 排好。app 已派出第一張 🚚",
+            time:"08:10", tag:"自動派發"},
+          {dir:"in",  text:"第一單客冇人簽收",              time:"10:32"},
+          {dir:"out", text:"已通知客戶 + 安排明日重派。請繼續下一單 #4502",
+            time:"10:32", tag:"自動處理"},
+          {dir:"out", text:"#4502 客戶已收到送貨通知，預計到達 11:00", time:"10:33", tag:"自動回覆"},
+        ]},
+      dash:{ url:"app.logistics.com/dispatch", title:"派遣與庫存", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"今日訂單",val:"80"},{label:"派送中",val:"43"},
+          {label:"延誤",val:"2"},{label:"低庫存倉",val:"3"},
+        ],
+        rows:[
+          {c1:"#4521",c2:"陳生 · 沙田", c3:"電子產品 × 2 · 司機阿明",status:"ok",  statusText:"派送中"},
+          {c1:"#4522",c2:"Linda · 銅鑼灣",c3:"傢俬 · 司機阿強",       status:"ok",  statusText:"派送中"},
+          {c1:"#4523",c2:"陳太 · 沙田",  c3:"日用品 · 簽收失敗",      status:"wait",statusText:"明日重派"},
+          {c1:"庫存", c2:"廣州倉",      c3:"USB-C 剩 18 件",          status:"wait",statusText:"自動由港倉調貨"},
+          {c1:"客服", c2:"Mark W.",     c3:"查 #4480 物流",            status:"open",statusText:"自動已回覆"},
+        ]},
+    },
+    "創意":{
+      wa:{ avatar:"客", name:"客戶 Jenny（餐廳 branding）", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"想搵你哋做新店 branding，咩價位？",time:"11:05"},
+          {dir:"out", text:"Jenny 您好！已 send 咗品牌定位問卷畀您（5 分鐘），收返就會生成提案 ✨",
+            time:"11:05", tag:"自動回覆"},
+          {dir:"in",  text:"問卷填好了",                       time:"14:20"},
+          {dir:"out", text:"已生成 3 個方向初步提案 + 報價（HK$ 28K / 48K / 88K）。睇完約短會傾傾？",
+            time:"14:22", tag:"自動提案"},
+          {dir:"in",  text:"中間個方向 ok，幾時 call？",       time:"14:35"},
+          {dir:"out", text:"明日 15:00 / 16:30 / 後日 11:00 您揀邊個？", time:"14:35", tag:"自動排程"},
+        ]},
+      dash:{ url:"app.studio.com/projects", title:"專案與提案", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"新查詢",val:"6"},{label:"In-progress",val:"5"},
+          {label:"待 feedback",val:"3"},{label:"本月已交付",val:"4"},
+        ],
+        rows:[
+          {c1:"#P-21",c2:"Jenny C.",    c3:"餐廳 branding · 提案",   status:"ok",  statusText:"已發出"},
+          {c1:"#P-18",c2:"Coffee Co.",  c3:"包裝設計 · 第二輪",      status:"wait",statusText:"待 feedback"},
+          {c1:"#P-15",c2:"Tech Startup",c3:"網站 redesign · 上線",   status:"ok",  statusText:"已交付"},
+          {c1:"社交", c2:"IG / 小紅書",  c3:"6 張排期已自動上載",      status:"open",statusText:"自動發布"},
+          {c1:"作品集",c2:"月度 update", c3:"已自動生成 · 已推社交",  status:"open",statusText:"自動發布"},
+        ]},
+    },
+  },
+  en:{
+    "醫美":{
+      wa:{ avatar:"M", name:"Mrs Chen", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"Hi, I'd like to book a Hydrafacial", time:"09:23"},
+          {dir:"in",  text:"Any slots next Wednesday?",          time:"09:23"},
+          {dir:"out", text:"Hi Mrs Chen! Three slots held: 14:00 / 15:30 / 17:00 ✨",
+            time:"09:23", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"15:30 thanks",                       time:"09:24"},
+          {dir:"out", text:"Booked: Wed 03/06 15:30 Hydrafacial 60 mins. Auto-reminder 24 hrs prior",
+            time:"09:24", tag:"AUTO-CONFIRM"},
+        ]},
+      dash:{ url:"app.clinic.com/bookings", title:"Today's Bookings", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"Today's bookings",val:"12"},{label:"Pending",val:"3"},
+          {label:"New enquiries",val:"8"},{label:"Rebookings this week",val:"18"},
+        ],
+        rows:[
+          {c1:"14:00",c2:"Mrs Chen",c3:"Hydrafacial",       status:"ok",  statusText:"Confirmed"},
+          {c1:"14:30",c2:"Anna L.", c3:"Botox",              status:"wait",statusText:"Pending"},
+          {c1:"15:30",c2:"Mrs Chen",c3:"Hydrafacial (new)", status:"ok",  statusText:"Confirmed"},
+          {c1:"16:00",c2:"Mark Y.", c3:"First consult",      status:"wait",statusText:"Pending"},
+          {c1:"16:30",c2:"—",       c3:"Open slot",          status:"open",statusText:"Available"},
+        ]},
+    },
+    "教育":{
+      wa:{ avatar:"P", name:"Ms Lam (Parent)", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"My daughter wants to trial the P5 maths class", time:"19:12"},
+          {dir:"in",  text:"Any Saturday slots?",                           time:"19:12"},
+          {dir:"out", text:"Hi Ms Lam! Three trial slots held: Sat 10:00 / 13:30 / 15:00 📅",
+            time:"19:13", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"13:30 OK",                                       time:"19:14"},
+          {dir:"out", text:"Booked: Sat 30/05 13:30 P5 Maths trial. Auto-reminder the day before",
+            time:"19:14", tag:"AUTO-CONFIRM"},
+        ]},
+      dash:{ url:"app.academy.com/enrolment", title:"Enrolment & Trials", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"Trials this week",val:"24"},{label:"Awaiting follow-up",val:"7"},
+          {label:"Renewal pending",val:"15"},{label:"Trial→enrol rate",val:"38%"},
+        ],
+        rows:[
+          {c1:"Sat 10:00",c2:"Lucas C.",  c3:"P3 Chinese · trial",  status:"ok",  statusText:"Confirmed"},
+          {c1:"Sat 13:30",c2:"Ms Lam",    c3:"P5 Maths · trial",    status:"ok",  statusText:"Confirmed"},
+          {c1:"Sun 14:00",c2:"Sarah Y.",  c3:"F.4 English · trial", status:"wait",statusText:"Pending"},
+          {c1:"Sun 16:00",c2:"Chan S.",   c3:"Summer term renewal", status:"wait",statusText:"Awaiting"},
+          {c1:"—",       c2:"Top 5 leads",c3:"High-potential trial families",status:"open",statusText:"Assign"},
+        ]},
+    },
+    "專業服務":{
+      wa:{ avatar:"H", name:"Mr Ho (Property lead)", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"Interested in 2-bed in Taikoo Shing", time:"14:08"},
+          {dir:"in",  text:"Budget ~15M",                          time:"14:08"},
+          {dir:"out", text:"Hi Mr Ho! 3 matched units shortlisted (photos + recent comps). Viewing slots: tomorrow 11:00 / 16:00 🏠",
+            time:"14:09", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"16:00 please",                         time:"14:10"},
+          {dir:"out", text:"Booked: Tomorrow 25/05 16:00 Taikoo Shing Hoi Tin Mansion Flat D viewing. Address & contact sent 24 hrs prior",
+            time:"14:10", tag:"AUTO-CONFIRM"},
+        ]},
+      dash:{ url:"app.estate.com/leads", title:"Lead Pipeline · Today", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"New leads",val:"14"},{label:"Viewings booked",val:"6"},
+          {label:"7-day follow-ups",val:"23"},{label:"Closed this month",val:"3"},
+        ],
+        rows:[
+          {c1:"11:00",c2:"Mr Chan", c3:"Kornhill 3-bed · 2nd viewing", status:"ok",  statusText:"Confirmed"},
+          {c1:"14:30",c2:"Anna W.", c3:"Mid-levels studio · 1st",      status:"wait",statusText:"Pending"},
+          {c1:"16:00",c2:"Mr Ho",   c3:"Taikoo Shing Hoi Tin D",       status:"ok",  statusText:"Confirmed"},
+          {c1:"Day 7",c2:"Ms Lam",  c3:"Auto follow-up (no reply)",    status:"wait",statusText:"Sent"},
+          {c1:"New",  c2:"3 listings",c3:"Auto-pushed to matched leads",status:"open",statusText:"Sent"},
+        ]},
+    },
+    "科技":{
+      wa:{ avatar:"S", name:"Sarah Chen (Trial user)", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"Hi, just signed up. How do I import my CSV?", time:"10:15"},
+          {dir:"out", text:"Hi Sarah! Welcome 👋 Settings → Import. 90-sec walkthrough: tbc.help/import",
+            time:"10:15", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"Got it, thanks!",                              time:"10:18"},
+          {dir:"out", text:"Awesome. I'll check back in 2 days to see how you're settling in 🚀",
+            time:"10:18", tag:"AUTO-FOLLOWUP"},
+          {dir:"out", text:"PS: marked you as high-intent lead — Mark from sales will reach out tomorrow",
+            time:"10:18", tag:"INTERNAL"},
+        ]},
+      dash:{ url:"app.saas.com/crm", title:"Lead Scoring · CRM", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"New signups",val:"30"},{label:"High-score leads",val:"6"},
+          {label:"At-risk",val:"4"},{label:"Renewals (30d)",val:"12"},
+        ],
+        rows:[
+          {c1:"Score 92",c2:"Sarah Chen", c3:"Trial · 5/8 features tried", status:"ok",  statusText:"Assigned Mark"},
+          {c1:"Score 87",c2:"Acme Corp",  c3:"Enterprise demo viewed",      status:"ok",  statusText:"Assigned Jenny"},
+          {c1:"Score 14",c2:"David L.",   c3:"7d inactive · at-risk",      status:"wait",statusText:"CSM task created"},
+          {c1:"Renew",   c2:"Globex Inc.",c3:"30d to renew · usage ↑25%",   status:"ok",  statusText:"Auto-upsell"},
+          {c1:"P1",      c2:"Ticket #4521",c3:"Bug · API timeout",          status:"open",statusText:"Slack on-call"},
+        ]},
+    },
+    "餐飲":{
+      wa:{ avatar:"L", name:"Linda (Booking enquiry)", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"Table for 4 at 7pm tonight?",         time:"15:20"},
+          {dir:"out", text:"Hi Linda! 7:00 is full — 6:30 / 7:30 / 8:00 available 🍱",
+            time:"15:20", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"7:30 ok thanks",                       time:"15:21"},
+          {dir:"out", text:"Booked: Tonight 7:30 · 4 pax · main floor. Auto-reminder 2 hrs prior",
+            time:"15:21", tag:"AUTO-CONFIRM"},
+          {dir:"out", text:"Reminder: birthday offer today — 10% off cake 🎂", time:"15:21", tag:"BIRTHDAY"},
+        ]},
+      dash:{ url:"app.bistro.com/booking", title:"Reservations & Ops", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"Tonight's bookings",val:"38"},{label:"Pending",val:"4"},
+          {label:"No-show rate",val:"6%"},{label:"Reviews this week",val:"12"},
+        ],
+        rows:[
+          {c1:"18:30",c2:"Mr Chan",c3:"2 pax · window",          status:"ok",  statusText:"Confirmed"},
+          {c1:"19:30",c2:"Linda",  c3:"4 pax · main (birthday)",  status:"ok",  statusText:"Confirmed"},
+          {c1:"20:00",c2:"David",  c3:"6 pax · private room",     status:"wait",statusText:"Pending"},
+          {c1:"Review",c2:"OpenRice",c3:"4-star · good service",    status:"open",statusText:"Reply drafted"},
+          {c1:"Stock", c2:"Salmon", c3:"8 left · below threshold",  status:"wait",statusText:"Supplier alerted"},
+        ]},
+    },
+    "零售":{
+      wa:{ avatar:"K", name:"Kelly (E-shop customer)", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"Is the black dress M size still in stock?", time:"21:45"},
+          {dir:"out", text:"Hi Kelly! 3 in stock ✨ Link: tbc.shop/dress42",
+            time:"21:45", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"How much is shipping?",                      time:"21:46"},
+          {dir:"out", text:"SF Express HK$40, free over HK$500. 1–2 working days 📦",
+            time:"21:46", tag:"AUTO-REPLY"},
+          {dir:"out", text:"You looked at this dress earlier — use SAVE10 within 10 mins for HK$50 off",
+            time:"21:47", tag:"CART RECOVERY"},
+        ]},
+      dash:{ url:"app.shop.com/orders", title:"Orders & Inventory", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"Today's orders",val:"86"},{label:"Support pending",val:"5"},
+          {label:"Cart recovery",val:"+18%"},{label:"Low-stock SKUs",val:"7"},
+        ],
+        rows:[
+          {c1:"#4521",c2:"Kelly W.",   c3:"Black dress M · $390",     status:"ok",  statusText:"Confirmed"},
+          {c1:"#4522",c2:"Anna L.",    c3:"White tee × 2 · $480",      status:"wait",statusText:"Awaiting payment"},
+          {c1:"Cart",c2:"Visitor #88", c3:"Cart $620 · code sent",      status:"open",statusText:"Sent"},
+          {c1:"Q&A", c2:"David C.",    c3:"Asked about shipping",       status:"wait",statusText:"Auto-replied"},
+          {c1:"Stock",c2:"SKU-T-001", c3:"3 left · low stock",          status:"wait",statusText:"Supplier alerted"},
+        ]},
+    },
+    "物流":{
+      wa:{ avatar:"D", name:"Driver Ming", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"How many drops today and in what order?", time:"08:10"},
+          {dir:"out", text:"Morning Ming! 18 drops today, clustered by address. First job already in your app 🚚",
+            time:"08:10", tag:"AUTO-DISPATCH"},
+          {dir:"in",  text:"Job 1 — no one to sign",                  time:"10:32"},
+          {dir:"out", text:"Customer notified + tomorrow re-delivery scheduled. Proceed to #4502",
+            time:"10:32", tag:"AUTO-HANDLE"},
+          {dir:"out", text:"#4502 customer notified, ETA 11:00", time:"10:33", tag:"AUTO-REPLY"},
+        ]},
+      dash:{ url:"app.logistics.com/dispatch", title:"Dispatch & Inventory", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"Today's orders",val:"80"},{label:"In transit",val:"43"},
+          {label:"Delays",val:"2"},{label:"Low-stock WHs",val:"3"},
+        ],
+        rows:[
+          {c1:"#4521",c2:"Chan · Shatin",  c3:"Electronics × 2 · Driver Ming",status:"ok",  statusText:"In transit"},
+          {c1:"#4522",c2:"Linda · CWB",    c3:"Furniture · Driver Keung",     status:"ok",  statusText:"In transit"},
+          {c1:"#4523",c2:"Mrs Chan · Shatin",c3:"Daily goods · sign failed",   status:"wait",statusText:"Re-deliver"},
+          {c1:"Stock", c2:"Guangzhou WH",  c3:"USB-C 18 left",                 status:"wait",statusText:"Auto-transferred"},
+          {c1:"Support",c2:"Mark W.",     c3:"Asked about #4480",              status:"open",statusText:"Auto-replied"},
+        ]},
+    },
+    "創意":{
+      wa:{ avatar:"J", name:"Jenny (restaurant branding)", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"Want to do branding for our new spot — pricing?", time:"11:05"},
+          {dir:"out", text:"Hi Jenny! Just sent you a brand-positioning questionnaire (5 mins). Once back I'll generate a proposal ✨",
+            time:"11:05", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"Questionnaire done",                              time:"14:20"},
+          {dir:"out", text:"3-direction proposal + quote generated (HK$28K / 48K / 88K). Quick call after you've reviewed?",
+            time:"14:22", tag:"AUTO-PROPOSAL"},
+          {dir:"in",  text:"Middle direction looks good — when can we call?", time:"14:35"},
+          {dir:"out", text:"Tomorrow 15:00 / 16:30 or Wed 11:00 — which works?", time:"14:35", tag:"AUTO-SCHEDULE"},
+        ]},
+      dash:{ url:"app.studio.com/projects", title:"Projects & Proposals", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"New enquiries",val:"6"},{label:"In-progress",val:"5"},
+          {label:"Awaiting feedback",val:"3"},{label:"Delivered this month",val:"4"},
+        ],
+        rows:[
+          {c1:"#P-21",c2:"Jenny C.",    c3:"Restaurant branding · proposal",  status:"ok",  statusText:"Sent"},
+          {c1:"#P-18",c2:"Coffee Co.",  c3:"Packaging design · round 2",      status:"wait",statusText:"Awaiting feedback"},
+          {c1:"#P-15",c2:"Tech Startup",c3:"Website redesign · launched",     status:"ok",  statusText:"Delivered"},
+          {c1:"Social",c2:"IG / Little Red Book",c3:"6 posts auto-scheduled", status:"open",statusText:"Auto-publish"},
+          {c1:"Folio", c2:"Monthly update",c3:"Auto-generated · auto-shared",  status:"open",statusText:"Auto-publish"},
+        ]},
+    },
+  },
+};
+
 // Industry → hero descriptor override (pain-point oriented, fills in the lead paragraph under the title)
 const INDUSTRY_DESCRIPTOR = {
   zh: {
@@ -5832,6 +6478,8 @@ function applyProfile(profile){
     //     medspa-flavored workflow narrative")
     applyWorkflowsForIndustry(profile.industry);
     applyBAForIndustry(profile.industry);
+    // 2c) Real-feel mockups — WhatsApp + Dashboard rendered per vertical
+    renderMockupsForIndustry(profile.industry);
   }
 
   // 2b) Hero typed subtitle — personalised greeting (overrides the cycling typing)
@@ -5959,6 +6607,72 @@ function applyWorkflowsForIndustry(industry){
 }
 function applyBAForIndustry(industry){
   applyVerticalContent(industry, "ba.", INDUSTRY_BA);
+}
+
+/* Renders the WhatsApp + Dashboard mockups inside #real-feel from
+   INDUSTRY_MOCKUPS data. Industry-specific content swaps cleanly on
+   industry change or language change (driven by applyProfile +
+   applyLang). Missing industries fall back to "醫美". */
+function renderMockupsForIndustry(industry){
+  const lang = INDUSTRY_MOCKUPS[currentLang] ? currentLang : "zh";
+  const dict = INDUSTRY_MOCKUPS[lang];
+  const data = (industry && dict[industry]) || dict["醫美"];
+  if(!data) return;
+
+  // WhatsApp
+  const av = document.getElementById("rf-wa-avatar");
+  const nm = document.getElementById("rf-wa-name");
+  const st = document.getElementById("rf-wa-status");
+  const body = document.getElementById("rf-wa-body");
+  const inputHintEl = document.querySelector('[data-i18n="rf.wa.inputHint"]');
+  if(av) av.textContent = data.wa.avatar || "·";
+  if(nm) nm.textContent = data.wa.name || "";
+  if(st) st.textContent = data.wa.status || "";
+  if(inputHintEl && data.wa.inputHint) inputHintEl.textContent = data.wa.inputHint;
+  if(body){
+    body.innerHTML = "";
+    (data.wa.messages || []).forEach(m => {
+      const el = document.createElement("div");
+      el.className = "rf-wa-msg " + (m.dir === "out" ? "out" : "in");
+      if(m.tag){
+        const tag = document.createElement("div");
+        tag.className = "rf-tag";
+        tag.textContent = m.tag;
+        el.appendChild(tag);
+      }
+      el.appendChild(document.createTextNode(m.text || ""));
+      const t = document.createElement("span");
+      t.className = "rf-time";
+      t.textContent = m.time || "";
+      el.appendChild(t);
+      body.appendChild(el);
+    });
+  }
+
+  // Dashboard
+  const url = document.getElementById("rf-dash-url");
+  const dTitle = document.getElementById("rf-dash-title");
+  const dSub = document.getElementById("rf-dash-subtitle");
+  const kpisRoot = document.getElementById("rf-dash-kpis");
+  const rowsRoot = document.getElementById("rf-dash-rows");
+  if(url) url.textContent = data.dash.url || "";
+  if(dTitle) dTitle.textContent = data.dash.title || "";
+  if(dSub) dSub.textContent = data.dash.subtitle || "";
+  if(kpisRoot){
+    kpisRoot.innerHTML = (data.dash.kpis || []).map(k =>
+      `<div class="rf-kpi"><div class="rf-kpi-val">${k.val}</div><div class="rf-kpi-label">${k.label}</div></div>`
+    ).join("");
+  }
+  if(rowsRoot){
+    rowsRoot.innerHTML = (data.dash.rows || []).map(r =>
+      `<div class="rf-row">
+        <div class="rf-c1">${r.c1 || ""}</div>
+        <div class="rf-c2">${r.c2 || ""}</div>
+        <div class="rf-c3">${r.c3 || ""}</div>
+        <span class="rf-status ${r.status || "open"}">${r.statusText || ""}</span>
+      </div>`
+    ).join("");
+  }
 }
 
 function resetDemoTabsFromProfile(){
@@ -6213,6 +6927,32 @@ function submitWelcome(){
     try{ localStorage.removeItem("tbc-welcome-dismissed"); }catch(e){}
     applyProfile(null);
     showWelcome();
+  });
+})();
+
+/* ----------------- BACK-TO-TOP FAB -----------------
+   Only shows once the visitor has scrolled past the hero. Clicking
+   smoothly scrolls to the top — replaces the old anchor-driven
+   "click logo to go to #top" behavior, so the URL stays clean and
+   there is no logo-based bypass surface. */
+(function bindBackToTop(){
+  const btn = document.getElementById("back-to-top");
+  if(!btn) return;
+  const threshold = 480;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    btn.classList.toggle("show", window.scrollY > threshold);
+  };
+  window.addEventListener("scroll", () => {
+    if(!ticking){
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  update();
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
 
