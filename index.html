@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-24-R10-workflows-ba -->
+<!-- Deploy build tag: 2026-05-24-R11-unskippable-vertical -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2273,6 +2273,20 @@ main,nav,section,footer{position:relative;z-index:2}
 .welcome.hidden{display:none}
 .welcome.leaving{opacity:0;pointer-events:none}
 
+/* ============================================================
+   NO-PROFILE SAFETY NET
+   When the body has class "no-profile" (welcome page never resolved
+   into an industry pick), all demo / workflow / before-after content
+   is hidden so a visitor cannot see anything until they self-identify.
+   The nav link to #demos is also suppressed.
+   ============================================================ */
+body.no-profile #demos,
+body.no-profile #workflows,
+body.no-profile #ba,
+body.no-profile .nav-links a[href="#demos"]{
+  display:none !important;
+}
+
 .welcome-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .welcome-orb{
   position:absolute;border-radius:50%;filter:blur(60px);opacity:.6;
@@ -2741,7 +2755,7 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 </style>
 </head>
-<body class="lang-zh">
+<body class="lang-zh no-profile">
 
 <!-- ======================== WELCOME PAGE (first visit) ======================== -->
 <div id="welcome" class="welcome hidden" aria-hidden="true">
@@ -2750,8 +2764,6 @@ main,nav,section,footer{position:relative;z-index:2}
     <div class="welcome-orb o2"></div>
     <div class="welcome-orb o3"></div>
   </div>
-
-  <button class="welcome-skip" id="welcome-skip" type="button" data-i18n="welcome.skip">跳過 · 查看所有方案 →</button>
 
   <div class="welcome-inner">
     <!-- Logo + mascot animation -->
@@ -4329,7 +4341,7 @@ main,nav,section,footer{position:relative;z-index:2}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-24-R10-workflows-ba";
+  const CURRENT_BUILD = "2026-05-24-R11-unskippable-vertical";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -5133,6 +5145,556 @@ const INDUSTRY_HERO = {
   },
 };
 
+/* ============================================================
+   INDUSTRY_WORKFLOWS / INDUSTRY_BA
+   Vertical-specific content for the "Real Workflows" (wf2) and
+   "Before / After" (ba) sections. Per the second-phase brief:
+   the layout & components stay the same, but every industry gets
+   its own card titles, steps, save chips and timeline events so
+   the narrative isn't medspa-flavored across the board.
+   ============================================================ */
+
+const INDUSTRY_WORKFLOWS = {
+  zh:{
+    "醫美":{
+      "wf2.c1.title":"預約 · 提醒 · 漏客重訪",
+      "wf2.c1.s1":"新預約自動發 WhatsApp 確認訊息",
+      "wf2.c1.s2":"前 24 小時自動發送提醒",
+      "wf2.c1.s3":"缺席客戶 24 小時內自動重新邀請",
+      "wf2.c1.save":"每月節省 8 小時 · 漏客率下降 30%",
+      "wf2.c2.title":"WhatsApp 訊息分流",
+      "wf2.c2.s1":"新訊息即時分類為查詢 / 預約 / 投訴",
+      "wf2.c2.s2":"常見問題自動回覆並附參考資料",
+      "wf2.c2.s3":"複雜訊息轉真人並標記緊急程度",
+      "wf2.c2.save":"客服回覆速度提升 5 倍",
+      "wf2.c3.title":"療程後跟進 + 自動 Rebooking",
+      "wf2.c3.s1":"療程後 24 小時自動發感謝訊息",
+      "wf2.c3.s2":"7 日後邀請客戶評分與回饋",
+      "wf2.c3.s3":"14 日後個人化續療建議與優惠",
+      "wf2.c3.save":"Rebooking 率上升 25% · 員工零額外工時",
+      "wf2.c4.title":"評論回覆自動草稿",
+      "wf2.c4.s1":"即時偵測 Google / OpenRice 新評論",
+      "wf2.c4.s2":"自動草擬 3 種語氣（正式 / 親切 / 致歉）",
+      "wf2.c4.s3":"您一鍵 approve 即發送，省下草擬時間",
+      "wf2.c4.save":"回覆評論時間下降 80%",
+    },
+    "教育":{
+      "wf2.c1.title":"家長 WhatsApp 自動分流",
+      "wf2.c1.s1":"新訊息按主題分類（試堂 / 補堂 / 收費 / 功課）",
+      "wf2.c1.s2":"常見問題自動回覆（時間表 / 收費 / 地址）",
+      "wf2.c1.s3":"複雜問題即時轉導師並標記緊急",
+      "wf2.c1.save":"家長查詢回覆速度提升 6 倍",
+      "wf2.c2.title":"試堂安排自動化",
+      "wf2.c2.s1":"表單提交即時確認 + 派發可選時段",
+      "wf2.c2.s2":"試堂前 24 小時自動 WhatsApp reminder",
+      "wf2.c2.s3":"試堂後自動跟進「正式報讀建議」",
+      "wf2.c2.save":"試堂轉化率提升 35%",
+      "wf2.c3.title":"上課提醒 + 功課追蹤",
+      "wf2.c3.s1":"上課前 2 小時自動 WhatsApp 提醒",
+      "wf2.c3.s2":"課後自動發送功課內容與重點",
+      "wf2.c3.s3":"未交功課自動提醒家長",
+      "wf2.c3.save":"出席率上升 18% · 功課完成率上升 40%",
+      "wf2.c4.title":"學期續報自動邀請",
+      "wf2.c4.s1":"課程結束前 2 週發送續報邀請",
+      "wf2.c4.s2":"按學生表現個人化推薦下個學期課程",
+      "wf2.c4.s3":"早鳥優惠自動發放並追蹤回應",
+      "wf2.c4.save":"續報率上升 30%",
+    },
+    "專業服務":{
+      "wf2.c1.title":"Lead 跟進自動化（含地產睇樓）",
+      "wf2.c1.s1":"新 lead 入系統即發確認與可選會議時段",
+      "wf2.c1.s2":"7 日後未回覆自動 follow-up + 案例分享",
+      "wf2.c1.s3":"14 日後二次 follow-up 邀請短會",
+      "wf2.c1.save":"Lead 流失率下降 40%",
+      "wf2.c2.title":"客戶會議 / 睇樓自動排程",
+      "wf2.c2.s1":"客戶點選感興趣項目即發可選時段",
+      "wf2.c2.s2":"24 小時前自動確認 + 地址導航",
+      "wf2.c2.s3":"缺席自動安排下次並通知同事",
+      "wf2.c2.save":"預約安排時間下降 70%",
+      "wf2.c3.title":"新項目 / 樓盤自動推送",
+      "wf2.c3.s1":"按客戶 budget 與偏好自動分組",
+      "wf2.c3.s2":"新項目上架即推送匹配客戶",
+      "wf2.c3.s3":"包含詳情、價格、可預約時段",
+      "wf2.c3.save":"推廣覆蓋率上升 5 倍",
+      "wf2.c4.title":"月度客戶報告自動化",
+      "wf2.c4.s1":"每月自動整合所有客戶互動記錄",
+      "wf2.c4.s2":"一鍵生成客戶關懷報告",
+      "wf2.c4.s3":"重要日子（生日 / 紀念日）自動提醒",
+      "wf2.c4.save":"客戶報告整理時間下降 90%",
+    },
+    "科技":{
+      "wf2.c1.title":"Lead Scoring + CRM 自動更新",
+      "wf2.c1.s1":"網站表單即時入 CRM（HubSpot / Pipedrive）",
+      "wf2.c1.s2":"按行為（試用 / 文檔下載）自動計分",
+      "wf2.c1.s3":"高分 lead 自動派 sales rep + Slack 通知",
+      "wf2.c1.save":"Lead qualification 時間下降 80%",
+      "wf2.c2.title":"用戶 Onboarding 自動化",
+      "wf2.c2.s1":"新註冊即發 welcome email + in-app guide",
+      "wf2.c2.s2":"Day 1 / 3 / 7 漸進式教學內容",
+      "wf2.c2.s3":"未啟動帳戶 7 日後自動 nudge",
+      "wf2.c2.save":"新用戶 activation rate 上升 45%",
+      "wf2.c3.title":"Support Ticket 智能分流",
+      "wf2.c3.s1":"Intercom / Zendesk 新 ticket 即時分類",
+      "wf2.c3.s2":"Bug → engineering、Billing → finance、How-to 自動回覆",
+      "wf2.c3.s3":"緊急 ticket 即時 Slack notify on-call",
+      "wf2.c3.save":"平均回應時間下降 60%",
+      "wf2.c4.title":"訂閱續費 + Churn 預警",
+      "wf2.c4.s1":"續費前 30 日自動 nudge + 用量報告",
+      "wf2.c4.s2":"7 日不登入即標記 at-risk + 自動建 CSM 任務",
+      "wf2.c4.s3":"用量增長客戶自動觸發 upsell",
+      "wf2.c4.save":"Churn rate 下降 25%",
+    },
+    "餐飲":{
+      "wf2.c1.title":"訂位確認 + 缺席挽回",
+      "wf2.c1.s1":"訂位即發 WhatsApp 確認",
+      "wf2.c1.s2":"前 2 小時自動發送提醒",
+      "wf2.c1.s3":"缺席客 24 小時內自動重新邀請",
+      "wf2.c1.save":"缺席率下降 25%",
+      "wf2.c2.title":"評論回覆自動草稿",
+      "wf2.c2.s1":"即時偵測 OpenRice / Google 新評論",
+      "wf2.c2.s2":"自動草擬 3 種語氣回覆",
+      "wf2.c2.s3":"您一鍵 approve 即發送",
+      "wf2.c2.save":"回覆時間下降 80%",
+      "wf2.c3.title":"客戶生日 / 節日推廣",
+      "wf2.c3.s1":"自動整理客戶生日資料",
+      "wf2.c3.s2":"生日前 1 週自動發優惠 WhatsApp",
+      "wf2.c3.s3":"節日前自動派 promo 給活躍客",
+      "wf2.c3.save":"回頭客率上升 20%",
+      "wf2.c4.title":"員工排班 + 食材報表",
+      "wf2.c4.s1":"自動整合每日訂位 → 推薦排班",
+      "wf2.c4.s2":"食材消耗自動計算 + 警示補貨",
+      "wf2.c4.s3":"月底自動生成損益報表",
+      "wf2.c4.save":"行政時間下降 60%",
+    },
+    "零售":{
+      "wf2.c1.title":"多渠道客服合併（WhatsApp / IG / FB）",
+      "wf2.c1.s1":"多渠道新訊息合併入一個 inbox",
+      "wf2.c1.s2":"常見問題（運費 / 退貨 / 尺寸）自動回覆",
+      "wf2.c1.s3":"投訴與大訂單即時 escalate",
+      "wf2.c1.save":"客服回覆速度提升 4 倍",
+      "wf2.c2.title":"產品文案批量生成",
+      "wf2.c2.s1":"上新即時生成中英文商品描述",
+      "wf2.c2.s2":"自動適配 Shopify / Shopline 格式",
+      "wf2.c2.s3":"SEO 關鍵字自動植入",
+      "wf2.c2.save":"上架時間下降 70%",
+      "wf2.c3.title":"棄置購物車自動挽回",
+      "wf2.c3.s1":"棄置 1 小時自動發提醒",
+      "wf2.c3.s2":"24 小時後派優惠碼",
+      "wf2.c3.s3":"72 小時後最後召回",
+      "wf2.c3.save":"棄車挽回率上升 18%",
+      "wf2.c4.title":"庫存警示 + 補貨建議",
+      "wf2.c4.s1":"即時監控各 SKU 庫存",
+      "wf2.c4.s2":"低庫存自動通知供應商",
+      "wf2.c4.s3":"滯銷產品自動 markdown 建議",
+      "wf2.c4.save":"庫存周轉率上升 22%",
+    },
+    "物流":{
+      "wf2.c1.title":"多倉智能調貨",
+      "wf2.c1.s1":"訂單入系統即計算各倉庫存 + 運費 + ETA",
+      "wf2.c1.s2":"自動推薦最佳出貨點",
+      "wf2.c1.s3":"低庫存自動向總倉調貨",
+      "wf2.c1.save":"缺貨率下降 35%",
+      "wf2.c2.title":"物流狀態自動回覆客戶",
+      "wf2.c2.s1":"追蹤狀態自動回覆（送出 / 派送中 / 已收）",
+      "wf2.c2.s2":"延誤自動發 apology + 預計時間",
+      "wf2.c2.s3":"複雜投訴轉真人並標 priority",
+      "wf2.c2.save":"客服效率上升 4 倍",
+      "wf2.c3.title":"司機路線 + 任務派發",
+      "wf2.c3.s1":"每日按地址 cluster 自動規劃路線",
+      "wf2.c3.s2":"司機 app 收任務（地址 / 收件人 / 簽收）",
+      "wf2.c3.s3":"完成即時更新系統 + 通知客戶",
+      "wf2.c3.save":"派送效率上升 30%",
+      "wf2.c4.title":"庫存盤點 + 損耗報表",
+      "wf2.c4.s1":"每日自動對賬出貨 vs 庫存",
+      "wf2.c4.s2":"異常自動標記等審核",
+      "wf2.c4.s3":"月底損耗報表一鍵生成",
+      "wf2.c4.save":"盤點時間下降 80%",
+    },
+    "創意":{
+      "wf2.c1.title":"提案 + 報價自動化",
+      "wf2.c1.s1":"新查詢即發品牌定位問卷",
+      "wf2.c1.s2":"收集後自動生成提案草稿",
+      "wf2.c1.s3":"報價單一鍵生成（按範圍計）",
+      "wf2.c1.save":"提案速度提升 4 倍",
+      "wf2.c2.title":"客戶 Feedback 追蹤",
+      "wf2.c2.s1":"設計稿上 Figma 即發客戶通知",
+      "wf2.c2.s2":"客戶 comment 自動整理入 todo list",
+      "wf2.c2.s3":"未回覆 3 日自動 nudge",
+      "wf2.c2.save":"修改循環時間下降 40%",
+      "wf2.c3.title":"社交內容批量生成",
+      "wf2.c3.s1":"客戶提供素材 → 自動生成多平台文案",
+      "wf2.c3.s2":"自動適配 IG / FB / 小紅書格式",
+      "wf2.c3.s3":"排期自動上載",
+      "wf2.c3.save":"內容產出速度上升 5 倍",
+      "wf2.c4.title":"月度作品集自動更新",
+      "wf2.c4.s1":"完成項目自動歸檔",
+      "wf2.c4.s2":"每月自動生成 portfolio update",
+      "wf2.c4.s3":"自動推送至社交平台",
+      "wf2.c4.save":"品牌曝光上升 3 倍",
+    },
+  },
+  en:{
+    "醫美":{
+      "wf2.c1.title":"Booking · Reminder · No-show recovery",
+      "wf2.c1.s1":"New booking auto-sends a WhatsApp confirmation",
+      "wf2.c1.s2":"Reminder fires 24 hours before the appointment",
+      "wf2.c1.s3":"No-shows get an auto re-invite within 24 hours",
+      "wf2.c1.save":"Saves 8 hrs / month · −30% no-show rate",
+      "wf2.c2.title":"WhatsApp message triage",
+      "wf2.c2.s1":"New messages instantly classified — enquiry / booking / complaint",
+      "wf2.c2.s2":"Common questions get an auto-reply with reference links",
+      "wf2.c2.s3":"Complex messages route to a human with urgency tagged",
+      "wf2.c2.save":"5× faster reply time",
+      "wf2.c3.title":"Post-treatment follow-up + auto-rebooking",
+      "wf2.c3.s1":"Thank-you message 24 hrs after treatment",
+      "wf2.c3.s2":"Day 7: invite client to leave a review",
+      "wf2.c3.s3":"Day 14: personalised rebooking suggestion with offer",
+      "wf2.c3.save":"+25% rebooking rate · zero extra staff hours",
+      "wf2.c4.title":"Auto-drafted review replies",
+      "wf2.c4.s1":"New Google / OpenRice reviews detected instantly",
+      "wf2.c4.s2":"3 reply styles auto-drafted (formal / warm / apologetic)",
+      "wf2.c4.s3":"You one-click approve and send — no more drafting from scratch",
+      "wf2.c4.save":"−80% time spent on review replies",
+    },
+    "教育":{
+      "wf2.c1.title":"Parent WhatsApp triage",
+      "wf2.c1.s1":"New messages classified by topic (trial / make-up / fees / homework)",
+      "wf2.c1.s2":"FAQs auto-replied (timetable / fees / address)",
+      "wf2.c1.s3":"Complex questions route to tutor with urgency flagged",
+      "wf2.c1.save":"6× faster parent enquiry reply",
+      "wf2.c2.title":"Trial-class booking automation",
+      "wf2.c2.s1":"Form submission auto-confirms + sends slot options",
+      "wf2.c2.s2":"WhatsApp reminder 24 hours before trial",
+      "wf2.c2.s3":"Post-trial auto follow-up with formal enrolment suggestion",
+      "wf2.c2.save":"+35% trial-to-enrol conversion",
+      "wf2.c3.title":"Class reminders + homework tracking",
+      "wf2.c3.s1":"WhatsApp reminder 2 hrs before each class",
+      "wf2.c3.s2":"Homework content auto-sent right after class",
+      "wf2.c3.s3":"Missed homework auto-flagged to parents",
+      "wf2.c3.save":"+18% attendance · +40% homework completion",
+      "wf2.c4.title":"Term renewal outreach",
+      "wf2.c4.s1":"Renewal invite goes out 2 weeks before term ends",
+      "wf2.c4.s2":"Personalised next-term suggestions based on student progress",
+      "wf2.c4.s3":"Early-bird offers auto-distributed and tracked",
+      "wf2.c4.save":"+30% term renewal rate",
+    },
+    "專業服務":{
+      "wf2.c1.title":"Lead follow-up automation (incl. property viewings)",
+      "wf2.c1.s1":"New lead enters CRM → confirmation + meeting slots sent",
+      "wf2.c1.s2":"Day 7 auto follow-up if no reply, with case study",
+      "wf2.c1.s3":"Day 14 second follow-up inviting a short call",
+      "wf2.c1.save":"−40% lead leakage rate",
+      "wf2.c2.title":"Client meeting / viewing scheduling",
+      "wf2.c2.s1":"Client picks a project / property → time slots sent",
+      "wf2.c2.s2":"24-hour confirmation + address & navigation",
+      "wf2.c2.s3":"No-shows auto-rescheduled and team notified",
+      "wf2.c2.save":"−70% scheduling time",
+      "wf2.c3.title":"New project / listing push",
+      "wf2.c3.s1":"Clients segmented by budget and preference",
+      "wf2.c3.s2":"New listings auto-pushed to matching clients",
+      "wf2.c3.s3":"Includes details, price, bookable viewing slots",
+      "wf2.c3.save":"5× promotional reach",
+      "wf2.c4.title":"Monthly client report automation",
+      "wf2.c4.s1":"All client interactions auto-compiled monthly",
+      "wf2.c4.s2":"One-click client-care report generation",
+      "wf2.c4.s3":"Birthday / anniversary reminders fire automatically",
+      "wf2.c4.save":"−90% client report compilation time",
+    },
+    "科技":{
+      "wf2.c1.title":"Lead scoring + CRM auto-update",
+      "wf2.c1.s1":"Website form syncs to CRM (HubSpot / Pipedrive) instantly",
+      "wf2.c1.s2":"Behaviour-based scoring (trial usage, doc downloads)",
+      "wf2.c1.s3":"High-score leads auto-assigned to sales rep with Slack ping",
+      "wf2.c1.save":"−80% lead qualification time",
+      "wf2.c2.title":"User onboarding automation",
+      "wf2.c2.s1":"New signup gets welcome email + in-app guide",
+      "wf2.c2.s2":"Day 1 / 3 / 7 progressive education content",
+      "wf2.c2.s3":"Inactive accounts auto-nudged after 7 days",
+      "wf2.c2.save":"+45% new-user activation rate",
+      "wf2.c3.title":"Support ticket smart routing",
+      "wf2.c3.s1":"Intercom / Zendesk tickets classified on arrival",
+      "wf2.c3.s2":"Bug → engineering / Billing → finance / How-to auto-replied",
+      "wf2.c3.s3":"Urgent tickets ping on-call via Slack instantly",
+      "wf2.c3.save":"−60% average response time",
+      "wf2.c4.title":"Renewal + churn early warning",
+      "wf2.c4.s1":"30 days before renewal: auto nudge + usage report",
+      "wf2.c4.s2":"7-day inactivity → at-risk flag + auto CSM task",
+      "wf2.c4.s3":"Growing-usage accounts auto-trigger upsell flow",
+      "wf2.c4.save":"−25% churn rate",
+    },
+    "餐飲":{
+      "wf2.c1.title":"Reservation confirmation + no-show recovery",
+      "wf2.c1.s1":"Reservation auto-confirmed via WhatsApp",
+      "wf2.c1.s2":"Reminder fires 2 hours before",
+      "wf2.c1.s3":"No-shows auto re-invited within 24 hours",
+      "wf2.c1.save":"−25% no-show rate",
+      "wf2.c2.title":"Auto-drafted review replies",
+      "wf2.c2.s1":"New OpenRice / Google reviews detected instantly",
+      "wf2.c2.s2":"3 reply styles auto-drafted",
+      "wf2.c2.s3":"One-click approve and send",
+      "wf2.c2.save":"−80% reply time",
+      "wf2.c3.title":"Birthday & seasonal outreach",
+      "wf2.c3.s1":"Customer birthdays auto-collated",
+      "wf2.c3.s2":"WhatsApp offer goes out 1 week before birthday",
+      "wf2.c3.s3":"Seasonal promos auto-sent to active customers",
+      "wf2.c3.save":"+20% repeat-visit rate",
+      "wf2.c4.title":"Staff scheduling + ingredient reporting",
+      "wf2.c4.s1":"Daily reservations auto-feed scheduling recommendations",
+      "wf2.c4.s2":"Ingredient consumption auto-calculated with restock alerts",
+      "wf2.c4.s3":"Monthly P&L report generated automatically",
+      "wf2.c4.save":"−60% admin time",
+    },
+    "零售":{
+      "wf2.c1.title":"Multi-channel support merge (WhatsApp / IG / FB)",
+      "wf2.c1.s1":"All new messages merged into one inbox",
+      "wf2.c1.s2":"FAQs (shipping / returns / sizing) auto-replied",
+      "wf2.c1.s3":"Complaints and large orders escalated instantly",
+      "wf2.c1.save":"4× faster support reply",
+      "wf2.c2.title":"Bulk product copy generation",
+      "wf2.c2.s1":"New SKUs get bilingual product descriptions on the fly",
+      "wf2.c2.s2":"Auto-formatted for Shopify / Shopline",
+      "wf2.c2.s3":"SEO keywords inserted automatically",
+      "wf2.c2.save":"−70% listing time",
+      "wf2.c3.title":"Abandoned cart recovery",
+      "wf2.c3.s1":"Reminder fires 1 hour after abandonment",
+      "wf2.c3.s2":"Day 1: discount code sent",
+      "wf2.c3.s3":"Day 3: last-chance recall",
+      "wf2.c3.save":"+18% cart recovery rate",
+      "wf2.c4.title":"Stock alerts + restock recommendations",
+      "wf2.c4.s1":"Each SKU monitored in real time",
+      "wf2.c4.s2":"Low stock auto-notifies suppliers",
+      "wf2.c4.s3":"Slow-moving items get auto-markdown suggestions",
+      "wf2.c4.save":"+22% inventory turnover",
+    },
+    "物流":{
+      "wf2.c1.title":"Multi-warehouse smart routing",
+      "wf2.c1.s1":"New order checks stock, freight and ETA across warehouses",
+      "wf2.c1.s2":"Best fulfilment point auto-recommended",
+      "wf2.c1.s3":"Low stock auto-triggers transfer from main warehouse",
+      "wf2.c1.save":"−35% out-of-stock rate",
+      "wf2.c2.title":"Auto-reply on shipment status",
+      "wf2.c2.s1":"Status updates (shipped / in-transit / delivered) auto-replied",
+      "wf2.c2.s2":"Delays trigger apology + revised ETA automatically",
+      "wf2.c2.s3":"Complex complaints route to human with priority tag",
+      "wf2.c2.save":"4× support efficiency",
+      "wf2.c3.title":"Driver routing + task dispatch",
+      "wf2.c3.s1":"Daily address clustering auto-plans routes",
+      "wf2.c3.s2":"Driver app receives tasks (address / recipient / sign-off)",
+      "wf2.c3.s3":"Completion syncs to system + customer notification",
+      "wf2.c3.save":"+30% delivery efficiency",
+      "wf2.c4.title":"Stock reconciliation + loss reports",
+      "wf2.c4.s1":"Daily shipped vs in-stock auto-reconciled",
+      "wf2.c4.s2":"Anomalies flagged for review",
+      "wf2.c4.s3":"Monthly loss report generated in one click",
+      "wf2.c4.save":"−80% stocktake time",
+    },
+    "創意":{
+      "wf2.c1.title":"Proposal + quote automation",
+      "wf2.c1.s1":"New enquiry auto-sends brand-positioning questionnaire",
+      "wf2.c1.s2":"Replies feed into auto-drafted proposal",
+      "wf2.c1.s3":"Quote generated by scope in one click",
+      "wf2.c1.save":"4× faster proposal turnaround",
+      "wf2.c2.title":"Client feedback tracking",
+      "wf2.c2.s1":"Figma uploads auto-notify the client",
+      "wf2.c2.s2":"Client comments auto-collated into a todo list",
+      "wf2.c2.s3":"No reply in 3 days → auto-nudge",
+      "wf2.c2.save":"−40% revision cycle time",
+      "wf2.c3.title":"Bulk social content generation",
+      "wf2.c3.s1":"Client assets → multi-platform copy auto-generated",
+      "wf2.c3.s2":"Auto-formatted for IG / FB / Xiaohongshu",
+      "wf2.c3.s3":"Scheduled posts auto-uploaded",
+      "wf2.c3.save":"5× content output speed",
+      "wf2.c4.title":"Monthly portfolio auto-update",
+      "wf2.c4.s1":"Completed projects auto-archived",
+      "wf2.c4.s2":"Monthly portfolio update auto-generated",
+      "wf2.c4.s3":"Auto-pushed to social platforms",
+      "wf2.c4.save":"3× brand exposure",
+    },
+  },
+};
+
+const INDUSTRY_BA = {
+  zh:{
+    "醫美":{
+      "ba.desc":"同樣 12 個客戶查詢、3 個新預約、2 個評論待回。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"回覆昨晚 12 個 WhatsApp 查詢","ba.bs2":"手動逐一發送預約確認",
+      "ba.bs3":"午餐被新查詢訊息打斷","ba.bs4":"手動寫提醒給明日客戶",
+      "ba.bs5":"逐張整理今日預約記錄","ba.bs6":"下班後再回 5 個未處理訊息",
+      "ba.bTotalLabel":"花於重複客服","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動回覆 10 個常見查詢","ba.as2":"查看儀表板：2 個複雜訊息已標記",
+      "ba.as3":"午餐安靜，自動提醒已批量發出","ba.as4":"親自處理 1 個高價值客戶會議",
+      "ba.as5":"系統已自動整理今日報表","ba.as6":"準時下班",
+      "ba.aTotalLabel":"回到真正帶來收入的工作","ba.aTotalNum":"+4 小時",
+    },
+    "教育":{
+      "ba.desc":"同樣 15 個家長查詢、4 個試堂申請、3 班上課提醒。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"處理昨晚 15 個家長 WhatsApp 查詢","ba.bs2":"手動回覆功課與時間表問題",
+      "ba.bs3":"午餐被新試堂報名打斷","ba.bs4":"逐個寫今晚上課 WhatsApp 提醒",
+      "ba.bs5":"整理今日試堂與正式生記錄","ba.bs6":"課後再回 8 個未處理家長問題",
+      "ba.bTotalLabel":"花於家長溝通","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動回覆 12 個家長查詢","ba.as2":"查看儀表板：3 個複雜問題已標記",
+      "ba.as3":"午餐安靜，上課提醒已批量發出","ba.as4":"親自跟進 2 個高潛力試堂家庭",
+      "ba.as5":"系統已自動生成今日招生報表","ba.as6":"準時收工",
+      "ba.aTotalLabel":"用於教學與招生","ba.aTotalNum":"+4 小時",
+    },
+    "專業服務":{
+      "ba.desc":"同樣 10 個新 lead、3 個睇樓 / 會議、2 個新項目要推送。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"回覆昨晚 10 個 lead enquiry","ba.bs2":"手動安排今日 3 個睇樓 / 會議",
+      "ba.bs3":"午餐被新項目通知打斷","ba.bs4":"整理客戶資料 + 寫 follow-up",
+      "ba.bs5":"月底報表加班","ba.bs6":"下班後再回 4 個未處理客戶",
+      "ba.bTotalLabel":"花於行政工作","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動 qualify 8 個 lead","ba.as2":"查看儀表板：今日所有預約已確認",
+      "ba.as3":"午餐安靜，新項目已自動推送匹配客戶","ba.as4":"親自跟進 2 個高價值客戶",
+      "ba.as5":"系統已自動整理月度報表","ba.as6":"準時收工",
+      "ba.aTotalLabel":"用於真正成交","ba.aTotalNum":"+4 小時",
+    },
+    "科技":{
+      "ba.desc":"同樣 25 個新 lead、5 個 support ticket、3 個 onboarding。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"手動 review 昨晚 25 個新 lead","ba.bs2":"逐個 Slack 派 sales rep",
+      "ba.bs3":"午餐被 P1 support ticket 打斷","ba.bs4":"整理本週 churn 風險用戶",
+      "ba.bs5":"寫客戶 onboarding email","ba.bs6":"下班後 review 新註冊用戶",
+      "ba.bTotalLabel":"花於 admin","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動分流並 score 30 個新 lead","ba.as2":"查看儀表板：3 個高分 lead 已派 rep",
+      "ba.as3":"午餐安靜，緊急 ticket 已自動 escalate","ba.as4":"親自跟進 2 個 enterprise lead",
+      "ba.as5":"系統已自動發送 onboarding 序列","ba.as6":"準時收工",
+      "ba.aTotalLabel":"用於策略性 customer success","ba.aTotalNum":"+4 小時",
+    },
+    "餐飲":{
+      "ba.desc":"同樣 12 個訂位、8 個評論待回、20 個 WhatsApp 查詢。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"處理昨晚 12 個電話訂位 + WhatsApp","ba.bs2":"手動回覆 8 個負評",
+      "ba.bs3":"午市忙碌被催單打斷","ba.bs4":"整理員工排班",
+      "ba.bs5":"點貨 + 計算明日所需","ba.bs6":"晚市結束後做日報表",
+      "ba.bTotalLabel":"花於管理","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動確認 12 個訂位","ba.as2":"評論回覆草稿等您 approve",
+      "ba.as3":"午市專注接待 VIP 客","ba.as4":"自動排班建議已生成",
+      "ba.as5":"食材警示已自動發出","ba.as6":"準時收工",
+      "ba.aTotalLabel":"用於現場服務","ba.aTotalNum":"+4 小時",
+    },
+    "零售":{
+      "ba.desc":"同樣 30 個多渠道客服、10 個新上架、5 個棄置購物車。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"回覆昨晚 30 個 IG / WhatsApp 客服","ba.bs2":"手動 import 新到貨並寫商品描述",
+      "ba.bs3":"午餐被退貨爭議打斷","ba.bs4":"跟進棄置購物車（多數已 cold）",
+      "ba.bs5":"盤點低庫存 + call 供應商","ba.bs6":"下班後做 daily sales report",
+      "ba.bTotalLabel":"花於營運","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動回覆 25 個常見查詢","ba.as2":"商品文案已批量生成等審",
+      "ba.as3":"午餐安靜，棄車挽回訊息已發","ba.as4":"親自跟進 5 個 VIP / wholesale enquiry",
+      "ba.as5":"庫存警示已自動發供應商","ba.as6":"準時收工，sales report 已自動寄到信箱",
+      "ba.aTotalLabel":"用於品牌策略","ba.aTotalNum":"+4 小時",
+    },
+    "物流":{
+      "ba.desc":"同樣 80 張訂單分倉、20 個物流查詢、5 個延誤投訴。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"手動分配今日 80 張單到 5 倉","ba.bs2":"接電話查物流狀態",
+      "ba.bs3":"午餐被缺貨警示打斷","ba.bs4":"手動規劃司機路線",
+      "ba.bs5":"對賬今日出貨記錄","ba.bs6":"下班後處理延誤客戶投訴",
+      "ba.bTotalLabel":"花於調度","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動分倉 + 推薦路線","ba.as2":"儀表板：所有訂單狀態已自動回覆客戶",
+      "ba.as3":"午餐安靜，缺貨已自動調貨","ba.as4":"親自處理 1 個大客戶緊急訂單",
+      "ba.as5":"系統已自動對賬 + 標記異常","ba.as6":"準時收工",
+      "ba.aTotalLabel":"用於業務拓展","ba.aTotalNum":"+4 小時",
+    },
+    "創意":{
+      "ba.desc":"同樣 8 個新查詢、5 個 in-progress 項目、3 個社交內容要出。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"回覆昨晚 8 個新查詢","ba.bs2":"手動寫 3 份提案",
+      "ba.bs3":"午餐被客戶修改要求打斷","ba.bs4":"寫今週社交媒體文案",
+      "ba.bs5":"整理本月作品集","ba.bs6":"下班後回客戶 feedback",
+      "ba.bTotalLabel":"花於行政","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動發問卷給 6 個新查詢","ba.as2":"提案草稿已生成等審",
+      "ba.as3":"午餐安靜，修改要求已自動入 todo","ba.as4":"親自做 1 個重要 brand pitch",
+      "ba.as5":"社交內容已批量生成排期","ba.as6":"準時收工",
+      "ba.aTotalLabel":"用於真正創作","ba.aTotalNum":"+4 小時",
+    },
+  },
+  en:{
+    "醫美":{
+      "ba.desc":"Same 12 enquiries, 3 new bookings, 2 reviews to reply. Manual vs automated — the real difference.",
+      "ba.bs1":"Reply to 12 WhatsApp enquiries from last night","ba.bs2":"Manually send each booking confirmation",
+      "ba.bs3":"Lunch interrupted by new enquiry pings","ba.bs4":"Hand-write reminders for tomorrow's clients",
+      "ba.bs5":"Compile today's booking records by hand","ba.bs6":"After hours: reply to 5 messages you missed",
+      "ba.bTotalLabel":"Lost to repetitive support","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-replied to 10 common enquiries","ba.as2":"Check dashboard: 2 complex messages flagged",
+      "ba.as3":"Quiet lunch — auto-reminders already sent","ba.as4":"Take 1 high-value client meeting in person",
+      "ba.as5":"System has auto-compiled today's report","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to revenue-driving work","ba.aTotalNum":"+4 hours",
+    },
+    "教育":{
+      "ba.desc":"Same 15 parent enquiries, 4 trial-class requests, 3 class reminders. Manual vs automated — the real difference.",
+      "ba.bs1":"Reply to 15 parent WhatsApps from last night","ba.bs2":"Manually answer homework & timetable questions",
+      "ba.bs3":"Lunch interrupted by new trial-class signups","ba.bs4":"Hand-write tonight's class reminders",
+      "ba.bs5":"Compile trial and enrolled student records","ba.bs6":"After class, reply to 8 more parent questions",
+      "ba.bTotalLabel":"Lost to parent comms","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-replied to 12 parent enquiries","ba.as2":"Dashboard: 3 complex questions flagged",
+      "ba.as3":"Quiet lunch — class reminders already sent in bulk","ba.as4":"Follow up with 2 high-potential trial families in person",
+      "ba.as5":"System has auto-generated today's enrolment report","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to teaching & enrolment","ba.aTotalNum":"+4 hours",
+    },
+    "專業服務":{
+      "ba.desc":"Same 10 new leads, 3 viewings / meetings, 2 new listings to push. Manual vs automated — the real difference.",
+      "ba.bs1":"Reply to 10 new lead enquiries from last night","ba.bs2":"Manually schedule today's 3 viewings / meetings",
+      "ba.bs3":"Lunch interrupted by new-listing notifications","ba.bs4":"Compile client data + write follow-ups",
+      "ba.bs5":"Month-end report overtime","ba.bs6":"After hours, reply to 4 missed clients",
+      "ba.bTotalLabel":"Lost to admin work","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-qualified 8 new leads","ba.as2":"Dashboard: today's appointments all confirmed",
+      "ba.as3":"Quiet lunch — new listings auto-pushed to matched clients","ba.as4":"Follow up with 2 high-value clients in person",
+      "ba.as5":"System has auto-compiled the monthly report","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to actual closings","ba.aTotalNum":"+4 hours",
+    },
+    "科技":{
+      "ba.desc":"Same 25 new leads, 5 support tickets, 3 onboardings. Manual vs automated — the real difference.",
+      "ba.bs1":"Review 25 new leads from last night by hand","ba.bs2":"Manually assign each to a sales rep on Slack",
+      "ba.bs3":"Lunch interrupted by a P1 support ticket","ba.bs4":"Compile this week's churn-risk users",
+      "ba.bs5":"Write customer onboarding emails","ba.bs6":"After hours, review new signups",
+      "ba.bTotalLabel":"Lost to admin","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-triaged and scored 30 new leads","ba.as2":"Dashboard: 3 high-score leads already assigned",
+      "ba.as3":"Quiet lunch — urgent tickets auto-escalated","ba.as4":"Follow up with 2 enterprise leads in person",
+      "ba.as5":"System has auto-sent the onboarding sequence","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to strategic customer success","ba.aTotalNum":"+4 hours",
+    },
+    "餐飲":{
+      "ba.desc":"Same 12 reservations, 8 reviews to reply, 20 WhatsApp enquiries. Manual vs automated — the real difference.",
+      "ba.bs1":"Process 12 phone reservations + WhatsApps from last night","ba.bs2":"Manually reply to 8 negative reviews",
+      "ba.bs3":"Lunch rush interrupted by order chasing","ba.bs4":"Hand-build staff rota",
+      "ba.bs5":"Stock-check + calculate tomorrow's order","ba.bs6":"After dinner service, do the daily report",
+      "ba.bTotalLabel":"Lost to management","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-confirmed 12 reservations","ba.as2":"Review-reply drafts waiting for your approval",
+      "ba.as3":"Lunch service: focus on hosting VIP guests","ba.as4":"Auto-generated rota recommendations ready",
+      "ba.as5":"Ingredient alerts already sent automatically","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to on-floor service","ba.aTotalNum":"+4 hours",
+    },
+    "零售":{
+      "ba.desc":"Same 30 cross-channel enquiries, 10 new SKUs, 5 abandoned carts. Manual vs automated — the real difference.",
+      "ba.bs1":"Reply to 30 IG / WhatsApp messages from last night","ba.bs2":"Manually import new arrivals and write descriptions",
+      "ba.bs3":"Lunch interrupted by a return dispute","ba.bs4":"Follow up abandoned carts (mostly cold by now)",
+      "ba.bs5":"Stock-check low inventory + call suppliers","ba.bs6":"After hours, write the daily sales report",
+      "ba.bTotalLabel":"Lost to operations","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-replied to 25 common enquiries","ba.as2":"Product copy bulk-generated, awaiting review",
+      "ba.as3":"Quiet lunch — cart-recovery messages already sent","ba.as4":"Follow up with 5 VIP / wholesale enquiries in person",
+      "ba.as5":"Stock alerts already sent to suppliers automatically","ba.as6":"Clock off on time — sales report already in your inbox",
+      "ba.aTotalLabel":"Back to brand strategy","ba.aTotalNum":"+4 hours",
+    },
+    "物流":{
+      "ba.desc":"Same 80 orders to route, 20 shipment enquiries, 5 delay complaints. Manual vs automated — the real difference.",
+      "ba.bs1":"Manually allocate today's 80 orders across 5 warehouses","ba.bs2":"Take phone calls checking shipment status",
+      "ba.bs3":"Lunch interrupted by out-of-stock alerts","ba.bs4":"Hand-plan driver routes",
+      "ba.bs5":"Reconcile today's shipment records","ba.bs6":"After hours, handle delayed-delivery complaints",
+      "ba.bTotalLabel":"Lost to dispatch","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-allocated warehouses and routed","ba.as2":"Dashboard: all shipment-status replies sent to customers",
+      "ba.as3":"Quiet lunch — out-of-stock auto-transferred","ba.as4":"Handle 1 large-client urgent order in person",
+      "ba.as5":"System has auto-reconciled and flagged anomalies","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to business development","ba.aTotalNum":"+4 hours",
+    },
+    "創意":{
+      "ba.desc":"Same 8 new enquiries, 5 in-progress projects, 3 social posts to ship. Manual vs automated — the real difference.",
+      "ba.bs1":"Reply to 8 new enquiries from last night","ba.bs2":"Hand-write 3 proposals",
+      "ba.bs3":"Lunch interrupted by client revision requests","ba.bs4":"Write this week's social media copy",
+      "ba.bs5":"Compile this month's portfolio","ba.bs6":"After hours, reply to client feedback",
+      "ba.bTotalLabel":"Lost to admin","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System has auto-sent questionnaires to 6 new enquiries","ba.as2":"Proposal drafts already generated, awaiting review",
+      "ba.as3":"Quiet lunch — revision requests auto-logged in todo","ba.as4":"Run 1 important brand pitch in person","ba.as5":"Social content bulk-generated and scheduled","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to actual creative work","ba.aTotalNum":"+4 hours",
+    },
+  },
+};
+
 // Industry → hero descriptor override (pain-point oriented, fills in the lead paragraph under the title)
 const INDUSTRY_DESCRIPTOR = {
   zh: {
@@ -5216,6 +5778,11 @@ function applyProfile(profile){
   const navProfile = document.getElementById("nav-profile");
   const npLabel    = document.getElementById("np-label");
 
+  // Body-level marker so CSS can hide demos / workflows / ba when there is
+  // no profile (safety net in case welcome is somehow bypassed — visitor
+  // must NOT see any demo content until they pick an industry).
+  document.body.classList.toggle("no-profile", !profile || !profile.industry);
+
   if(!profile || (!profile.industry && (!profile.pains || profile.pains.length === 0))){
     // No profile — reset everything to default
     if(navProfile) navProfile.classList.remove("show");
@@ -5260,6 +5827,11 @@ function applyProfile(profile){
     }
     // 2a) Hero descriptor — industry-specific pain-point lead paragraph
     applyHeroDescriptorForIndustry(profile.industry);
+    // 2b) Real Workflows + Before-After — swap to vertical-specific narrative
+    //     (addresses brief #2 root cause: "all verticals sharing the same
+    //     medspa-flavored workflow narrative")
+    applyWorkflowsForIndustry(profile.industry);
+    applyBAForIndustry(profile.industry);
   }
 
   // 2b) Hero typed subtitle — personalised greeting (overrides the cycling typing)
@@ -5361,6 +5933,32 @@ function applyHeroDescriptorForIndustry(industry){
     const dict = I18N[currentLang] || I18N.zh;
     descEl.textContent = dict["hero.descriptor"] || descEl.textContent;
   }
+}
+
+/* Apply vertical-specific Real Workflows / Before-After content. Walks
+   all elements bound to wf2.* or ba.* i18n keys and replaces their text
+   from the matching industry map. Falls back to the default i18n value
+   when an industry doesn't define that key (or industry is null). */
+function applyVerticalContent(industry, prefix, industryMap){
+  const map = industryMap[currentLang] || industryMap.zh;
+  const industryDict = industry ? (map[industry] || null) : null;
+  const fallback = I18N[currentLang] || I18N.zh;
+  document.querySelectorAll(`[data-i18n^="${prefix}"]`).forEach(el => {
+    const k = el.getAttribute("data-i18n");
+    let v;
+    if(industryDict && industryDict[k] != null){
+      v = industryDict[k];
+    } else {
+      v = fallback[k];
+    }
+    if(typeof v === "string"){ el.textContent = v; }
+  });
+}
+function applyWorkflowsForIndustry(industry){
+  applyVerticalContent(industry, "wf2.", INDUSTRY_WORKFLOWS);
+}
+function applyBAForIndustry(industry){
+  applyVerticalContent(industry, "ba.", INDUSTRY_BA);
 }
 
 function resetDemoTabsFromProfile(){
@@ -5599,23 +6197,11 @@ function submitWelcome(){
   // Enter button
   const enter = document.getElementById("welcome-enter");
   if(enter) enter.addEventListener("click", submitWelcome);
-  // Skip
-  const skip = document.getElementById("welcome-skip");
-  if(skip) skip.addEventListener("click", () => {
-    // Skip = save dismissal flag (no profile) so we don't show welcome again next visit
-    try{ localStorage.setItem("tbc-welcome-dismissed", "1"); }catch(e){}
-    hideWelcome();
-  });
-  // Esc key
-  document.addEventListener("keydown", e => {
-    if(e.key === "Escape"){
-      const w = document.getElementById("welcome");
-      if(w && !w.classList.contains("hidden") && !w.classList.contains("leaving")){
-        try{ localStorage.setItem("tbc-welcome-dismissed", "1"); }catch(e2){}
-        hideWelcome();
-      }
-    }
-  });
+  // NOTE: Welcome page is intentionally UNSKIPPABLE.
+  // The skip button, Esc key dismiss, and "tbc-welcome-dismissed" flag
+  // have all been removed so visitors must pick an industry before
+  // they can see the main page or any demos. This prevents the
+  // "accidental bypass → customer loss" failure mode.
 })();
 
 /* ----------------- NAV PROFILE BADGE ----------------- */
@@ -5752,12 +6338,12 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
       // Returning visitor — apply directly, no welcome page
       applyProfile(saved);
     } else {
-      // First-time visitor — show welcome page unless they previously dismissed it
-      let dismissed = false;
-      try{ dismissed = !!localStorage.getItem("tbc-welcome-dismissed"); }catch(e){}
-      if(!dismissed && !window.location.hash){
-        showWelcome();
-      }
+      // No profile = welcome page is mandatory. Always show, regardless of
+      // any stale "dismissed" flag (we no longer write that flag) or URL
+      // hash. The only way out of welcome is to pick an industry + Enter.
+      // Clean up any legacy dismissed flag so older sessions also see welcome.
+      try{ localStorage.removeItem("tbc-welcome-dismissed"); }catch(e){}
+      showWelcome();
     }
   }, 200);
 })();
