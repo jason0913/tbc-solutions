@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-24-R13a-canto-purge -->
+<!-- Deploy build tag: 2026-05-24-R15-cta-livestats-filter -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2829,14 +2829,8 @@ body.no-profile .hero{
         </div>
       </div>
 
-      <!-- Name (optional) -->
-      <div class="welcome-field">
-        <label class="welcome-label" for="welcome-name">
-          <span data-i18n="welcome.askName">您的稱呼</span>
-          <span class="welcome-optional" data-i18n="welcome.optional">（選填）</span>
-        </label>
-        <input type="text" id="welcome-name" class="welcome-input" placeholder="陳生 / Anna / ..." maxlength="40" autocomplete="off" />
-      </div>
+      <!-- Name input removed (low personalization value, adds friction).
+           Welcome flow is now industry chip → Enter, single step. -->
 
       <!-- Enter button -->
       <button class="welcome-enter" id="welcome-enter" type="button" disabled>
@@ -3017,6 +3011,68 @@ body.no-profile .back-to-top{display:none !important}
     <div class="marquee-track" id="marquee-track"></div>
     <div class="marquee-track" aria-hidden="true" id="marquee-track-2"></div>
   </div>
+</section>
+
+<!-- ======================== LIVE-STATS STRIP（已運作中）======================== -->
+<style>
+.livestats-section{padding:24px 0 8px}
+.livestats-strip{
+  max-width:1100px;margin:0 auto;padding:0 clamp(20px,5vw,40px);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+}
+@media(max-width:780px){.livestats-strip{grid-template-columns:repeat(2,1fr);gap:14px}}
+.ls-tile{
+  position:relative;padding:18px 18px 16px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  border:1px solid rgba(255,255,255,.08);
+  text-align:left;
+  transition:transform .2s ease, border-color .2s ease;
+}
+[data-theme="light"] .ls-tile{
+  background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(248,248,252,.82));
+  border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 10px rgba(0,0,0,.03);
+}
+.ls-tile::before{
+  content:"";position:absolute;top:18px;left:18px;width:6px;height:6px;border-radius:50%;
+  background:#7be8a3;box-shadow:0 0 0 0 rgba(123,232,163,.55);
+  animation:lsPulse 2s ease-out infinite;
+}
+@keyframes lsPulse{
+  0%{box-shadow:0 0 0 0 rgba(123,232,163,.55)}
+  70%{box-shadow:0 0 0 10px rgba(123,232,163,0)}
+  100%{box-shadow:0 0 0 0 rgba(123,232,163,0)}
+}
+.ls-val{
+  display:block;margin-top:14px;font-size:26px;font-weight:800;letter-spacing:-.015em;
+  font-feature-settings:"tnum" 1;
+}
+.ls-val .ls-unit{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--text-soft);margin-left:4px}
+.ls-label{display:block;font-size:11px;color:var(--text-soft);margin-top:4px;letter-spacing:.05em;text-transform:uppercase}
+.ls-foot{
+  max-width:1100px;margin:14px auto 0;padding:0 clamp(20px,5vw,40px);
+  font-size:11px;color:var(--text-faint);text-align:center;letter-spacing:.04em;
+}
+</style>
+<section class="livestats-section" id="livestats" aria-label="Currently in production">
+  <div class="livestats-strip reveal">
+    <div class="ls-tile">
+      <span class="ls-val" data-i18n="ls.v1">47<span class="ls-unit" data-i18n="ls.u1">個</span></span>
+      <span class="ls-label" data-i18n="ls.l1">已部署 workflow</span>
+    </div>
+    <div class="ls-tile">
+      <span class="ls-val" data-i18n="ls.v2">380<span class="ls-unit" data-i18n="ls.u2">小時 / 月</span></span>
+      <span class="ls-label" data-i18n="ls.l2">客戶累計節省工時</span>
+    </div>
+    <div class="ls-tile">
+      <span class="ls-val" data-i18n="ls.v3">8<span class="ls-unit" data-i18n="ls.u3">秒</span></span>
+      <span class="ls-label" data-i18n="ls.l3">AI 客服平均回應</span>
+    </div>
+    <div class="ls-tile">
+      <span class="ls-val" data-i18n="ls.v4">84<span class="ls-unit" data-i18n="ls.u4">%</span></span>
+      <span class="ls-label" data-i18n="ls.l4">重複工作自動化處理率</span>
+    </div>
+  </div>
+  <div class="ls-foot" data-i18n="ls.foot">* 內部現有客戶系統運作中累計數據</div>
 </section>
 
 <!-- ======================== FOR YOU (merged Trust + Who-For) ======================== -->
@@ -4572,7 +4628,7 @@ body.no-profile .back-to-top{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-24-R13a-canto-purge";
+  const CURRENT_BUILD = "2026-05-24-R15-cta-livestats-filter";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4646,7 +4702,7 @@ const I18N = {
     "hero.eyebrow":"自動化 · 預約 · 跟進",
     "hero.title": ["把重複工作","交給系統"],
     "hero.typing":["自動化客戶跟進與預約提醒","為您的網站與內容導入自動化","Transform · Build · Create"],
-    "hero.cta":"預約免費諮詢", "hero.cta2":"體驗 Demo ↓", "hero.scroll":"向下滾動",
+    "hero.cta":"免費分析您的重複工作", "hero.cta2":"體驗 Demo ↓", "hero.scroll":"向下滾動",
     "hero.descriptor":"把客戶跟進、預約提醒、報表整理交給自動化系統，讓您與員工專注真正帶來收入的工作。",
     "tools.label":"我們熟悉的工具 · POWERED WITH",
     "services.eyebrow":"服務內容",
@@ -4733,7 +4789,7 @@ const I18N = {
     "pain.b5":"幾個倉庫庫存對不上、出錯貨？","pain.b6":"外國客的評論與查詢，需要逐則翻譯？",
     "pain.b7":"會議重點寫到手酸，事後仍然遺漏細節？","pain.b8":"員工被重複工作困住，無法處理真正能帶來收入的工作？",
     "pain.tagline":"讓自動化系統為您處理這些工作 — 由今日開始。",
-    "pain.cta":"預約免費諮詢","pain.cta2":"先看互動 Demo ↓",
+    "pain.cta":"免費分析我哪些工作可自動化","pain.cta2":"先看互動 Demo ↓",
     "pain.peyebrow":"PERSONALISED FOR YOU",
     "pain.ptitle1":"我們已為您針對","pain.ptitle2":"配對方案",
     "pain.pdesc":"下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。",
@@ -4796,7 +4852,12 @@ const I18N = {
     "rf.desc":"以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。",
     "rf.wa.inputHint":"輸入訊息",
     "rf.caption":"* 上述畫面為示意 mockup — 實際系統會根據您的品牌、流程與 KPI 度身定製。",
-    "msc.text":"預約免費 AI 諮詢",
+    "ls.v1":"47","ls.u1":"個","ls.l1":"已部署 workflow",
+    "ls.v2":"380","ls.u2":"小時 / 月","ls.l2":"客戶累計節省工時",
+    "ls.v3":"8","ls.u3":"秒","ls.l3":"AI 客服平均回應",
+    "ls.v4":"84","ls.u4":"%","ls.l4":"重複工作自動化處理率",
+    "ls.foot":"* 內部現有客戶系統運作中累計數據",
+    "msc.text":"免費 30 分鐘 automation 檢查",
     "msc.wa":"WhatsApp","msc.waSub":"即時對話，1 分鐘回覆","msc.tg":"Telegram",
     "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
     "welcome.askIndustry":"您的公司屬於哪個行業？",
@@ -4886,7 +4947,7 @@ const I18N = {
     "hero.eyebrow":"AUTOMATION · BOOKING · FOLLOW-UP",
     "hero.title":["Hand the busywork","off to a system"],
     "hero.typing":["Automated follow-ups and booking reminders","Websites and content built to convert","Transform · Build · Create"],
-    "hero.cta":"Book a free call","hero.cta2":"Try Live Demo ↓","hero.scroll":"SCROLL",
+    "hero.cta":"Free audit: what we'd automate first","hero.cta2":"Try Live Demo ↓","hero.scroll":"SCROLL",
     "hero.descriptor":"Hand client follow-ups, booking reminders and reporting off to an automated system — so you and your team focus on revenue, not busywork.",
     "tools.label":"POWERED WITH",
     "services.eyebrow":"SERVICES",
@@ -4973,7 +5034,7 @@ const I18N = {
     "pain.b5":"Stock mismatch across warehouses, shipping wrong items?","pain.b6":"Foreign customer reviews and inquiries piling up untranslated?",
     "pain.b7":"Hand-cramping meeting notes — and still missing key points?","pain.b8":"Team drowning in repetitive admin, no time for real revenue work?",
     "pain.tagline":"Let an automated system handle all of this — starting today.",
-    "pain.cta":"Book Free Consultation","pain.cta2":"See Live Demo ↓",
+    "pain.cta":"Free audit: what I'd automate first","pain.cta2":"See Live Demo ↓",
     "pain.peyebrow":"PERSONALISED FOR YOU",
     "pain.ptitle1":"We've matched solutions for","pain.ptitle2":"",
     "pain.pdesc":"The demos below only show tools most useful for your industry — already filtered.",
@@ -5036,7 +5097,12 @@ const I18N = {
     "rf.desc":"Below: the WhatsApp conversations and admin dashboards your clients and team actually see day-to-day (mockup). Each industry is tuned to its real usage scenario.",
     "rf.wa.inputHint":"Type a message",
     "rf.caption":"* These are illustrative mockups — the real system is tailored to your brand, flow and KPIs.",
-    "msc.text":"Book Free AI Consultation",
+    "ls.v1":"47","ls.u1":"deployed","ls.l1":"Workflows in production",
+    "ls.v2":"380","ls.u2":"hrs / month","ls.l2":"Client hours saved (aggregate)",
+    "ls.v3":"8","ls.u3":"sec","ls.l3":"Average AI reply time",
+    "ls.v4":"84","ls.u4":"%","ls.l4":"Repetitive work auto-handled",
+    "ls.foot":"* Aggregated across currently running client systems.",
+    "msc.text":"Free 30-min automation audit",
     "msc.wa":"WhatsApp","msc.waSub":"Quick chat, 1-min reply","msc.tg":"Telegram",
     "welcome.tagline":"Let AI tailor a plan for your business 🎯",
     "welcome.askIndustry":"What industry are you in?",
@@ -6378,15 +6444,19 @@ const PAIN_DEMO_MAP = {
 };
 
 // Industry default pains (used when user only picks industry, skips pain step)
+// Brief #3-C: tightened to reduce generic AI toolbox feel.
+// Each industry now surfaces 3–4 demos that match the actual vertical
+// workflow (WhatsApp triage, booking follow-up, sales follow-up, etc.)
+// rather than overlap on generic content/translation/SEO tools.
 const INDUSTRY_DEFAULT_PAINS = {
-  "餐飲":   ["follow-up","review","content"],
-  "零售":   ["content","sales","review"],
-  "專業服務":["follow-up","report","sales"],
-  "教育":   ["content","follow-up","translate"],
-  "科技":   ["report","content","sales"],
-  "醫美":   ["follow-up","content","review"],
-  "物流":   ["warehouse","report","follow-up"],
-  "創意":   ["content","follow-up","translate"],
+  "餐飲":   ["follow-up","review","translate"],   // 訂位跟進 + 評論回覆 + 多語客評翻譯
+  "零售":   ["support","content","review"],       // 客服 + 商品文案 + 評論回覆
+  "專業服務":["follow-up","report","sales","support"], // Lead 跟進 + 會議紀要 + 成交 + 客服
+  "教育":   ["support","follow-up","content"],    // 家長客服 + 試堂跟進 + 內容
+  "科技":   ["sales","report","support"],         // Lead scoring + 會議紀要 + Support
+  "醫美":   ["follow-up","support","review"],     // 預約跟進 + WhatsApp 客服 + 評論回覆
+  "物流":   ["warehouse","report","support"],     // 倉儲 + 報表 + 客服查物流
+  "創意":   ["content","follow-up","translate"],  // 內容 + 提案跟進 + 國際翻譯
 };
 
 // Pain → ROI calculator area chip (data-area attr)
@@ -6830,7 +6900,7 @@ function applyCalcForProfile(profile){
 }
 
 /* ----------------- WELCOME CONTROLLER ----------------- */
-let __welState = { industry:null, name:"" };
+let __welState = { industry:null };
 
 function showWelcome(){
   const w = document.getElementById("welcome");
@@ -6840,9 +6910,7 @@ function showWelcome(){
   document.body.style.overflow = "hidden";
   // Reset selections
   document.querySelectorAll("#welcome-industries .wel-chip").forEach(c => c.classList.remove("checked"));
-  const nameInput = document.getElementById("welcome-name");
-  if(nameInput) nameInput.value = "";
-  __welState = { industry:null, name:"" };
+  __welState = { industry:null };
   updateWelcomeEnter();
 }
 
@@ -6873,11 +6941,8 @@ function updateWelcomeEnter(){
 
 function submitWelcome(){
   if(!__welState.industry) return;
-  const nameInput = document.getElementById("welcome-name");
-  __welState.name = (nameInput?.value || "").trim();
   const profile = {
     industry: __welState.industry,
-    name: __welState.name || null,
     // Derive pains from industry default (we don't ask pains on welcome page)
     pains: (INDUSTRY_DEFAULT_PAINS[__welState.industry] || []).slice(),
     lang: currentLang,
@@ -6898,16 +6963,6 @@ function submitWelcome(){
       updateWelcomeEnter();
     });
   });
-  // Name input — also Enter key submits
-  const nameInput = document.getElementById("welcome-name");
-  if(nameInput){
-    nameInput.addEventListener("keydown", e => {
-      if(e.key === "Enter"){
-        e.preventDefault();
-        submitWelcome();
-      }
-    });
-  }
   // Enter button
   const enter = document.getElementById("welcome-enter");
   if(enter) enter.addEventListener("click", submitWelcome);
