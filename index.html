@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-24-R13-lockdown-realfeel -->
+<!-- Deploy build tag: 2026-05-24-R13a-canto-purge -->
 
 
 <!-- ============== FONTS ============== -->
@@ -3449,7 +3449,7 @@ body.no-profile .back-to-top{display:none !important}
   <div class="container">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
       <div class="eyebrow" data-i18n="rf.eyebrow">真實畫面</div>
-      <h2 class="h2"><span data-i18n="rf.title1">唔係 demo —</span> <span class="gradient-text" data-i18n="rf.title2">客戶真實畫面</span></h2>
+      <h2 class="h2"><span data-i18n="rf.title1">不是 demo —</span> <span class="gradient-text" data-i18n="rf.title2">客戶真實畫面</span></h2>
       <p class="muted" data-i18n="rf.desc">以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。</p>
     </div>
     <div class="rf-grid">
@@ -4572,7 +4572,7 @@ body.no-profile .back-to-top{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-24-R13-lockdown-realfeel";
+  const CURRENT_BUILD = "2026-05-24-R13a-canto-purge";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4792,7 +4792,7 @@ const I18N = {
     "ba.as6":"準時下班",
     "ba.aTotalLabel":"回到真正帶來收入的工作","ba.aTotalNum":"+4 小時",
     "rf.eyebrow":"真實畫面",
-    "rf.title1":"唔係 demo —","rf.title2":"客戶真實畫面",
+    "rf.title1":"不是 demo —","rf.title2":"客戶真實畫面",
     "rf.desc":"以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。",
     "rf.wa.inputHint":"輸入訊息",
     "rf.caption":"* 上述畫面為示意 mockup — 實際系統會根據您的品牌、流程與 KPI 度身定製。",
@@ -5442,12 +5442,12 @@ const INDUSTRY_WORKFLOWS = {
       "wf2.c4.save":"續報率上升 30%",
     },
     "專業服務":{
-      "wf2.c1.title":"Lead 跟進自動化（含地產睇樓）",
+      "wf2.c1.title":"Lead 跟進自動化（含地產看樓）",
       "wf2.c1.s1":"新 lead 入系統即發確認與可選會議時段",
       "wf2.c1.s2":"7 日後未回覆自動 follow-up + 案例分享",
       "wf2.c1.s3":"14 日後二次 follow-up 邀請短會",
       "wf2.c1.save":"Lead 流失率下降 40%",
-      "wf2.c2.title":"客戶會議 / 睇樓自動排程",
+      "wf2.c2.title":"客戶會議 / 看樓自動排程",
       "wf2.c2.s1":"客戶點選感興趣項目即發可選時段",
       "wf2.c2.s2":"24 小時前自動確認 + 地址導航",
       "wf2.c2.s3":"缺席自動安排下次並通知同事",
@@ -5779,8 +5779,8 @@ const INDUSTRY_BA = {
       "ba.aTotalLabel":"用於教學與招生","ba.aTotalNum":"+4 小時",
     },
     "專業服務":{
-      "ba.desc":"同樣 10 個新 lead、3 個睇樓 / 會議、2 個新項目要推送。手動處理 vs 自動化系統的真實差別。",
-      "ba.bs1":"回覆昨晚 10 個 lead enquiry","ba.bs2":"手動安排今日 3 個睇樓 / 會議",
+      "ba.desc":"同樣 10 個新 lead、3 個看樓 / 會議、2 個新項目要推送。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"回覆昨晚 10 個 lead enquiry","ba.bs2":"手動安排今日 3 個看樓 / 會議",
       "ba.bs3":"午餐被新項目通知打斷","ba.bs4":"整理客戶資料 + 寫 follow-up",
       "ba.bs5":"月底報表加班","ba.bs6":"下班後再回 4 個未處理客戶",
       "ba.bTotalLabel":"花於行政工作","ba.bTotalNum":"約 5 小時",
@@ -5973,8 +5973,8 @@ const INDUSTRY_MOCKUPS = {
     "教育":{
       wa:{ avatar:"林", name:"林媽媽（家長）", status:"在線", inputHint:"輸入訊息",
         messages:[
-          {dir:"in",  text:"老師你好，囡囡想試堂 P5 數學", time:"19:12"},
-          {dir:"in",  text:"星期六有冇位？",                time:"19:12"},
+          {dir:"in",  text:"老師你好，女兒想試堂 P5 數學", time:"19:12"},
+          {dir:"in",  text:"星期六有沒有位？",              time:"19:12"},
           {dir:"out", text:"林媽媽您好！系統已留 3 個試堂時段：星期六 10:00 / 13:30 / 15:00 📅",
             time:"19:13", tag:"自動回覆"},
           {dir:"in",  text:"13:30 OK",                      time:"19:14"},
@@ -5997,22 +5997,22 @@ const INDUSTRY_MOCKUPS = {
     "專業服務":{
       wa:{ avatar:"何", name:"何生（地產 lead）", status:"在線", inputHint:"輸入訊息",
         messages:[
-          {dir:"in",  text:"想睇下太古城兩房單位",          time:"14:08"},
+          {dir:"in",  text:"想看太古城兩房單位",            time:"14:08"},
           {dir:"in",  text:"預算 1,500 萬左右",              time:"14:08"},
-          {dir:"out", text:"何生您好！已為您篩出 3 個合適單位（連照片、近期成交），睇樓時段：明日 11:00 / 16:00 🏠",
+          {dir:"out", text:"何生您好！已為您篩選 3 個合適單位（含照片、近期成交價），看樓時段：明日 11:00 / 16:00 🏠",
             time:"14:09", tag:"自動回覆"},
           {dir:"in",  text:"16:00 麻煩你",                   time:"14:10"},
-          {dir:"out", text:"已預約：明日 25/05 16:00 太古城海天閣 D 室睇樓。地址導航與聯絡電話將於 24 小時前發送",
+          {dir:"out", text:"已預約：明日 25/05 16:00 太古城海天閣 D 室看樓。地址導航與聯絡電話將於 24 小時前發送",
             time:"14:10", tag:"自動確認"},
         ]},
       dash:{ url:"app.estate.com/leads", title:"Lead Pipeline · 今日", subtitle:"2026-05-24（星期一）",
         kpis:[
-          {label:"新 Lead",val:"14"},{label:"預約睇樓",val:"6"},
+          {label:"新 Lead",val:"14"},{label:"預約看樓",val:"6"},
           {label:"7 日內跟進",val:"23"},{label:"本月成交",val:"3"},
         ],
         rows:[
-          {c1:"11:00",c2:"陳先生",  c3:"康怡花園 3 房 · 第二次睇", status:"ok",  statusText:"已確認"},
-          {c1:"14:30",c2:"Anna W.", c3:"半山 studio · 首次睇",     status:"wait",statusText:"待確認"},
+          {c1:"11:00",c2:"陳先生",  c3:"康怡花園 3 房 · 第二次看", status:"ok",  statusText:"已確認"},
+          {c1:"14:30",c2:"Anna W.", c3:"半山 studio · 首次看",     status:"wait",statusText:"待確認"},
           {c1:"16:00",c2:"何生",   c3:"太古城海天閣 D 室",         status:"ok",  statusText:"已確認"},
           {c1:"Day 7",c2:"林小姐",  c3:"自動 follow-up（無回覆）", status:"wait",statusText:"已派出"},
           {c1:"新",  c2:"3 個新盤",c3:"已自動推送匹配客戶",        status:"open",statusText:"已發送"},
@@ -6037,7 +6037,7 @@ const INDUSTRY_MOCKUPS = {
         ],
         rows:[
           {c1:"Score 92",c2:"Sarah Chen", c3:"Trial · 已試 5/8 features",status:"ok",  statusText:"已派 Mark"},
-          {c1:"Score 87",c2:"Acme Corp",  c3:"Enterprise demo 已睇",      status:"ok",  statusText:"已派 Jenny"},
+          {c1:"Score 87",c2:"Acme Corp",  c3:"Enterprise demo 已觀看",   status:"ok",  statusText:"已派 Jenny"},
           {c1:"Score 14",c2:"David L.",   c3:"7 日未登入 · At-risk",     status:"wait",statusText:"已建 CSM 任務"},
           {c1:"Renew",   c2:"Globex Inc.",c3:"續費前 30 日 · 用量 ↑ 25%", status:"ok",  statusText:"自動 upsell"},
           {c1:"P1",      c2:"Ticket #4521",c3:"Bug · API timeout",        status:"open",statusText:"已 Slack on-call"},
@@ -6046,8 +6046,8 @@ const INDUSTRY_MOCKUPS = {
     "餐飲":{
       wa:{ avatar:"L", name:"Linda（訂位查詢）", status:"在線", inputHint:"輸入訊息",
         messages:[
-          {dir:"in",  text:"今晚 7 點 4 位有冇位？", time:"15:20"},
-          {dir:"out", text:"Linda 您好！7:00 已滿 — 6:30 / 7:30 / 8:00 仲有位 🍱",
+          {dir:"in",  text:"今晚 7 點 4 位有沒有位？", time:"15:20"},
+          {dir:"out", text:"Linda 您好！7:00 已滿 — 6:30 / 7:30 / 8:00 仍有位 🍱",
             time:"15:20", tag:"自動回覆"},
           {dir:"in",  text:"7:30 ok thanks",        time:"15:21"},
           {dir:"out", text:"已預留：今晚 7:30 · 4 位 · 大廳。前 2 小時會自動提醒",
@@ -6070,13 +6070,13 @@ const INDUSTRY_MOCKUPS = {
     "零售":{
       wa:{ avatar:"K", name:"Kelly（網店客戶）", status:"在線", inputHint:"輸入訊息",
         messages:[
-          {dir:"in",  text:"想問下黑色短裙 M size 仲有冇貨？", time:"21:45"},
-          {dir:"out", text:"Kelly 您好！M size 黑色仲有 3 件 ✨ 連結：tbc.shop/dress42",
+          {dir:"in",  text:"想請問黑色短裙 M size 還有沒有貨？", time:"21:45"},
+          {dir:"out", text:"Kelly 您好！M size 黑色尚餘 3 件 ✨ 連結：tbc.shop/dress42",
             time:"21:45", tag:"自動回覆"},
-          {dir:"in",  text:"運費點計？",                       time:"21:46"},
+          {dir:"in",  text:"運費怎樣計算？",                   time:"21:46"},
           {dir:"out", text:"順豐 $40，滿 $500 免運。Hong Kong 1-2 工作天 📦",
             time:"21:46", tag:"自動回覆"},
-          {dir:"out", text:"見你之前睇過呢條裙，10 分鐘內落單可用優惠碼 SAVE10 慳 $50",
+          {dir:"out", text:"系統顯示您先前瀏覽過此款，10 分鐘內下單可用優惠碼 SAVE10 即減 $50",
             time:"21:47", tag:"棄車挽回"},
         ]},
       dash:{ url:"app.shop.com/orders", title:"訂單與庫存", subtitle:"2026-05-24（星期一）",
@@ -6096,9 +6096,9 @@ const INDUSTRY_MOCKUPS = {
       wa:{ avatar:"司", name:"司機阿明", status:"在線", inputHint:"輸入訊息",
         messages:[
           {dir:"in",  text:"今日有幾單？順序點？",          time:"08:10"},
-          {dir:"out", text:"阿明早！今日 18 單，已按地址 cluster 排好。app 已派出第一張 🚚",
+          {dir:"out", text:"阿明早晨！今日 18 單，已按地址 cluster 排好。app 已派出第一張 🚚",
             time:"08:10", tag:"自動派發"},
-          {dir:"in",  text:"第一單客冇人簽收",              time:"10:32"},
+          {dir:"in",  text:"第一單客沒人簽收",              time:"10:32"},
           {dir:"out", text:"已通知客戶 + 安排明日重派。請繼續下一單 #4502",
             time:"10:32", tag:"自動處理"},
           {dir:"out", text:"#4502 客戶已收到送貨通知，預計到達 11:00", time:"10:33", tag:"自動回覆"},
@@ -6119,14 +6119,14 @@ const INDUSTRY_MOCKUPS = {
     "創意":{
       wa:{ avatar:"客", name:"客戶 Jenny（餐廳 branding）", status:"在線", inputHint:"輸入訊息",
         messages:[
-          {dir:"in",  text:"想搵你哋做新店 branding，咩價位？",time:"11:05"},
-          {dir:"out", text:"Jenny 您好！已 send 咗品牌定位問卷畀您（5 分鐘），收返就會生成提案 ✨",
+          {dir:"in",  text:"想請你們做新店 branding，價位如何？",time:"11:05"},
+          {dir:"out", text:"Jenny 您好！已發送品牌定位問卷給您（5 分鐘），收到回覆即會生成提案 ✨",
             time:"11:05", tag:"自動回覆"},
           {dir:"in",  text:"問卷填好了",                       time:"14:20"},
-          {dir:"out", text:"已生成 3 個方向初步提案 + 報價（HK$ 28K / 48K / 88K）。睇完約短會傾傾？",
+          {dir:"out", text:"已生成 3 個方向初步提案 + 報價（HK$ 28K / 48K / 88K）。看完安排短會詳談？",
             time:"14:22", tag:"自動提案"},
-          {dir:"in",  text:"中間個方向 ok，幾時 call？",       time:"14:35"},
-          {dir:"out", text:"明日 15:00 / 16:30 / 後日 11:00 您揀邊個？", time:"14:35", tag:"自動排程"},
+          {dir:"in",  text:"中間方向 ok，何時可通話？",       time:"14:35"},
+          {dir:"out", text:"明日 15:00 / 16:30 / 後日 11:00 您選哪個？", time:"14:35", tag:"自動排程"},
         ]},
       dash:{ url:"app.studio.com/projects", title:"專案與提案", subtitle:"2026-05-24（星期一）",
         kpis:[
