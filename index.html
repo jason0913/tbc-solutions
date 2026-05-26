@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R18.1-hide-rediagnose -->
+<!-- Deploy build tag: 2026-05-26-R18.3-zh-full-sweep -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2857,7 +2857,7 @@ body.no-profile .hero{
   <!-- Main booking CTA -->
   <a href="#book" class="msc-btn">
     <span class="msc-ico"></span>
-    <span class="msc-text" data-i18n="msc.text">Book Free AI Consultation</span>
+    <span class="msc-text" data-i18n="msc.text">免費 30 分鐘 automation 檢查</span>
     <span class="msc-arrow">→</span>
   </a>
 </div>
@@ -2985,11 +2985,11 @@ body.no-profile .back-to-top{display:none !important}
   </div>
 
   <div class="hero-inner">
-    <div class="eyebrow reveal" data-i18n="hero.eyebrow">AI · AUTOMATION · WEB</div>
+    <div class="eyebrow reveal" data-i18n="hero.eyebrow">自動化 · 預約 · 跟進</div>
     <h1 class="h1" id="hero-title" style="margin-top:18px">
       <!-- words injected by JS for animation -->
     </h1>
-    <p class="hero-descriptor reveal" id="hero-descriptor" data-i18n="hero.descriptor">AI Systems That Automate Repetitive Business Work</p>
+    <p class="hero-descriptor reveal" id="hero-descriptor" data-i18n="hero.descriptor">把客戶跟進、預約提醒、報表整理交給自動化系統</p>
     <p class="hero-sub">
       <span id="typed"></span><span class="typing-cursor"></span>
     </p>
@@ -3121,7 +3121,7 @@ body.no-profile .back-to-top{display:none !important}
   <div class="container">
     <!-- Universal hook (no profile) -->
     <div class="pain-hook reveal" id="pain-hook">
-      <div class="eyebrow" data-i18n="pain.eyebrow">YOUR DAILY PAIN</div>
+      <div class="eyebrow" data-i18n="pain.eyebrow">日常痛點</div>
       <h2 class="h2"><span data-i18n="pain.title1">您現在是否有</span> <span class="gradient-text" data-i18n="pain.title2">以下這些煩惱？</span></h2>
       <p class="muted" data-i18n="pain.desc">如果有任何一項符合，AI 自動化就是為您而設。</p>
 
@@ -3136,14 +3136,14 @@ body.no-profile .back-to-top{display:none !important}
 
       <div class="pain-cta">
         <div class="pain-tagline" data-i18n="pain.tagline">Then let AI automate the process — 由今日開始。</div>
-        <a href="#book" class="btn btn-primary"><span data-i18n="pain.cta">Book Free Consultation</span> <span class="arrow">→</span></a>
-        <a href="#demos" class="btn btn-ghost" data-i18n="pain.cta2">See AI In Action ↓</a>
+        <a href="#book" class="btn btn-primary"><span data-i18n="pain.cta">免費分析我哪些工作可自動化</span> <span class="arrow">→</span></a>
+        <a href="#demos" class="btn btn-ghost" data-i18n="pain.cta2">先看互動 Demo ↓</a>
       </div>
     </div>
 
     <!-- Personalised confirmation (profile set) -->
     <div class="pain-personal reveal" id="pain-personal" hidden>
-      <div class="eyebrow" data-i18n="pain.peyebrow">PERSONALISED FOR YOU</div>
+      <div class="eyebrow" data-i18n="pain.peyebrow">為您度身配對</div>
       <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label" data-i18n="pain.industryFallback">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
       <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。</p>
 
@@ -3152,8 +3152,8 @@ body.no-profile .back-to-top{display:none !important}
       </div>
 
       <div class="pain-cta">
-        <a href="#demos" class="btn btn-primary"><span data-i18n="pain.pcta">Try Live Demo</span> <span class="arrow">→</span></a>
-        <a href="#book" class="btn btn-ghost" data-i18n="pain.pcta2">Book Free Consultation</a>
+        <a href="#demos" class="btn btn-primary"><span data-i18n="pain.pcta">即試方案 Demo</span> <span class="arrow">→</span></a>
+        <a href="#book" class="btn btn-ghost" data-i18n="pain.pcta2">預約免費諮詢</a>
       </div>
     </div>
   </div>
@@ -3222,6 +3222,34 @@ body.no-profile .back-to-top{display:none !important}
    button to avoid confusion. JS sets body.from-cold-email on boot. */
 body.from-cold-email .nav-profile{display:none !important}
 
+/* R18.2: Defensive centring for all main section headings.
+   Old setup relied on inline style="text-align:center" — not all
+   section-head instances had it, and inline-flex .eyebrow inside
+   flex-column .section-head was not reliably centred across browsers.
+   This rule force-centres every heading container + its children. */
+.section-head,
+.pain-hook,
+.pain-personal,
+.book-section .container > .reveal{
+  text-align:center !important;
+  align-items:center !important;
+  margin-inline:auto !important;
+}
+.section-head .eyebrow,
+.pain-hook .eyebrow,
+.pain-personal .eyebrow,
+.book-section .eyebrow{
+  justify-content:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.section-head .h2,
+.pain-hook .h2,
+.pain-personal .h2,
+.book-section .h2{
+  text-align:center !important;
+}
+
 /* R17.1: Collapse empty icon containers (post emoji-scrub) so they don't reserve width/height/margin */
 .wf2-ico:empty,
 .fy-ico:empty,
@@ -3237,7 +3265,7 @@ body.from-cold-email .nav-profile{display:none !important}
 <section class="section workflows-section" id="workflows" aria-label="Real workflows">
   <div class="container">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" data-i18n="wf2.eyebrow">REAL WORKFLOWS</div>
+      <div class="eyebrow" data-i18n="wf2.eyebrow">真實工作流</div>
       <h2 class="h2"><span data-i18n="wf2.title1">我們實際</span> <span class="gradient-text" data-i18n="wf2.title2">為客戶自動化的流程</span></h2>
       <p class="muted" data-i18n="wf2.desc">這些不是 Demo — 是我們已為客戶落地的真實自動化流程。每個都可在 2–4 週內接入您的業務。</p>
     </div>
@@ -3351,7 +3379,7 @@ body.from-cold-email .nav-profile{display:none !important}
 <section class="section ba-section" id="ba" aria-label="Before vs After">
   <div class="container">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" data-i18n="ba.eyebrow">BEFORE · AFTER</div>
+      <div class="eyebrow" data-i18n="ba.eyebrow">同一日 · 兩種結果</div>
       <h2 class="h2"><span data-i18n="ba.title1">同一日 ·</span> <span class="gradient-text" data-i18n="ba.title2">兩種結果</span></h2>
       <p class="muted" data-i18n="ba.desc">同樣 12 個客戶查詢、3 個新預約、2 個評論待回。手動處理 vs 自動化系統的真實差別。</p>
     </div>
@@ -4290,7 +4318,7 @@ body.from-cold-email .nav-profile{display:none !important}
 <section class="section" id="impact">
   <div class="container">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" style="justify-content:center" data-i18n="impact.eyebrow">HOW WE DELIVER · REAL IMPACT</div>
+      <div class="eyebrow" style="justify-content:center" data-i18n="impact.eyebrow">我哋點做 · 真實成果</div>
       <h2 class="h2"><span data-i18n="impact.title1">六步走完 ·</span> <span class="gradient-text" data-i18n="impact.title2">可量化的成果</span></h2>
       <p class="muted" data-i18n="impact.desc">透明的合作流程，每一步都有清晰 deliverables，落地後即時看到時間與成本的節省。</p>
     </div>
@@ -4453,11 +4481,11 @@ body.from-cold-email .nav-profile{display:none !important}
       <div class="founder-card reveal">
         <div class="founder-tag">
           <div class="name">Grouper</div>
-          <div class="role" data-i18n="about.role">FOUNDER · TBC Solutions</div>
+          <div class="role" data-i18n="about.role">創辦人 · TBC Solutions</div>
         </div>
       </div>
       <div class="about-text reveal">
-        <div class="eyebrow" data-i18n="about.eyebrow">ABOUT THE FOUNDER</div>
+        <div class="eyebrow" data-i18n="about.eyebrow">關於創辦人</div>
         <h2 class="h2" style="margin-top:18px"><span data-i18n="about.title1">由我親自打造</span> <span class="gradient-text" data-i18n="about.title2">為您度身定做</span></h2>
 
         <p class="about-intro" data-i18n="about.intro">Built by <strong>Grouper</strong> — an AI creator focused on helping small &amp; medium businesses automate repetitive workflows.</p>
@@ -4489,7 +4517,7 @@ body.from-cold-email .nav-profile{display:none !important}
 <section class="section" id="faq">
   <div class="container" style="max-width:980px">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" style="justify-content:center" data-i18n="faq.eyebrow">FAQ</div>
+      <div class="eyebrow" style="justify-content:center" data-i18n="faq.eyebrow">常見問題</div>
       <h2 class="h2"><span data-i18n="faq.title1">你最想問的，</span><span class="gradient-text" data-i18n="faq.title2">我們先答</span></h2>
       <p class="muted" data-i18n="faq.desc">合作之前你會想到的疑問，我們已經幫你準備好。</p>
     </div>
@@ -4552,7 +4580,7 @@ body.from-cold-email .nav-profile{display:none !important}
 <section class="book-section" id="book">
   <div class="container">
     <div class="reveal">
-      <div class="eyebrow" data-i18n="book.eyebrow">BOOK A CALL</div>
+      <div class="eyebrow" data-i18n="book.eyebrow">預約諮詢</div>
       <h2 class="h2" style="margin-top:18px"><span data-i18n="book.title1">準備好了嗎？</span> <span class="gradient-text" data-i18n="book.title2">預約免費諮詢</span></h2>
       <p class="muted" style="margin-top:18px;max-width:600px;margin-inline:auto" data-i18n="book.desc">30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。</p>
       <p class="muted" style="margin-top:14px;font-size:14.5px">
@@ -4644,7 +4672,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R18.1-hide-rediagnose";
+  const CURRENT_BUILD = "2026-05-26-R18.3-zh-full-sweep";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4797,7 +4825,7 @@ const I18N = {
     "demo14.safety":"安全線 150",
     "demo14.alertsTitle":"即時智能警示","demo14.live":"LIVE",
     "demo14.recsTitle":"智能推薦行動","demo14.recsSub":"一鍵自動建立 n8n 工作流",
-    "pain.eyebrow":"YOUR DAILY PAIN",
+    "pain.eyebrow":"日常痛點",
     "pain.title1":"您現在是否有","pain.title2":"以下這些煩惱？",
     "pain.desc":"如果任何一項符合，您就是自動化系統最能受益的對象。",
     "pain.b1":"每日花數小時寫客戶跟進信，最終仍然遺漏部份客戶？","pain.b2":"每星期要產出社交內容，靈感卻一片空白？",
@@ -4806,7 +4834,7 @@ const I18N = {
     "pain.b7":"會議重點寫到手酸，事後仍然遺漏細節？","pain.b8":"員工被重複工作困住，無法處理真正能帶來收入的工作？",
     "pain.tagline":"讓自動化系統為您處理這些工作 — 由今日開始。",
     "pain.cta":"免費分析我哪些工作可自動化","pain.cta2":"先看互動 Demo ↓",
-    "pain.peyebrow":"PERSONALISED FOR YOU",
+    "pain.peyebrow":"為您度身配對",
     "pain.ptitle1":"我們已為您針對","pain.ptitle2":"配對方案",
     "pain.pdesc":"下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。",
     "pain.pcta":"即試方案 Demo","pain.pcta2":"預約免費諮詢",
@@ -4845,7 +4873,7 @@ const I18N = {
     "wf2.c4.s2":"自動草擬 3 種語氣（正式 / 親切 / 致歉）",
     "wf2.c4.s3":"您一鍵 approve 即發送，省下草擬時間",
     "wf2.c4.save":"回覆評論時間下降 80%",
-    "ba.eyebrow":"BEFORE · AFTER",
+    "ba.eyebrow":"同一日 · 兩種結果",
     "ba.title1":"同一日 ·","ba.title2":"兩種結果",
     "ba.desc":"同樣 12 個客戶查詢、3 個新預約、2 個評論待回。手動處理 vs 自動化系統的真實差別。",
     "ba.beforeLabel":"手動處理","ba.afterLabel":"自動化系統",
@@ -4886,7 +4914,7 @@ const I18N = {
     "nav.reset":"重新診斷","nav.profileFallback":"行業",
     "pain.industryFallback":"以下痛點","stat.permonth":"/月",
     "demos.expand":"查看所有方案","demos.collapse":"只看相關方案",
-    "impact.eyebrow":"HOW WE DELIVER · REAL IMPACT",
+    "impact.eyebrow":"我哋點做 · 真實成果",
     "impact.title1":"六步走完 ·","impact.title2":"可量化的成果",
     "impact.desc":"透明的合作流程，每一步都有清晰 deliverables，落地後即時看到時間與成本的節省。",
     "impact.s1":"重複性工作 ↓","impact.s2":"平均每月節省","impact.s3":"內容產出速度","impact.s4":"不眠不休運作",
@@ -4906,7 +4934,7 @@ const I18N = {
     "about.cta":"與我聊聊，免費",
     "about.role":"創辦人 · TBC Solutions",
     "about.stat1":"整合工具","about.stat2":"自動運作","about.stat3":"無限可能",
-    "process.eyebrow":"PROCESS",
+    "process.eyebrow":"合作流程",
     "process.title1":"六步走完，","process.title2":"從諮詢到交付",
     "process.desc":"透明的合作流程，每一步都有清晰的 deliverables 與時程。",
     "process.s1.tag":"第一步","process.s1.title":"免費諮詢",
@@ -4927,7 +4955,7 @@ const I18N = {
     "process.s6.tag":"第六步","process.s6.title":"持續支援",
     "process.s6.desc":"30 天免費 bug 修正期 + KPI 追蹤檢視。後續可選月度 maintenance plan，或按需呼叫支援。",
     "process.s6.meta":"30 天保固期",
-    "faq.eyebrow":"FAQ",
+    "faq.eyebrow":"常見問題",
     "faq.title1":"你最想問的，","faq.title2":"我們先答",
     "faq.desc":"合作之前你會想到的疑問，我們已經幫你準備好。",
     "faq.q1":"我沒技術背景／公司不大，可以用嗎？",
