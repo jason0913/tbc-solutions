@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R17.1-empty-icon-collapse -->
+<!-- Deploy build tag: 2026-05-26-R18-cold-email-deep-links -->
 
 
 <!-- ============== FONTS ============== -->
@@ -4639,7 +4639,7 @@ body.no-profile .back-to-top{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R17.1-empty-icon-collapse";
+  const CURRENT_BUILD = "2026-05-26-R18-cold-email-deep-links";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -7150,9 +7150,53 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
   setTimeout(update, 300);
 })();
 
+/* ----------------- COLD-EMAIL DEEP LINKS -----------------
+   Cold-email recipients land on industry-specific URLs like
+   ?ind=fnb / ?ind=retail / etc. Welcome page is bypassed and
+   the personalised view applies immediately.
+
+   Organic visitors (no ?ind param) still see welcome page.
+   --------------------------------------------------------- */
+const URL_INDUSTRY_MAP = {
+  // Cold-email friendly short keys → internal zh industry key
+  "fnb":        "餐飲",
+  "restaurant": "餐飲",
+  "retail":     "零售",
+  "ecommerce":  "零售",
+  "pro":        "專業服務",
+  "services":   "專業服務",
+  "edu":        "教育",
+  "education":  "教育",
+  "tech":       "科技",
+  "saas":       "科技",
+  "medical":    "醫美",
+  "clinic":     "醫美",
+  "logistics":  "物流",
+  "warehouse":  "物流",
+  "creative":   "創意",
+  "design":     "創意",
+};
+function getIndustryFromURL(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    const raw = (params.get("ind") || params.get("industry") || "").trim().toLowerCase();
+    return URL_INDUSTRY_MAP[raw] || null;
+  }catch(_){ return null; }
+}
+
 /* ----------------- BOOT: decide initial flow ----------------- */
 (function bootProfileFlow(){
   setTimeout(() => {
+    const urlIndustry = getIndustryFromURL();
+    if(urlIndustry){
+      // Cold-email recipient — URL overrides any saved profile.
+      // Build minimal profile, save it (so subsequent visits keep the
+      // industry without needing the param), apply directly, skip welcome.
+      const profile = { industry: urlIndustry, pains: [], lang: currentLang, ts: Date.now() };
+      saveProfile(profile);
+      applyProfile(profile);
+      return;
+    }
     const saved = loadProfile();
     if(saved){
       // Returning visitor — apply directly, no welcome page
