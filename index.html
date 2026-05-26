@@ -4628,7 +4628,7 @@ body.no-profile .back-to-top{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R16-tone-immersion";
+  const CURRENT_BUILD = "2026-05-26-R16.1-industry-label-en";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -5427,6 +5427,24 @@ document.getElementById("theme-toggle").addEventListener("click", ()=>{
    profile so returning visitors land directly on personalised state.
    =========================================================== */
 const PROFILE_KEY = "tbc-profile-v2";
+
+// Industry key (always stored as zh) → display name per language.
+// Used by nav badge + pain section heading + any other inline label.
+const INDUSTRY_NAME = {
+  zh: {
+    "餐飲":"餐飲","零售":"零售","專業服務":"專業服務","教育":"教育",
+    "科技":"科技","醫美":"醫美","物流":"物流","創意":"創意",
+  },
+  en: {
+    "餐飲":"F&B","零售":"retail & e-commerce","專業服務":"professional services","教育":"education",
+    "科技":"tech & SaaS","醫美":"aesthetic clinics","物流":"logistics","創意":"creative & design",
+  },
+};
+function industryLabel(key){
+  if(!key) return "";
+  const map = INDUSTRY_NAME[currentLang] || INDUSTRY_NAME.zh;
+  return map[key] || key;
+}
 
 // Industry → personalisation rules
 const INDUSTRY_HERO = {
@@ -6518,7 +6536,7 @@ function applyProfile(profile){
 
   // 1) Update nav badge — "Name · Industry" or "Industry" if no name
   if(navProfile && npLabel){
-    const ind = profile.industry || (currentLang==="zh"?"已個人化":"Personalised");
+    const ind = profile.industry ? industryLabel(profile.industry) : (currentLang==="zh"?"已個人化":"Personalised");
     npLabel.textContent = profile.name ? `${profile.name} · ${ind}` : ind;
     navProfile.classList.add("show");
   }
@@ -6611,7 +6629,7 @@ function applyPainForProfile(profile){
   // Label industry
   if(indLabel){
     indLabel.textContent = profile.industry
-      ? (currentLang === "zh" ? `${profile.industry}業` : profile.industry)
+      ? (currentLang === "zh" ? `${profile.industry}業` : industryLabel(profile.industry))
       : (currentLang === "zh" ? "您的業務" : "your business");
   }
   // Render pain tags
