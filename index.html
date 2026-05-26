@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R16.3-industry-label -->
+<!-- Deploy build tag: 2026-05-26-R17-emoji-scrub -->
 
 
 <!-- ============== FONTS ============== -->
@@ -1714,7 +1714,7 @@ main,nav,section,footer{position:relative;z-index:2}
   box-shadow:0 6px 22px rgba(124,92,255,.18);
 }
 .wh-card.recommended::before{
-  content:"✨ AI";
+  content:"AI";
   position:absolute;top:-10px;right:14px;z-index:2;
   padding:3px 11px;border-radius:999px;
   background:var(--grad);color:#fff;
@@ -1763,7 +1763,7 @@ main,nav,section,footer{position:relative;z-index:2}
   font-size:11px;letter-spacing:.18em;font-weight:700;color:#a8e7ff;
   text-transform:uppercase;
 }
-.demo-save::before{content:"⏱";font-size:13px;letter-spacing:0}
+/* R17: .demo-save::before icon removed for premium positioning */
 
 /* =====================================================================
    ABOUT
@@ -2809,7 +2809,7 @@ body.no-profile .hero{
       </div>
       <div class="welcome-logo">TBC <span>Solutions</span></div>
       <div class="welcome-slogan">Transform · Build · Create</div>
-      <div class="welcome-tagline" data-i18n="welcome.tagline">讓 AI 為您度身打造方案 🎯</div>
+      <div class="welcome-tagline" data-i18n="welcome.tagline">幫團隊減少重複工作、減少漏單</div>
     </div>
 
     <!-- Form -->
@@ -2818,14 +2818,14 @@ body.no-profile .hero{
       <div class="welcome-field">
         <label class="welcome-label" data-i18n="welcome.askIndustry">您的公司屬於哪個行業？</label>
         <div class="welcome-chips" id="welcome-industries">
-          <button class="wel-chip" data-ind="餐飲" data-i18n="welcome.i1" type="button">🍱 餐飲</button>
-          <button class="wel-chip" data-ind="零售" data-i18n="welcome.i2" type="button">🛍️ 零售 / 電商</button>
-          <button class="wel-chip" data-ind="專業服務" data-i18n="welcome.i3" type="button">💼 專業服務</button>
-          <button class="wel-chip" data-ind="教育" data-i18n="welcome.i4" type="button">🎓 教育培訓</button>
-          <button class="wel-chip" data-ind="科技" data-i18n="welcome.i5" type="button">💻 科技 / SaaS</button>
-          <button class="wel-chip" data-ind="醫美" data-i18n="welcome.i6" type="button">💆 醫美 / 健康</button>
-          <button class="wel-chip" data-ind="物流" data-i18n="welcome.i7" type="button">📦 物流 / 倉儲</button>
-          <button class="wel-chip" data-ind="創意" data-i18n="welcome.i8" type="button">🎨 創意 / 設計</button>
+          <button class="wel-chip" data-ind="餐飲" data-i18n="welcome.i1" type="button">餐飲</button>
+          <button class="wel-chip" data-ind="零售" data-i18n="welcome.i2" type="button">零售 / 電商</button>
+          <button class="wel-chip" data-ind="專業服務" data-i18n="welcome.i3" type="button">專業服務</button>
+          <button class="wel-chip" data-ind="教育" data-i18n="welcome.i4" type="button">教育培訓</button>
+          <button class="wel-chip" data-ind="科技" data-i18n="welcome.i5" type="button">科技 / SaaS</button>
+          <button class="wel-chip" data-ind="醫美" data-i18n="welcome.i6" type="button">醫美 / 健康</button>
+          <button class="wel-chip" data-ind="物流" data-i18n="welcome.i7" type="button">物流 / 倉儲</button>
+          <button class="wel-chip" data-ind="創意" data-i18n="welcome.i8" type="button">創意 / 設計</button>
         </div>
       </div>
 
@@ -2856,7 +2856,7 @@ body.no-profile .hero{
   </div>
   <!-- Main booking CTA -->
   <a href="#book" class="msc-btn">
-    <span class="msc-ico">📅</span>
+    <span class="msc-ico"></span>
     <span class="msc-text" data-i18n="msc.text">Book Free AI Consultation</span>
     <span class="msc-arrow">→</span>
   </a>
@@ -2932,7 +2932,7 @@ body.no-profile .back-to-top{display:none !important}
       <a href="#book" data-i18n="nav.book">預約</a>
     </div>
     <button class="nav-profile" id="nav-profile" type="button" aria-label="Reset profile">
-      <span class="np-ico">📍</span>
+      <span class="np-ico"></span>
       <span class="np-label" id="np-label" data-i18n="nav.profileFallback">行業</span>
       <span class="np-reset" data-i18n="nav.reset">重新診斷</span>
     </button>
@@ -3085,33 +3085,33 @@ body.no-profile .back-to-top{display:none !important}
   <!-- Audience tiles -->
   <div class="fy-grid">
     <div class="fy-card">
-      <div class="fy-ico">🏥</div>
+      <div class="fy-ico"></div>
       <div class="fy-name" data-i18n="wf.c1.name">診所 / 醫美</div>
       <div class="fy-desc" data-i18n="wf.c1.desc">客戶預約、跟進、提醒自動化</div>
     </div>
     <div class="fy-card">
-      <div class="fy-ico">🏪</div>
+      <div class="fy-ico"></div>
       <div class="fy-name" data-i18n="wf.c2.name">中小企老闆</div>
       <div class="fy-desc" data-i18n="wf.c2.desc">人手有限但又要做 marketing、客服、report</div>
     </div>
     <div class="fy-card">
-      <div class="fy-ico">🚀</div>
+      <div class="fy-ico"></div>
       <div class="fy-name" data-i18n="wf.c3.name">初創 / Startup</div>
       <div class="fy-desc" data-i18n="wf.c3.desc">想用 AI workflow 取代請人，節省成本快速 scale</div>
     </div>
     <div class="fy-card">
-      <div class="fy-ico">😩</div>
+      <div class="fy-ico"></div>
       <div class="fy-name" data-i18n="wf.c4.name">被重複工作困住的團隊</div>
       <div class="fy-desc" data-i18n="wf.c4.desc">每日都在處理 follow-up email、抄資料、報表</div>
     </div>
   </div>
   <!-- Trust signals row -->
   <div class="fy-trust">
-    <div class="fy-pill"><span class="fy-pill-ico">🇭🇰</span><span class="fy-pill-txt" data-i18n="ts.hk">香港本地團隊</span></div>
-    <div class="fy-pill"><span class="fy-pill-ico">⚡</span><span class="fy-pill-txt" data-i18n="ts.personal">為您度身定做 AI 工作流</span></div>
-    <div class="fy-pill"><span class="fy-pill-ico">🎯</span><span class="fy-pill-txt" data-i18n="ts.demos">14 個即時互動 Demo</span></div>
-    <div class="fy-pill"><span class="fy-pill-ico">🛡️</span><span class="fy-pill-txt" data-i18n="ts.support">30 日 Bug Fix 保固</span></div>
-    <div class="fy-pill"><span class="fy-pill-ico">🎁</span><span class="fy-pill-txt" data-i18n="ts.free">免費 30 分鐘諮詢</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico"></span><span class="fy-pill-txt" data-i18n="ts.hk">香港本地團隊</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico"></span><span class="fy-pill-txt" data-i18n="ts.personal">為您度身定做 AI 工作流</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico"></span><span class="fy-pill-txt" data-i18n="ts.demos">14 個即時互動 Demo</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico"></span><span class="fy-pill-txt" data-i18n="ts.support">30 日 Bug Fix 保固</span></div>
+    <div class="fy-pill"><span class="fy-pill-ico"></span><span class="fy-pill-txt" data-i18n="ts.free">免費 30 分鐘諮詢</span></div>
   </div>
 </section>
 
@@ -3126,12 +3126,12 @@ body.no-profile .back-to-top{display:none !important}
       <p class="muted" data-i18n="pain.desc">如果有任何一項符合，AI 自動化就是為您而設。</p>
 
       <div class="pain-grid">
-        <div class="pain-card"><span class="pain-ico">📨</span><span data-i18n="pain.b1">客戶 follow-up 的 email 寫到手酸？</span></div>
-        <div class="pain-card"><span class="pain-ico">📱</span><span data-i18n="pain.b2">每星期要出社交內容但想到頭痛？</span></div>
-        <div class="pain-card"><span class="pain-ico">💬</span><span data-i18n="pain.b3">客服訊息積壓，回覆不及又怕得罪客戶？</span></div>
-        <div class="pain-card"><span class="pain-ico">📊</span><span data-i18n="pain.b4">月底每次都因 report 加班到深夜？</span></div>
-        <div class="pain-card"><span class="pain-ico">⏰</span><span data-i18n="pain.b7">會議筆記寫到手抽筋，重點還是漏掉？</span></div>
-        <div class="pain-card"><span class="pain-ico">😩</span><span data-i18n="pain.b8">員工被重複工作困住，做不到真正生意？</span></div>
+        <div class="pain-card"><span class="pain-ico"></span><span data-i18n="pain.b1">客戶 follow-up 的 email 寫到手酸？</span></div>
+        <div class="pain-card"><span class="pain-ico"></span><span data-i18n="pain.b2">每星期要出社交內容但想到頭痛？</span></div>
+        <div class="pain-card"><span class="pain-ico"></span><span data-i18n="pain.b3">客服訊息積壓，回覆不及又怕得罪客戶？</span></div>
+        <div class="pain-card"><span class="pain-ico"></span><span data-i18n="pain.b4">月底每次都因 report 加班到深夜？</span></div>
+        <div class="pain-card"><span class="pain-ico"></span><span data-i18n="pain.b7">會議筆記寫到手抽筋，重點還是漏掉？</span></div>
+        <div class="pain-card"><span class="pain-ico"></span><span data-i18n="pain.b8">員工被重複工作困住，做不到真正生意？</span></div>
       </div>
 
       <div class="pain-cta">
@@ -3216,7 +3216,7 @@ body.no-profile .back-to-top{display:none !important}
   color:#7be8a3;border:1px solid rgba(123,232,163,.25);
 }
 [data-theme="light"] .wf2-save{color:#0c8a3e;background:linear-gradient(135deg,rgba(12,138,62,.08),rgba(0,140,200,.06));border-color:rgba(12,138,62,.2)}
-.wf2-save::before{content:"⏱"}
+/* R17: .wf2-save::before icon removed for premium positioning */
 </style>
 <section class="section workflows-section" id="workflows" aria-label="Real workflows">
   <div class="container">
@@ -3227,7 +3227,7 @@ body.no-profile .back-to-top{display:none !important}
     </div>
     <div class="wf2-grid">
       <div class="wf2-card reveal">
-        <div class="wf2-ico">📅</div>
+        <div class="wf2-ico"></div>
         <h3 data-i18n="wf2.c1.title">預約 · 提醒 · 漏客重訪</h3>
         <ol class="wf2-steps">
           <li data-i18n="wf2.c1.s1">新預約自動發 WhatsApp 確認訊息</li>
@@ -3237,7 +3237,7 @@ body.no-profile .back-to-top{display:none !important}
         <span class="wf2-save" data-i18n="wf2.c1.save">每月省 8 小時 · 漏客率下降 30%</span>
       </div>
       <div class="wf2-card reveal">
-        <div class="wf2-ico">💬</div>
+        <div class="wf2-ico"></div>
         <h3 data-i18n="wf2.c2.title">WhatsApp 訊息分流</h3>
         <ol class="wf2-steps">
           <li data-i18n="wf2.c2.s1">新訊息即時分類為查詢 / 預約 / 投訴</li>
@@ -3247,7 +3247,7 @@ body.no-profile .back-to-top{display:none !important}
         <span class="wf2-save" data-i18n="wf2.c2.save">客服回覆速度提升 5 倍</span>
       </div>
       <div class="wf2-card reveal">
-        <div class="wf2-ico">🔄</div>
+        <div class="wf2-ico"></div>
         <h3 data-i18n="wf2.c3.title">客戶療程後跟進</h3>
         <ol class="wf2-steps">
           <li data-i18n="wf2.c3.s1">療程後 24 小時自動發感謝訊息</li>
@@ -3257,7 +3257,7 @@ body.no-profile .back-to-top{display:none !important}
         <span class="wf2-save" data-i18n="wf2.c3.save">復購率上升 25% · 員工零額外工時</span>
       </div>
       <div class="wf2-card reveal">
-        <div class="wf2-ico">⭐</div>
+        <div class="wf2-ico"></div>
         <h3 data-i18n="wf2.c4.title">評論回覆自動草稿</h3>
         <ol class="wf2-steps">
           <li data-i18n="wf2.c4.s1">即時偵測 Google / OpenRice 新評論</li>
@@ -3341,7 +3341,7 @@ body.no-profile .back-to-top{display:none !important}
     </div>
     <div class="ba-grid">
       <div class="ba-card before reveal">
-        <span class="ba-label" data-i18n="ba.beforeLabel">⏳ 手動處理</span>
+        <span class="ba-label" data-i18n="ba.beforeLabel">手動處理</span>
         <ol class="ba-timeline">
           <li><span class="ba-time">09:00</span><span class="ba-evt" data-i18n="ba.bs1">回覆昨晚 12 個 WhatsApp 查詢</span></li>
           <li><span class="ba-time">10:30</span><span class="ba-evt" data-i18n="ba.bs2">手動逐一發送預約確認</span></li>
@@ -3353,7 +3353,7 @@ body.no-profile .back-to-top{display:none !important}
         <div class="ba-total"><span data-i18n="ba.bTotalLabel">花於重複客服</span><span class="ba-total-num" data-i18n="ba.bTotalNum">約 5 小時</span></div>
       </div>
       <div class="ba-card after reveal">
-        <span class="ba-label" data-i18n="ba.afterLabel">⚡ 自動化系統</span>
+        <span class="ba-label" data-i18n="ba.afterLabel">自動化系統</span>
         <ol class="ba-timeline">
           <li><span class="ba-time">09:00</span><span class="ba-evt" data-i18n="ba.as1">系統已自動回覆 10 個常見查詢</span></li>
           <li><span class="ba-time">10:30</span><span class="ba-evt" data-i18n="ba.as2">查看儀表板：2 個複雜訊息已標記</span></li>
@@ -3564,7 +3564,7 @@ body.no-profile .back-to-top{display:none !important}
       <button class="demo-tab-btn"        data-slide="10"><span class="num">11</span> <span data-i18n="demo11.title">AI 產品文案</span></button>
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
       <button class="demo-tab-btn"        data-slide="13"><span class="num">13</span> <span data-i18n="demo14.tabLabel">倉庫 Dashboard</span></button>
-      <button class="demo-tab-btn active" data-slide="12"><span class="num">✨</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
+      <button class="demo-tab-btn active" data-slide="12"><span class="num">13</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
       <button class="demos-expand" id="demos-expand" type="button"><span data-i18n="demos.expand">查看 14 個方案</span> <span>↓</span></button>
     </div>
 
@@ -3600,7 +3600,7 @@ body.no-profile .back-to-top{display:none !important}
                 <div class="workflow-canvas">
                   <div class="wf-dynamic" id="wf-dynamic">
                     <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px">
-                      <div style="font-size:42px;margin-bottom:10px">🧠</div>
+                      <div style="font-size:42px;margin-bottom:10px"></div>
                       <div data-i18n="demo1.placeholder">輸入您的問題，AI 即時為您動態生成工作流程節點</div>
                     </div>
                   </div>
@@ -4040,7 +4040,7 @@ body.no-profile .back-to-top{display:none !important}
             <div class="demo-head">
               <div>
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                  <div class="demo-tag" style="background:var(--grad);color:#fff;border-color:transparent">✨ <span data-i18n="demo13.tag">先試這個</span></div>
+                  <div class="demo-tag" style="background:var(--grad);color:#fff;border-color:transparent"><span data-i18n="demo13.tag">先試這個</span></div>
                   <div class="demo-save" data-i18n="demo13.save">60 秒得到專屬方案</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo13.title">AI 商業診斷 + 方案匹配</h3>
@@ -4250,7 +4250,7 @@ body.no-profile .back-to-top{display:none !important}
             <!-- AI Recommendations row -->
             <div class="dash-recs">
               <div class="dash-recs-head">
-                <span class="ico">✨</span>
+                <span class="ico"></span>
                 <span data-i18n="demo14.recsTitle">AI 智能推薦行動</span>
                 <span class="dash-recs-sub" data-i18n="demo14.recsSub">一鍵自動建立 n8n 工作流</span>
               </div>
@@ -4304,50 +4304,50 @@ body.no-profile .back-to-top{display:none !important}
       <div class="process-grid">
       <div class="process-step">
         <div class="ps-num"><span class="num">01</span> <span data-i18n="process.s1.tag">第一步</span></div>
-        <div class="ps-icon">💬</div>
+        <div class="ps-icon"></div>
         <h3 data-i18n="process.s1.title">免費諮詢</h3>
         <p data-i18n="process.s1.desc">30 分鐘 Cal.com 視訊，了解您的業務目標、現有系統、痛點。我們會誠實判斷 AI 適不適合您。</p>
-        <div class="ps-meta" data-i18n="process.s1.meta">⏱ 1 天內可預約</div>
+        <div class="ps-meta" data-i18n="process.s1.meta">1 天內可預約</div>
       </div>
 
       <div class="process-step">
         <div class="ps-num"><span class="num">02</span> <span data-i18n="process.s2.tag">第二步</span></div>
-        <div class="ps-icon">📋</div>
+        <div class="ps-icon"></div>
         <h3 data-i18n="process.s2.title">方案 + 報價</h3>
         <p data-i18n="process.s2.desc">24–48 小時內收到書面方案：包含技術選型、工作流程圖、時程表、明細報價。您決定才收費。</p>
-        <div class="ps-meta" data-i18n="process.s2.meta">⏱ 諮詢後 48 小時</div>
+        <div class="ps-meta" data-i18n="process.s2.meta">諮詢後 48 小時</div>
       </div>
 
       <div class="process-step">
         <div class="ps-num"><span class="num">03</span> <span data-i18n="process.s3.tag">第三步</span></div>
-        <div class="ps-icon">🚀</div>
+        <div class="ps-icon"></div>
         <h3 data-i18n="process.s3.title">啟動專案</h3>
         <p data-i18n="process.s3.desc">簽約後即刻 kickoff：釐清成功指標（KPIs）、開設共享 Notion 看板、訂下每週進度滙報節奏。</p>
-        <div class="ps-meta" data-i18n="process.s3.meta">⏱ 簽約後 3 天</div>
+        <div class="ps-meta" data-i18n="process.s3.meta">簽約後 3 天</div>
       </div>
 
       <div class="process-step">
         <div class="ps-num"><span class="num">04</span> <span data-i18n="process.s4.tag">第四步</span></div>
-        <div class="ps-icon">⚙️</div>
+        <div class="ps-icon"></div>
         <h3 data-i18n="process.s4.title">開發 + 測試</h3>
         <p data-i18n="process.s4.desc">系統建設、模組整合、自動化流程編寫。每週展示進度，邀請您試用 + 即時回饋調整。</p>
-        <div class="ps-meta" data-i18n="process.s4.meta">⏱ 1–6 週（視 scope）</div>
+        <div class="ps-meta" data-i18n="process.s4.meta">1–6 週（視 scope）</div>
       </div>
 
       <div class="process-step">
         <div class="ps-num"><span class="num">05</span> <span data-i18n="process.s5.tag">第五步</span></div>
-        <div class="ps-icon">🎓</div>
+        <div class="ps-icon"></div>
         <h3 data-i18n="process.s5.title">培訓 + 上線</h3>
         <p data-i18n="process.s5.desc">完整文件、操作 SOP、登入資料、流程圖一次過交接。1–2 小時遠端培訓您的團隊正式接手。</p>
-        <div class="ps-meta" data-i18n="process.s5.meta">⏱ 上線前 1 週</div>
+        <div class="ps-meta" data-i18n="process.s5.meta">上線前 1 週</div>
       </div>
 
       <div class="process-step">
         <div class="ps-num"><span class="num">06</span> <span data-i18n="process.s6.tag">第六步</span></div>
-        <div class="ps-icon">🤝</div>
+        <div class="ps-icon"></div>
         <h3 data-i18n="process.s6.title">持續支援</h3>
         <p data-i18n="process.s6.desc">30 天免費 bug 修正期 + KPI 追蹤檢視。後續可選月度 maintenance plan，或按需呼叫支援。</p>
-        <div class="ps-meta" data-i18n="process.s6.meta">⏱ 30 天保固期</div>
+        <div class="ps-meta" data-i18n="process.s6.meta">30 天保固期</div>
       </div>
     </div>
     </div>
@@ -4580,7 +4580,7 @@ body.no-profile .back-to-top{display:none !important}
       ></iframe>
 
       <div class="book-fallback" id="book-fallback">
-        <p data-i18n="book.fallback1" style="font-size:15px;color:var(--text)">📅 Cal.com 預約 widget 預留位置</p>
+        <p data-i18n="book.fallback1" style="font-size:15px;color:var(--text)">Cal.com 預約 widget 預留位置</p>
         <p style="margin-top:14px" data-i18n="book.fallback2">請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：</p>
         <code>https://cal.com/your-handle/30min</code>
         <p style="margin-top:18px;font-size:13px" data-i18n="book.fallback3">或可直接點擊下方按鈕傳送 Email：</p>
@@ -4628,7 +4628,7 @@ body.no-profile .back-to-top{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R16.3-industry-label";
+  const CURRENT_BUILD = "2026-05-26-R17-emoji-scrub";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4832,7 +4832,7 @@ const I18N = {
     "ba.eyebrow":"BEFORE · AFTER",
     "ba.title1":"同一日 ·","ba.title2":"兩種結果",
     "ba.desc":"同樣 12 個客戶查詢、3 個新預約、2 個評論待回。手動處理 vs 自動化系統的真實差別。",
-    "ba.beforeLabel":"⏳ 手動處理","ba.afterLabel":"⚡ 自動化系統",
+    "ba.beforeLabel":"手動處理","ba.afterLabel":"自動化系統",
     "ba.bs1":"回覆昨晚 12 個 WhatsApp 查詢",
     "ba.bs2":"手動逐一發送預約確認",
     "ba.bs3":"午餐被新查詢訊息打斷",
@@ -4859,14 +4859,14 @@ const I18N = {
     "ls.foot":"* 內部現有客戶系統運作中累計數據",
     "msc.text":"免費 30 分鐘 automation 檢查",
     "msc.wa":"WhatsApp","msc.waSub":"即時對話，1 分鐘回覆","msc.tg":"Telegram",
-    "welcome.tagline":"讓 AI 為您度身打造方案 🎯",
+    "welcome.tagline":"幫團隊減少重複工作、減少漏單",
     "welcome.askIndustry":"您的公司屬於哪個行業？",
     "welcome.askName":"您的稱呼","welcome.optional":"（選填）",
     "welcome.enter":"進入網站 →","welcome.skip":"跳過 · 查看所有方案 →",
     "welcome.hint":"先選一個行業，AI 即時為您度身打造方案",
-    "welcome.hintReady":"✓ 已 match 您行業的 AI 方案",
-    "welcome.i1":"🍱 餐飲","welcome.i2":"🛍️ 零售 / 電商","welcome.i3":"💼 專業服務","welcome.i4":"🎓 教育培訓",
-    "welcome.i5":"💻 科技 / SaaS","welcome.i6":"💆 醫美 / 健康","welcome.i7":"📦 物流 / 倉儲","welcome.i8":"🎨 創意 / 設計",
+    "welcome.hintReady":"已 match 您行業嘅方案",
+    "welcome.i1":"餐飲","welcome.i2":"零售 / 電商","welcome.i3":"專業服務","welcome.i4":"教育培訓",
+    "welcome.i5":"科技 / SaaS","welcome.i6":"醫美 / 健康","welcome.i7":"物流 / 倉儲","welcome.i8":"創意 / 設計",
     "nav.reset":"重新診斷","nav.profileFallback":"行業",
     "pain.industryFallback":"以下痛點","stat.permonth":"/月",
     "demos.expand":"查看所有方案","demos.collapse":"只看相關方案",
@@ -4895,22 +4895,22 @@ const I18N = {
     "process.desc":"透明的合作流程，每一步都有清晰的 deliverables 與時程。",
     "process.s1.tag":"第一步","process.s1.title":"免費諮詢",
     "process.s1.desc":"30 分鐘 Cal.com 視訊，了解您的業務目標、現有系統、痛點。我們會誠實判斷 AI 適不適合您。",
-    "process.s1.meta":"⏱ 1 天內可預約",
+    "process.s1.meta":"1 天內可預約",
     "process.s2.tag":"第二步","process.s2.title":"方案 + 報價",
     "process.s2.desc":"24–48 小時內收到書面方案：包含技術選型、工作流程圖、時程表、明細報價。您決定才收費。",
-    "process.s2.meta":"⏱ 諮詢後 48 小時",
+    "process.s2.meta":"諮詢後 48 小時",
     "process.s3.tag":"第三步","process.s3.title":"啟動專案",
     "process.s3.desc":"簽約後即刻 kickoff：釐清成功指標（KPIs）、開設共享 Notion 看板、訂下每週進度滙報節奏。",
-    "process.s3.meta":"⏱ 簽約後 3 天",
+    "process.s3.meta":"簽約後 3 天",
     "process.s4.tag":"第四步","process.s4.title":"開發 + 測試",
     "process.s4.desc":"系統建設、模組整合、自動化流程編寫。每週展示進度，邀請您試用 + 即時回饋調整。",
-    "process.s4.meta":"⏱ 1–6 週（視 scope）",
+    "process.s4.meta":"1–6 週（視 scope）",
     "process.s5.tag":"第五步","process.s5.title":"培訓 + 上線",
     "process.s5.desc":"完整文件、操作 SOP、登入資料、流程圖一次過交接。1–2 小時遠端培訓您的團隊正式接手。",
-    "process.s5.meta":"⏱ 上線前 1 週",
+    "process.s5.meta":"上線前 1 週",
     "process.s6.tag":"第六步","process.s6.title":"持續支援",
     "process.s6.desc":"30 天免費 bug 修正期 + KPI 追蹤檢視。後續可選月度 maintenance plan，或按需呼叫支援。",
-    "process.s6.meta":"⏱ 30 天保固期",
+    "process.s6.meta":"30 天保固期",
     "faq.eyebrow":"FAQ",
     "faq.title1":"你最想問的，","faq.title2":"我們先答",
     "faq.desc":"合作之前你會想到的疑問，我們已經幫你準備好。",
@@ -4938,7 +4938,7 @@ const I18N = {
     "book.desc":"30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。",
     "book.altText":"或直接電郵聯絡：",
     "book.loading":"正在載入預約日曆 …",
-    "book.fallback1":"📅 Cal.com 預約 widget 預留位置",
+    "book.fallback1":"Cal.com 預約 widget 預留位置",
     "book.fallback2":"請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：",
     "book.fallback3":"或可直接點擊下方按鈕傳送 Email：",
   },
@@ -5077,7 +5077,7 @@ const I18N = {
     "ba.eyebrow":"BEFORE · AFTER",
     "ba.title1":"Same day ·","ba.title2":"two outcomes",
     "ba.desc":"Same 12 WhatsApp enquiries, 3 new bookings, 2 reviews to reply. Manual vs automated — the real difference.",
-    "ba.beforeLabel":"⏳ Manual","ba.afterLabel":"⚡ Automated",
+    "ba.beforeLabel":"Manual","ba.afterLabel":"Automated",
     "ba.bs1":"Reply to 12 WhatsApp enquiries from last night",
     "ba.bs2":"Manually send each booking confirmation",
     "ba.bs3":"Lunch interrupted by new enquiry pings",
@@ -5104,14 +5104,14 @@ const I18N = {
     "ls.foot":"* Aggregated across currently running client systems.",
     "msc.text":"Free 30-min automation audit",
     "msc.wa":"WhatsApp","msc.waSub":"Quick chat, 1-min reply","msc.tg":"Telegram",
-    "welcome.tagline":"Let AI tailor a plan for your business 🎯",
+    "welcome.tagline":"Less repetitive work, fewer dropped leads",
     "welcome.askIndustry":"What industry are you in?",
     "welcome.askName":"What should we call you?","welcome.optional":"(optional)",
     "welcome.enter":"Enter site →","welcome.skip":"Skip · browse all solutions →",
     "welcome.hint":"Pick an industry — AI matches solutions instantly",
-    "welcome.hintReady":"✓ Matched the AI solutions for your industry",
-    "welcome.i1":"🍱 F&B","welcome.i2":"🛍️ Retail / e-commerce","welcome.i3":"💼 Professional services","welcome.i4":"🎓 Education",
-    "welcome.i5":"💻 Tech / SaaS","welcome.i6":"💆 Medical / Wellness","welcome.i7":"📦 Logistics","welcome.i8":"🎨 Creative / Design",
+    "welcome.hintReady":"Solutions matched for your industry",
+    "welcome.i1":"F&B","welcome.i2":"Retail / e-commerce","welcome.i3":"Professional services","welcome.i4":"Education",
+    "welcome.i5":"Tech / SaaS","welcome.i6":"Medical / Wellness","welcome.i7":"Logistics","welcome.i8":"Creative / Design",
     "nav.reset":"Re-diagnose","nav.profileFallback":"Industry",
     "pain.industryFallback":"your pain points","stat.permonth":"/mo",
     "demos.expand":"See all solutions","demos.collapse":"Show relevant only",
@@ -5140,22 +5140,22 @@ const I18N = {
     "process.desc":"Transparent collaboration — clear deliverables and timelines at every step.",
     "process.s1.tag":"Step 1","process.s1.title":"Free consultation",
     "process.s1.desc":"30-minute Cal.com call to understand your goals, current systems and pain points. We'll honestly tell you whether AI fits.",
-    "process.s1.meta":"⏱ Bookable within 1 day",
+    "process.s1.meta":"Bookable within 1 day",
     "process.s2.tag":"Step 2","process.s2.title":"Proposal + quote",
     "process.s2.desc":"Within 24–48 hours: written proposal with tech stack, workflow diagrams, timeline, line-item pricing. You only pay after you decide.",
-    "process.s2.meta":"⏱ 48 hrs after consultation",
+    "process.s2.meta":"48 hrs after consultation",
     "process.s3.tag":"Step 3","process.s3.title":"Project kickoff",
     "process.s3.desc":"Right after signing: define KPIs, set up shared Notion board, agree weekly cadence for progress reports.",
-    "process.s3.meta":"⏱ 3 days after signing",
+    "process.s3.meta":"3 days after signing",
     "process.s4.tag":"Step 4","process.s4.title":"Build + test",
     "process.s4.desc":"System build, module integration, workflow scripting. Weekly demo and your hands-on testing — feedback baked in continuously.",
-    "process.s4.meta":"⏱ 1–6 weeks (depends on scope)",
+    "process.s4.meta":"1–6 weeks (depends on scope)",
     "process.s5.tag":"Step 5","process.s5.title":"Training + launch",
     "process.s5.desc":"Complete docs, SOPs, credentials and flow charts handed over. 1–2 hour remote training to make your team self-sufficient.",
-    "process.s5.meta":"⏱ 1 week before launch",
+    "process.s5.meta":"1 week before launch",
     "process.s6.tag":"Step 6","process.s6.title":"Ongoing support",
     "process.s6.desc":"30-day free bug-fix + KPI review. Optional monthly maintenance plan, or pay-as-you-go support afterwards.",
-    "process.s6.meta":"⏱ 30-day warranty",
+    "process.s6.meta":"30-day warranty",
     "faq.eyebrow":"FAQ",
     "faq.title1":"What you'd ask first —","faq.title2":"answered upfront",
     "faq.desc":"The questions you'd raise before working with us. We've answered them already.",
@@ -5183,7 +5183,7 @@ const I18N = {
     "book.desc":"A free 30-minute call to understand your needs and propose tailored AI-automation ideas.",
     "book.altText":"Or email directly:",
     "book.loading":"Loading booking calendar …",
-    "book.fallback1":"📅 Cal.com booking widget placeholder",
+    "book.fallback1":"Cal.com booking widget placeholder",
     "book.fallback2":"Find <code>YOUR_CAL_LINK_HERE</code> in the source and replace it with your Cal.com link, e.g.:",
     "book.fallback3":"Or just send us an email:",
   }
@@ -5251,7 +5251,7 @@ function resetAllDemos(){
   // Demo 1 — workflow
   const wfDyn = document.getElementById("wf-dynamic");
   if(wfDyn){
-    wfDyn.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px"><div style="font-size:42px;margin-bottom:10px">🧠</div><div data-i18n="demo1.placeholder">${txt("demo1.placeholder")}</div></div>`;
+    wfDyn.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-dim);font-size:13.5px"><div style="font-size:42px;margin-bottom:10px"></div><div data-i18n="demo1.placeholder">${txt("demo1.placeholder")}</div></div>`;
   }
   document.getElementById("wf-result")?.classList.remove("show");
 
@@ -6105,10 +6105,10 @@ const INDUSTRY_MOCKUPS = {
       wa:{ avatar:"S", name:"Sarah Chen（Trial user）", status:"在線", inputHint:"輸入訊息",
         messages:[
           {dir:"in",  text:"Hi, just signed up. How do I import my CSV?", time:"10:15"},
-          {dir:"out", text:"Hi Sarah! Welcome 👋 Drop your CSV into Settings → Import. Here's a 90-sec walkthrough: tbc.help/import",
+          {dir:"out", text:"Hi Sarah! Welcome — drop your CSV into Settings → Import. Here's a 90-sec walkthrough: tbc.help/import",
             time:"10:15", tag:"自動回覆"},
           {dir:"in",  text:"Got it, thanks!",                              time:"10:18"},
-          {dir:"out", text:"Awesome. I'll check back in 2 days to see how you're settling in 🚀",
+          {dir:"out", text:"Awesome. I'll check back in 2 days to see how you're settling in",
             time:"10:18", tag:"自動跟進"},
           {dir:"out", text:"PS: marked you as high-intent lead — Mark from sales will reach out tomorrow",
             time:"10:18", tag:"內部分流"},
@@ -6231,7 +6231,7 @@ const INDUSTRY_MOCKUPS = {
         messages:[
           {dir:"in",  text:"Hi, I'd like to book a Hydrafacial", time:"09:23"},
           {dir:"in",  text:"Any slots next Wednesday?",          time:"09:23"},
-          {dir:"out", text:"Hi Mrs Chen! Three slots held: 14:00 / 15:30 / 17:00 ✨",
+          {dir:"out", text:"Hi Mrs Chen! Three slots held: 14:00 / 15:30 / 17:00",
             time:"09:23", tag:"AUTO-REPLY"},
           {dir:"in",  text:"15:30 thanks",                       time:"09:24"},
           {dir:"out", text:"Booked: Wed 03/06 15:30 Hydrafacial 60 mins. Auto-reminder 24 hrs prior",
@@ -6255,7 +6255,7 @@ const INDUSTRY_MOCKUPS = {
         messages:[
           {dir:"in",  text:"My daughter wants to trial the P5 maths class", time:"19:12"},
           {dir:"in",  text:"Any Saturday slots?",                           time:"19:12"},
-          {dir:"out", text:"Hi Ms Lam! Three trial slots held: Sat 10:00 / 13:30 / 15:00 📅",
+          {dir:"out", text:"Hi Ms Lam! Three trial slots held: Sat 10:00 / 13:30 / 15:00",
             time:"19:13", tag:"AUTO-REPLY"},
           {dir:"in",  text:"13:30 OK",                                       time:"19:14"},
           {dir:"out", text:"Booked: Sat 30/05 13:30 P5 Maths trial. Auto-reminder the day before",
@@ -6279,7 +6279,7 @@ const INDUSTRY_MOCKUPS = {
         messages:[
           {dir:"in",  text:"Interested in 2-bed in Taikoo Shing", time:"14:08"},
           {dir:"in",  text:"Budget ~15M",                          time:"14:08"},
-          {dir:"out", text:"Hi Mr Ho! 3 matched units shortlisted (photos + recent comps). Viewing slots: tomorrow 11:00 / 16:00 🏠",
+          {dir:"out", text:"Hi Mr Ho! 3 matched units shortlisted (photos + recent comps). Viewing slots: tomorrow 11:00 / 16:00",
             time:"14:09", tag:"AUTO-REPLY"},
           {dir:"in",  text:"16:00 please",                         time:"14:10"},
           {dir:"out", text:"Booked: Tomorrow 25/05 16:00 Taikoo Shing Hoi Tin Mansion Flat D viewing. Address & contact sent 24 hrs prior",
@@ -6302,10 +6302,10 @@ const INDUSTRY_MOCKUPS = {
       wa:{ avatar:"S", name:"Sarah Chen (Trial user)", status:"online", inputHint:"Type a message",
         messages:[
           {dir:"in",  text:"Hi, just signed up. How do I import my CSV?", time:"10:15"},
-          {dir:"out", text:"Hi Sarah! Welcome 👋 Settings → Import. 90-sec walkthrough: tbc.help/import",
+          {dir:"out", text:"Hi Sarah! Welcome — Settings → Import. 90-sec walkthrough: tbc.help/import",
             time:"10:15", tag:"AUTO-REPLY"},
           {dir:"in",  text:"Got it, thanks!",                              time:"10:18"},
-          {dir:"out", text:"Awesome. I'll check back in 2 days to see how you're settling in 🚀",
+          {dir:"out", text:"Awesome. I'll check back in 2 days to see how you're settling in",
             time:"10:18", tag:"AUTO-FOLLOWUP"},
           {dir:"out", text:"PS: marked you as high-intent lead — Mark from sales will reach out tomorrow",
             time:"10:18", tag:"INTERNAL"},
@@ -6327,12 +6327,12 @@ const INDUSTRY_MOCKUPS = {
       wa:{ avatar:"L", name:"Linda (Booking enquiry)", status:"online", inputHint:"Type a message",
         messages:[
           {dir:"in",  text:"Table for 4 at 7pm tonight?",         time:"15:20"},
-          {dir:"out", text:"Hi Linda! 7:00 is full — 6:30 / 7:30 / 8:00 available 🍱",
+          {dir:"out", text:"Hi Linda! 7:00 is full — 6:30 / 7:30 / 8:00 available",
             time:"15:20", tag:"AUTO-REPLY"},
           {dir:"in",  text:"7:30 ok thanks",                       time:"15:21"},
           {dir:"out", text:"Booked: Tonight 7:30 · 4 pax · main floor. Auto-reminder 2 hrs prior",
             time:"15:21", tag:"AUTO-CONFIRM"},
-          {dir:"out", text:"Reminder: birthday offer today — 10% off cake 🎂", time:"15:21", tag:"BIRTHDAY"},
+          {dir:"out", text:"Reminder: birthday offer today — 10% off cake", time:"15:21", tag:"BIRTHDAY"},
         ]},
       dash:{ url:"app.bistro.com/booking", title:"Reservations & Ops", subtitle:"Mon, 2026-05-24",
         kpis:[
@@ -6351,10 +6351,10 @@ const INDUSTRY_MOCKUPS = {
       wa:{ avatar:"K", name:"Kelly (E-shop customer)", status:"online", inputHint:"Type a message",
         messages:[
           {dir:"in",  text:"Is the black dress M size still in stock?", time:"21:45"},
-          {dir:"out", text:"Hi Kelly! 3 in stock ✨ Link: tbc.shop/dress42",
+          {dir:"out", text:"Hi Kelly! 3 in stock — Link: tbc.shop/dress42",
             time:"21:45", tag:"AUTO-REPLY"},
           {dir:"in",  text:"How much is shipping?",                      time:"21:46"},
-          {dir:"out", text:"SF Express HK$40, free over HK$500. 1–2 working days 📦",
+          {dir:"out", text:"SF Express HK$40, free over HK$500. 1–2 working days",
             time:"21:46", tag:"AUTO-REPLY"},
           {dir:"out", text:"You looked at this dress earlier — use SAVE10 within 10 mins for HK$50 off",
             time:"21:47", tag:"CART RECOVERY"},
@@ -6376,7 +6376,7 @@ const INDUSTRY_MOCKUPS = {
       wa:{ avatar:"D", name:"Driver Ming", status:"online", inputHint:"Type a message",
         messages:[
           {dir:"in",  text:"How many drops today and in what order?", time:"08:10"},
-          {dir:"out", text:"Morning Ming! 18 drops today, clustered by address. First job already in your app 🚚",
+          {dir:"out", text:"Morning Ming! 18 drops today, clustered by address. First job already in your app",
             time:"08:10", tag:"AUTO-DISPATCH"},
           {dir:"in",  text:"Job 1 — no one to sign",                  time:"10:32"},
           {dir:"out", text:"Customer notified + tomorrow re-delivery scheduled. Proceed to #4502",
@@ -6400,7 +6400,7 @@ const INDUSTRY_MOCKUPS = {
       wa:{ avatar:"J", name:"Jenny (restaurant branding)", status:"online", inputHint:"Type a message",
         messages:[
           {dir:"in",  text:"Want to do branding for our new spot — pricing?", time:"11:05"},
-          {dir:"out", text:"Hi Jenny! Just sent you a brand-positioning questionnaire (5 mins). Once back I'll generate a proposal ✨",
+          {dir:"out", text:"Hi Jenny! Just sent you a brand-positioning questionnaire (5 mins). Once back I'll generate a proposal",
             time:"11:05", tag:"AUTO-REPLY"},
           {dir:"in",  text:"Questionnaire done",                              time:"14:20"},
           {dir:"out", text:"3-direction proposal + quote generated (HK$28K / 48K / 88K). Quick call after you've reviewed?",
@@ -6601,11 +6601,8 @@ const PAIN_LABEL_EN = {
   "warehouse":"Warehouse ops","support":"Customer support","sales":"Sales follow-up",
   "translate":"Translation","review":"Review reply",
 };
-const PAIN_ICO = {
-  "follow-up":"📨","content":"📱","report":"📊",
-  "warehouse":"📦","support":"💬","sales":"💼",
-  "translate":"🌍","review":"⭐",
-};
+// R17: emoji icons removed for premium positioning. Renderer falls back to "" via PAIN_ICO[p] lookup which returns undefined.
+const PAIN_ICO = {};
 function applyPainForProfile(profile){
   const hook = document.getElementById("pain-hook");
   const personal = document.getElementById("pain-personal");
@@ -9669,7 +9666,7 @@ Available AI solutions (demo_ref maps to demo number):
         <div class="ico-row"><div class="ico">${escapeHtml(s.icon||"✨")}</div>${slideIdx !== null ? `<span class="jump-arrow">→</span>` : ""}</div>
         <h5>${escapeHtml(s.title||"")}</h5>
         <p>${escapeHtml(s.desc||"")}</p>
-        <span class="hours">⏱ ${escapeHtml(L_HOURS.replace("{n}", String(s.monthly_hours_saved||0)))}</span>
+        <span class="hours">${escapeHtml(L_HOURS.replace("{n}", String(s.monthly_hours_saved||0)))}</span>
       </div>`;
     }).join("");
 
