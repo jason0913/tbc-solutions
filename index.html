@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R17-emoji-scrub -->
+<!-- Deploy build tag: 2026-05-26-R17.1-empty-icon-collapse -->
 
 
 <!-- ============== FONTS ============== -->
@@ -3217,6 +3217,17 @@ body.no-profile .back-to-top{display:none !important}
 }
 [data-theme="light"] .wf2-save{color:#0c8a3e;background:linear-gradient(135deg,rgba(12,138,62,.08),rgba(0,140,200,.06));border-color:rgba(12,138,62,.2)}
 /* R17: .wf2-save::before icon removed for premium positioning */
+/* R17.1: Collapse empty icon containers (post emoji-scrub) so they don't reserve width/height/margin */
+.wf2-ico:empty,
+.fy-ico:empty,
+.fy-pill-ico:empty,
+.pain-ico:empty,
+.ps-icon:empty,
+.msc-ico:empty,
+.np-ico:empty{
+  display:none !important;
+  width:0 !important;height:0 !important;margin:0 !important;padding:0 !important;
+}
 </style>
 <section class="section workflows-section" id="workflows" aria-label="Real workflows">
   <div class="container">
@@ -4628,7 +4639,7 @@ body.no-profile .back-to-top{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R17-emoji-scrub";
+  const CURRENT_BUILD = "2026-05-26-R17.1-empty-icon-collapse";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
