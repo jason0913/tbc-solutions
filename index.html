@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R18.4-eyebrow-dedup -->
+<!-- Deploy build tag: 2026-05-26-R18.5-zh-saas-chat -->
 
 
 <!-- ============== FONTS ============== -->
@@ -4672,7 +4672,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R18.4-eyebrow-dedup";
+  const CURRENT_BUILD = "2026-05-26-R18.5-zh-saas-chat";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -6080,7 +6080,7 @@ const INDUSTRY_MOCKUPS = {
           {dir:"in",  text:"下星期三幾點有位？",            time:"09:23"},
           {dir:"out", text:"陳太您好！系統已預留三個時段：14:00 / 15:30 / 17:00 ✨",
             time:"09:23", tag:"自動回覆"},
-          {dir:"in",  text:"15:30 thanks",                  time:"09:24"},
+          {dir:"in",  text:"15:30 唔該晒",                  time:"09:24"},
           {dir:"out", text:"已預約：星期三 03/06 15:30 Hydrafacial 60 分鐘。療程前 24 小時自動提醒",
             time:"09:24", tag:"自動確認"},
         ]},
@@ -6146,15 +6146,15 @@ const INDUSTRY_MOCKUPS = {
         ]},
     },
     "科技":{
-      wa:{ avatar:"S", name:"Sarah Chen（Trial user）", status:"在線", inputHint:"輸入訊息",
+      wa:{ avatar:"陳", name:"陳小姐（Trial 試用客）", status:"在線", inputHint:"輸入訊息",
         messages:[
-          {dir:"in",  text:"Hi, just signed up. How do I import my CSV?", time:"10:15"},
-          {dir:"out", text:"Hi Sarah! Welcome — drop your CSV into Settings → Import. Here's a 90-sec walkthrough: tbc.help/import",
+          {dir:"in",  text:"你好，啱啱註冊咗，點樣 import CSV？", time:"10:15"},
+          {dir:"out", text:"陳小姐您好！喺 Settings → Import 入面上載 CSV 即可。90 秒教學：tbc.help/import",
             time:"10:15", tag:"自動回覆"},
-          {dir:"in",  text:"Got it, thanks!",                              time:"10:18"},
-          {dir:"out", text:"Awesome. I'll check back in 2 days to see how you're settling in",
+          {dir:"in",  text:"明白，多謝！",                          time:"10:18"},
+          {dir:"out", text:"無問題。我 2 日後再 check 返你嘅使用情況",
             time:"10:18", tag:"自動跟進"},
-          {dir:"out", text:"PS: marked you as high-intent lead — Mark from sales will reach out tomorrow",
+          {dir:"out", text:"備註：已標記為高意向 lead — 銷售 Mark 明日會主動聯絡",
             time:"10:18", tag:"內部分流"},
         ]},
       dash:{ url:"app.saas.com/crm", title:"Lead Scoring · CRM", subtitle:"2026-05-24（星期一）",
@@ -6163,7 +6163,7 @@ const INDUSTRY_MOCKUPS = {
           {label:"At-Risk",val:"4"},{label:"續費 30d",val:"12"},
         ],
         rows:[
-          {c1:"Score 92",c2:"Sarah Chen", c3:"Trial · 已試 5/8 features",status:"ok",  statusText:"已派 Mark"},
+          {c1:"Score 92",c2:"陳小姐",      c3:"Trial · 已試 5/8 功能",  status:"ok",  statusText:"已派 Mark"},
           {c1:"Score 87",c2:"Acme Corp",  c3:"Enterprise demo 已觀看",   status:"ok",  statusText:"已派 Jenny"},
           {c1:"Score 14",c2:"David L.",   c3:"7 日未登入 · At-risk",     status:"wait",statusText:"已建 CSM 任務"},
           {c1:"Renew",   c2:"Globex Inc.",c3:"續費前 30 日 · 用量 ↑ 25%", status:"ok",  statusText:"自動 upsell"},
@@ -6176,7 +6176,7 @@ const INDUSTRY_MOCKUPS = {
           {dir:"in",  text:"今晚 7 點 4 位有沒有位？", time:"15:20"},
           {dir:"out", text:"Linda 您好！7:00 已滿 — 6:30 / 7:30 / 8:00 仍有位 🍱",
             time:"15:20", tag:"自動回覆"},
-          {dir:"in",  text:"7:30 ok thanks",        time:"15:21"},
+          {dir:"in",  text:"7:30 OK 唔該",          time:"15:21"},
           {dir:"out", text:"已預留：今晚 7:30 · 4 位 · 大廳。前 2 小時會自動提醒",
             time:"15:21", tag:"自動確認"},
           {dir:"out", text:"記得：今日生日優惠 — 蛋糕 9 折 🎂", time:"15:21", tag:"客戶生日"},
