@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R18-cold-email-deep-links -->
+<!-- Deploy build tag: 2026-05-26-R18.1-hide-rediagnose -->
 
 
 <!-- ============== FONTS ============== -->
@@ -3217,6 +3217,11 @@ body.no-profile .back-to-top{display:none !important}
 }
 [data-theme="light"] .wf2-save{color:#0c8a3e;background:linear-gradient(135deg,rgba(12,138,62,.08),rgba(0,140,200,.06));border-color:rgba(12,138,62,.2)}
 /* R17: .wf2-save::before icon removed for premium positioning */
+/* R18.1: Cold-email recipients arrive via ?ind=X URL. They never saw the
+   welcome / diagnosis flow, so hide the "重新診斷" / Re-diagnose nav
+   button to avoid confusion. JS sets body.from-cold-email on boot. */
+body.from-cold-email .nav-profile{display:none !important}
+
 /* R17.1: Collapse empty icon containers (post emoji-scrub) so they don't reserve width/height/margin */
 .wf2-ico:empty,
 .fy-ico:empty,
@@ -4639,7 +4644,7 @@ body.no-profile .back-to-top{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R18-cold-email-deep-links";
+  const CURRENT_BUILD = "2026-05-26-R18.1-hide-rediagnose";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -7195,6 +7200,10 @@ function getIndustryFromURL(){
       const profile = { industry: urlIndustry, pains: [], lang: currentLang, ts: Date.now() };
       saveProfile(profile);
       applyProfile(profile);
+      // Flag the body so we can hide the "重新診斷" / Re-diagnose
+      // button — cold-email recipients shouldn't see a "reset" option
+      // (they never went through the welcome flow themselves).
+      document.body.classList.add("from-cold-email");
       return;
     }
     const saved = loadProfile();
