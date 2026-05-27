@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R18.5-zh-saas-chat -->
+<!-- Deploy build tag: 2026-05-26-R19-launch-ready -->
 
 
 <!-- ============== FONTS ============== -->
@@ -3873,7 +3873,7 @@ body.from-cold-email .nav-profile{display:none !important}
               </div>
               <div>
                 <div class="meeting-output" id="ms-output">
-                  <div class="ms-card empty"><div class="ms-lbl"><span class="ico">📋</span> <span data-i18n="demo7.summary">摘要</span></div><div class="ms-content" data-i18n="demo7.empty">分析後 AI 會自動產生摘要、行動項目、主要決定。</div></div>
+                  <div class="ms-card empty"><div class="ms-lbl"><span data-i18n="demo7.summary">摘要</span></div><div class="ms-content" data-i18n="demo7.empty">分析後 AI 會自動產生摘要、行動項目、主要決定。</div></div>
                 </div>
               </div>
             </div>
@@ -4249,7 +4249,7 @@ body.from-cold-email .nav-profile{display:none !important}
               <!-- Chart -->
               <div class="dash-card dash-chart">
                 <div class="dash-card-head">
-                  <div class="dash-card-title"><span class="ico">📊</span> <span data-i18n="demo14.chartTitle">各倉庫庫存量（按 SKU 分組）</span></div>
+                  <div class="dash-card-title"><span data-i18n="demo14.chartTitle">各倉庫庫存量（按 SKU 分組）</span></div>
                   <div class="dash-legend">
                     <span class="dash-leg-dot" style="background:#7c5cff"></span><span data-i18n="demo14.sku1">USB-C 轉接器</span>
                     <span class="dash-leg-dot" style="background:#ff5cb1"></span><span data-i18n="demo14.sku2">無線耳機</span>
@@ -4282,7 +4282,7 @@ body.from-cold-email .nav-profile{display:none !important}
               <!-- AI Alerts feed -->
               <div class="dash-card dash-alerts">
                 <div class="dash-card-head">
-                  <div class="dash-card-title"><span class="ico">🤖</span> <span data-i18n="demo14.alertsTitle">AI 即時警示</span></div>
+                  <div class="dash-card-title"><span data-i18n="demo14.alertsTitle">AI 即時警示</span></div>
                   <div class="dash-live"><span class="dash-live-dot"></span> <span data-i18n="demo14.live">LIVE</span></div>
                 </div>
                 <div class="dash-alerts-feed" id="dash-alerts-feed">
@@ -4672,7 +4672,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R18.5-zh-saas-chat";
+  const CURRENT_BUILD = "2026-05-26-R19-launch-ready";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -5348,7 +5348,7 @@ function resetAllDemos(){
   // Demo 7 — meeting summary
   const msOut = document.getElementById("ms-output");
   if(msOut){
-    msOut.innerHTML = `<div class="ms-card empty"><div class="ms-lbl"><span class="ico">📋</span> <span data-i18n="demo7.summary">${txt("demo7.summary")}</span></div><div class="ms-content" data-i18n="demo7.empty">${txt("demo7.empty")}</div></div>`;
+    msOut.innerHTML = `<div class="ms-card empty"><div class="ms-lbl"><span data-i18n="demo7.summary">${txt("demo7.summary")}</span></div><div class="ms-content" data-i18n="demo7.empty">${txt("demo7.empty")}</div></div>`;
   }
 
   // Demo 8 — translation (reset tone to formal)
@@ -5394,12 +5394,21 @@ function resetAllDemos(){
   if(window.__resetPreviews) window.__resetPreviews();
 }
 
+// R19: bilingual meta description so EN visitors / share previews
+// don't see Chinese. Updated alongside applyLang().
+const META_DESC = {
+  zh: "TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。",
+  en: "TBC Solutions — AI workflow automation, web design, AI content and custom AI solutions for SMBs.",
+};
 function applyLang(lang){
   const langChanged = currentLang !== lang;
   currentLang = lang;
   document.body.classList.toggle("lang-zh", lang === "zh");
   document.body.classList.toggle("lang-en", lang === "en");
   document.documentElement.lang = lang === "zh" ? "zh-TW" : "en";
+  // Swap meta description so EN/zh share previews match active lang
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if(metaDesc && META_DESC[lang]) metaDesc.setAttribute("content", META_DESC[lang]);
   document.querySelectorAll("[data-i18n]").forEach(el=>{
     const k = el.getAttribute("data-i18n");
     const v = I18N[lang][k];
@@ -5964,7 +5973,7 @@ const INDUSTRY_BA = {
       "ba.desc":"同樣 8 個新查詢、5 個 in-progress 項目、3 個社交內容要出。手動處理 vs 自動化系統的真實差別。",
       "ba.bs1":"回覆昨晚 8 個新查詢","ba.bs2":"手動寫 3 份提案",
       "ba.bs3":"午餐被客戶修改要求打斷","ba.bs4":"寫今週社交媒體文案",
-      "ba.bs5":"整理本月作品集","ba.bs6":"下班後回客戶 feedback",
+      "ba.bs5":"整理本月作品集","ba.bs6":"下班後回客戶意見回饋",
       "ba.bTotalLabel":"花於行政","ba.bTotalNum":"約 5 小時",
       "ba.as1":"系統已自動發問卷給 6 個新查詢","ba.as2":"提案草稿已生成等審",
       "ba.as3":"午餐安靜，修改要求已自動入 todo","ba.as4":"親自做 1 個重要 brand pitch",
@@ -6132,7 +6141,7 @@ const INDUSTRY_MOCKUPS = {
           {dir:"out", text:"已預約：明日 25/05 16:00 太古城海天閣 D 室看樓。地址導航與聯絡電話將於 24 小時前發送",
             time:"14:10", tag:"自動確認"},
         ]},
-      dash:{ url:"app.estate.com/leads", title:"Lead Pipeline · 今日", subtitle:"2026-05-24（星期一）",
+      dash:{ url:"app.estate.com/leads", title:"Lead 跟進 · 今日", subtitle:"2026-05-24（星期一）",
         kpis:[
           {label:"新 Lead",val:"14"},{label:"預約看樓",val:"6"},
           {label:"7 日內跟進",val:"23"},{label:"本月成交",val:"3"},
@@ -6160,11 +6169,11 @@ const INDUSTRY_MOCKUPS = {
       dash:{ url:"app.saas.com/crm", title:"Lead Scoring · CRM", subtitle:"2026-05-24（星期一）",
         kpis:[
           {label:"新註冊",val:"30"},{label:"高分 Lead",val:"6"},
-          {label:"At-Risk",val:"4"},{label:"續費 30d",val:"12"},
+          {label:"高流失風險",val:"4"},{label:"續費 30d",val:"12"},
         ],
         rows:[
           {c1:"Score 92",c2:"陳小姐",      c3:"Trial · 已試 5/8 功能",  status:"ok",  statusText:"已派 Mark"},
-          {c1:"Score 87",c2:"Acme Corp",  c3:"Enterprise demo 已觀看",   status:"ok",  statusText:"已派 Jenny"},
+          {c1:"Score 87",c2:"Acme Corp",  c3:"企業 demo 已觀看",   status:"ok",  statusText:"已派 Jenny"},
           {c1:"Score 14",c2:"David L.",   c3:"7 日未登入 · At-risk",     status:"wait",statusText:"已建 CSM 任務"},
           {c1:"Renew",   c2:"Globex Inc.",c3:"續費前 30 日 · 用量 ↑ 25%", status:"ok",  statusText:"自動 upsell"},
           {c1:"P1",      c2:"Ticket #4521",c3:"Bug · API timeout",        status:"open",statusText:"已 Slack on-call"},
@@ -6257,13 +6266,13 @@ const INDUSTRY_MOCKUPS = {
         ]},
       dash:{ url:"app.studio.com/projects", title:"專案與提案", subtitle:"2026-05-24（星期一）",
         kpis:[
-          {label:"新查詢",val:"6"},{label:"In-progress",val:"5"},
-          {label:"待 feedback",val:"3"},{label:"本月已交付",val:"4"},
+          {label:"新查詢",val:"6"},{label:"進行中",val:"5"},
+          {label:"待回饋",val:"3"},{label:"本月已交付",val:"4"},
         ],
         rows:[
           {c1:"#P-21",c2:"Jenny C.",    c3:"餐廳 branding · 提案",   status:"ok",  statusText:"已發出"},
-          {c1:"#P-18",c2:"Coffee Co.",  c3:"包裝設計 · 第二輪",      status:"wait",statusText:"待 feedback"},
-          {c1:"#P-15",c2:"Tech Startup",c3:"網站 redesign · 上線",   status:"ok",  statusText:"已交付"},
+          {c1:"#P-18",c2:"咖啡品牌",    c3:"包裝設計 · 第二輪",      status:"wait",statusText:"待回饋"},
+          {c1:"#P-15",c2:"科技初創",    c3:"網站 redesign · 上線",   status:"ok",  statusText:"已交付"},
           {c1:"社交", c2:"IG / 小紅書",  c3:"6 張排期已自動上載",      status:"open",statusText:"自動發布"},
           {c1:"作品集",c2:"月度 update", c3:"已自動生成 · 已推社交",  status:"open",statusText:"自動發布"},
         ]},
