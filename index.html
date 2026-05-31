@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R20.1-mobile-tap -->
+<!-- Deploy build tag: 2026-05-31-R20.2-welcome-cursor -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2291,9 +2291,13 @@ main,nav,section,footer{position:relative;z-index:2}
    clickable element exists outside the welcome chips / name input /
    Enter button.
    ============================================================ */
-body.no-profile > *:not(#welcome):not(#bg-canvas):not(#particles){
+body.no-profile > *:not(#welcome):not(#bg-canvas):not(#particles):not(.cursor-dot):not(.cursor-ring){
   display:none !important;
 }
+/* R20.2: custom cursor (pointer-events:none, non-interactive) must stay
+   visible on the welcome page. Without this exemption the lockdown hid
+   .cursor-dot/.cursor-ring while body.has-cursor still set cursor:none,
+   leaving NO visible cursor on the welcome screen. */
 /* Defensive: nav, sticky CTA and FAB live outside main but are still
    suppressed explicitly in case future markup nests them. */
 body.no-profile .nav,
@@ -4677,7 +4681,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R20.1-mobile-tap";
+  const CURRENT_BUILD = "2026-05-31-R20.2-welcome-cursor";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
