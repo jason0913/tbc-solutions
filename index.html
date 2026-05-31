@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-26-R19-launch-ready -->
+<!-- Deploy build tag: 2026-05-31-R20.1-mobile-tap -->
 
 
 <!-- ============== FONTS ============== -->
@@ -673,14 +673,14 @@ main,nav,section,footer{position:relative;z-index:2}
 
 /* P2 #5: ROI chip mobile — tighter wrap */
 @media(max-width:540px){
-  .area-chips{gap:6px}
-  .area-chip{padding:8px 12px;font-size:12px}
+  .area-chips{gap:8px}
+  .area-chip{padding:11px 14px;font-size:12.5px}
 }
 
 @media(max-width:760px){
   .demos-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .demo-tab-btn{padding:12px 14px;font-size:12px}
-  .carousel-nav{width:40px;height:40px;font-size:18px}
+  .demo-tab-btn{padding:14px 16px;font-size:12.5px}
+  .carousel-nav{width:44px;height:44px;font-size:18px}
   .carousel-nav.prev{left:-8px}
   .carousel-nav.next{right:-8px}
   .intent-grid{grid-template-columns:repeat(3,1fr)}
@@ -2227,10 +2227,11 @@ main,nav,section,footer{position:relative;z-index:2}
   .logo-slogan{display:none}
   /* Tighten nav-right cluster so logo + buttons have breathing room */
   .nav-right{gap:8px;flex-wrap:nowrap}
-  .theme-toggle{width:32px;height:32px}
-  .theme-toggle svg{width:15px;height:15px}
+  /* R20.1: bigger nav tap targets (height-first to avoid row overflow) */
+  .theme-toggle{width:40px;height:40px}
+  .theme-toggle svg{width:17px;height:17px}
   .lang-switch{padding:3px}
-  .lang-switch button{padding:5px 10px;font-size:11px}
+  .lang-switch button{padding:9px 11px;font-size:12px}
   /* Slimmer logo on mobile */
   .logo-block{padding:6px 10px;font-size:14px}
   .logo-name{font-size:15px}
@@ -2246,6 +2247,10 @@ main,nav,section,footer{position:relative;z-index:2}
   .logo-name{font-size:13px}
   .logo-sub{display:none}
 }
+/* R20 fix: these mobile rules were leaking to global scope (missing
+   @media wrapper + stray brace), shrinking the workflow diagram and
+   demo-block padding on DESKTOP too. Re-scoped to mobile. */
+@media(max-width:760px){
   .hero{padding:120px 18px 60px}
   .demo-block{padding:24px 18px}
   .wf-grid{grid-template-columns:repeat(5,1fr);gap:6px}
@@ -2562,7 +2567,7 @@ body.no-profile .hero{
 .mobile-sticky-cta .msc-chip{
   flex:1 1 0;
   display:flex;align-items:center;justify-content:center;gap:6px;
-  padding:9px 10px;border-radius:10px;text-decoration:none;color:#fff;
+  padding:12px 10px;min-height:44px;border-radius:10px;text-decoration:none;color:#fff;
   font-size:13px;font-weight:700;letter-spacing:.2px;
   transition:transform var(--t-fast),filter var(--t-fast);
   min-width:0;
@@ -2610,7 +2615,7 @@ body.no-profile .hero{
   .demo-end-cta{margin-top:32px}
 }
 @media(max-width:360px){
-  .mobile-sticky-cta .msc-chip{padding:8px 8px;font-size:12px}
+  .mobile-sticky-cta .msc-chip{padding:11px 8px;font-size:12px}
   .mobile-sticky-cta .msc-chip-label{font-size:12px}
 }
 #demos-tabs.collapsed .demo-tab-btn.dim{display:none}
@@ -2761,7 +2766,7 @@ body.no-profile .hero{
   .for-you .fy-card{padding:22px 18px;gap:14px}
   .for-you .fy-ico{font-size:26px;width:50px;height:50px}
   .for-you .fy-trust{gap:8px 10px;margin-top:24px}
-  .for-you .fy-pill{padding:9px 14px;font-size:12.5px}
+  .for-you .fy-pill{padding:12px 16px;font-size:13px}
   .for-you .fy-pill-ico{font-size:14px}
 }
 </style>
@@ -4672,7 +4677,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-26-R19-launch-ready";
+  const CURRENT_BUILD = "2026-05-31-R20.1-mobile-tap";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
