@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R20.2-welcome-cursor -->
+<!-- Deploy build tag: 2026-05-31-R20.3-zh-copy -->
 
 
 <!-- ============== FONTS ============== -->
@@ -3154,7 +3154,7 @@ body.no-profile .back-to-top{display:none !important}
     <div class="pain-personal reveal" id="pain-personal" hidden>
       <div class="eyebrow" data-i18n="pain.peyebrow">為您度身配對</div>
       <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label" data-i18n="pain.industryFallback">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
-      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。</p>
+      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已為您篩選完成。</p>
 
       <div class="pain-tags" id="pain-tags">
         <!-- Filled by JS: list of pain tags user picked -->
@@ -4681,7 +4681,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R20.2-welcome-cursor";
+  const CURRENT_BUILD = "2026-05-31-R20.3-zh-copy";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4845,7 +4845,7 @@ const I18N = {
     "pain.cta":"免費分析我哪些工作可自動化","pain.cta2":"先看互動 Demo ↓",
     "pain.peyebrow":"為您度身配對",
     "pain.ptitle1":"我們已為您針對","pain.ptitle2":"配對方案",
-    "pain.pdesc":"下方 demo 區只顯示對您行業最有用的工具 — 已 filter 完。",
+    "pain.pdesc":"下方 demo 區只顯示對您行業最有用的工具 — 已為您篩選完成。",
     "pain.pcta":"即試方案 Demo","pain.pcta2":"預約免費諮詢",
     "fy.eyebrow":"為您而設","fy.title1":"最適合這類","fy.title2":"業務",
     "fy.sub":"如果您是以下其中一類，自動化系統可以即時為您節省時間與成本。",
@@ -4917,7 +4917,7 @@ const I18N = {
     "welcome.askName":"您的稱呼","welcome.optional":"（選填）",
     "welcome.enter":"進入網站 →","welcome.skip":"跳過 · 查看所有方案 →",
     "welcome.hint":"先選一個行業，AI 即時為您度身打造方案",
-    "welcome.hintReady":"已 match 您行業嘅方案",
+    "welcome.hintReady":"已為您配對好行業方案",
     "welcome.i1":"餐飲","welcome.i2":"零售 / 電商","welcome.i3":"專業服務","welcome.i4":"教育培訓",
     "welcome.i5":"科技 / SaaS","welcome.i6":"醫美 / 健康","welcome.i7":"物流 / 倉儲","welcome.i8":"創意 / 設計",
     "nav.reset":"重新診斷","nav.profileFallback":"行業",
@@ -7006,7 +7006,7 @@ function updateWelcomeEnter(){
   enter.disabled = !ok;
   if(hint){
     if(ok){
-      hint.textContent = I18N[currentLang]["welcome.hintReady"] || "✓ 已 match 您行業的 AI 方案";
+      hint.textContent = I18N[currentLang]["welcome.hintReady"] || "✓ 已為您配對好行業方案";
       hint.classList.add("ready");
     } else {
       hint.textContent = I18N[currentLang]["welcome.hint"] || "先選一個行業，AI 即時為您度身打造方案";
