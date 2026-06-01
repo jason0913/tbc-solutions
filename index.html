@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R22-mobile-ai -->
+<!-- Deploy build tag: 2026-05-31-R23.1-fab-clickthrough -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2561,7 +2561,11 @@ body.no-profile .hero{
   transform:translateY(20px);opacity:0;pointer-events:none;
   transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .3s;
 }
-.mobile-sticky-cta.show{transform:translateY(0);opacity:1;pointer-events:auto}
+.mobile-sticky-cta.show{transform:translateY(0);opacity:1}
+/* R23.1: keep the container click-transparent so its empty/hidden area
+   never blocks the back-to-top button behind it. Only the real buttons
+   capture clicks. */
+.mobile-sticky-cta.show .mfab-main{pointer-events:auto}
 
 /* Expanding action list */
 .mobile-sticky-cta .mfab-actions{
@@ -2642,7 +2646,16 @@ body.no-profile .hero{
 [data-theme="light"] .mai-panel{background:rgba(255,255,255,.99);border-color:rgba(124,92,255,.25)}
 [data-theme="light"] .mai-title{color:#0a0a14}
 [data-theme="light"] .mai-close{background:rgba(0,0,0,.06);color:#0a0a14}
-@media(min-width:781px){.mai-panel{display:none !important}}
+@media(min-width:781px){
+  /* R23 — restrained desktop FAB: bottom-right, stacked above back-to-top.
+     Labels flip to the LEFT of icons so they don't run off-screen. */
+  .mobile-sticky-cta{display:flex;left:auto;right:28px;bottom:28px;align-items:flex-end}
+  .mobile-sticky-cta .mfab-actions{align-items:flex-end}
+  .mobile-sticky-cta .mfab-action{flex-direction:row-reverse}
+  .mobile-sticky-cta .mfab-ico{margin-left:0;margin-right:5px}
+  .back-to-top{bottom:96px}
+  .mai-panel{left:auto;right:28px;bottom:28px;width:380px;max-height:560px}
+}
 @media(max-width:780px){
   .mobile-sticky-cta{display:flex}
   /* Speed-dial FAB floats in the bottom-left corner; only small clearance. */
@@ -4735,7 +4748,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R22-mobile-ai";
+  const CURRENT_BUILD = "2026-05-31-R23.1-fab-clickthrough";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -7242,11 +7255,7 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
 
   let isShown = false;
   function update(){
-    const isMobile = window.matchMedia("(max-width: 780px)").matches;
-    if(!isMobile){
-      if(isShown){ cta.classList.remove("show"); isShown = false; }
-      return;
-    }
+    // R23: show on desktop too (FAB now lives bottom-right on wide screens).
     const scrollY = window.scrollY || window.pageYOffset;
     const hero = document.getElementById("top");
     const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 600;
