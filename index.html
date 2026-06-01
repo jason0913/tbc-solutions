@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R23.1-fab-clickthrough -->
+<!-- Deploy build tag: 2026-05-31-R23.2-fab-separate -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2653,7 +2653,8 @@ body.no-profile .hero{
   .mobile-sticky-cta .mfab-actions{align-items:flex-end}
   .mobile-sticky-cta .mfab-action{flex-direction:row-reverse}
   .mobile-sticky-cta .mfab-ico{margin-left:0;margin-right:5px}
-  .back-to-top{bottom:96px}
+  /* Separate the two: FAB bottom-right, back-to-top bottom-LEFT (opposite corner) */
+  .back-to-top{left:28px;right:auto;bottom:28px}
   .mai-panel{left:auto;right:28px;bottom:28px;width:380px;max-height:560px}
 }
 @media(max-width:780px){
@@ -4748,7 +4749,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R23.1-fab-clickthrough";
+  const CURRENT_BUILD = "2026-05-31-R23.2-fab-separate";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
