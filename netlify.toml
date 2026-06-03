@@ -13,6 +13,38 @@
   status = 200
   force = true
 
+# === Security: never serve internal / sensitive files ================
+[[redirects]]
+  from = "/.env*"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/.git/*"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/*.skill"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/cold-email-tool.html"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/*.bak.*"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/api/claude.js"
+  to = "/index.html"
+  status = 404
+  force = true
+
 # === Cache-busting headers ===========================================
 # HTML pages must never be cached by the browser/CDN so users always
 # pick up the latest deploy. (Assets can keep default caching.)

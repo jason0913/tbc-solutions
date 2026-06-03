@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R25.1-chatgpt-logo -->
+<!-- Deploy build tag: 2026-05-31-R26.1-claims-backend -->
 
 
 <!-- ============== FONTS ============== -->
@@ -301,8 +301,12 @@ main,nav,section,footer{position:relative;z-index:2}
 }
 @keyframes fall{0%{transform:translateY(-10px);opacity:.2}50%{opacity:1}100%{transform:translateY(10px);opacity:.2}}
 
+/* R26: mobile overflow guard — html clip + responsive glow width.
+   .hero-glow was a fixed 700px circle that pushed page scrollWidth past
+   the viewport on phones (horizontal scroll). Now capped to the viewport. */
+html{overflow-x:hidden}
 .hero-glow{
-  position:absolute;width:700px;height:700px;border-radius:50%;
+  position:absolute;width:min(700px,92vw);height:min(700px,92vw);border-radius:50%;
   background:radial-gradient(circle,rgba(124,92,255,.35),transparent 60%);
   filter:blur(40px);top:-100px;left:50%;transform:translateX(-50%);z-index:-1;
   animation:pulse 8s ease-in-out infinite;pointer-events:none;
@@ -3150,11 +3154,11 @@ body.no-profile .back-to-top{display:none !important}
   <div class="livestats-strip reveal">
     <div class="ls-tile">
       <span class="ls-val" data-i18n="ls.v1">47<span class="ls-unit" data-i18n="ls.u1">個</span></span>
-      <span class="ls-label" data-i18n="ls.l1">已部署 workflow</span>
+      <span class="ls-label" data-i18n="ls.l1">自動化 workflow 模組</span>
     </div>
     <div class="ls-tile">
       <span class="ls-val" data-i18n="ls.v2">380<span class="ls-unit" data-i18n="ls.u2">小時 / 月</span></span>
-      <span class="ls-label" data-i18n="ls.l2">客戶累計節省工時</span>
+      <span class="ls-label" data-i18n="ls.l2">預估每月可節省工時</span>
     </div>
     <div class="ls-tile">
       <span class="ls-val" data-i18n="ls.v3">8<span class="ls-unit" data-i18n="ls.u3">秒</span></span>
@@ -3165,7 +3169,7 @@ body.no-profile .back-to-top{display:none !important}
       <span class="ls-label" data-i18n="ls.l4">重複工作自動化處理率</span>
     </div>
   </div>
-  <div class="ls-foot" data-i18n="ls.foot">* 內部現有客戶系統運作中累計數據</div>
+  <div class="ls-foot" data-i18n="ls.foot">* 示意數據:基於同類 AI 自動化專案的預估效益,並非實際客戶累計。</div>
 </section>
 
 <!-- ======================== FOR YOU (merged Trust + Who-For) ======================== -->
@@ -3362,7 +3366,7 @@ body.from-cold-email .nav-profile{display:none !important}
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
       <div class="eyebrow" data-i18n="wf2.eyebrow">真實工作流</div>
       <h2 class="h2"><span data-i18n="wf2.title1">我們實際</span> <span class="gradient-text" data-i18n="wf2.title2">為客戶自動化的流程</span></h2>
-      <p class="muted" data-i18n="wf2.desc">這些不是 Demo — 是我們已為客戶落地的真實自動化流程。每個都可在 2–4 週內接入您的業務。</p>
+      <p class="muted" data-i18n="wf2.desc">這些是我們可為您落地的真實自動化流程示例 — 每個都可在 2–4 週內接入您的業務。</p>
     </div>
     <div class="wf2-grid">
       <div class="wf2-card reveal">
@@ -4767,7 +4771,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R25.1-chatgpt-logo";
+  const CURRENT_BUILD = "2026-05-31-R26.1-claims-backend";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4947,7 +4951,7 @@ const I18N = {
     "demo.cta.book":"預約免費諮詢","demo.cta.wa":"WhatsApp","demo.cta.tg":"Telegram",
     "wf2.eyebrow":"真實工作流",
     "wf2.title1":"我們實際","wf2.title2":"為客戶自動化的流程",
-    "wf2.desc":"這些不是 Demo — 是我們已為客戶落地的真實自動化流程。每個都可在 2–4 週內接入您的業務。",
+    "wf2.desc":"這些是我們可為您落地的真實自動化流程示例 — 每個都可在 2–4 週內接入您的業務。",
     "wf2.c1.title":"預約 · 提醒 · 漏客重訪",
     "wf2.c1.s1":"新預約自動發 WhatsApp 確認訊息",
     "wf2.c1.s2":"前 24 小時自動發送提醒",
@@ -4991,11 +4995,11 @@ const I18N = {
     "rf.desc":"以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。",
     "rf.wa.inputHint":"輸入訊息",
     "rf.caption":"* 上述畫面為示意 mockup — 實際系統會根據您的品牌、流程與 KPI 度身定製。",
-    "ls.v1":"47","ls.u1":"個","ls.l1":"已部署 workflow",
-    "ls.v2":"380","ls.u2":"小時 / 月","ls.l2":"客戶累計節省工時",
+    "ls.v1":"47","ls.u1":"個","ls.l1":"自動化 workflow 模組",
+    "ls.v2":"380","ls.u2":"小時 / 月","ls.l2":"預估每月可節省工時",
     "ls.v3":"8","ls.u3":"秒","ls.l3":"AI 客服平均回應",
     "ls.v4":"84","ls.u4":"%","ls.l4":"重複工作自動化處理率",
-    "ls.foot":"* 內部現有客戶系統運作中累計數據",
+    "ls.foot":"* 示意數據:基於同類 AI 自動化專案的預估效益,並非實際客戶累計。",
     "msc.text":"免費 30 分鐘 automation 檢查",
     "msc.wa":"WhatsApp","msc.waSub":"即時對話，1 分鐘回覆","msc.tg":"Telegram",
     "fab.ai":"AI 助手 · 即時解答","fab.aiTitle":"TBC AI 助手","fab.aiBook":"想深入傾？預約免費諮詢 →",
@@ -5193,7 +5197,7 @@ const I18N = {
     "demo.cta.book":"Book Free Consultation","demo.cta.wa":"WhatsApp","demo.cta.tg":"Telegram",
     "wf2.eyebrow":"REAL WORKFLOWS",
     "wf2.title1":"Workflows we've actually","wf2.title2":"automated for clients",
-    "wf2.desc":"Not demos — real automation flows we've shipped for clients. Each one can plug into your business in 2–4 weeks.",
+    "wf2.desc":"Real automation flows we can ship for your business — each plugs in within 2–4 weeks.",
     "wf2.c1.title":"Booking · Reminder · No-show recovery",
     "wf2.c1.s1":"New booking auto-sends a WhatsApp confirmation",
     "wf2.c1.s2":"Reminder fires 24 hours before the appointment",
@@ -5237,11 +5241,11 @@ const I18N = {
     "rf.desc":"Below: the WhatsApp conversations and admin dashboards your clients and team actually see day-to-day (mockup). Each industry is tuned to its real usage scenario.",
     "rf.wa.inputHint":"Type a message",
     "rf.caption":"* These are illustrative mockups — the real system is tailored to your brand, flow and KPIs.",
-    "ls.v1":"47","ls.u1":"deployed","ls.l1":"Workflows in production",
-    "ls.v2":"380","ls.u2":"hrs / month","ls.l2":"Client hours saved (aggregate)",
+    "ls.v1":"47","ls.u1":"built","ls.l1":"Automation workflow modules",
+    "ls.v2":"380","ls.u2":"hrs / month","ls.l2":"Projected monthly hours saved",
     "ls.v3":"8","ls.u3":"sec","ls.l3":"Average AI reply time",
     "ls.v4":"84","ls.u4":"%","ls.l4":"Repetitive work auto-handled",
-    "ls.foot":"* Aggregated across currently running client systems.",
+    "ls.foot":"* Illustrative figures — projected benefits based on comparable automation projects, not actual client totals.",
     "msc.text":"Free 30-min automation audit",
     "msc.wa":"WhatsApp","msc.waSub":"Quick chat, 1-min reply","msc.tg":"Telegram",
     "fab.ai":"AI assistant · instant answers","fab.aiTitle":"TBC AI Assistant","fab.aiBook":"Want to go deeper? Book a free call →",

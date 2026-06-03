@@ -67,7 +67,7 @@ exports.handler = async (event) => {
 
     // Upstream API base URL — change this if you switch providers.
     // Currently using a third-party OpenAI-compatible relay.
-    const UPSTREAM = "https://pandaapi.top/v1/chat/completions";
+    const UPSTREAM = "https://catcats.net/v1/chat/completions";
 
     const upstream = await fetch(UPSTREAM, {
       method: "POST",

@@ -8,3 +8,9 @@ node_modules/
 .idea/
 .vscode/
 tbc-chief-of-staff.skill
+
+# Internal tools & backups — keep out of deploys (security review R26)
+cold-email-tool.html
+index.html.bak.colloquial
+*.bak.*
+*.skill
