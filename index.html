@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R24.1-pain-headline -->
+<!-- Deploy build tag: 2026-05-31-R24.4-pain-short-title -->
 
 
 <!-- ============== FONTS ============== -->
@@ -4765,7 +4765,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R24.1-pain-headline";
+  const CURRENT_BUILD = "2026-05-31-R24.4-pain-short-title";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -6622,6 +6622,32 @@ const INDUSTRY_PAIN = {
   },
 };
 
+/* R24.4 — punchy SHORT pain for the H1 headline. The long INDUSTRY_PAIN
+   version stays in the pain section. Each splits at its separator so the
+   final clause gets the gradient accent. */
+const INDUSTRY_PAIN_SHORT = {
+  zh: {
+    "餐飲":   "訂位回不完、跟進漏單？",
+    "零售":   "客服爆量、文案寫不完？",
+    "專業服務":"Lead 跟進慢、報表佔時間？",
+    "教育":   "試堂跟進慢、家長回不完？",
+    "科技":   "Ticket 堆積、報表佔工時？",
+    "醫美":   "No-show 多、重訪跟不到？",
+    "物流":   "庫存對不準、查詢回不完？",
+    "創意":   "提案石沉、改稿回不完？",
+  },
+  en: {
+    "餐飲":   "Bookings pile up, follow-ups slip?",
+    "零售":   "Support floods in, copy never ends?",
+    "專業服務":"Leads go cold, reports eat your time?",
+    "教育":   "Trials slip away, parents unanswered?",
+    "科技":   "Tickets pile up, reports eat dev time?",
+    "醫美":   "No-shows mount, no rebooking?",
+    "物流":   "Stock off, tracking queries pile up?",
+    "創意":   "Pitches go silent, revisions endless?",
+  },
+};
+
 // Pain → demo idx — tight mapping (only highly relevant demos per pain)
 const PAIN_DEMO_MAP = {
   "follow-up": [5],         // Demo 6 sales follow-up
@@ -6720,7 +6746,7 @@ function applyProfile(profile){
     // the industry pain hook; the industry tag drops down to the small eyebrow;
     // the capability summary is already covered by the descriptor below.
     const heroMap  = INDUSTRY_HERO[currentLang] || INDUSTRY_HERO.zh;
-    const painMap  = INDUSTRY_PAIN[currentLang] || INDUSTRY_PAIN.zh;
+    const painMap  = INDUSTRY_PAIN_SHORT[currentLang] || INDUSTRY_PAIN_SHORT.zh;
     const indTag   = (heroMap[profile.industry] || [])[0] || "";
     const painLine = painMap[profile.industry] || "";
     const heroEyebrowEl = document.getElementById("hero-eyebrow");
@@ -6731,10 +6757,10 @@ function applyProfile(profile){
     if(titleEl && painLine){
       // Highlight the final clause (the consequence) with the gradient accent.
       let lead = painLine, accent = "", idx = -1;
-      ["，","、","—"].forEach(sp => { const i = painLine.lastIndexOf(sp); if(i > idx) idx = i; });
+      ["，",",","；",";","、","—"].forEach(sp => { const i = painLine.lastIndexOf(sp); if(i > idx) idx = i; });
       if(idx > 0 && idx < painLine.length - 1){
-        lead   = painLine.slice(0, idx).replace(/[，、—\s]+$/,"").trim();
-        accent = painLine.slice(idx + 1).replace(/^[，、—\s]+/,"").trim();
+        lead   = painLine.slice(0, idx).replace(/[，,；;、—\s]+$/,"").trim();
+        accent = painLine.slice(idx + 1).replace(/^[，,；;、—\s]+/,"").trim();
       }
       titleEl.innerHTML = accent
         ? `<span class="word"><span>${lead}</span></span> <span class="word"><span class="gradient-text">${accent}</span></span>`
