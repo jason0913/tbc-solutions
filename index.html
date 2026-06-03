@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R26.1-claims-backend -->
+<!-- Deploy build tag: 2026-05-31-R27-qa-fixes -->
 
 
 <!-- ============== FONTS ============== -->
@@ -60,7 +60,6 @@ body{
   font-family:'Syne','Noto Sans TC',system-ui,-apple-system,sans-serif;
   background:var(--bg);
   color:var(--text);
-  overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   line-height:1.55;
 }
@@ -165,7 +164,7 @@ main,nav,section,footer{position:relative;z-index:2}
   padding:4px;background:rgba(255,255,255,.03);
 }
 .lang-switch button{
-  padding:6px 12px;font-size:12px;font-weight:600;letter-spacing:.05em;
+  white-space:nowrap;padding:6px 12px;font-size:12px;font-weight:600;letter-spacing:.05em;
   color:var(--text-dim);border-radius:999px;transition:all var(--t-fast);
 }
 .lang-switch button.active{background:var(--grad);color:#fff;box-shadow:0 4px 18px rgba(124,92,255,.4)}
@@ -4773,7 +4772,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R26.1-claims-backend";
+  const CURRENT_BUILD = "2026-05-31-R27-qa-fixes";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -7037,6 +7036,12 @@ function renumberDemoTabsSequential(){
     }
     seq += 1;
     numEl.textContent = String(seq).padStart(2,"0");
+    const slide = document.querySelector(`.demo-slide[data-slide-idx="${t.dataset.slide}"]`);
+    const tagEl = slide && slide.querySelector(".demo-tag");
+    if(tagEl){
+      if(!slide.dataset.origTag) slide.dataset.origTag = tagEl.textContent;
+      tagEl.textContent = "DEMO " + String(seq).padStart(2,"0");
+    }
   });
 }
 function restoreDemoTabNumbers(){
@@ -7046,6 +7051,10 @@ function restoreDemoTabNumbers(){
     if(t.dataset.origNum){
       numEl.innerHTML = t.dataset.origNum;
     }
+  });
+  document.querySelectorAll(".demo-slide").forEach(s => {
+    const tagEl = s.querySelector(".demo-tag");
+    if(tagEl && s.dataset.origTag) tagEl.textContent = s.dataset.origTag;
   });
 }
 
@@ -7249,7 +7258,7 @@ function submitWelcome(){
   let ticking = false;
   const update = () => {
     ticking = false;
-    btn.classList.toggle("show", window.scrollY > threshold);
+    btn.classList.toggle("show", (window.scrollY||document.documentElement.scrollTop||document.body.scrollTop) > threshold);
   };
   window.addEventListener("scroll", () => {
     if(!ticking){
@@ -7363,7 +7372,7 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
   let isShown = false;
   function update(){
     // R23: show on desktop too (FAB now lives bottom-right on wide screens).
-    const scrollY = window.scrollY || window.pageYOffset;
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const hero = document.getElementById("top");
     const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 600;
     const book = document.getElementById("book");
@@ -7841,6 +7850,26 @@ function buildMarquee(){
     });
   }, {threshold:.4});
   document.querySelectorAll(".stat-big").forEach(el=>io.observe(el));
+  // R27 fallback: KPI numbers must never stay stuck at 0 even if the
+  // observer never fires (unusual scroll container, fast load, etc.).
+  function kick(){
+    document.querySelectorAll(".stat-big").forEach(el=>{
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if(r.top < vh*0.92 && r.bottom > 0){
+        const n = el.querySelector("[data-target]"), n2 = el.querySelector("[data-target-2]");
+        if(n && !n.dataset.done){ n.dataset.done="1"; animate(n, +n.dataset.target); }
+        if(n2 && !n2.dataset.done){ n2.dataset.done="1"; animate(n2, +n2.getAttribute("data-target-2")); }
+      }
+    });
+  }
+  window.addEventListener("load", kick, {passive:true});
+  window.addEventListener("scroll", kick, {passive:true});
+  setTimeout(kick, 800);
+  setTimeout(()=>{
+    document.querySelectorAll(".stat-big [data-target]").forEach(n=>{ if(!n.dataset.done){ n.dataset.done="1"; n.textContent=String(n.getAttribute("data-target")); }});
+    document.querySelectorAll(".stat-big [data-target-2]").forEach(n=>{ if(!n.dataset.done){ n.dataset.done="1"; n.textContent=String(n.getAttribute("data-target-2")); }});
+  }, 2600);
 })();
 
 /* ============== FAQ ACCORDION ============== */
@@ -7977,7 +8006,7 @@ function buildMarquee(){
 
 /* ============== NAV SCROLLED ============== */
 window.addEventListener("scroll", ()=>{
-  document.getElementById("nav").classList.toggle("scrolled", window.scrollY > 30);
+  document.getElementById("nav").classList.toggle("scrolled", (window.scrollY||document.documentElement.scrollTop||document.body.scrollTop) > 30);
 });
 
 /* ============== SERVICE CARD MOUSE GLOW ============== */
