@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R23.2-fab-separate -->
+<!-- Deploy build tag: 2026-05-31-R24-industry-pain -->
 
 
 <!-- ============== FONTS ============== -->
@@ -266,6 +266,21 @@ main,nav,section,footer{position:relative;z-index:2}
 [data-theme="light"] .hero-descriptor{
   background:linear-gradient(120deg,#0a0a14 0%,rgba(26,26,38,.78) 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+/* R24: industry pain hook — first-glance empathy line above the hero title */
+.hero-pain{
+  display:inline-block;margin:14px auto 0;max-width:680px;
+  font-size:clamp(13.5px,1.4vw,16px);font-weight:600;line-height:1.5;color:var(--text);
+  background:rgba(124,92,255,.10);border:1px solid rgba(124,92,255,.28);
+  padding:9px 18px;border-radius:999px;
+}
+.hero-pain[hidden]{display:none}
+[data-theme="light"] .hero-pain{background:rgba(124,92,255,.07);border-color:rgba(124,92,255,.2)}
+/* R24: felt pain statement leading the personalised pain section */
+.pain-lead{
+  flex:0 0 100%;
+  font-size:clamp(16px,2vw,20px);font-weight:700;line-height:1.5;color:var(--text);
+  max-width:780px;margin:0 auto 6px;
 }
 .hero-sub{
   margin-top:18px;font-size:clamp(16px,1.4vw,20px);color:var(--text-dim);
@@ -3062,7 +3077,8 @@ body.no-profile .back-to-top{display:none !important}
   </div>
 
   <div class="hero-inner">
-    <div class="eyebrow reveal" data-i18n="hero.eyebrow">自動化 · 預約 · 跟進</div>
+    <div class="eyebrow reveal" id="hero-eyebrow" data-i18n="hero.eyebrow">自動化 · 預約 · 跟進</div>
+    <div class="hero-pain reveal" id="hero-pain" hidden></div>
     <h1 class="h1" id="hero-title" style="margin-top:18px">
       <!-- words injected by JS for animation -->
     </h1>
@@ -4749,7 +4765,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R23.2-fab-separate";
+  const CURRENT_BUILD = "2026-05-31-R24-industry-pain";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -6580,6 +6596,32 @@ const INDUSTRY_DESCRIPTOR = {
   },
 };
 
+/* R24 — industry-specific PAIN hooks (Frank feedback: pages led with
+   "what we do" not "we understand your pain"). One visceral, "you"-framed
+   pain line per industry, shown as the hero eyebrow + pain-section lead. */
+const INDUSTRY_PAIN = {
+  zh: {
+    "餐飲":   "繁忙時段訂位訊息覆不完、跟進漏單，一忙起來就流失客人？",
+    "零售":   "客服訊息堆積、商品文案寫不完、差評沒人即時回 —— 人手永遠不夠？",
+    "專業服務":"Lead 跟進慢一步就被對手搶走、會議紀要與報表佔走您最值錢的時間？",
+    "教育":   "試堂後沒人跟進就流失、家長訊息回不完、教材永遠趕不及？",
+    "科技":   "Support ticket 堆積、用戶 onboarding 跟不上、每週報表佔走工程時間？",
+    "醫美":   "客人 no-show 又不重訪、療程後沒人跟進、負評影響預約？",
+    "物流":   "庫存對不準、調貨靠人腦、客戶查物流的訊息回不完？",
+    "創意":   "提案發出後石沉大海、客戶改稿訊息回不完、社交內容永遠欠交？",
+  },
+  en: {
+    "餐飲":   "Reservation messages piling up, follow-ups slipping, customers lost in the rush?",
+    "零售":   "Support backlog, endless product copy, bad reviews unanswered — never enough hands?",
+    "專業服務":"A slow lead follow-up loses the deal; notes and reports eat your most valuable hours?",
+    "教育":   "Trial students lost without follow-up, parent messages unanswered, content always behind?",
+    "科技":   "Support tickets piling up, onboarding slipping, weekly reports eating engineering time?",
+    "醫美":   "No-shows that never rebook, no post-treatment follow-up, bad reviews hurting bookings?",
+    "物流":   "Stock counts off, routing done by hand, customer tracking queries unanswered?",
+    "創意":   "Pitches that go silent, endless revision messages, social content always overdue?",
+  },
+};
+
 // Pain → demo idx — tight mapping (only highly relevant demos per pain)
 const PAIN_DEMO_MAP = {
   "follow-up": [5],         // Demo 6 sales follow-up
@@ -6690,6 +6732,14 @@ function applyProfile(profile){
         }
       }
     }
+    // 2a0) Hero pain eyebrow — first-glance empathy line (Frank feedback)
+    const heroPainMap = INDUSTRY_PAIN[currentLang] || INDUSTRY_PAIN.zh;
+    const heroPainEl = document.getElementById("hero-pain");
+    const heroEyebrowEl = document.getElementById("hero-eyebrow");
+    if(heroPainEl){
+      const ph = heroPainMap[profile.industry];
+      if(ph){ heroPainEl.textContent = ph; heroPainEl.hidden = false; if(heroEyebrowEl) heroEyebrowEl.hidden = true; }
+    }
     // 2a) Hero descriptor — industry-specific pain-point lead paragraph
     applyHeroDescriptorForIndustry(profile.industry);
     // 2b) Real Workflows + Before-After — swap to vertical-specific narrative
@@ -6763,9 +6813,12 @@ function applyPainForProfile(profile){
   // Render pain tags
   if(tagsRoot){
     const labels = currentLang === "zh" ? PAIN_LABEL_ZH : PAIN_LABEL_EN;
-    tagsRoot.innerHTML = pains.map(p => `
+    const painMap = INDUSTRY_PAIN[currentLang] || INDUSTRY_PAIN.zh;
+    const lead = profile.industry ? (painMap[profile.industry] || "") : "";
+    const tagsHtml = pains.map(p => `
       <div class="pain-tag"><span class="ic">${PAIN_ICO[p] || "✓"}</span><span>${labels[p] || p}</span></div>
     `).join("");
+    tagsRoot.innerHTML = (lead ? `<div class="pain-lead">${lead}</div>` : "") + tagsHtml;
   }
 }
 function resetPainFromProfile(){
@@ -6784,6 +6837,11 @@ function resetHeroFromI18N(){
     const dict = I18N[currentLang] || I18N.zh;
     descEl.textContent = dict["hero.descriptor"] || descEl.textContent;
   }
+  // Restore default eyebrow, hide the industry pain hook
+  const heroPainEl = document.getElementById("hero-pain");
+  if(heroPainEl){ heroPainEl.hidden = true; heroPainEl.textContent = ""; }
+  const heroEyebrowEl = document.getElementById("hero-eyebrow");
+  if(heroEyebrowEl) heroEyebrowEl.hidden = false;
 }
 
 function applyHeroDescriptorForIndustry(industry){
