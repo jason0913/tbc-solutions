@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R24-industry-pain -->
+<!-- Deploy build tag: 2026-05-31-R24.1-pain-headline -->
 
 
 <!-- ============== FONTS ============== -->
@@ -4765,7 +4765,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R24-industry-pain";
+  const CURRENT_BUILD = "2026-05-31-R24.1-pain-headline";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -6716,31 +6716,36 @@ function applyProfile(profile){
 
   // 2) Hero copy — industry-specific title
   if(profile.industry){
-    const map = INDUSTRY_HERO[currentLang] || INDUSTRY_HERO.zh;
-    const words = map[profile.industry];
-    if(words){
-      const titleEl = document.getElementById("hero-title");
-      if(titleEl){
-        titleEl.innerHTML = words.map((w,i) => {
-          const cls = i === 1 ? "gradient-text" : "";
-          return `<span class="word"><span class="${cls}">${w}</span></span>`;
-        }).join(" ");
-        if(window.gsap){
-          gsap.fromTo("#hero-title .word > span",
-            {y:"100%",opacity:0,rotate:6},
-            {y:"0%",opacity:1,rotate:0,duration:.7,stagger:.06,ease:"power3.out"});
-        }
+    // 2a) Hero — PAIN-FIRST headline (Frank feedback): the H1 itself becomes
+    // the industry pain hook; the industry tag drops down to the small eyebrow;
+    // the capability summary is already covered by the descriptor below.
+    const heroMap  = INDUSTRY_HERO[currentLang] || INDUSTRY_HERO.zh;
+    const painMap  = INDUSTRY_PAIN[currentLang] || INDUSTRY_PAIN.zh;
+    const indTag   = (heroMap[profile.industry] || [])[0] || "";
+    const painLine = painMap[profile.industry] || "";
+    const heroEyebrowEl = document.getElementById("hero-eyebrow");
+    if(heroEyebrowEl && indTag){ heroEyebrowEl.hidden = false; heroEyebrowEl.textContent = indTag; }
+    const heroPainEl = document.getElementById("hero-pain");
+    if(heroPainEl){ heroPainEl.hidden = true; }  // pain now lives in the H1
+    const titleEl = document.getElementById("hero-title");
+    if(titleEl && painLine){
+      // Highlight the final clause (the consequence) with the gradient accent.
+      let lead = painLine, accent = "", idx = -1;
+      ["，","、","—"].forEach(sp => { const i = painLine.lastIndexOf(sp); if(i > idx) idx = i; });
+      if(idx > 0 && idx < painLine.length - 1){
+        lead   = painLine.slice(0, idx).replace(/[，、—\s]+$/,"").trim();
+        accent = painLine.slice(idx + 1).replace(/^[，、—\s]+/,"").trim();
+      }
+      titleEl.innerHTML = accent
+        ? `<span class="word"><span>${lead}</span></span> <span class="word"><span class="gradient-text">${accent}</span></span>`
+        : `<span class="word"><span>${lead}</span></span>`;
+      if(window.gsap){
+        gsap.fromTo("#hero-title .word > span",
+          {y:"100%",opacity:0,rotate:6},
+          {y:"0%",opacity:1,rotate:0,duration:.7,stagger:.06,ease:"power3.out"});
       }
     }
-    // 2a0) Hero pain eyebrow — first-glance empathy line (Frank feedback)
-    const heroPainMap = INDUSTRY_PAIN[currentLang] || INDUSTRY_PAIN.zh;
-    const heroPainEl = document.getElementById("hero-pain");
-    const heroEyebrowEl = document.getElementById("hero-eyebrow");
-    if(heroPainEl){
-      const ph = heroPainMap[profile.industry];
-      if(ph){ heroPainEl.textContent = ph; heroPainEl.hidden = false; if(heroEyebrowEl) heroEyebrowEl.hidden = true; }
-    }
-    // 2a) Hero descriptor — industry-specific pain-point lead paragraph
+    // 2a2) Hero descriptor — industry-specific solution paragraph
     applyHeroDescriptorForIndustry(profile.industry);
     // 2b) Real Workflows + Before-After — swap to vertical-specific narrative
     //     (addresses brief #2 root cause: "all verticals sharing the same
@@ -6837,11 +6842,15 @@ function resetHeroFromI18N(){
     const dict = I18N[currentLang] || I18N.zh;
     descEl.textContent = dict["hero.descriptor"] || descEl.textContent;
   }
-  // Restore default eyebrow, hide the industry pain hook
+  // Restore default eyebrow text + hide the (now unused) pain pill
   const heroPainEl = document.getElementById("hero-pain");
   if(heroPainEl){ heroPainEl.hidden = true; heroPainEl.textContent = ""; }
   const heroEyebrowEl = document.getElementById("hero-eyebrow");
-  if(heroEyebrowEl) heroEyebrowEl.hidden = false;
+  if(heroEyebrowEl){
+    heroEyebrowEl.hidden = false;
+    const dict = I18N[currentLang] || I18N.zh;
+    heroEyebrowEl.textContent = dict["hero.eyebrow"] || heroEyebrowEl.textContent;
+  }
 }
 
 function applyHeroDescriptorForIndustry(industry){
