@@ -48,9 +48,10 @@ exports.handler = async (event) => {
     const {
       system,
       messages = [],
-      model = "claude-sonnet-4-6",
+      model: requestedModel,
       max_tokens = 600,
     } = body;
+    const model = process.env.CLAUDE_MODEL || requestedModel || "claude-sonnet-4-6";
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return {
@@ -65,7 +66,7 @@ exports.handler = async (event) => {
       ? [{ role: "system", content: system }, ...messages]
       : messages;
 
-    // Upstream API base URL — change this if you switch providers.
+    // Upstream API base URL and model are controlled server-side.
     // Currently using a third-party OpenAI-compatible relay.
     const UPSTREAM = "https://catcats.net/v1/chat/completions";
 

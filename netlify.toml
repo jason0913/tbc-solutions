@@ -2,8 +2,10 @@
 # https://docs.netlify.com/configure-builds/file-based-configuration/
 
 [build]
-  publish = "."
+  command = "node scripts/build-deploy.js"
+  publish = "dist"
   functions = "netlify/functions"
+
 
 # Keep the frontend's existing /api/claude URL working on Netlify
 # by transparently rewriting it to the Netlify Functions path.

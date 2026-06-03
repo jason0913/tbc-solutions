@@ -14,3 +14,4 @@ cold-email-tool.html
 index.html.bak.colloquial
 *.bak.*
 *.skill
+dist/

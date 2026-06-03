@@ -30,9 +30,10 @@ module.exports = async function handler(req, res) {
     const {
       system,
       messages = [],
-      model = "claude-sonnet-4-6",
+      model: requestedModel,
       max_tokens = 600,
     } = req.body || {};
+    const model = process.env.CLAUDE_MODEL || requestedModel || "claude-sonnet-4-6";
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: "Field 'messages' is required (non-empty array)." });
@@ -43,7 +44,7 @@ module.exports = async function handler(req, res) {
       ? [{ role: "system", content: system }, ...messages]
       : messages;
 
-    // Upstream API base URL — change this if you switch providers.
+    // Upstream API base URL and model are controlled server-side.
     const UPSTREAM = "https://catcats.net/v1/chat/completions";
 
     const upstream = await fetch(UPSTREAM, {

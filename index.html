@@ -8,6 +8,8 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <title>TBC Solutions — Transform · Build · Create</title>
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
@@ -4835,7 +4837,7 @@ body.from-cold-email .nav-profile{display:none !important}
    API Key 設在 Vercel 環境變數 CLAUDE_API_KEY，前端看不到。
    ================================================================= */
 const CLAUDE_ENDPOINT = "/api/claude";               // serverless function (works on Netlify and Vercel)
-const CLAUDE_MODEL    = "claude-sonnet-4-6"; // 最新 Claude Sonnet
+const CLAUDE_MODEL    = ""; // Optional frontend override; leave blank so backend CLAUDE_MODEL env decides.
 const CAL_LINK        = "https://cal.com/grouper-shek/30min";
 
 /* ============== i18n ============== */
@@ -10195,14 +10197,15 @@ Available AI solutions (demo_ref maps to demo number):
    API Key 由後端持有，前端無法看到。
    =========================================================== */
 async function callClaude({system, messages}){
+  const payload = {
+    system,
+    messages: messages.map(m=>({role:m.role, content:m.content})),
+  };
+  if(CLAUDE_MODEL) payload.model = CLAUDE_MODEL;
   const res = await fetch(CLAUDE_ENDPOINT, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      model: CLAUDE_MODEL,
-      system,
-      messages: messages.map(m=>({role:m.role, content:m.content})),
-    }),
+    body: JSON.stringify(payload),
   });
   const data = await res.json().catch(()=>({error:"Invalid JSON from /api/claude"}));
   if(!res.ok){
