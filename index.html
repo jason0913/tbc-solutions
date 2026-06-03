@@ -11,7 +11,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R24.4-pain-short-title -->
+<!-- Deploy build tag: 2026-05-31-R24.5-pain-lead-layout -->
 
 
 <!-- ============== FONTS ============== -->
@@ -278,10 +278,10 @@ main,nav,section,footer{position:relative;z-index:2}
 [data-theme="light"] .hero-pain{background:rgba(124,92,255,.07);border-color:rgba(124,92,255,.2)}
 /* R24: felt pain statement leading the personalised pain section */
 .pain-lead{
-  flex:0 0 100%;
   font-size:clamp(16px,2vw,20px);font-weight:700;line-height:1.5;color:var(--text);
-  max-width:780px;margin:0 auto 6px;
+  max-width:780px;margin:0 auto 18px;
 }
+.pain-lead[hidden]{display:none}
 .hero-sub{
   margin-top:18px;font-size:clamp(16px,1.4vw,20px);color:var(--text-dim);
   min-height:32px;font-weight:400;letter-spacing:.02em;
@@ -3240,6 +3240,8 @@ body.no-profile .back-to-top{display:none !important}
       <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label" data-i18n="pain.industryFallback">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
       <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已為您篩選完成。</p>
 
+      <div class="pain-lead" id="pain-lead" hidden></div>
+
       <div class="pain-tags" id="pain-tags">
         <!-- Filled by JS: list of pain tags user picked -->
       </div>
@@ -4765,7 +4767,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R24.4-pain-short-title";
+  const CURRENT_BUILD = "2026-05-31-R24.5-pain-lead-layout";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -6842,14 +6844,19 @@ function applyPainForProfile(profile){
       : (currentLang === "zh" ? "您的業務" : "your business");
   }
   // Render pain tags
-  if(tagsRoot){
-    const labels = currentLang === "zh" ? PAIN_LABEL_ZH : PAIN_LABEL_EN;
+  // Felt pain statement (long version) leads the section as its own block
+  const leadEl = document.getElementById("pain-lead");
+  if(leadEl){
     const painMap = INDUSTRY_PAIN[currentLang] || INDUSTRY_PAIN.zh;
     const lead = profile.industry ? (painMap[profile.industry] || "") : "";
-    const tagsHtml = pains.map(p => `
+    leadEl.textContent = lead;
+    leadEl.hidden = !lead;
+  }
+  if(tagsRoot){
+    const labels = currentLang === "zh" ? PAIN_LABEL_ZH : PAIN_LABEL_EN;
+    tagsRoot.innerHTML = pains.map(p => `
       <div class="pain-tag"><span class="ic">${PAIN_ICO[p] || "✓"}</span><span>${labels[p] || p}</span></div>
     `).join("");
-    tagsRoot.innerHTML = (lead ? `<div class="pain-lead">${lead}</div>` : "") + tagsHtml;
   }
 }
 function resetPainFromProfile(){
