@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R27.1-email-unify -->
+<!-- Deploy build tag: 2026-05-31-R28-trust-copy -->
 
 
 <!-- ============== FONTS ============== -->
@@ -3648,9 +3648,9 @@ body.from-cold-email .nav-profile{display:none !important}
 <section class="section realfeel-section" id="real-feel" aria-label="Real-feel mockups">
   <div class="container">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" data-i18n="rf.eyebrow">客戶實況</div>
-      <h2 class="h2"><span data-i18n="rf.title1">不是 demo —</span> <span class="gradient-text" data-i18n="rf.title2">客戶真實畫面</span></h2>
-      <p class="muted" data-i18n="rf.desc">以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。</p>
+      <div class="eyebrow" data-i18n="rf.eyebrow">交付後畫面</div>
+      <h2 class="h2"><span data-i18n="rf.title1">交付後 ·</span> <span class="gradient-text" data-i18n="rf.title2">客戶會見到的系統形式</span></h2>
+      <p class="muted" data-i18n="rf.desc">以下為交付後客戶每日會見到的 WhatsApp 對話與後台儀表板形式（示意 mockup）。每個行業會根據實際使用情境定制。</p>
     </div>
     <div class="rf-grid">
       <!-- WhatsApp phone mockup -->
@@ -4655,12 +4655,12 @@ body.from-cold-email .nav-profile{display:none !important}
 
       <div class="faq-item">
         <button class="faq-q"><span class="q-text" data-i18n="faq.q7">如果做完沒效果怎麼辦？</span><span class="ic">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a7">我們每個 project 在 kickoff 時都會釐清成功指標（例如：每月節省 X 小時、回覆速度提升 Y%、訂單轉換率上升 Z%）。如果交付的系統未達標，我們會免費修正直至達標。我們對自己的 deliverables 有信心。</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a7">我們每個 project 在 kickoff 時都會釐清成功指標（例如：每月節省 X 小時、回覆速度提升 Y%、訂單轉換率上升 Z%）。如果交付的系統未達到雙方在 kickoff 共同定義的 scope 與 KPI，我們會在約定的修正期內免費調整。我們對自己的 deliverables 有信心。</div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q"><span class="q-text" data-i18n="faq.q8">適合哪些行業？</span><span class="ic">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a8">我們合作過的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a8">我們已設計方案、可服務的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。</div></div>
       </div>
 
       <div class="faq-item">
@@ -4724,10 +4724,9 @@ body.from-cold-email .nav-profile{display:none !important}
       ></iframe>
 
       <div class="book-fallback" id="book-fallback">
-        <p data-i18n="book.fallback1" style="font-size:15px;color:var(--text)">Cal.com 預約 widget 預留位置</p>
-        <p style="margin-top:14px" data-i18n="book.fallback2">請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：</p>
-        <code>https://cal.com/your-handle/30min</code>
-        <p style="margin-top:18px;font-size:13px" data-i18n="book.fallback3">或可直接點擊下方按鈕傳送 Email：</p>
+        <p data-i18n="book.fallback1" style="font-size:15px;color:var(--text)">預約日曆暫時未能載入</p>
+        <p style="margin-top:14px" data-i18n="book.fallback2">請改用 WhatsApp 或 Email 直接聯絡我們，我們會盡快回覆。</p>
+        <p style="margin-top:18px;font-size:13px" data-i18n="book.fallback3">直接傳送 Email：</p>
         <a class="btn btn-primary" style="margin-top:14px" href="mailto:shek0913@tbchk.com">shek0913@tbchk.com</a>
       </div>
     </div>
@@ -4772,7 +4771,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R27.1-email-unify";
+  const CURRENT_BUILD = "2026-05-31-R28-trust-copy";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -4991,9 +4990,9 @@ const I18N = {
     "ba.as5":"系統已自動整理今日報表",
     "ba.as6":"準時下班",
     "ba.aTotalLabel":"回到真正帶來收入的工作","ba.aTotalNum":"+4 小時",
-    "rf.eyebrow":"客戶實況",
-    "rf.title1":"不是 demo —","rf.title2":"客戶真實畫面",
-    "rf.desc":"以下為客戶實際每日見到的 WhatsApp 對話與後台儀表板示意圖（mockup）。每個行業會根據實際使用情境定制。",
+    "rf.eyebrow":"交付後畫面",
+    "rf.title1":"交付後 ·","rf.title2":"客戶會見到的系統形式",
+    "rf.desc":"以下為交付後客戶每日會見到的 WhatsApp 對話與後台儀表板形式（示意 mockup）。每個行業會根據實際使用情境定制。",
     "rf.wa.inputHint":"輸入訊息",
     "rf.caption":"* 上述畫面為示意 mockup — 實際系統會根據您的品牌、流程與 KPI 度身定製。",
     "ls.v1":"47","ls.u1":"個","ls.l1":"自動化 workflow 模組",
@@ -5072,9 +5071,9 @@ const I18N = {
     "faq.q6":"完成後我自己可以維護嗎？",
     "faq.a6":"可以。我們會做完整文件 + handover 培訓 — 將所有登入資料、流程圖、運作邏輯、操作 SOP 都交給您。如果您之後想我們繼續支援，可以選月度 maintenance plan（小事優先處理 + 系統健康監察），或者按次叫 support。",
     "faq.q7":"如果做完沒效果怎麼辦？",
-    "faq.a7":"我們每個 project 在 kickoff 時都會釐清成功指標（例如：每月節省 X 小時、回覆速度提升 Y%、訂單轉換率上升 Z%）。如果交付的系統未達標，我們會免費修正直至達標。我們對自己的 deliverables 有信心。",
+    "faq.a7":"我們每個 project 在 kickoff 時都會釐清成功指標（例如：每月節省 X 小時、回覆速度提升 Y%、訂單轉換率上升 Z%）。如果交付的系統未達到雙方在 kickoff 共同定義的 scope 與 KPI，我們會在約定的修正期內免費調整。我們對自己的 deliverables 有信心。",
     "faq.q8":"適合哪些行業？",
-    "faq.a8":"我們合作過的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。",
+    "faq.a8":"我們已設計方案、可服務的行業包括：餐飲、零售電商、教育培訓、專業服務（律師 / 會計 / 顧問）、創意工作室、地產、醫美、SaaS 初創。任何有重複性流程、客戶溝通量大、或需要批量產出內容的業務，都是 AI 可以發揮作用的領域。",
     "faq.q9":"如果找不到與我相關的領域呢？",
     "faq.a9":"完全沒問題！這個網站列出的只是常見行業 — AI 自動化的應用範圍其實遠遠不止這幾個。每個業務都有獨特的流程、痛點和自動化機會，最直接的做法是 <a href=\"#book\" class=\"faq-link\">立即預約一個 30 分鐘免費諮詢</a>，我們一起討論您的情況，看看有沒有合作的可能性。即使最後我們認為 AI 對您的公司還未到最佳時機，我們也會誠實告訴您，絕不會 hard sell。",
     "faq.ctaText":"還有其他問題？最快的方法是直接談。",
@@ -5083,9 +5082,9 @@ const I18N = {
     "book.desc":"30 分鐘的免費諮詢，我們會了解您的業務需求，並提供量身訂製的 AI 自動化建議。",
     "book.altText":"或直接電郵聯絡：",
     "book.loading":"正在載入預約日曆 …",
-    "book.fallback1":"Cal.com 預約 widget 預留位置",
-    "book.fallback2":"請在原始碼中找到 <code>YOUR_CAL_LINK_HERE</code> 並換成您的 Cal.com 連結，例如：",
-    "book.fallback3":"或可直接點擊下方按鈕傳送 Email：",
+    "book.fallback1":"預約日曆暫時未能載入",
+    "book.fallback2":"請改用 WhatsApp 或 Email 直接聯絡我們，我們會盡快回覆。",
+    "book.fallback3":"直接傳送 Email：",
   },
   en:{
     "nav.services":"Services","nav.demos":"Demos","nav.impact":"Impact","nav.about":"About","nav.process":"Process","nav.faq":"FAQ","nav.book":"Book",
@@ -5237,9 +5236,9 @@ const I18N = {
     "ba.as5":"System has auto-compiled today's report",
     "ba.as6":"Clock off on time",
     "ba.aTotalLabel":"Back to revenue-driving work","ba.aTotalNum":"+4 hours",
-    "rf.eyebrow":"REAL SCREENS",
-    "rf.title1":"Not a demo —","rf.title2":"what your clients actually see",
-    "rf.desc":"Below: the WhatsApp conversations and admin dashboards your clients and team actually see day-to-day (mockup). Each industry is tuned to its real usage scenario.",
+    "rf.eyebrow":"AFTER DELIVERY",
+    "rf.title1":"After delivery ·","rf.title2":"what your clients will see",
+    "rf.desc":"Below: the form of the WhatsApp conversations and admin dashboards your clients will see after delivery (illustrative mockup). Each industry is tuned to its real usage scenario.",
     "rf.wa.inputHint":"Type a message",
     "rf.caption":"* These are illustrative mockups — the real system is tailored to your brand, flow and KPIs.",
     "ls.v1":"47","ls.u1":"built","ls.l1":"Automation workflow modules",
@@ -5318,20 +5317,20 @@ const I18N = {
     "faq.q6":"Can I maintain it myself after delivery?",
     "faq.a6":"Yes. We provide complete documentation + handover training — credentials, flow diagrams, operational logic, and SOPs all transferred to you. If you'd rather we handle ongoing support, choose a monthly maintenance plan (priority handling + system health monitoring) or pay-as-you-go.",
     "faq.q7":"What if it doesn't work?",
-    "faq.a7":"Every project has clear success metrics defined at kickoff (e.g., X hours saved monthly, Y% faster response, Z% conversion lift). If delivery doesn't meet those metrics, we fix it free until it does. We back our work.",
+    "faq.a7":"Every project has clear success metrics defined at kickoff (e.g., X hours saved monthly, Y% faster response, Z% conversion lift). If delivery doesn't meet the scope and KPIs we agree on at kickoff, we'll make free revisions within the agreed revision period. We back our work.",
     "faq.q9":"My industry isn't on your list. Can you still help?",
     "faq.a9":"Absolutely. The industries we list are just common ones — AI automation goes far beyond. Every business has unique processes, pain points and automation opportunities. The most direct way to find out: <a href=\"#book\" class=\"faq-link\">book a free 30-minute chat</a> and we'll talk through your situation and see if there's a fit. Even if we feel AI isn't the right move for you yet, we'll tell you honestly — no hard sell.",
     "faq.q8":"Which industries do you work with?",
-    "faq.a8":"We've worked across F&B, retail / e-commerce, education, professional services (legal / accounting / consulting), creative studios, real estate, aesthetics, and SaaS startups. Any business with repetitive workflows, high customer-message volume, or content-at-scale needs is a fit for AI.",
+    "faq.a8":"We've designed solutions for F&B, retail / e-commerce, education, professional services (legal / accounting / consulting), creative studios, real estate, aesthetics, and SaaS startups. Any business with repetitive workflows, high customer-message volume, or content-at-scale needs is a fit for AI.",
     "faq.ctaText":"Got more questions? Quickest way is to talk.",
     "faq.ctaBtn":"Free 30-minute consultation →",
     "book.eyebrow":"BOOK A CALL","book.title1":"Ready?","book.title2":"Book a free consultation",
     "book.desc":"A free 30-minute call to understand your needs and propose tailored AI-automation ideas.",
     "book.altText":"Or email directly:",
     "book.loading":"Loading booking calendar …",
-    "book.fallback1":"Cal.com booking widget placeholder",
-    "book.fallback2":"Find <code>YOUR_CAL_LINK_HERE</code> in the source and replace it with your Cal.com link, e.g.:",
-    "book.fallback3":"Or just send us an email:",
+    "book.fallback1":"The booking calendar didn\u2019t load",
+    "book.fallback2":"Please reach us on WhatsApp or email and we\u2019ll get right back to you.",
+    "book.fallback3":"Email us directly:",
   }
 };
 
