@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R28-trust-copy -->
+<!-- Deploy build tag: 2026-05-31-R33.1-livedemo-reset -->
 
 
 <!-- ============== FONTS ============== -->
@@ -123,12 +123,12 @@ body.has-cursor,body.has-cursor *{cursor:none !important}
 #bg-canvas{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(1200px 700px at 80% -10%,rgba(124,92,255,.18),transparent 60%),
-    radial-gradient(900px 600px at -10% 30%,rgba(255,92,177,.12),transparent 60%),
-    radial-gradient(900px 600px at 50% 110%,rgba(92,215,255,.10),transparent 60%),
+    radial-gradient(1200px 700px at 80% -10%,rgba(124,92,255,.10),transparent 60%),
+    radial-gradient(900px 600px at -10% 30%,rgba(255,92,177,.07),transparent 60%),
+    radial-gradient(900px 600px at 50% 110%,rgba(92,215,255,.06),transparent 60%),
     var(--bg);
 }
-#particles{position:fixed;inset:0;z-index:1;pointer-events:none}
+#particles{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.55}
 
 main,nav,section,footer{position:relative;z-index:2}
 
@@ -232,7 +232,7 @@ main,nav,section,footer{position:relative;z-index:2}
   font-size:clamp(32px,4.4vw,56px);line-height:1.05;letter-spacing:-.015em;
 }
 .h3{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(20px,2vw,28px);letter-spacing:-.01em}
-.muted{color:var(--text-dim)}
+.muted{color:var(--text-dim);font-size:15.5px}
 .gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 .btn{
@@ -259,7 +259,7 @@ main,nav,section,footer{position:relative;z-index:2}
 .hero h1 .word{display:inline-block;overflow:hidden;vertical-align:top}
 .hero h1 .word span{display:inline-block;transform:translateY(110%)}
 .hero-descriptor{
-  margin-top:20px;font-size:clamp(15px,1.3vw,18px);font-weight:600;letter-spacing:.01em;
+  margin-top:20px;font-size:clamp(16px,1.45vw,19px);font-weight:600;letter-spacing:.01em;
   color:var(--text);max-width:680px;margin-left:auto;margin-right:auto;line-height:1.5;
   background:linear-gradient(120deg,#fff 0%,rgba(255,255,255,.78) 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -313,6 +313,37 @@ html{overflow-x:hidden}
   animation:pulse 8s ease-in-out infinite;pointer-events:none;
 }
 @keyframes pulse{50%{transform:translate(-50%,40px) scale(1.1);opacity:.7}}
+/* R30: live-experience card right after hero (Frank: demo up top) */
+.livedemo-section{padding:34px clamp(20px,5vw,40px) 6px}
+.livedemo-card{max-width:860px;margin:0 auto;text-align:center;padding:30px clamp(20px,4vw,40px);border-radius:22px;background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(255,71,150,.05));border:1px solid rgba(124,92,255,.28)}
+.livedemo-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.16em;color:#c8b9ff;text-transform:uppercase}
+.livedemo-badge .ld-dot{width:8px;height:8px;border-radius:50%;background:#ff5c8a;box-shadow:0 0 0 0 rgba(255,92,138,.6);animation:ldDot 1.8s ease-out infinite}
+@keyframes ldDot{to{box-shadow:0 0 0 9px rgba(255,92,138,0)}}
+.livedemo-title{font-size:clamp(20px,2.6vw,30px);font-weight:800;line-height:1.3;margin:14px auto 0;max-width:680px;color:var(--text)}
+.livedemo-sub{font-size:15px;color:var(--text-dim);margin:12px auto 0;max-width:560px}
+.livedemo-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:20px auto 0;max-width:640px}
+.ld-chip{padding:11px 16px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(255,255,255,.04);color:var(--text);font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:all var(--t-fast)}
+.ld-chip:hover{background:rgba(124,92,255,.14);border-color:rgba(124,92,255,.5);transform:translateY(-2px)}
+.ld-cta{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:13px 28px;border-radius:999px;background:var(--grad);color:#fff;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;box-shadow:0 12px 30px -8px rgba(124,92,255,.6);transition:transform var(--t-fast)}
+.ld-cta:hover{transform:translateY(-2px)}
+[data-theme="light"] .ld-chip{background:rgba(0,0,0,.03)}
+@media(prefers-reduced-motion:reduce){.livedemo-badge .ld-dot{animation:none}}
+/* R33: low-friction lead-capture band */
+.leadcap-section{padding:44px 0 16px}
+.leadcap-card{max-width:720px;margin:0 auto;text-align:center;padding:34px clamp(20px,4vw,40px);border-radius:22px;background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(92,215,255,.05));border:1px solid rgba(124,92,255,.28)}
+.leadcap-title{font-size:clamp(18px,2.2vw,24px);font-weight:800;line-height:1.35;color:var(--text);max-width:560px;margin:0 auto}
+.leadcap-sub{font-size:14.5px;color:var(--text-dim);margin:12px auto 0}
+.leadcap-form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px auto 0;max-width:520px}
+.leadcap-input{flex:1 1 240px;min-width:0;padding:13px 16px;border-radius:12px;border:1px solid var(--line-strong);background:rgba(255,255,255,.05);color:var(--text);font-size:15px;font-family:inherit}
+.leadcap-input:focus{outline:none;border-color:rgba(124,92,255,.6)}
+.leadcap-btn{padding:13px 22px;border-radius:12px;border:none;background:var(--grad);color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;white-space:nowrap;transition:transform var(--t-fast)}
+.leadcap-btn:hover{transform:translateY(-2px)}
+.leadcap-btn:disabled{opacity:.6;cursor:default}
+.leadcap-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.leadcap-msg{margin-top:14px;font-size:13.5px;font-weight:600}
+.leadcap-msg.ok{color:#7be8a3}
+.leadcap-msg.err{color:#ff9c8a}
+[data-theme="light"] .leadcap-input{background:rgba(0,0,0,.03)}
 
 /* === Hero geometric SVG accent === */
 .hero-shape{
@@ -1799,6 +1830,10 @@ html{overflow-x:hidden}
   transition:transform var(--t-med);
 }
 .founder-card:hover{transform:translateY(-4px) scale(1.01)}
+/* R30: founder photo shown by default (trust in HK/Chinese-speaking markets);
+   hidden by geo for other regions to avoid first-impression bias. */
+body.geo-no-photo .founder-card{display:none}
+body.geo-no-photo .about-grid{grid-template-columns:1fr;max-width:760px;margin-inline:auto}
 .founder-card::before{
   content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(124,92,255,.12) 0%,transparent 35%,transparent 60%,rgba(0,0,0,.85) 100%);
@@ -2504,6 +2539,7 @@ body.no-profile .hero{
 .nav-profile.show{display:inline-flex}
 .nav-profile:hover{border-color:rgba(124,92,255,.55);background:linear-gradient(140deg,rgba(124,92,255,.25),rgba(255,92,177,.15))}
 .nav-profile .np-ico{font-size:13px}
+.nav-profile.browse-pick .np-reset{display:none}
 .nav-profile .np-reset{
   font-size:10.5px;opacity:.7;font-weight:500;
 }
@@ -2611,13 +2647,37 @@ body.no-profile .hero{
 }
 /* Main toggle button */
 .mobile-sticky-cta .mfab-main{
-  width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
-  background:var(--grad);color:#fff;font-size:23px;line-height:1;
+  position:relative;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--grad);color:#fff;font-size:21px;line-height:1;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 12px 32px rgba(124,92,255,.5);
   transition:transform .25s;
 }
 .mobile-sticky-cta .mfab-main:active{transform:scale(.94)}
+/* R29: gentle attention pulse so visitors notice the live AI assistant */
+.mobile-sticky-cta.show:not(.open) .mfab-main::after{
+  content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  box-shadow:0 0 0 0 rgba(124,92,255,.5);animation:mfabPulse 2.6s ease-out infinite;
+}
+@keyframes mfabPulse{to{box-shadow:0 0 0 16px rgba(124,92,255,0)}}
+@media(prefers-reduced-motion:reduce){.mobile-sticky-cta .mfab-main::after{animation:none}}
+/* R32: proactive AI nudge bubble — tells visitors the FAB is a live AI they can ask */
+.mfab-nudge{position:absolute;left:64px;bottom:12px;max-width:60vw;white-space:nowrap;
+  background:rgba(10,10,16,.96);color:#fff;border:1px solid rgba(124,92,255,.38);
+  border-radius:999px;padding:10px 15px;font-size:12.5px;font-weight:600;cursor:pointer;
+  box-shadow:0 10px 26px rgba(0,0,0,.4);pointer-events:auto;
+  opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s}
+.mfab-nudge.show{opacity:1;transform:translateX(0);animation:mfabNudgeBob 2.6s ease-in-out 1.2s infinite}
+@keyframes mfabNudgeBob{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.mfab-nudge::after{content:"";position:absolute;left:-5px;bottom:13px;width:10px;height:10px;background:inherit;border-left:1px solid rgba(124,92,255,.38);border-bottom:1px solid rgba(124,92,255,.38);transform:rotate(45deg)}
+[data-theme="light"] .mfab-nudge{background:rgba(255,255,255,.98);color:#0a0a14}
+@media(min-width:781px){
+  .mfab-nudge{left:auto;right:64px;transform:translateX(8px)}
+  .mfab-nudge.show{transform:translateX(0);animation:mfabNudgeBobR 2.6s ease-in-out 1.2s infinite}
+  @keyframes mfabNudgeBobR{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
+  .mfab-nudge::after{left:auto;right:-5px;border-left:none;border-bottom:none;border-right:1px solid rgba(124,92,255,.38);border-top:1px solid rgba(124,92,255,.38)}
+}
+@media(prefers-reduced-motion:reduce){.mfab-nudge.show{animation:none}}
 .mobile-sticky-cta .mfab-main .mfab-ico-close{display:none}
 .mobile-sticky-cta.open .mfab-main .mfab-ico-open{display:none}
 .mobile-sticky-cta.open .mfab-main .mfab-ico-close{display:inline}
@@ -2680,7 +2740,7 @@ body.no-profile .hero{
 @media(max-width:780px){
   .mobile-sticky-cta{display:flex}
   /* Speed-dial FAB floats in the bottom-left corner; only small clearance. */
-  body{padding-bottom:calc(34px + env(safe-area-inset-bottom))}
+  body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
   /* Pain cards: bump vertical breathing when stacked single-column */
   .pain-grid{gap:14px !important}
   .pain-card{padding:16px 18px;font-size:13.5px}
@@ -2690,7 +2750,7 @@ body.no-profile .hero{
   .demo-end-cta{margin-top:32px}
 }
 @media(max-width:360px){
-  .mobile-sticky-cta .mfab-main{width:52px;height:52px;font-size:21px}
+  .mobile-sticky-cta .mfab-main{width:48px;height:48px;font-size:20px}
   .mobile-sticky-cta .mfab-ico{width:44px;height:44px;font-size:18px}
 }
 #demos-tabs.collapsed .demo-tab-btn.dim{display:none}
@@ -2856,6 +2916,7 @@ body.no-profile .hero{
     <div class="welcome-orb o3"></div>
   </div>
 
+  <button class="welcome-skip" id="welcome-skip" type="button" data-i18n="welcome.skip">跳過 · 查看所有方案 →</button>
   <div class="welcome-inner">
     <!-- Logo + mascot animation -->
     <div class="welcome-brand">
@@ -2943,6 +3004,7 @@ body.no-profile .hero{
     <span class="mfab-ico-open">💬</span>
     <span class="mfab-ico-close">✕</span>
   </button>
+  <div class="mfab-nudge" id="mfab-nudge" hidden><span data-i18n="fab.nudge">👋 有問題？即時問 AI 助手</span></div>
 </div>
 
 <!-- ======================== MOBILE AI ASSISTANT PANEL ======================== -->
@@ -3102,12 +3164,14 @@ body.no-profile .back-to-top{display:none !important}
   <div class="scroll-hint" data-i18n="hero.scroll">SCROLL</div>
 </header>
 
-<!-- ======================== TOOLS MARQUEE ======================== -->
-<section class="marquee-section" aria-label="Tools we use">
-  <div class="marquee-label" data-i18n="tools.label">我們熟悉的工具 · Powered with</div>
-  <div class="marquee">
-    <div class="marquee-track" id="marquee-track"></div>
-    <div class="marquee-track" aria-hidden="true" id="marquee-track-2"></div>
+<!-- ======================== LIVE EXPERIENCE (after hero) ======================== -->
+<section class="livedemo-section reveal" aria-label="Live experience">
+  <div class="livedemo-card">
+    <div class="livedemo-badge"><span class="ld-dot"></span><span data-i18n="ld.badge">現場體驗 · LIVE</span></div>
+    <h2 class="livedemo-title" data-i18n="ld.title">不用等 — 即時看 AI 如何幫您接單、跟進、回覆</h2>
+    <p class="livedemo-sub" data-i18n="ld.sub">選一個情境，即時看到自動化流程：</p>
+    <div class="livedemo-chips" id="ld-chips"></div>
+    <a href="#demos" class="ld-cta" data-i18n="ld.cta">▶ 開始體驗</a>
   </div>
 </section>
 
@@ -3239,23 +3303,6 @@ body.no-profile .back-to-top{display:none !important}
       </div>
     </div>
 
-    <!-- Personalised confirmation (profile set) -->
-    <div class="pain-personal reveal" id="pain-personal" hidden>
-      <div class="eyebrow" data-i18n="pain.peyebrow">為您度身配對</div>
-      <h2 class="h2"><span data-i18n="pain.ptitle1">我們已為您針對</span> <span class="gradient-text" id="pain-industry-label" data-i18n="pain.industryFallback">以下痛點</span> <span data-i18n="pain.ptitle2">配對方案</span></h2>
-      <p class="muted" data-i18n="pain.pdesc">下方 demo 區只顯示對您行業最有用的工具 — 已為您篩選完成。</p>
-
-      <div class="pain-lead" id="pain-lead" hidden></div>
-
-      <div class="pain-tags" id="pain-tags">
-        <!-- Filled by JS: list of pain tags user picked -->
-      </div>
-
-      <div class="pain-cta">
-        <a href="#demos" class="btn btn-primary"><span data-i18n="pain.pcta">即試方案 Demo</span> <span class="arrow">→</span></a>
-        <a href="#book" class="btn btn-ghost" data-i18n="pain.pcta2">預約免費諮詢</a>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -3515,6 +3562,9 @@ body.from-cold-email .nav-profile{display:none !important}
 <!-- ======================== REAL-FEEL (mock WhatsApp + Dashboard) ==================== -->
 <style>
 .realfeel-section{padding:60px 0 80px}
+.rf-sample-note{display:inline-block;margin-top:14px;padding:7px 14px;border-radius:999px;background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.3);color:#c8b9ff;font-size:12.5px;font-weight:600}
+.rf-sample-note[hidden]{display:none}
+[data-theme="light"] .rf-sample-note{color:#5a45c8}
 .rf-grid{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:32px;margin-top:48px;align-items:start}
 @media(max-width:920px){.rf-grid{grid-template-columns:1fr;gap:22px;justify-items:center}}
 
@@ -3651,6 +3701,7 @@ body.from-cold-email .nav-profile{display:none !important}
       <div class="eyebrow" data-i18n="rf.eyebrow">交付後畫面</div>
       <h2 class="h2"><span data-i18n="rf.title1">交付後 ·</span> <span class="gradient-text" data-i18n="rf.title2">客戶會見到的系統形式</span></h2>
       <p class="muted" data-i18n="rf.desc">以下為交付後客戶每日會見到的 WhatsApp 對話與後台儀表板形式（示意 mockup）。每個行業會根據實際使用情境定制。</p>
+      <div class="rf-sample-note" id="rf-sample-note" hidden></div>
     </div>
     <div class="rf-grid">
       <!-- WhatsApp phone mockup -->
@@ -3728,7 +3779,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo1.save">平均省 25 小時/月</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo1.title">AI 自動化模擬器</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo1.desc">輸入您的業務問題，AI 即時為您拆解成屬於您的自動化流程。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo1.desc">輸入您的業務問題，AI 即時為您拆解成屬於您的自動化流程。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -3764,7 +3815,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo2.save">平均省 40 小時/月</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo2.title">AI 聊天助手</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo2.desc">真實 AI 驅動的智能助手，可作為客服、顧問或內部知識助手。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo2.desc">真實 AI 驅動的智能助手，可作為客服、顧問或內部知識助手。</p>
               </div>
             </div>
 
@@ -3790,7 +3841,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo3.save">上線時間縮短 80%</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo3.title">網頁生成預覽</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo3.desc">輸入公司名與行業，AI 即時為您生成標語、Hero 區、3 個服務卡片預覽。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo3.desc">輸入公司名與行業，AI 即時為您生成標語、Hero 區、3 個服務卡片預覽。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -3832,7 +3883,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo4.save">產出速度 5×</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo4.title">AI 內容生成器</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo4.desc">真實 AI 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo4.desc">真實 AI 驅動，立即為您生成符合平台風格的社交媒體文案。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -3870,7 +3921,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo5.save">客服效率 ↑ 3×</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo5.title">AI 客戶意圖分析器</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo5.desc">把客戶訊息貼入，AI 即時判斷緊急度、情緒、類別 + 建議回覆。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo5.desc">把客戶訊息貼入，AI 即時判斷緊急度、情緒、類別 + 建議回覆。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -3915,7 +3966,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo6.save">成交率 ↑ 2×</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo6.title">AI 銷售跟進信</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo6.desc">填客戶資料 + 上次重點，AI 即時撰寫一封專屬跟進電郵。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo6.desc">填客戶資料 + 上次重點，AI 即時撰寫一封專屬跟進電郵。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -3960,7 +4011,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo7.save">會議筆記速度 ↑ 10×</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo7.title">AI 會議紀要</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo7.desc">貼入會議筆記或錄音轉文字，AI 自動拆解摘要、行動項目、主要決定。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo7.desc">貼入會議筆記或錄音轉文字，AI 自動拆解摘要、行動項目、主要決定。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -3990,7 +4041,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo8.save">支援 30+ 語言</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo8.title">AI 多語翻譯（含語氣/文化備註）</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo8.desc">不只是翻譯 — AI 會根據您選的語氣 + 文化背景調整表達方式。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo8.desc">不只是翻譯 — AI 會根據您選的語氣 + 文化背景調整表達方式。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -4046,7 +4097,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo9.save">每則 30 秒完成</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo9.title">AI 評論回覆生成器</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo9.desc">貼入 Google / TripAdvisor / OpenRice 評論，AI 即時生成 3 個不同語氣的回覆讓您選。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo9.desc">貼入 Google / TripAdvisor / OpenRice 評論，AI 即時生成 3 個不同語氣的回覆讓您選。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -4080,7 +4131,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo10.save">流量 ↑ 平均 40%</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo10.title">AI SEO 標題生成器</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo10.desc">輸入頁面主題 + 關鍵字，AI 生成 5 個 SEO 友善、又能吸引點擊的標題。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo10.desc">輸入頁面主題 + 關鍵字，AI 生成 5 個 SEO 友善、又能吸引點擊的標題。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -4114,7 +4165,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo11.save">電商轉換率 ↑ 25%</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo11.title">AI 電商產品文案</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo11.desc">輸入產品名 + 主要特色，AI 生成符合電商平台風格的完整商品文案。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo11.desc">輸入產品名 + 主要特色，AI 生成符合電商平台風格的完整商品文案。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -4148,7 +4199,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo12.save">調貨成本 ↓ 30%</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo12.title">AI 多倉庫智能調貨</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo12.desc">輸入 SKU 與訂購數量，AI 即時掌握各倉庫實時庫存，自動推薦最佳出貨點 + 智能補貨警示。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo12.desc">輸入 SKU 與訂購數量，AI 即時掌握各倉庫實時庫存，自動推薦最佳出貨點 + 智能補貨警示。</p>
               </div>
             </div>
             <div class="demo-grid">
@@ -4188,7 +4239,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo13.save">60 秒得到專屬方案</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo13.title">AI 商業診斷 + 方案匹配</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo13.desc">3 步填資料，AI 即時生成屬於您的商業診斷報告 + 量身定做的 AI 自動化方案。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo13.desc">3 步填資料，AI 即時生成屬於您的商業診斷報告 + 量身定做的 AI 自動化方案。</p>
               </div>
             </div>
 
@@ -4290,7 +4341,7 @@ body.from-cold-email .nav-profile{display:none !important}
                   <div class="demo-save" data-i18n="demo14.save">即時可視化 + AI 警示</div>
                 </div>
                 <h3 class="h3" style="margin-top:8px" data-i18n="demo14.title">AI 倉庫即時 Dashboard</h3>
-                <p class="muted" style="margin-top:6px;font-size:14px" data-i18n="demo14.desc">多倉庫實時庫存、AI 警示、智能推薦 — 一頁掌握倉儲健康。</p>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo14.desc">多倉庫實時庫存、AI 警示、智能推薦 — 一頁掌握倉儲健康。</p>
               </div>
               <!-- Filter segments -->
               <div class="dash-filter" id="dash-filter" role="tablist" aria-label="time range">
@@ -4676,6 +4727,22 @@ body.from-cold-email .nav-profile{display:none !important}
   </div>
 </section>
 
+<!-- ======================== LEAD CAPTURE (low-friction) ======================== -->
+<section class="leadcap-section reveal" id="lead" aria-label="Get a free analysis">
+  <div class="container">
+    <div class="leadcap-card">
+      <h2 class="leadcap-title" data-i18n="lead.title">未準備好預約？留個 email，我們免費幫您分析哪些工作可以自動化</h2>
+      <p class="leadcap-sub" data-i18n="lead.sub">一個工作天內回覆 — 無壓力、無自動推銷。</p>
+      <form class="leadcap-form" id="lead-form" novalidate>
+        <input type="email" id="lead-email" class="leadcap-input" required autocomplete="email" placeholder="you@company.com" />
+        <input type="text" id="lead-company" name="company" class="leadcap-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit" class="leadcap-btn" id="lead-submit" data-i18n="lead.btn">免費索取分析 →</button>
+      </form>
+      <div class="leadcap-msg" id="lead-msg" hidden></div>
+    </div>
+  </div>
+</section>
+
 <!-- ======================== BOOK ======================== -->
 <section class="book-section" id="book">
   <div class="container">
@@ -4733,6 +4800,15 @@ body.from-cold-email .nav-profile{display:none !important}
   </div>
 </section>
 
+<!-- ======================== TOOLS MARQUEE ======================== -->
+<section class="marquee-section" aria-label="Tools we use">
+  <div class="marquee-label" data-i18n="tools.label">我們熟悉的工具 · Powered with</div>
+  <div class="marquee">
+    <div class="marquee-track" id="marquee-track"></div>
+    <div class="marquee-track" aria-hidden="true" id="marquee-track-2"></div>
+  </div>
+</section>
+
 <!-- ======================== FOOTER ======================== -->
 <footer class="footer">
   <div class="footer-row">
@@ -4771,7 +4847,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R28-trust-copy";
+  const CURRENT_BUILD = "2026-05-31-R33.1-livedemo-reset";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -5002,7 +5078,8 @@ const I18N = {
     "ls.foot":"* 示意數據:基於同類 AI 自動化專案的預估效益,並非實際客戶累計。",
     "msc.text":"免費 30 分鐘 automation 檢查",
     "msc.wa":"WhatsApp","msc.waSub":"即時對話，1 分鐘回覆","msc.tg":"Telegram",
-    "fab.ai":"AI 助手 · 即時解答","fab.aiTitle":"TBC AI 助手","fab.aiBook":"想深入傾？預約免費諮詢 →",
+    "fab.ai":"AI 助手 · 即時解答","fab.aiTitle":"TBC AI 助手","fab.aiBook":"想深入傾？預約免費諮詢 →","fab.nudge":"👋 有問題？即時問 AI 助手","lead.title":"未準備好預約？留個 email，我們免費幫您分析哪些工作可以自動化","lead.sub":"一個工作天內回覆 — 無壓力、無自動推銷。","lead.btn":"免費索取分析 →",
+    "ld.badge":"現場體驗 · LIVE","ld.title":"不用等 — 即時看 AI 如何幫您接單、跟進、回覆","ld.sub":"選一個情境，即時看到自動化流程：","ld.c1":"⚡ 自動化流程拆解","ld.c2":"💬 AI 即時客服","ld.c3":"📧 自動跟進信","ld.cta":"▶ 開始體驗",
     "welcome.tagline":"幫團隊減少重複工作、減少漏單",
     "welcome.askIndustry":"您的公司屬於哪個行業？",
     "welcome.askName":"您的稱呼","welcome.optional":"（選填）",
@@ -5248,7 +5325,8 @@ const I18N = {
     "ls.foot":"* Illustrative figures — projected benefits based on comparable automation projects, not actual client totals.",
     "msc.text":"Free 30-min automation audit",
     "msc.wa":"WhatsApp","msc.waSub":"Quick chat, 1-min reply","msc.tg":"Telegram",
-    "fab.ai":"AI assistant · instant answers","fab.aiTitle":"TBC AI Assistant","fab.aiBook":"Want to go deeper? Book a free call →",
+    "fab.ai":"AI assistant · instant answers","fab.aiTitle":"TBC AI Assistant","fab.aiBook":"Want to go deeper? Book a free call →","fab.nudge":"👋 Got a question? Ask our AI","lead.title":"Not ready to book? Leave your email and we\u2019ll analyse what you can automate — free.","lead.sub":"We reply within one business day — no pressure, no hard sell.","lead.btn":"Get my free analysis →",
+    "ld.badge":"LIVE EXPERIENCE","ld.title":"No waiting — see how AI handles intake, follow-up and replies","ld.sub":"Pick a scenario and watch the automation run:","ld.c1":"⚡ Workflow breakdown","ld.c2":"💬 Live AI chat","ld.c3":"📧 Auto follow-up","ld.cta":"▶ Start the demo",
     "welcome.tagline":"Less repetitive work, fewer dropped leads",
     "welcome.askIndustry":"What industry are you in?",
     "welcome.askName":"What should we call you?","welcome.optional":"(optional)",
@@ -6586,7 +6664,7 @@ const INDUSTRY_DESCRIPTOR = {
     "專業服務":"把客戶跟進、會議紀要、報表整理交給自動化系統 — 讓您專注真正高價值的諮詢與決策。",
     "教育":   "把招生跟進、家長溝通、課程提醒、教材內容交給自動化系統 — 讓您與老師專注真正教學的時間。",
     "科技":   "把客服分流、用戶 onboarding、報表彙整、內容更新交給自動化系統 — 讓您與工程團隊專注真正交付產品的時間。",
-    "醫美":   "預約自動提醒、漏客重訪召回、療程後跟進、評論即時回覆 — 讓您與員工從重複的 WhatsApp 客服訊息中解放。",
+    "醫美":   "AI 自動做療程後關懷、重訪召回與諮詢跟進 — 把一次性客人變成回頭常客，員工不再被 WhatsApp 淹沒。",
     "物流":   "多倉庫實時庫存、智能調貨推薦、出貨警示、客戶查詢回覆 — 讓您與倉管員工專注真正調度物流的決策。",
     "創意":   "把提案跟進、客戶溝通、社交內容草稿、評論回覆交給自動化系統 — 讓您與創作團隊專注真正創作的時間。",
   },
@@ -6596,7 +6674,7 @@ const INDUSTRY_DESCRIPTOR = {
     "專業服務":"Hand client follow-ups, meeting notes and reporting off to an automated system — so you focus on the high-value advisory work.",
     "教育":   "Hand enrolment follow-up, parent communication, class reminders and course content off to an automated system — so your teachers focus on teaching.",
     "科技":   "Hand support triage, user onboarding, reporting and content updates off to an automated system — so your engineering team ships the product.",
-    "醫美":   "Automated booking reminders, no-show recovery, post-treatment follow-up and instant review replies — so you and your staff stop spending the day on repetitive WhatsApp messages.",
+    "醫美":   "AI handles post-treatment care, rebooking recall and consultation follow-up — turning one-time clients into regulars, so your team isn't buried in WhatsApp.",
     "物流":   "Real-time multi-warehouse inventory, smart routing, shipping alerts and customer-query replies — so your warehouse team focuses on real logistics decisions.",
     "創意":   "Hand pitch follow-ups, client communication, social drafts and review replies off to an automated system — so your creative team focuses on the actual work.",
   },
@@ -6612,7 +6690,7 @@ const INDUSTRY_PAIN = {
     "專業服務":"Lead 跟進慢一步就被對手搶走、會議紀要與報表佔走您最值錢的時間？",
     "教育":   "試堂後沒人跟進就流失、家長訊息回不完、教材永遠趕不及？",
     "科技":   "Support ticket 堆積、用戶 onboarding 跟不上、每週報表佔走工程時間？",
-    "醫美":   "客人 no-show 又不重訪、療程後沒人跟進、負評影響預約？",
+    "醫美":   "客人做完一次就不再回來、療程後沒人跟進、諮詢不成交？",
     "物流":   "庫存對不準、調貨靠人腦、客戶查物流的訊息回不完？",
     "創意":   "提案發出後石沉大海、客戶改稿訊息回不完、社交內容永遠欠交？",
   },
@@ -6622,7 +6700,7 @@ const INDUSTRY_PAIN = {
     "專業服務":"A slow lead follow-up loses the deal; notes and reports eat your most valuable hours?",
     "教育":   "Trial students lost without follow-up, parent messages unanswered, content always behind?",
     "科技":   "Support tickets piling up, onboarding slipping, weekly reports eating engineering time?",
-    "醫美":   "No-shows that never rebook, no post-treatment follow-up, bad reviews hurting bookings?",
+    "醫美":   "Clients visit once and never return, no post-treatment follow-up, consultations that don't convert?",
     "物流":   "Stock counts off, routing done by hand, customer tracking queries unanswered?",
     "創意":   "Pitches that go silent, endless revision messages, social content always overdue?",
   },
@@ -6638,7 +6716,7 @@ const INDUSTRY_PAIN_SHORT = {
     "專業服務":"Lead 跟進慢、報表佔時間？",
     "教育":   "試堂跟進慢、家長回不完？",
     "科技":   "Ticket 堆積、報表佔工時？",
-    "醫美":   "No-show 多、重訪跟不到？",
+    "醫美":   "客人做完一次，就不再回來？",
     "物流":   "庫存對不準、查詢回不完？",
     "創意":   "提案石沉、改稿回不完？",
   },
@@ -6648,7 +6726,7 @@ const INDUSTRY_PAIN_SHORT = {
     "專業服務":"Leads go cold, reports eat your time?",
     "教育":   "Trials slip away, parents unanswered?",
     "科技":   "Tickets pile up, reports eat dev time?",
-    "醫美":   "No-shows mount, no rebooking?",
+    "醫美":   "They visit once, then never return?",
     "物流":   "Stock off, tracking queries pile up?",
     "創意":   "Pitches go silent, revisions endless?",
   },
@@ -6720,7 +6798,7 @@ function applyProfile(profile){
   // Body-level marker so CSS can hide demos / workflows / ba when there is
   // no profile (safety net in case welcome is somehow bypassed — visitor
   // must NOT see any demo content until they pick an industry).
-  document.body.classList.toggle("no-profile", !profile || !profile.industry);
+  document.body.classList.toggle("no-profile", !profile || (!profile.industry && !profile.browseAll));
 
   if(!profile || (!profile.industry && (!profile.pains || profile.pains.length === 0))){
     // No profile — reset everything to default
@@ -6729,9 +6807,28 @@ function applyProfile(profile){
     resetDemoTabsFromProfile();
     resetCalcFromProfile();
     resetPainFromProfile();
+    if(typeof renderLiveDemoForProfile === "function") renderLiveDemoForProfile(profile);
     // Show For-You for fresh visitors (no profile)
     const foryou = document.getElementById("for-you");
     if(foryou) foryou.hidden = false;
+
+    // Browse-all (user skipped welcome): keep generic hero, but
+    // (a) populate the industry-specific visual sections with a default
+    //     example so the mockups aren't blank, and
+    // (b) surface a nav button so they can still pick an industry later.
+    if(profile && profile.browseAll){
+      const def = "餐飲";
+      if(typeof applyWorkflowsForIndustry === "function") applyWorkflowsForIndustry(def);
+      if(typeof applyBAForIndustry === "function") applyBAForIndustry(def);
+      if(typeof renderMockupsForIndustry === "function") renderMockupsForIndustry(def);
+      const _rfNote = document.getElementById("rf-sample-note");
+      if(_rfNote){ _rfNote.textContent = (currentLang === "zh" ? "示例畫面：餐飲業 — 選擇您的行業即看度身版本" : "Sample shown: F&B — pick your industry for a tailored view"); _rfNote.hidden = false; }
+      if(typeof renderLiveDemoForProfile === "function") renderLiveDemoForProfile(profile);
+      if(navProfile){
+        navProfile.classList.add("show","browse-pick");
+        if(npLabel) npLabel.textContent = (currentLang === "zh" ? "選擇行業" : "Pick industry");
+      }
+    }
     return;
   }
 
@@ -6743,6 +6840,7 @@ function applyProfile(profile){
   if(navProfile && npLabel){
     const ind = profile.industry ? industryLabel(profile.industry) : (currentLang==="zh"?"已個人化":"Personalised");
     npLabel.textContent = profile.name ? `${profile.name} · ${ind}` : ind;
+    navProfile.classList.remove("browse-pick");
     navProfile.classList.add("show");
   }
 
@@ -6786,6 +6884,8 @@ function applyProfile(profile){
     applyBAForIndustry(profile.industry);
     // 2c) Real-feel mockups — WhatsApp + Dashboard rendered per vertical
     renderMockupsForIndustry(profile.industry);
+    const _rfNote2 = document.getElementById("rf-sample-note");
+    if(_rfNote2) _rfNote2.hidden = true;
   }
 
   // 2b) Hero typed subtitle — personalised greeting (overrides the cycling typing)
@@ -6802,6 +6902,8 @@ function applyProfile(profile){
 
   // 3) Demo tabs — dim non-relevant, surface relevant
   applyDemoTabsForProfile(profile);
+  // 3b) Live-demo card — industry-tailored scenarios (merged personalisation)
+  renderLiveDemoForProfile(profile);
 
   // 4) ROI calculator pre-fill
   applyCalcForProfile(profile);
@@ -6823,51 +6925,17 @@ const PAIN_LABEL_EN = {
 // R17: emoji icons removed for premium positioning. Renderer falls back to "" via PAIN_ICO[p] lookup which returns undefined.
 const PAIN_ICO = {};
 function applyPainForProfile(profile){
-  const hook = document.getElementById("pain-hook");
-  const personal = document.getElementById("pain-personal");
-  const tagsRoot = document.getElementById("pain-tags");
-  const indLabel = document.getElementById("pain-industry-label");
-  if(!hook || !personal) return;
-
-  const pains = (profile.pains && profile.pains.length)
-    ? profile.pains
-    : (INDUSTRY_DEFAULT_PAINS[profile.industry] || []);
-  if(!pains.length){
-    // No pains derivable — show generic hook
-    hook.hidden = false;
-    personal.hidden = true;
-    return;
-  }
-  // Show personalised, hide hook
-  hook.hidden = true;
-  personal.hidden = false;
-  // Label industry
-  if(indLabel){
-    indLabel.textContent = profile.industry
-      ? (currentLang === "zh" ? `${profile.industry}業` : industryLabel(profile.industry))
-      : (currentLang === "zh" ? "您的業務" : "your business");
-  }
-  // Render pain tags
-  // Felt pain statement (long version) leads the section as its own block
-  const leadEl = document.getElementById("pain-lead");
-  if(leadEl){
-    const painMap = INDUSTRY_PAIN[currentLang] || INDUSTRY_PAIN.zh;
-    const lead = profile.industry ? (painMap[profile.industry] || "") : "";
-    leadEl.textContent = lead;
-    leadEl.hidden = !lead;
-  }
-  if(tagsRoot){
-    const labels = currentLang === "zh" ? PAIN_LABEL_ZH : PAIN_LABEL_EN;
-    tagsRoot.innerHTML = pains.map(p => `
-      <div class="pain-tag"><span class="ic">${PAIN_ICO[p] || "✓"}</span><span>${labels[p] || p}</span></div>
-    `).join("");
-  }
+  // Pain resonance now lives in the hero headline + the merged live-demo card.
+  // Profiled visitors no longer need the generic pain section.
+  const pain = document.getElementById("pain");
+  if(pain) pain.hidden = true;
 }
 function resetPainFromProfile(){
+  // No-profile / browse-all visitors still see the generic pain hook.
+  const pain = document.getElementById("pain");
+  if(pain) pain.hidden = false;
   const hook = document.getElementById("pain-hook");
-  const personal = document.getElementById("pain-personal");
   if(hook) hook.hidden = false;
-  if(personal) personal.hidden = true;
 }
 
 function resetHeroFromI18N(){
@@ -7213,6 +7281,14 @@ function submitWelcome(){
   setTimeout(() => applyProfile(profile), 400);
 }
 
+// Skip = enter in browse-all mode (no industry). Reduces cold-traffic loss.
+function skipWelcome(){
+  const p = { browseAll:true, lang:currentLang, ts:Date.now() };
+  saveProfile(p);
+  hideWelcome();
+  setTimeout(() => applyProfile(p), 400);
+}
+
 (function bindWelcome(){
   // Industry chips
   document.querySelectorAll("#welcome-industries .wel-chip").forEach(chip => {
@@ -7226,11 +7302,11 @@ function submitWelcome(){
   // Enter button
   const enter = document.getElementById("welcome-enter");
   if(enter) enter.addEventListener("click", submitWelcome);
-  // NOTE: Welcome page is intentionally UNSKIPPABLE.
-  // The skip button, Esc key dismiss, and "tbc-welcome-dismissed" flag
-  // have all been removed so visitors must pick an industry before
-  // they can see the main page or any demos. This prevents the
-  // "accidental bypass → customer loss" failure mode.
+  const skip = document.getElementById("welcome-skip");
+  if(skip) skip.addEventListener("click", skipWelcome);
+  // NOTE: Welcome now HAS a skip ("跳過 · 查看所有方案"). Skipping enters
+  // browse-all mode (no industry) so cold traffic isn't lost; users can still
+  // pick an industry later via the nav "選擇行業" button (showWelcome).
 })();
 
 /* ----------------- NAV PROFILE BADGE ----------------- */
@@ -7395,6 +7471,36 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
   setTimeout(update, 300);
 })();
 
+/* ----------------- LEAD CAPTURE ----------------- */
+(function leadCapture(){
+  const form = document.getElementById("lead-form");
+  if(!form) return;
+  const email = document.getElementById("lead-email");
+  const hp    = document.getElementById("lead-company");
+  const btn   = document.getElementById("lead-submit");
+  const msg   = document.getElementById("lead-msg");
+  function show(t, ok){ if(!msg) return; msg.hidden=false; msg.textContent=t; msg.className="leadcap-msg "+(ok?"ok":"err"); }
+  const Z = () => currentLang === "zh";
+  form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const val = (email.value||"").trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){ show(Z()?"請輸入有效的 email":"Please enter a valid email", false); return; }
+    if(hp && hp.value){ show(Z()?"已送出，謝謝！":"Submitted, thanks!", true); return; }
+    btn.disabled=true; const prev=btn.textContent; btn.textContent=Z()?"送出中…":"Sending…";
+    try{
+      const res = await fetch("/api/lead", {
+        method:"POST", headers:{"content-type":"application/json"},
+        body: JSON.stringify({ email:val, company:(hp?hp.value:""), source:(typeof CURRENT_PROFILE!=="undefined"&&CURRENT_PROFILE&&CURRENT_PROFILE.industry)||"", lang:currentLang, page:location.href })
+      });
+      if(!res.ok) throw new Error("HTTP "+res.status);
+      show(Z()?"收到！我們會在一個工作天內 email 您。":"Got it — we'll email you within one business day.", true);
+      form.reset();
+    }catch(err){
+      show(Z()?"暫時送不出，請改用 WhatsApp 或 Email 直接聯絡我們。":"Couldn't send — please reach us on WhatsApp or email.", false);
+    }finally{ btn.disabled=false; btn.textContent=prev; }
+  });
+})();
+
 /* ----------------- MOBILE AI ASSISTANT PANEL ----------------- */
 (function mobileAIAssistant(){
   const openBtn = document.getElementById("mfab-ai-open");
@@ -7431,6 +7537,7 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
     return d;
   }
   function openPanel(){
+    hideNudge();
     inputEl.placeholder = T().ph;
     if(!seeded){ add("bot", T().greet); seeded = true; }
     panel.hidden = false; panel.setAttribute("aria-hidden","false");
@@ -7481,6 +7588,32 @@ const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
   const bookLink = document.getElementById("mai-book");
   if(bookLink) bookLink.addEventListener("click", closePanel);
   document.addEventListener("keydown", e=>{ if(e.key==="Escape" && panel.classList.contains("open")) closePanel(); });
+
+  // Proactive nudge: once the FAB is visible, pop a one-time bubble so visitors
+  // know it's a live AI they can ask. Dismisses on interaction; once per session.
+  const nudge = document.getElementById("mfab-nudge");
+  let nudged = false;
+  try{ nudged = sessionStorage.getItem("tbc-ai-nudged") === "1"; }catch(e){}
+  function hideNudge(){ if(nudge){ nudge.classList.remove("show"); setTimeout(()=>{ nudge.hidden = true; }, 350); } }
+  function showNudge(){
+    if(nudged || !nudge) return;
+    if(!fab.classList.contains("show") || fab.classList.contains("open") || panel.classList.contains("open")) return;
+    nudge.hidden = false;
+    requestAnimationFrame(()=> nudge.classList.add("show"));
+    nudged = true;
+    try{ sessionStorage.setItem("tbc-ai-nudged", "1"); }catch(e){}
+    setTimeout(hideNudge, 9000);
+  }
+  if(nudge){
+    nudge.addEventListener("click", () => { hideNudge(); openPanel(); });
+    const tg = document.getElementById("mfab-toggle");
+    if(tg) tg.addEventListener("click", hideNudge);
+    let tries = 0;
+    const iv = setInterval(() => {
+      if(fab.classList.contains("show")){ clearInterval(iv); setTimeout(showNudge, 2600); }
+      if(++tries > 50) clearInterval(iv);
+    }, 700);
+  }
 })();
 
 /* ----------------- COLD-EMAIL DEEP LINKS -----------------
@@ -7539,14 +7672,81 @@ function getIndustryFromURL(){
       // Returning visitor — apply directly, no welcome page
       applyProfile(saved);
     } else {
-      // No profile = welcome page is mandatory. Always show, regardless of
-      // any stale "dismissed" flag (we no longer write that flag) or URL
-      // hash. The only way out of welcome is to pick an industry + Enter.
-      // Clean up any legacy dismissed flag so older sessions also see welcome.
+      // No saved profile → show the welcome page. Visitors can either pick an
+      // industry (personalised) or use the "跳過 · 查看所有方案" skip to enter in
+      // browse-all mode. Clean up any legacy dismissed flag for older sessions.
       try{ localStorage.removeItem("tbc-welcome-dismissed"); }catch(e){}
       showWelcome();
     }
   }, 200);
+})();
+
+/* ============== LIVE-DEMO CARD chips ============== */
+function renderLiveDemoForProfile(profile){
+  const titleEl = document.querySelector(".livedemo-title");
+  const subEl   = document.querySelector(".livedemo-sub");
+  const chipsRoot = document.getElementById("ld-chips");
+  if(!chipsRoot) return;
+  // browse-all (skipped) has no industry → keep the card generic, don't name one
+  const industry = (profile && profile.industry) ? profile.industry : null;
+  let idxs = [];
+  if(industry){
+    const pains = (profile.pains && profile.pains.length) ? profile.pains : (INDUSTRY_DEFAULT_PAINS[industry] || []);
+    const set = new Set();
+    pains.forEach(p => (PAIN_DEMO_MAP[p] || []).forEach(i => set.add(i)));
+    idxs = Array.from(set).slice(0, 4);
+  }
+  if(!idxs.length) idxs = [0, 1, 5];
+  const _dict = (typeof I18N !== "undefined" && I18N[currentLang]) || {};
+  if(titleEl){
+    titleEl.textContent = industry
+      ? ((currentLang === "zh") ? `即時看 AI 如何為 ${industry}業 自動化跟進、回覆與接單`
+                                : `See how AI automates follow-up, replies and intake for ${industryLabel(industry)}`)
+      : (_dict["ld.title"] || titleEl.textContent);
+  }
+  if(subEl){
+    subEl.textContent = industry
+      ? ((currentLang === "zh") ? `已為您篩選 ${industry}業 最有用的工具 — 揀一個即場體驗：`
+                                : `The most useful tools for your industry — try one live:`)
+      : (_dict["ld.sub"] || subEl.textContent);
+  }
+  chipsRoot.innerHTML = idxs.map(i => {
+    const tab = document.querySelector('.demo-tab-btn[data-slide="'+i+'"]');
+    let label = "Demo " + (i + 1);
+    if(tab){ const t = tab.querySelector('span[data-i18n]'); label = ((t ? t.textContent : tab.textContent) || "").trim(); }
+    return '<button class="ld-chip" type="button" data-slide="'+i+'">'+label+'</button>';
+  }).join("");
+}
+(function liveDemoCard(){
+  const root = document.getElementById("ld-chips");
+  if(!root) return;
+  root.addEventListener("click", e => {
+    const chip = e.target.closest(".ld-chip");
+    if(!chip) return;
+    const demos = document.getElementById("demos");
+    if(demos) demos.scrollIntoView({behavior:"smooth"});
+    const idx = chip.dataset.slide;
+    const tab = document.querySelector('.demo-tab-btn[data-slide="'+idx+'"]:not(.hidden-by-profile)');
+    if(tab) setTimeout(() => tab.click(), 450);
+  });
+})();
+
+/* ============== GEO: founder photo visibility ============== */
+(function audiencePhoto(){
+  // Founder photo hidden for global / Western audiences (avoids first-impression
+  // bias); shown by default for HK / Chinese-speaking traffic (real-person trust).
+  function hide(){ document.body.classList.add("geo-no-photo"); }
+  // (a) Deterministic override for campaigns — reliable, no network.
+  try{
+    const aud = new URLSearchParams(location.search).get("aud");
+    if(aud && /^(global|intl|en|west|na)$/i.test(aud)){ hide(); return; }
+  }catch(e){}
+  // (b) Best-effort IP geo (fail-open: shows photo if this fails or is blocked).
+  const WEST = ["US","CA","GB","IE","AU","NZ","FR","DE","ES","IT","NL","BE","LU","CH","AT","SE","NO","DK","FI","IS","PT","PL","CZ","SK","HU","RO","BG","GR","HR","SI","EE","LV","LT","MT","CY"];
+  fetch("https://get.geojs.io/v1/ip/country.json")
+    .then(r => r.json())
+    .then(d => { const c = ((d && d.country) || "").toUpperCase(); if(WEST.includes(c)) hide(); })
+    .catch(() => {});
 })();
 
 /* ============== HERO TITLE ANIMATION ============== */
@@ -7720,7 +7920,7 @@ function buildMarquee(){
   window.addEventListener("mouseleave",()=>{ mouse.active = false; });
 
   function seed(){
-    const N = Math.round(Math.min(160, w/9));   // density
+    const N = Math.round(Math.min(110, w/12));   // density (R29: calmer, client-facing)
     stars = [];
     for(let i=0;i<N;i++){
       stars.push({
@@ -7729,7 +7929,7 @@ function buildMarquee(){
         vx:(Math.random()-.5)*.18,
         vy:(Math.random()-.5)*.18,
         r: Math.random()*1.2 + .35,             // small star size
-        baseAlpha: Math.random()*.5 + .35,
+        baseAlpha: Math.random()*.32 + .18,
         twPhase: Math.random()*Math.PI*2,
         twSpeed: .015 + Math.random()*.025,
       });

@@ -15,6 +15,13 @@
   status = 200
   force = true
 
+# Lead capture (parity with the Vercel /api/lead function)
+[[redirects]]
+  from = "/api/lead"
+  to = "/.netlify/functions/lead"
+  status = 200
+  force = true
+
 # === Security: never serve internal / sensitive files ================
 [[redirects]]
   from = "/.env*"

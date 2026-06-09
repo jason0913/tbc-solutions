@@ -1,7 +1,9 @@
 # TBC Solutions — Deploy Checklist
 
 > 內部文件,唔會 deploy(`build-deploy.js` 只 copy 指定 public 檔)。
-> 最後更新對應 build tag:**R28-trust-copy**
+> 最後更新對應 build tag:**R33.1-livedemo-reset**
+> 部署平台:**Vercel 為主**(Netlify 係 parity fallback)。詳見 `DEPLOY.md`。
+> ⚠️ Serverless function(`/api/claude`、`/api/lead`)**唔喺 dist**;Vercel 要 Git 部署整個 project + Output Directory = `dist`,唔好淨係 static-upload dist,否則兩個 API 都 404。
 
 ---
 
@@ -11,6 +13,10 @@
   - [ ] `CLAUDE_API_KEY`(OpenRouter / relay key)
   - [ ] `CLAUDE_MODEL` = 一個**確定 relay(catcats.net)收嘅** model 名
     - ⚠️ 唔好淨係靠 frontend 預設 `claude-sonnet-4-6` — relay 未必收。Function 已 wire 成優先用呢個 env。
+  - [ ] **Lead capture(`/api/lead`)env**:
+    - [ ] `RESEND_API_KEY`(resend.com)
+    - [ ] `LEAD_NOTIFY_TO`(lead 收件,例 `shek0913@tbchk.com`)
+    - [ ] `LEAD_FROM`(**要 Resend 驗證咗嘅 sender/domain**,例 `hello@tbchk.com`)
 - [ ] **Build 跑得過**:`node scripts/build-deploy.js` → 應該見 `[TBC] Built clean deploy folder`
   - 如果 forbidden-check 報錯,代表有敏感檔走入 dist,要清返。
 - [ ] **netlify.toml 確認**:`command = "node scripts/build-deploy.js"` / `publish = "dist"`
@@ -24,6 +30,8 @@
 - [ ] **Cal.com** widget 載到(`https://cal.com/grouper-shek/30min`)— 唔好得個 fallback
 - [ ] **WhatsApp** link 撳到、開到對話
 - [ ] **Telegram** link 撳到、開到
+- [ ] **Email lead capture**:預約區之前個 form 填 email 提交 → inbox 收到「🟢 New lead」(未設 env 會出友善錯誤,唔白頁)
+  - [ ] (上線前)`/api/lead` 加 Vercel Firewall / rate limit 防 spam 燒 Resend quota
 - [ ] **8 條 cold-email deep link** 逐條開:
   `?ind=fnb` `retail` `pro` `edu` `tech` `medical` `logistics` `creative`
   - 每條:welcome 跳過、hero 痛點標題正確、demo 已 filter
