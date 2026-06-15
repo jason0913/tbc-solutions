@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R33.1-livedemo-reset -->
+<!-- Deploy build tag: 2026-05-31-R33.3-brand-icons -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2637,6 +2637,7 @@ body.no-profile .hero{
   display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;line-height:1;
   box-shadow:0 6px 18px rgba(0,0,0,.32);
 }
+.mobile-sticky-cta .mfab-ico svg{width:22px;height:22px;display:block}
 .mobile-sticky-cta .mfab-action.wa .mfab-ico{background:linear-gradient(135deg,#25D366,#128C7E)}
 .mobile-sticky-cta .mfab-action.tg .mfab-ico{background:linear-gradient(135deg,#37AEE2,#2575A4)}
 .mobile-sticky-cta .mfab-action.bk .mfab-ico{background:var(--grad)}
@@ -2987,10 +2988,10 @@ body.no-profile .hero{
   <!-- Speed-dial actions: revealed when main toggle is tapped -->
   <div class="mfab-actions" id="mfab-actions">
     <a class="mfab-action wa" id="msc-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
-      <span class="mfab-ico">💬</span><span class="mfab-label">WhatsApp</span>
+      <span class="mfab-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span><span class="mfab-label">WhatsApp</span>
     </a>
     <a class="mfab-action tg" id="msc-tg" href="#" target="_blank" rel="noopener" aria-label="Telegram">
-      <span class="mfab-ico">✈️</span><span class="mfab-label">Telegram</span>
+      <span class="mfab-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span><span class="mfab-label">Telegram</span>
     </a>
     <button class="mfab-action ai" id="mfab-ai-open" type="button" aria-label="AI 助手">
       <span class="mfab-ico">🤖</span><span class="mfab-label" data-i18n="fab.ai">AI 助手 · 即時解答</span>
@@ -4847,7 +4848,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R33.1-livedemo-reset";
+  const CURRENT_BUILD = "2026-05-31-R33.3-brand-icons";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -7367,7 +7368,7 @@ function skipWelcome(){
 /* ----------------- CONTACT CHANNELS (single source of truth) ----------------- */
 // TODO: 石斑 commit 前手動填返真實 WhatsApp 號碼（去除 +、空格、dash）
 // 例：+852 1234 5678 → "85212345678"
-const CONTACT_WHATSAPP = "85267028853"; // ⬅️ REPLACE WITH REAL HK NUMBER
+const CONTACT_WHATSAPP = "85263920913"; // +852 6392 0913
 const CONTACT_TG_HANDLE = "grouper0913";
 const CONTACT_WHATSAPP_URL = `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent("您好 TBC，我想了解 AI 自動化方案")}`;
 const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
