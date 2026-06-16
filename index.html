@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R34-clinic-vertical -->
+<!-- Deploy build tag: 2026-05-31-R34.2-healthcare-common -->
 
 
 <!-- ============== FONTS ============== -->
@@ -4849,7 +4849,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R34-clinic-vertical";
+  const CURRENT_BUILD = "2026-05-31-R34.2-healthcare-common";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -5738,6 +5738,28 @@ const INDUSTRY_WORKFLOWS = {
       "wf2.c4.s3":"您一鍵 approve 即發送，省下草擬時間",
       "wf2.c4.save":"回覆評論時間下降 80%",
     },
+    "私人診所":{
+      "wf2.c1.title":"預約 · 覆診提醒 · 爽約召回",
+      "wf2.c1.s1":"新預約自動發 WhatsApp 確認訊息",
+      "wf2.c1.s2":"前 24 小時自動發送覆診提醒",
+      "wf2.c1.s3":"爽約病人 24 小時內自動重新邀約",
+      "wf2.c1.save":"每月節省 8 小時 · 爽約率下降 30%",
+      "wf2.c2.title":"WhatsApp 查詢分流",
+      "wf2.c2.s1":"新訊息即時分類為查詢 / 預約 / 緊急",
+      "wf2.c2.s2":"常見問題自動回覆（時間 / 收費 / 地址）",
+      "wf2.c2.s3":"複雜或緊急訊息轉真人並標記",
+      "wf2.c2.save":"查詢回覆速度提升 5 倍",
+      "wf2.c3.title":"診後跟進 + 自動覆診召回",
+      "wf2.c3.s1":"診後 24 小時自動發關懷訊息",
+      "wf2.c3.s2":"按覆診週期自動提醒下次預約",
+      "wf2.c3.s3":"久未覆診病人自動召回邀約",
+      "wf2.c3.save":"覆診率上升 25% · 員工零額外工時",
+      "wf2.c4.title":"評論回覆自動草稿",
+      "wf2.c4.s1":"即時偵測 Google 新評論",
+      "wf2.c4.s2":"自動草擬 3 種語氣（正式 / 親切 / 致歉）",
+      "wf2.c4.s3":"您一鍵 approve 即發送，省下草擬時間",
+      "wf2.c4.save":"回覆評論時間下降 80%",
+    },
     "教育":{
       "wf2.c1.title":"家長 WhatsApp 自動分流",
       "wf2.c1.s1":"新訊息按主題分類（試堂 / 補堂 / 收費 / 功課）",
@@ -5916,6 +5938,28 @@ const INDUSTRY_WORKFLOWS = {
       "wf2.c4.s3":"You one-click approve and send — no more drafting from scratch",
       "wf2.c4.save":"−80% time spent on review replies",
     },
+    "私人診所":{
+      "wf2.c1.title":"Bookings · recall reminders · no-show recovery",
+      "wf2.c1.s1":"New bookings get an instant WhatsApp confirmation",
+      "wf2.c1.s2":"Automatic reminder 24 hours before the visit",
+      "wf2.c1.s3":"No-shows are auto-reinvited within 24 hours",
+      "wf2.c1.save":"Saves ~8 hrs/month · no-shows down 30%",
+      "wf2.c2.title":"WhatsApp enquiry triage",
+      "wf2.c2.s1":"New messages sorted — enquiry / booking / urgent",
+      "wf2.c2.s2":"Common questions auto-answered (hours / fees / address)",
+      "wf2.c2.s3":"Complex or urgent messages routed to a human, flagged",
+      "wf2.c2.save":"5× faster enquiry replies",
+      "wf2.c3.title":"Post-visit follow-up + recall",
+      "wf2.c3.s1":"Care message sent 24 hours after the visit",
+      "wf2.c3.s2":"Next appointment reminded on the recall cycle",
+      "wf2.c3.s3":"Lapsed patients auto-recalled to rebook",
+      "wf2.c3.save":"Recall rate up 25% · zero extra staff time",
+      "wf2.c4.title":"Auto-drafted review replies",
+      "wf2.c4.s1":"New Google reviews detected instantly",
+      "wf2.c4.s2":"3 reply styles auto-drafted (formal / warm / apologetic)",
+      "wf2.c4.s3":"You one-click approve and send — drafting time saved",
+      "wf2.c4.save":"−80% time spent on review replies",
+    },
     "教育":{
       "wf2.c1.title":"Parent WhatsApp triage",
       "wf2.c1.s1":"New messages classified by topic (trial / make-up / fees / homework)",
@@ -6086,6 +6130,17 @@ const INDUSTRY_BA = {
       "ba.as5":"系統已自動整理今日報表","ba.as6":"準時下班",
       "ba.aTotalLabel":"回到真正帶來收入的工作","ba.aTotalNum":"+4 小時",
     },
+    "私人診所":{
+      "ba.desc":"同樣 12 個病人查詢、3 個新預約、2 個評論待回。手動處理 vs 自動化系統的真實差別。",
+      "ba.bs1":"回覆昨晚 12 個 WhatsApp 查詢","ba.bs2":"手動逐一發送預約確認",
+      "ba.bs3":"午餐被新查詢訊息打斷","ba.bs4":"手動寫覆診提醒給明日病人",
+      "ba.bs5":"逐張整理今日預約記錄","ba.bs6":"下班後再回 5 個未處理訊息",
+      "ba.bTotalLabel":"花於重複客服","ba.bTotalNum":"約 5 小時",
+      "ba.as1":"系統已自動回覆 10 個常見查詢","ba.as2":"查看儀表板：2 個複雜訊息已標記",
+      "ba.as3":"午餐安靜，覆診提醒已批量發出","ba.as4":"親自處理 1 個複雜個案",
+      "ba.as5":"系統已自動整理今日報表","ba.as6":"準時下班",
+      "ba.aTotalLabel":"回到真正照顧病人的工作","ba.aTotalNum":"+4 小時",
+    },
     "教育":{
       "ba.desc":"同樣 15 個家長查詢、4 個試堂申請、3 班上課提醒。手動處理 vs 自動化系統的真實差別。",
       "ba.bs1":"處理昨晚 15 個家長 WhatsApp 查詢","ba.bs2":"手動回覆功課與時間表問題",
@@ -6175,6 +6230,17 @@ const INDUSTRY_BA = {
       "ba.as3":"Quiet lunch — auto-reminders already sent","ba.as4":"Take 1 high-value client meeting in person",
       "ba.as5":"System has auto-compiled today's report","ba.as6":"Clock off on time",
       "ba.aTotalLabel":"Back to revenue-driving work","ba.aTotalNum":"+4 hours",
+    },
+    "私人診所":{
+      "ba.desc":"Same 12 patient enquiries, 3 new bookings, 2 reviews to reply. Manual vs automated — the real difference.",
+      "ba.bs1":"Reply to 12 overnight WhatsApp enquiries","ba.bs2":"Send each booking confirmation by hand",
+      "ba.bs3":"Lunch interrupted by new enquiry pings","ba.bs4":"Hand-write recall reminders for tomorrow's patients",
+      "ba.bs5":"Compile today's booking records by hand","ba.bs6":"After hours: reply to 5 messages you missed",
+      "ba.bTotalLabel":"Lost to repetitive admin","ba.bTotalNum":"≈ 5 hours",
+      "ba.as1":"System auto-replied to 10 common enquiries","ba.as2":"Dashboard: 2 complex messages flagged",
+      "ba.as3":"Quiet lunch — recall reminders already sent","ba.as4":"Handle 1 complex case in person",
+      "ba.as5":"System auto-compiled today's report","ba.as6":"Clock off on time",
+      "ba.aTotalLabel":"Back to real patient care","ba.aTotalNum":"+4 hours",
     },
     "教育":{
       "ba.desc":"Same 15 parent enquiries, 4 trial-class requests, 3 class reminders. Manual vs automated — the real difference.",
@@ -6287,6 +6353,30 @@ const INDUSTRY_MOCKUPS = {
           {c1:"15:30",c2:"陳太太",c3:"Hydrafacial（新）",status:"ok",  statusText:"已確認"},
           {c1:"16:00",c2:"Mark Y.",c3:"首次諮詢",        status:"wait",statusText:"待確認"},
           {c1:"16:30",c2:"—",     c3:"空檔",            status:"open",statusText:"可預約"},
+        ]},
+    },
+    "私人診所":{
+      wa:{ avatar:"陳", name:"陳先生", status:"在線", inputHint:"輸入訊息",
+        messages:[
+          {dir:"in",  text:"你好，想預約覆診",   time:"09:23"},
+          {dir:"in",  text:"下星期三幾點有位？", time:"09:23"},
+          {dir:"out", text:"陳先生您好！系統已預留三個時段：14:00 / 15:30 / 17:00 📅",
+            time:"09:23", tag:"自動回覆"},
+          {dir:"in",  text:"15:30 唔該晒",        time:"09:24"},
+          {dir:"out", text:"已預約：星期三 03/06 15:30 覆診。前 24 小時自動提醒",
+            time:"09:24", tag:"自動確認"},
+        ]},
+      dash:{ url:"app.clinic.com/bookings", title:"今日預約管理", subtitle:"2026-05-24（星期一）",
+        kpis:[
+          {label:"今日預約",val:"12"},{label:"待確認",val:"3"},
+          {label:"新查詢",val:"8"},{label:"本週覆診召回",val:"18"},
+        ],
+        rows:[
+          {c1:"14:00",c2:"陳先生",c3:"覆診",        status:"ok",  statusText:"已確認"},
+          {c1:"14:30",c2:"Anna L.",c3:"新症諮詢",    status:"wait",statusText:"待確認"},
+          {c1:"15:30",c2:"陳先生",c3:"覆診（新）",   status:"ok",  statusText:"已確認"},
+          {c1:"16:00",c2:"Mark Y.",c3:"首次諮詢",    status:"wait",statusText:"待確認"},
+          {c1:"16:30",c2:"—",     c3:"空檔",        status:"open",statusText:"可預約"},
         ]},
     },
     "教育":{
@@ -6484,6 +6574,30 @@ const INDUSTRY_MOCKUPS = {
           {c1:"15:30",c2:"Mrs Chen",c3:"Hydrafacial (new)", status:"ok",  statusText:"Confirmed"},
           {c1:"16:00",c2:"Mark Y.", c3:"First consult",      status:"wait",statusText:"Pending"},
           {c1:"16:30",c2:"—",       c3:"Open slot",          status:"open",statusText:"Available"},
+        ]},
+    },
+    "私人診所":{
+      wa:{ avatar:"C", name:"Mr Chan", status:"online", inputHint:"Type a message",
+        messages:[
+          {dir:"in",  text:"Hi, I'd like to book a follow-up", time:"09:23"},
+          {dir:"in",  text:"Any slots next Wednesday?",        time:"09:23"},
+          {dir:"out", text:"Hi Mr Chan! Three slots held: 14:00 / 15:30 / 17:00",
+            time:"09:23", tag:"AUTO-REPLY"},
+          {dir:"in",  text:"15:30 thanks",                     time:"09:24"},
+          {dir:"out", text:"Booked: Wed 03/06 15:30 follow-up. Auto-reminder 24 hrs prior",
+            time:"09:24", tag:"AUTO-CONFIRM"},
+        ]},
+      dash:{ url:"app.clinic.com/bookings", title:"Today's Bookings", subtitle:"Mon, 2026-05-24",
+        kpis:[
+          {label:"Today's bookings",val:"12"},{label:"Pending",val:"3"},
+          {label:"New enquiries",val:"8"},{label:"Recalls this week",val:"18"},
+        ],
+        rows:[
+          {c1:"14:00",c2:"Mr Chan",c3:"Follow-up",       status:"ok",  statusText:"Confirmed"},
+          {c1:"14:30",c2:"Anna L.", c3:"New consult",     status:"wait",statusText:"Pending"},
+          {c1:"15:30",c2:"Mr Chan",c3:"Follow-up (new)",  status:"ok",  statusText:"Confirmed"},
+          {c1:"16:00",c2:"Mark Y.", c3:"First consult",    status:"wait",statusText:"Pending"},
+          {c1:"16:30",c2:"—",       c3:"Open slot",         status:"open",statusText:"Available"},
         ]},
     },
     "教育":{
@@ -6893,11 +7007,11 @@ function applyProfile(profile){
     // 2b) Real Workflows + Before-After — swap to vertical-specific narrative
     //     (addresses brief #2 root cause: "all verticals sharing the same
     //     medspa-flavored workflow narrative")
-    const _heavyInd = (profile.industry === "私人診所") ? "醫美" : profile.industry;
+    const _heavyInd = profile.industry;
     applyWorkflowsForIndustry(_heavyInd);
     applyBAForIndustry(_heavyInd);
     // 2c) Real-feel mockups — WhatsApp + Dashboard rendered per vertical
-    renderMockupsForIndustry((profile.industry === "私人診所") ? "醫美" : profile.industry);
+    renderMockupsForIndustry(profile.industry);
     const _rfNote2 = document.getElementById("rf-sample-note");
     if(_rfNote2) _rfNote2.hidden = true;
   }
@@ -7654,6 +7768,7 @@ const URL_INDUSTRY_MAP = {
   "dental":     "私人診所",
   "specialist": "私人診所",
   "physio":     "私人診所",
+  "vet":        "私人診所",
   "logistics":  "物流",
   "warehouse":  "物流",
   "creative":   "創意",
@@ -7662,18 +7777,20 @@ const URL_INDUSTRY_MAP = {
 const CLINIC_VARIANTS = {
   zh: {
     dental:     { tag:"牙科診所專屬",     short:"洗牙後沒人提醒覆診、爽約流失？", name:"牙科診所" },
-    clinic:     { tag:"私人診所專屬",     short:"病人爽約、覆診跟不上？",         name:"私人診所" },
+    clinic:     { tag:"全科 / 家庭醫生診所專屬", short:"長期病覆診跟不上、病人回訪流失？", name:"全科診所" },
     specialist: { tag:"專科診所專屬",     short:"轉介個案沒人跟、覆診流失？",     name:"專科診所" },
     physio:     { tag:"物理治療診所專屬", short:"療程做一半就斷、沒人提醒重訪？", name:"物理治療診所" },
+    vet:        { tag:"獸醫診所專屬",     short:"疫苗覆診提醒漏發、主人查詢回不完？", name:"獸醫診所" },
   },
   en: {
     dental:     { tag:"Built for dental clinics",        short:"Recalls slip, no-shows lose patients?",   name:"dental clinics" },
-    clinic:     { tag:"Built for private clinics",       short:"No-shows, recalls slipping?",             name:"private clinics" },
+    clinic:     { tag:"Built for GP & family clinics",   short:"Chronic-care recalls slip, patients don\u2019t return?", name:"GP & family clinics" },
     specialist: { tag:"Built for specialist clinics",    short:"Referrals dropped, follow-ups slipping?", name:"specialist clinics" },
     physio:     { tag:"Built for physiotherapy clinics", short:"Treatment drop-off, no rebooking?",       name:"physiotherapy clinics" },
+    vet:        { tag:"Built for veterinary clinics",     short:"Vaccine reminders missed, owners unanswered?", name:"veterinary clinics" },
   },
 };
-const CLINIC_VARIANT_KEYS = ["dental","clinic","specialist","physio"];
+const CLINIC_VARIANT_KEYS = ["dental","clinic","specialist","physio","vet"];
 function getClinicVariantFromURL(){
   try{
     const raw = (new URLSearchParams(window.location.search).get("ind") || "").trim().toLowerCase();
