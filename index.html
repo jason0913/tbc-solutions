@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R33.4-brand-icons-all -->
+<!-- Deploy build tag: 2026-05-31-R34-clinic-vertical -->
 
 
 <!-- ============== FONTS ============== -->
@@ -2968,6 +2968,7 @@ body.no-profile .hero{
           <button class="wel-chip" data-ind="醫美" data-i18n="welcome.i6" type="button">醫美 / 健康</button>
           <button class="wel-chip" data-ind="物流" data-i18n="welcome.i7" type="button">物流 / 倉儲</button>
           <button class="wel-chip" data-ind="創意" data-i18n="welcome.i8" type="button">創意 / 設計</button>
+          <button class="wel-chip" data-ind="私人診所" data-i18n="welcome.i9" type="button">私人診所 / 醫療</button>
         </div>
       </div>
 
@@ -4848,7 +4849,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R33.4-brand-icons-all";
+  const CURRENT_BUILD = "2026-05-31-R34-clinic-vertical";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -5088,7 +5089,7 @@ const I18N = {
     "welcome.hint":"先選一個行業，AI 即時為您度身打造方案",
     "welcome.hintReady":"已為您配對好行業方案",
     "welcome.i1":"餐飲","welcome.i2":"零售 / 電商","welcome.i3":"專業服務","welcome.i4":"教育培訓",
-    "welcome.i5":"科技 / SaaS","welcome.i6":"醫美 / 健康","welcome.i7":"物流 / 倉儲","welcome.i8":"創意 / 設計",
+    "welcome.i5":"科技 / SaaS","welcome.i6":"醫美 / 健康","welcome.i7":"物流 / 倉儲","welcome.i8":"創意 / 設計","welcome.i9":"私人診所 / 醫療",
     "nav.reset":"重新診斷","nav.profileFallback":"行業",
     "pain.industryFallback":"以下痛點","stat.permonth":"/月",
     "demos.expand":"查看所有方案","demos.collapse":"只看相關方案",
@@ -5335,7 +5336,7 @@ const I18N = {
     "welcome.hint":"Pick an industry — AI matches solutions instantly",
     "welcome.hintReady":"Solutions matched for your industry",
     "welcome.i1":"F&B","welcome.i2":"Retail / e-commerce","welcome.i3":"Professional services","welcome.i4":"Education",
-    "welcome.i5":"Tech / SaaS","welcome.i6":"Medical / Wellness","welcome.i7":"Logistics","welcome.i8":"Creative / Design",
+    "welcome.i5":"Tech / SaaS","welcome.i6":"Medical / Wellness","welcome.i7":"Logistics","welcome.i8":"Creative / Design","welcome.i9":"Private clinics",
     "nav.reset":"Re-diagnose","nav.profileFallback":"Industry",
     "pain.industryFallback":"your pain points","stat.permonth":"/mo",
     "demos.expand":"See all solutions","demos.collapse":"Show relevant only",
@@ -5665,11 +5666,11 @@ const PROFILE_KEY = "tbc-profile-v2";
 const INDUSTRY_NAME = {
   zh: {
     "餐飲":"餐飲","零售":"零售","專業服務":"專業服務","教育":"教育",
-    "科技":"科技","醫美":"醫美","物流":"物流","創意":"創意",
+    "科技":"科技","醫美":"醫美","物流":"物流","創意":"創意","私人診所":"私人診所",
   },
   en: {
     "餐飲":"F&B","零售":"retail & e-commerce","專業服務":"professional services","教育":"education",
-    "科技":"tech & SaaS","醫美":"aesthetic clinics","物流":"logistics","創意":"creative & design",
+    "科技":"tech & SaaS","醫美":"aesthetic clinics","物流":"logistics","創意":"creative & design","私人診所":"private clinics",
   },
 };
 function industryLabel(key){
@@ -5689,6 +5690,7 @@ const INDUSTRY_HERO = {
     "醫美":   ["醫美診所專屬","預約、漏客防止與重訪自動化"],
     "物流":   ["物流與倉儲專屬","庫存、調貨與報表自動化"],
     "創意":   ["創意與設計專屬","提案、跟進與內容自動化"],
+    "私人診所":["私人診所專屬","覆診提醒、召回與跟進自動化"],
   },
   en: {
     "餐飲":   ["Built for F&B","reservations, follow-ups and content automated"],
@@ -5699,6 +5701,7 @@ const INDUSTRY_HERO = {
     "醫美":   ["Built for aesthetic clinics","bookings, no-show prevention and rebooking automated"],
     "物流":   ["Built for logistics","inventory, routing and reporting automated"],
     "創意":   ["Built for creative & design","pitching, follow-up and content automated"],
+    "私人診所":["Built for private clinics","appointment reminders, recall & follow-up automated"],
   },
 };
 
@@ -6668,6 +6671,7 @@ const INDUSTRY_DESCRIPTOR = {
     "醫美":   "AI 自動做療程後關懷、重訪召回與諮詢跟進 — 把一次性客人變成回頭常客，員工不再被 WhatsApp 淹沒。",
     "物流":   "多倉庫實時庫存、智能調貨推薦、出貨警示、客戶查詢回覆 — 讓您與倉管員工專注真正調度物流的決策。",
     "創意":   "把提案跟進、客戶溝通、社交內容草稿、評論回覆交給自動化系統 — 讓您與創作團隊專注真正創作的時間。",
+    "私人診所":"把覆診提醒、爽約召回、新症與療程後跟進、評論回覆交給自動化系統 — 讓您與診所團隊專注真正照顧病人的時間。",
   },
   en: {
     "餐飲":   "Hand reservation confirmations, order follow-ups, social content and rebooking off to an automated system — so your kitchen and floor team focus on real service.",
@@ -6678,6 +6682,7 @@ const INDUSTRY_DESCRIPTOR = {
     "醫美":   "AI handles post-treatment care, rebooking recall and consultation follow-up — turning one-time clients into regulars, so your team isn't buried in WhatsApp.",
     "物流":   "Real-time multi-warehouse inventory, smart routing, shipping alerts and customer-query replies — so your warehouse team focuses on real logistics decisions.",
     "創意":   "Hand pitch follow-ups, client communication, social drafts and review replies off to an automated system — so your creative team focuses on the actual work.",
+    "私人診所":"Hand appointment reminders, no-show recovery, new-patient and post-visit follow-up and review replies to an automated system — so your clinic team focuses on real patient care.",
   },
 };
 
@@ -6694,6 +6699,7 @@ const INDUSTRY_PAIN = {
     "醫美":   "客人做完一次就不再回來、療程後沒人跟進、諮詢不成交？",
     "物流":   "庫存對不準、調貨靠人腦、客戶查物流的訊息回不完？",
     "創意":   "提案發出後石沉大海、客戶改稿訊息回不完、社交內容永遠欠交？",
+    "私人診所":"病人爽約又不覆診、療程後沒人跟進、WhatsApp 查詢回不完？",
   },
   en: {
     "餐飲":   "Reservation messages piling up, follow-ups slipping, customers lost in the rush?",
@@ -6704,6 +6710,7 @@ const INDUSTRY_PAIN = {
     "醫美":   "Clients visit once and never return, no post-treatment follow-up, consultations that don't convert?",
     "物流":   "Stock counts off, routing done by hand, customer tracking queries unanswered?",
     "創意":   "Pitches that go silent, endless revision messages, social content always overdue?",
+    "私人診所":"No-shows that never rebook, no post-visit follow-up, WhatsApp enquiries you can\u2019t keep up with?",
   },
 };
 
@@ -6720,6 +6727,7 @@ const INDUSTRY_PAIN_SHORT = {
     "醫美":   "客人做完一次，就不再回來？",
     "物流":   "庫存對不準、查詢回不完？",
     "創意":   "提案石沉、改稿回不完？",
+    "私人診所":"病人爽約、覆診跟不上？",
   },
   en: {
     "餐飲":   "Bookings pile up, follow-ups slip?",
@@ -6730,6 +6738,7 @@ const INDUSTRY_PAIN_SHORT = {
     "醫美":   "They visit once, then never return?",
     "物流":   "Stock off, tracking queries pile up?",
     "創意":   "Pitches go silent, revisions endless?",
+    "私人診所":"No-shows, recalls slipping?",
   },
 };
 
@@ -6759,6 +6768,7 @@ const INDUSTRY_DEFAULT_PAINS = {
   "醫美":   ["follow-up","support","review"],     // 預約跟進 + WhatsApp 客服 + 評論回覆
   "物流":   ["warehouse","report","support"],     // 倉儲 + 報表 + 客服查物流
   "創意":   ["content","follow-up","translate"],  // 內容 + 提案跟進 + 國際翻譯
+  "私人診所":["follow-up","support","review"],  // 覆診跟進 + WhatsApp 客服 + 評論回覆
 };
 
 // Pain → ROI calculator area chip (data-area attr)
@@ -6852,8 +6862,10 @@ function applyProfile(profile){
     // the capability summary is already covered by the descriptor below.
     const heroMap  = INDUSTRY_HERO[currentLang] || INDUSTRY_HERO.zh;
     const painMap  = INDUSTRY_PAIN_SHORT[currentLang] || INDUSTRY_PAIN_SHORT.zh;
-    const indTag   = (heroMap[profile.industry] || [])[0] || "";
-    const painLine = painMap[profile.industry] || "";
+    let indTag   = (heroMap[profile.industry] || [])[0] || "";
+    let painLine = painMap[profile.industry] || "";
+    const _cv = profile.variant && CLINIC_VARIANTS[currentLang] && CLINIC_VARIANTS[currentLang][profile.variant];
+    if(_cv){ indTag = _cv.tag; painLine = _cv.short; }
     const heroEyebrowEl = document.getElementById("hero-eyebrow");
     if(heroEyebrowEl && indTag){ heroEyebrowEl.hidden = false; heroEyebrowEl.textContent = indTag; }
     const heroPainEl = document.getElementById("hero-pain");
@@ -6881,10 +6893,11 @@ function applyProfile(profile){
     // 2b) Real Workflows + Before-After — swap to vertical-specific narrative
     //     (addresses brief #2 root cause: "all verticals sharing the same
     //     medspa-flavored workflow narrative")
-    applyWorkflowsForIndustry(profile.industry);
-    applyBAForIndustry(profile.industry);
+    const _heavyInd = (profile.industry === "私人診所") ? "醫美" : profile.industry;
+    applyWorkflowsForIndustry(_heavyInd);
+    applyBAForIndustry(_heavyInd);
     // 2c) Real-feel mockups — WhatsApp + Dashboard rendered per vertical
-    renderMockupsForIndustry(profile.industry);
+    renderMockupsForIndustry((profile.industry === "私人診所") ? "醫美" : profile.industry);
     const _rfNote2 = document.getElementById("rf-sample-note");
     if(_rfNote2) _rfNote2.hidden = true;
   }
@@ -7637,12 +7650,36 @@ const URL_INDUSTRY_MAP = {
   "tech":       "科技",
   "saas":       "科技",
   "medical":    "醫美",
-  "clinic":     "醫美",
+  "clinic":     "私人診所",
+  "dental":     "私人診所",
+  "specialist": "私人診所",
+  "physio":     "私人診所",
   "logistics":  "物流",
   "warehouse":  "物流",
   "creative":   "創意",
   "design":     "創意",
 };
+const CLINIC_VARIANTS = {
+  zh: {
+    dental:     { tag:"牙科診所專屬",     short:"洗牙後沒人提醒覆診、爽約流失？", name:"牙科診所" },
+    clinic:     { tag:"私人診所專屬",     short:"病人爽約、覆診跟不上？",         name:"私人診所" },
+    specialist: { tag:"專科診所專屬",     short:"轉介個案沒人跟、覆診流失？",     name:"專科診所" },
+    physio:     { tag:"物理治療診所專屬", short:"療程做一半就斷、沒人提醒重訪？", name:"物理治療診所" },
+  },
+  en: {
+    dental:     { tag:"Built for dental clinics",        short:"Recalls slip, no-shows lose patients?",   name:"dental clinics" },
+    clinic:     { tag:"Built for private clinics",       short:"No-shows, recalls slipping?",             name:"private clinics" },
+    specialist: { tag:"Built for specialist clinics",    short:"Referrals dropped, follow-ups slipping?", name:"specialist clinics" },
+    physio:     { tag:"Built for physiotherapy clinics", short:"Treatment drop-off, no rebooking?",       name:"physiotherapy clinics" },
+  },
+};
+const CLINIC_VARIANT_KEYS = ["dental","clinic","specialist","physio"];
+function getClinicVariantFromURL(){
+  try{
+    const raw = (new URLSearchParams(window.location.search).get("ind") || "").trim().toLowerCase();
+    return CLINIC_VARIANT_KEYS.indexOf(raw) >= 0 ? raw : null;
+  }catch(_){ return null; }
+}
 function getIndustryFromURL(){
   try{
     const params = new URLSearchParams(window.location.search);
@@ -7659,7 +7696,7 @@ function getIndustryFromURL(){
       // Cold-email recipient — URL overrides any saved profile.
       // Build minimal profile, save it (so subsequent visits keep the
       // industry without needing the param), apply directly, skip welcome.
-      const profile = { industry: urlIndustry, pains: [], lang: currentLang, ts: Date.now() };
+      const profile = { industry: urlIndustry, variant: getClinicVariantFromURL(), pains: [], lang: currentLang, ts: Date.now() };
       saveProfile(profile);
       applyProfile(profile);
       // Flag the body so we can hide the "重新診斷" / Re-diagnose
@@ -7699,15 +7736,22 @@ function renderLiveDemoForProfile(profile){
   }
   if(!idxs.length) idxs = [0, 1, 5];
   const _dict = (typeof I18N !== "undefined" && I18N[currentLang]) || {};
+  const _cvL = (profile && profile.variant && CLINIC_VARIANTS[currentLang] && CLINIC_VARIANTS[currentLang][profile.variant]);
+  const _isClinic = !!_cvL || industry === "私人診所";
+  const _label = _cvL ? _cvL.name
+              : (industry === "私人診所" ? ((currentLang === "zh") ? "私人診所" : "private clinics")
+              : (industry ? ((currentLang === "zh") ? (industry + "業") : industryLabel(industry)) : null));
   if(titleEl){
-    titleEl.textContent = industry
-      ? ((currentLang === "zh") ? `即時看 AI 如何為 ${industry}業 自動化跟進、回覆與接單`
-                                : `See how AI automates follow-up, replies and intake for ${industryLabel(industry)}`)
+    titleEl.textContent = _label
+      ? ((currentLang === "zh")
+          ? (_isClinic ? `即時看 AI 如何為 ${_label} 自動化覆診提醒、跟進與客服`
+                       : `即時看 AI 如何為 ${_label} 自動化跟進、回覆與接單`)
+          : `See how AI automates follow-up, replies and intake for ${_label}`)
       : (_dict["ld.title"] || titleEl.textContent);
   }
   if(subEl){
-    subEl.textContent = industry
-      ? ((currentLang === "zh") ? `已為您篩選 ${industry}業 最有用的工具 — 揀一個即場體驗：`
+    subEl.textContent = _label
+      ? ((currentLang === "zh") ? `已為您篩選 ${_label} 最有用的工具 — 揀一個即場體驗：`
                                 : `The most useful tools for your industry — try one live:`)
       : (_dict["ld.sub"] || subEl.textContent);
   }
