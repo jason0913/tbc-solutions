@@ -2434,7 +2434,7 @@ function submitWelcome(){
 /* ----------------- CONTACT CHANNELS (single source of truth) ----------------- */
 // TODO: 石斑 commit 前手動填返真實 WhatsApp 號碼（去除 +、空格、dash）
 // 例：+852 1234 5678 → "85212345678"
-const CONTACT_WHATSAPP = "85267028853"; // ⬅️ REPLACE WITH REAL HK NUMBER
+const CONTACT_WHATSAPP = "85257018218"; // +852 5701 8218
 const CONTACT_TG_HANDLE = "grouper0913";
 const CONTACT_WHATSAPP_URL = `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent("您好 TBC，我想了解 AI 自動化方案")}`;
 const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
