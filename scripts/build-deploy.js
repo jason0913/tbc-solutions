@@ -10,6 +10,9 @@ const publicFiles = [
   "founder.jpg",
   "5E24676A-3698-49D0-8993-2C2A0D1BB2C0_4_5005_c.jpeg",
 ];
+const publicDirs = [
+  "blog",
+];
 
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist, { recursive: true });
@@ -22,6 +25,15 @@ for (const file of publicFiles) {
   const target = path.join(dist, file);
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.copyFileSync(source, target);
+}
+
+for (const dir of publicDirs) {
+  const source = path.join(root, dir);
+  if (!fs.existsSync(source)) {
+    throw new Error(`Missing public directory: ${dir}`);
+  }
+  const target = path.join(dist, dir);
+  fs.cpSync(source, target, { recursive: true });
 }
 
 const forbidden = [

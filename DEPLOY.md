@@ -11,7 +11,7 @@ maintains one platform, maintain Vercel.
 `dist/` is the **static publish folder only** (HTML + images, built by
 `scripts/build-deploy.js`). The serverless functions are **NOT** in `dist`:
 
-- Vercel functions live in `/api/*` (`api/claude.js`, `api/lead.js`)
+- Vercel functions live in `/api/*` (`api/claude.js`, `api/lead.js`, `api/leads/base.js`)
 - Netlify functions live in `netlify/functions/*`
 
 The build script intentionally excludes `api/` and `netlify/` from `dist`, so a
@@ -59,6 +59,16 @@ hard-fails if any sensitive file (`.env.local`, `.git`, `*.skill`,
 
 > Until these three are set, the form returns a friendly error (no white screen).
 
+**Gated resource lead storage** (`/api/leads/base`, Google Sheets append):
+
+- `GOOGLE_SHEETS_CLIENT_EMAIL` — service account email
+- `GOOGLE_SHEETS_PRIVATE_KEY` — service account private key; in Vercel, keep escaped newlines as `\n`
+- `GOOGLE_SHEETS_BASE_LEADS_SPREADSHEET_ID` — target Sheet ID
+- `GOOGLE_SHEETS_BASE_LEADS_RANGE` — optional; defaults to `base_leads!A:H`
+
+Share the target Sheet with the service account email. The first row should be:
+`created_at`, `email`, `source`, `resource_slug`, `resource_title`, `page_url`, `user_agent`, `status`.
+
 ## Spam / abuse note (launch hardening)
 
 `/api/lead` is a public endpoint protected only by a honeypot + email validation
@@ -70,9 +80,11 @@ hard-fails if any sensitive file (`.env.local`, `.git`, `*.skill`,
 After deploy, test:
 
 - `/`
+- `/blog/base` — gated resource page loads
 - `/favicon.ico`
 - `/api/claude` — AI assistant replies
 - `/api/lead` — submit the email form → a `🟢 New lead` email arrives
+- `/api/leads/base` — invalid email returns 400; valid email writes one row to Google Sheet
 - `/.env.local` → not accessible
 - `/.git/config` → not accessible
 - `/cold-email-tool.html` → not accessible

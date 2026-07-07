@@ -17,6 +17,12 @@
     - [ ] `RESEND_API_KEY`(resend.com)
     - [ ] `LEAD_NOTIFY_TO`(lead 收件,例 `shek0913@tbchk.com`)
     - [ ] `LEAD_FROM`(**要 Resend 驗證咗嘅 sender/domain**,例 `hello@tbchk.com`)
+  - [ ] **Blog gated resource(`/api/leads/base`)Google Sheet env**:
+    - [ ] `GOOGLE_SHEETS_CLIENT_EMAIL`
+    - [ ] `GOOGLE_SHEETS_PRIVATE_KEY`(Vercel 用 `\n` 保留換行)
+    - [ ] `GOOGLE_SHEETS_BASE_LEADS_SPREADSHEET_ID`
+    - [ ] `GOOGLE_SHEETS_BASE_LEADS_RANGE`(可選,預設 `base_leads!A:H`)
+    - [ ] Sheet 已 share 畀 service account email,首行欄位齊:`created_at,email,source,resource_slug,resource_title,page_url,user_agent,status`
 - [ ] **Build 跑得過**:`node scripts/build-deploy.js` → 應該見 `[TBC] Built clean deploy folder`
   - 如果 forbidden-check 報錯,代表有敏感檔走入 dist,要清返。
 - [ ] **netlify.toml 確認**:`command = "node scripts/build-deploy.js"` / `publish = "dist"`
@@ -32,6 +38,11 @@
 - [ ] **Telegram** link 撳到、開到
 - [ ] **Email lead capture**:預約區之前個 form 填 email 提交 → inbox 收到「🟢 New lead」(未設 env 會出友善錯誤,唔白頁)
   - [ ] (上線前)`/api/lead` 加 Vercel Firewall / rate limit 防 spam 燒 Resend quota
+- [ ] **Blog gated resource**:`/blog/base` 開到
+  - [ ] 無效 Email 顯示錯誤,唔解鎖
+  - [ ] 有效 Email 經 `/api/leads/base` 成功寫入 Google Sheet
+  - [ ] API 成功後先同頁解鎖完整內容,唔跳頁
+  - [ ] 手機版資源 preview / email form / 解鎖內容無橫向爆版
 - [ ] **8 條 cold-email deep link** 逐條開:
   `?ind=fnb` `retail` `pro` `edu` `tech` `medical` `logistics` `creative`
   - 每條:welcome 跳過、hero 痛點標題正確、demo 已 filter

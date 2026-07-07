@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>業務資料整理框架｜TBC Solutions</title>
+<meta name="description" content="免費查看業務資料整理框架，協助中小企整理客戶資料、跟進狀態、項目進度、庫存紀錄及日常營運資料。" />
+<link rel="canonical" href="https://solutions.tbchk.com/blog/base" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ===========================================================
+   TBC Solutions style reference:
+   dark surface + Syne/Noto Sans TC + purple/pink/cyan gradient
+   =========================================================== */
+:root{
+  --bg:#07070a;
+  --bg-2:#0d0d12;
+  --surface:#13131a;
+  --surface-2:#1b1b24;
+  --line:rgba(255,255,255,.08);
+  --line-strong:rgba(255,255,255,.16);
+  --text:#f5f5f7;
+  --text-dim:#9a9aa8;
+  --text-faint:#6b6b78;
+  --accent:#7c5cff;
+  --accent-2:#ff5cb1;
+  --accent-3:#5cd7ff;
+  --grad:linear-gradient(120deg,#7c5cff 0%,#ff5cb1 50%,#5cd7ff 100%);
+  --grad-soft:linear-gradient(120deg,rgba(124,92,255,.18),rgba(255,92,177,.18),rgba(92,215,255,.18));
+  --radius:16px;
+  --radius-lg:24px;
+  --shadow-1:0 10px 30px rgba(0,0,0,.35);
+  --shadow-glow:0 0 40px rgba(124,92,255,.35);
+  --t-fast:.2s ease;
+  --t-med:.4s cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  min-height:100vh;
+  font-family:'Noto Sans TC','Syne',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+}
+a{color:inherit;text-decoration:none}
+button,input{font-family:inherit}
+::selection{background:var(--accent);color:#fff}
+
+#bg-canvas{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(1200px 700px at 80% -10%,rgba(124,92,255,.10),transparent 60%),
+    radial-gradient(900px 600px at -10% 30%,rgba(255,92,177,.07),transparent 60%),
+    radial-gradient(900px 600px at 50% 110%,rgba(92,215,255,.06),transparent 60%),
+    var(--bg);
+}
+#particles{
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:
+    radial-gradient(circle at 20% 18%,rgba(124,92,255,.22) 0 1px,transparent 1px),
+    radial-gradient(circle at 72% 26%,rgba(255,92,177,.18) 0 1px,transparent 1px),
+    radial-gradient(circle at 48% 78%,rgba(92,215,255,.16) 0 1px,transparent 1px);
+  background-size:140px 140px,180px 180px,220px 220px;
+}
+
+main,nav,section,footer{position:relative;z-index:2}
+
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,4vw,48px);
+  backdrop-filter:blur(14px);
+  background:rgba(7,7,10,.72);
+  border-bottom:1px solid var(--line);
+}
+.logo{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.logo-row{display:flex;align-items:center;gap:10px}
+.logo-block{
+  background:#fff;color:#07070a;
+  padding:7px 11px;border-radius:6px;
+  font-family:'Syne',sans-serif;font-weight:800;letter-spacing:.04em;
+  font-size:18px;
+}
+.logo-right{display:flex;flex-direction:column;line-height:1.1;border-left:1px solid rgba(255,255,255,.35);padding-left:10px}
+.logo-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;letter-spacing:.02em;color:#fff}
+.logo-sub{font-size:9px;color:var(--text-dim);letter-spacing:.22em;margin-top:2px;font-weight:500}
+.logo-slogan{font-size:8px;color:var(--text-faint);letter-spacing:.32em;margin-top:6px;font-weight:500;text-transform:uppercase}
+.nav-links{display:flex;gap:26px}
+.nav-links a{
+  color:var(--text-dim);font-size:14px;font-weight:500;letter-spacing:.04em;
+  position:relative;transition:color var(--t-fast);
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;
+  background:var(--grad);transition:width var(--t-med);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+
+/* COMMON */
+.section{padding:clamp(72px,9vw,130px) clamp(20px,5vw,80px);position:relative}
+.container{max-width:1280px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--text-dim);font-weight:600;
+  margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--grad)}
+.h1{
+  font-family:'Syne','Noto Sans TC',sans-serif;font-weight:800;
+  font-size:clamp(42px,7vw,94px);line-height:1.02;letter-spacing:-.02em;
+  margin-top:4px;
+}
+.h2{
+  font-family:'Syne','Noto Sans TC',sans-serif;font-weight:700;
+  font-size:clamp(30px,4.4vw,56px);line-height:1.05;letter-spacing:-.015em;
+}
+.h3{font-family:'Syne','Noto Sans TC',sans-serif;font-weight:700;font-size:clamp(20px,2vw,28px);letter-spacing:-.01em}
+.muted{color:var(--text-dim);font-size:15.5px}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 26px;border-radius:999px;font-weight:700;letter-spacing:.04em;
+  font-size:14px;transition:transform var(--t-fast),box-shadow var(--t-med),background var(--t-med);
+  border:1px solid var(--line-strong);
+}
+.btn-primary{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 28px rgba(124,92,255,.45)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(124,92,255,.6)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.btn .arrow{display:inline-block;transition:transform var(--t-fast)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* HERO */
+.hero{
+  min-height:calc(100vh - 80px);
+  display:flex;align-items:center;justify-content:center;
+  padding:110px 24px 80px;text-align:center;position:relative;
+}
+.hero-inner{max-width:1100px;margin:0 auto}
+.hero-glow{
+  position:absolute;width:min(700px,92vw);height:min(700px,92vw);border-radius:50%;
+  background:radial-gradient(circle,rgba(124,92,255,.35),transparent 60%);
+  filter:blur(40px);top:-100px;left:50%;transform:translateX(-50%);z-index:-1;
+  animation:pulse 8s ease-in-out infinite;pointer-events:none;
+}
+@keyframes pulse{50%{transform:translate(-50%,40px) scale(1.1);opacity:.7}}
+.hero-descriptor{
+  margin-top:20px;font-size:clamp(16px,1.45vw,19px);font-weight:600;letter-spacing:.01em;
+  color:var(--text);max-width:760px;margin-left:auto;margin-right:auto;line-height:1.65;
+  background:linear-gradient(120deg,#fff 0%,rgba(255,255,255,.78) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  margin-top:18px;font-size:clamp(15px,1.35vw,18px);color:var(--text-dim);
+  font-weight:400;letter-spacing:.02em;max-width:760px;margin-left:auto;margin-right:auto;
+}
+.hero-cta{margin-top:44px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* Lead capture card */
+.leadcap-section{padding:24px 0 16px}
+.leadcap-card{
+  max-width:760px;margin:0 auto;text-align:center;
+  padding:34px clamp(20px,4vw,40px);border-radius:22px;
+  background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(92,215,255,.05));
+  border:1px solid rgba(124,92,255,.28);
+  box-shadow:var(--shadow-1);
+}
+.leadcap-card .eyebrow{margin-bottom:14px}
+.leadcap-title{font-size:clamp(18px,2.2vw,24px);font-weight:800;line-height:1.35;color:var(--text);max-width:600px;margin:0 auto}
+.leadcap-sub{font-size:14.5px;color:var(--text-dim);margin:12px auto 0;max-width:620px}
+.leadcap-form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px auto 0;max-width:560px}
+.leadcap-input{
+  flex:1 1 260px;min-width:0;padding:13px 16px;border-radius:12px;
+  border:1px solid var(--line-strong);background:rgba(255,255,255,.05);
+  color:var(--text);font-size:15px;font-family:inherit;
+}
+.leadcap-input:focus{outline:none;border-color:rgba(124,92,255,.6)}
+.leadcap-btn{
+  padding:13px 22px;border-radius:12px;border:none;background:var(--grad);color:#fff;
+  font-family:'Syne','Noto Sans TC',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;
+  white-space:nowrap;transition:transform var(--t-fast);box-shadow:0 12px 30px -8px rgba(124,92,255,.6);
+}
+.leadcap-btn:hover{transform:translateY(-2px)}
+.leadcap-btn:disabled{cursor:wait;opacity:.72;transform:none}
+.leadcap-msg{margin-top:14px;font-size:13.5px;font-weight:600;min-height:20px}
+.leadcap-msg.ok{color:#7be8a3}
+.leadcap-msg.err{color:#ff9c8a}
+.privacy{margin-top:14px;color:var(--text-faint);font-size:12.5px;line-height:1.6}
+
+/* Cards */
+.section-head{display:flex;flex-direction:column;gap:18px;margin-bottom:48px;max-width:780px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.service-card{
+  position:relative;padding:32px 28px;border-radius:var(--radius-lg);
+  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);overflow:hidden;
+  transition:transform var(--t-med),border-color var(--t-med);
+  min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;
+}
+.service-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity var(--t-med);pointer-events:none;
+}
+.service-card::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.18),transparent 50%);
+  opacity:0;transition:opacity var(--t-med);pointer-events:none;
+}
+.service-card:hover{transform:translateY(-6px)}
+.service-card:hover::before{opacity:1}
+.service-card:hover::after{opacity:1}
+.service-card .num{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:48px;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1;opacity:.7;
+}
+.service-card h3{font-size:22px;font-weight:700;letter-spacing:-.005em;position:relative;z-index:1}
+.service-card p,.service-card li{color:var(--text-dim);font-size:14.5px;line-height:1.65;position:relative;z-index:1}
+.service-card .tag{font-size:11px;letter-spacing:.3em;color:var(--text-faint);text-transform:uppercase;position:relative;z-index:1}
+.service-card ul{padding-left:18px;margin-top:4px}
+
+.demo-block{
+  margin-top:28px;padding:36px;border-radius:var(--radius-lg);
+  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  border:1px solid var(--line);position:relative;overflow:hidden;
+}
+.demo-head{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:20px;
+}
+.demo-tag{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 12px;
+  background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.35);
+  border-radius:999px;font-size:11px;letter-spacing:.3em;font-weight:700;color:#c8b9ff;
+}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+.table-wrap{
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(0,0,0,.4);
+}
+table{width:100%;border-collapse:collapse}
+th,td{padding:14px 16px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);vertical-align:top;text-align:left}
+th:last-child,td:last-child{border-right:0}
+tr:last-child td{border-bottom:0}
+th{
+  color:var(--text);font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  background:rgba(255,255,255,.04);
+}
+td{color:var(--text-dim);font-size:14.5px;line-height:1.65}
+td strong{color:var(--text)}
+
+.callout{
+  margin-top:18px;
+  padding:18px 20px;border-radius:14px;
+  background:linear-gradient(120deg,rgba(124,92,255,.15),rgba(92,215,255,.10));
+  border:1px solid rgba(124,92,255,.3);
+  color:var(--text);font-size:14.5px;line-height:1.75;
+}
+
+.locked-preview{position:relative}
+.preview-blur{
+  max-height:360px;overflow:hidden;
+  mask-image:linear-gradient(to bottom,#000 0%,#000 48%,transparent 100%);
+  pointer-events:none;user-select:none;
+}
+.locked-cover{
+  position:relative;margin-top:-130px;min-height:210px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(to bottom,transparent,rgba(7,7,10,.92) 38%,rgba(7,7,10,1));
+  padding:40px 20px;border-radius:var(--radius-lg);
+}
+.locked-cover strong{display:block;font-size:22px;font-weight:800;margin-bottom:8px}
+.locked-cover span{color:var(--text-dim);font-size:14.5px;max-width:560px;display:block}
+
+.resource-content{display:none}
+.resource-content.show{display:block;animation:slideUp .45s ease both}
+@keyframes slideUp{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.check{
+  padding:15px 16px;border-radius:14px;background:rgba(255,255,255,.035);
+  border:1px solid var(--line);color:var(--text-dim);font-size:14.5px;line-height:1.65;
+}
+
+.final-cta{
+  background:linear-gradient(160deg,rgba(124,92,255,.10),rgba(255,92,177,.05));
+  border:1px solid rgba(124,92,255,.28);
+}
+.footer{
+  padding:34px clamp(20px,5vw,80px) 50px;text-align:center;
+  color:var(--text-faint);font-size:13px;border-top:1px solid var(--line);
+}
+
+@media(max-width:860px){
+  .nav-links{display:none}
+  .hero{padding-top:80px}
+  .demo-grid{grid-template-columns:1fr}
+  .checklist{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .section{padding-left:20px;padding-right:20px}
+  .demo-block{padding:24px 18px}
+  th{display:none}
+  tr{display:block;border-bottom:1px solid var(--line)}
+  tr:last-child{border-bottom:0}
+  td{display:block;border-right:0;border-bottom:1px solid var(--line)}
+  td::before{
+    content:attr(data-label);
+    display:block;color:var(--text);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:4px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="bg-canvas"></div>
+<div id="particles"></div>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <div class="logo-row">
+      <div class="logo-block">TBC</div>
+      <div class="logo-right">
+        <div class="logo-name">Solutions</div>
+        <div class="logo-sub">AI · AUTOMATION</div>
+      </div>
+    </div>
+    <div class="logo-slogan">Transform · Build · Create</div>
+  </a>
+
+  <div class="nav-links">
+    <a href="#preview">資源預覽</a>
+    <a href="#unlock">解鎖內容</a>
+    <a href="#framework">完整框架</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">FREE RESOURCE · BASE</div>
+      <h1 class="h1">
+        業務資料<br>
+        <span class="gradient-text">整理框架</span>
+      </h1>
+      <p class="hero-descriptor">
+        如果你的 Excel 已經多到找不到資料，問題可能不是你不懂整理，而是業務資料已經需要更清晰的結構。
+      </p>
+      <p class="hero-sub">
+        這份免費框架會協助你整理客戶資料、跟進狀態、項目進度、庫存紀錄及日常營運資料，再判斷是否需要 Excel、Airtable、Web App、自動化或 AI 功能。
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#unlock">解鎖免費資源 <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#preview">先看預覽</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="leadcap-section" id="unlock">
+    <div class="container">
+      <div class="leadcap-card">
+        <div class="eyebrow">EMAIL UNLOCK</div>
+        <h2 class="leadcap-title">輸入 Email，即時查看完整「業務資料整理框架」</h2>
+        <p class="leadcap-sub">
+          適合正在用 Excel / Google Sheet 管理客戶、跟進、項目、庫存，但開始覺得資料分散或難以查找的中小企。
+        </p>
+
+        <form class="leadcap-form" id="leadForm" novalidate>
+          <input class="leadcap-input" id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required />
+          <button class="leadcap-btn" type="submit">解鎖框架</button>
+        </form>
+        <div class="leadcap-msg" id="formMessage" role="status" aria-live="polite"></div>
+        <p class="privacy">
+          提交 Email 後，你會在本頁查看此免費資源。資料只會用於提供此資源及後續相關業務溝通，不會出售予第三方。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="preview">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">WHAT YOU GET</div>
+        <h2 class="h2">不是叫你立即轉工具，而是先拆清楚資料結構。</h2>
+        <p class="muted">
+          很多業務資料混亂，不是因為 Excel 不夠好，而是欄位、狀態、表格關聯和流程責任未被清楚定義。
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="num">01</div>
+          <div>
+            <div class="tag">Data Type</div>
+            <h3>資料類型分類</h3>
+            <p>分清楚客戶、跟進、項目、任務、庫存及支援紀錄。</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="num">02</div>
+          <div>
+            <div class="tag">Fields</div>
+            <h3>欄位設計方向</h3>
+            <p>每張表應該記錄什麼，避免一張表塞滿所有資料。</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="num">03</div>
+          <div>
+            <div class="tag">Status</div>
+            <h3>流程狀態範例</h3>
+            <p>例如新查詢、已報價、待跟進、已成交、暫停等。</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="num">04</div>
+          <div>
+            <div class="tag">Relation</div>
+            <h3>表格關聯方法</h3>
+            <p>理解客戶、查詢、項目、任務之間應該如何連接。</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="num">05</div>
+          <div>
+            <div class="tag">Tools</div>
+            <h3>工具升級判斷</h3>
+            <p>判斷何時繼續用 Excel，何時需要 Airtable、Web App 或自動化。</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="num">06</div>
+          <div>
+            <div class="tag">Checklist</div>
+            <h3>快速自我檢查</h3>
+            <p>用幾條問題快速判斷你的資料是否已經需要重整。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block locked-preview" id="lockedPreview">
+        <div class="preview-blur">
+          <div class="demo-head">
+            <span class="demo-tag">LOCKED PREVIEW</span>
+            <span class="muted">完整框架節錄</span>
+          </div>
+          <div class="demo-grid">
+            <div class="service-card">
+              <div class="num">STEP</div>
+              <div>
+                <div class="tag">Step 01</div>
+                <h3>先分清楚資料類型</h3>
+                <p>整理資料前，不要急着換工具。先把公司常見資料分成客戶、跟進、項目、庫存及支援紀錄。</p>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="num">STEP</div>
+              <div>
+                <div class="tag">Step 02</div>
+                <h3>每張表只回答一個問題</h3>
+                <p>客戶表回答「這個客戶是誰」，跟進表回答「這次查詢到哪一步」，項目表回答「成交後要交付什麼」。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="locked-cover">
+          <div>
+            <strong>完整內容已鎖定</strong>
+            <span>輸入 Email 後，即時解鎖完整欄位表、狀態範例、工具判斷及自我檢查清單。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="resource-content" id="resourceContent">
+    <section class="section" id="framework">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">FULL FRAMEWORK</div>
+          <h2 class="h2">完整業務資料整理框架</h2>
+          <p class="muted">以下內容適合直接給中小企老闆、營運同事或行政團隊參考。</p>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">CORE PRINCIPLE</span>
+            <span class="muted">先整理欄位與流程，再決定工具</span>
+          </div>
+          <p class="muted">
+            工具只是載體。真正影響效率的，是資料結構是否清楚、狀態是否一致、跟進責任是否明確，以及不同表格之間能否互相連接。
+          </p>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">WHY EXCEL GETS MESSY</span>
+            <h3 class="h3">為什麼 Excel 會開始混亂？</h3>
+          </div>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="num">01</div>
+              <div>
+                <h3>資料越來越分散</h3>
+                <p>客戶資料、報價、跟進、庫存、項目紀錄分散在不同表格，最後沒有人知道哪一份才是最新版本。</p>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="num">02</div>
+              <div>
+                <h3>欄位沒有標準</h3>
+                <p>同一個狀態可能有人寫「已跟進」、有人寫「followed」、有人寫「已覆」，後續很難篩選和統計。</p>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="num">03</div>
+              <div>
+                <h3>流程只存在腦入面</h3>
+                <p>誰要跟進、何時再聯絡、下一步做什麼，全靠人記住。人一忙，就容易漏。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">STEP 01</span>
+            <h3 class="h3">分清楚資料類型</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>資料類型</th><th>用途</th><th>常見欄位</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="資料類型"><strong>客戶資料</strong></td>
+                  <td data-label="用途">記錄客戶身份、聯絡方式及關係狀態</td>
+                  <td data-label="常見欄位">客戶名稱、聯絡人、電話、Email、來源、狀態、備註</td>
+                </tr>
+                <tr>
+                  <td data-label="資料類型"><strong>銷售 / 跟進</strong></td>
+                  <td data-label="用途">記錄查詢、報價、跟進及成交進度</td>
+                  <td data-label="常見欄位">查詢日期、需求、報價金額、跟進人、下一步、下次跟進日期</td>
+                </tr>
+                <tr>
+                  <td data-label="資料類型"><strong>項目 / 任務</strong></td>
+                  <td data-label="用途">記錄工作進度、負責人及交付日期</td>
+                  <td data-label="常見欄位">項目名稱、階段、負責人、截止日期、進度、風險</td>
+                </tr>
+                <tr>
+                  <td data-label="資料類型"><strong>產品 / 庫存</strong></td>
+                  <td data-label="用途">記錄產品資料、庫存數量及補貨狀態</td>
+                  <td data-label="常見欄位">產品名稱、SKU、成本、售價、庫存、供應商、補貨提醒</td>
+                </tr>
+                <tr>
+                  <td data-label="資料類型"><strong>支援 / 查詢</strong></td>
+                  <td data-label="用途">記錄客戶問題、處理狀態及常見查詢</td>
+                  <td data-label="常見欄位">問題類型、客戶、內容、狀態、負責人、解決方法</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">STEP 02</span>
+            <h3 class="h3">每張表只回答一個問題</h3>
+          </div>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="num">A</div>
+              <div>
+                <div class="tag">客戶表</div>
+                <h3>這個客戶是誰？</h3>
+                <ul><li>客戶名稱</li><li>聯絡人及聯絡方法</li><li>客戶來源</li><li>目前狀態</li></ul>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="num">B</div>
+              <div>
+                <div class="tag">跟進表</div>
+                <h3>這次查詢到哪一步？</h3>
+                <ul><li>查詢內容</li><li>報價狀態</li><li>下一步行動</li><li>下次跟進日期</li></ul>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="num">C</div>
+              <div>
+                <div class="tag">項目表</div>
+                <h3>成交後要交付什麼？</h3>
+                <ul><li>項目階段</li><li>負責人</li><li>截止日期</li><li>風險或卡點</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">STEP 03</span>
+            <h3 class="h3">為每個流程設定清楚狀態</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>流程</th><th>建議狀態</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td data-label="流程"><strong>客戶跟進</strong></td>
+                  <td data-label="建議狀態">新查詢 → 已回覆 → 已報價 → 待跟進 → 已成交 → 未成交 / 暫停</td>
+                </tr>
+                <tr>
+                  <td data-label="流程"><strong>項目進度</strong></td>
+                  <td data-label="建議狀態">未開始 → 進行中 → 等待客戶 → 內部檢查 → 已完成 → 暫停</td>
+                </tr>
+                <tr>
+                  <td data-label="流程"><strong>庫存處理</strong></td>
+                  <td data-label="建議狀態">正常 → 低庫存 → 待補貨 → 已下單 → 已入庫</td>
+                </tr>
+                <tr>
+                  <td data-label="流程"><strong>客戶支援</strong></td>
+                  <td data-label="建議狀態">新問題 → 處理中 → 等待回覆 → 已解決 → 需升級處理</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">STEP 04</span>
+            <h3 class="h3">把表格之間連起來</h3>
+          </div>
+          <p class="muted">
+            當資料開始變多，不同表格之間應該有關聯，而不是每張表各自獨立。
+          </p>
+          <div class="callout">
+            例子：一個客戶可以有多次查詢；一個查詢可以變成一個項目；一個項目可以產生多個任務。
+          </div>
+          <div class="services-grid" style="margin-top:20px">
+            <div class="service-card"><div class="num">01</div><div><h3>客戶表</h3><p>記錄「這個客戶是誰」</p></div></div>
+            <div class="service-card"><div class="num">02</div><div><h3>跟進表</h3><p>記錄「這次查詢跟進到哪裏」</p></div></div>
+            <div class="service-card"><div class="num">03</div><div><h3>項目表</h3><p>記錄「成交後要交付什麼」</p></div></div>
+          </div>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">STEP 05</span>
+            <h3 class="h3">判斷是否需要 Excel、Airtable、Web App、自動化或 AI</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>情況</th><th>可以先用</th><th>之後可升級</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td data-label="情況"><strong>資料量不大，只是想集中管理</strong></td>
+                  <td data-label="可以先用">Google Sheet / Excel</td>
+                  <td data-label="之後可升級">表單、自動提醒、簡單 Dashboard</td>
+                </tr>
+                <tr>
+                  <td data-label="情況"><strong>資料之間有關聯，例如客戶、訂單、項目</strong></td>
+                  <td data-label="可以先用">Airtable / Notion database</td>
+                  <td data-label="之後可升級">自動化流程、權限管理、報表</td>
+                </tr>
+                <tr>
+                  <td data-label="情況"><strong>經常要重複整理、分類或總結資料</strong></td>
+                  <td data-label="可以先用">標準欄位 + 固定格式</td>
+                  <td data-label="之後可升級">AI 分類、AI 總結、AI 分析</td>
+                </tr>
+                <tr>
+                  <td data-label="情況"><strong>員工需要登入、填表、查資料</strong></td>
+                  <td data-label="可以先用">表單 + Sheet</td>
+                  <td data-label="之後可升級">簡單 Web App / 內部工具</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="demo-block">
+          <div class="demo-head">
+            <span class="demo-tag">CHECKLIST</span>
+            <h3 class="h3">快速自我檢查清單</h3>
+          </div>
+          <div class="checklist">
+            <div class="check">□ 是否知道每個客戶目前跟進到哪一步？</div>
+            <div class="check">□ 是否有固定欄位記錄客戶來源？</div>
+            <div class="check">□ 是否有「下一步」及「下次跟進日期」？</div>
+            <div class="check">□ 是否知道每個項目由誰負責？</div>
+            <div class="check">□ 是否有固定狀態，而不是每個人自己輸入不同字眼？</div>
+            <div class="check">□ 是否可以在 1 分鐘內找到某個客戶的最新紀錄？</div>
+            <div class="check">□ 是否知道哪些資料需要定期提醒？</div>
+            <div class="check">□ 是否分得清楚哪些事情需要人判斷，哪些可以自動化？</div>
+          </div>
+        </div>
+
+        <div class="demo-block final-cta">
+          <div class="demo-head">
+            <span class="demo-tag">NEXT STEP</span>
+            <h3 class="h3">需要把這個框架變成實際工具？</h3>
+          </div>
+          <p class="muted">
+            TBC Solutions 可以協助中小企整理現有流程，並按需要製作實用網站、簡單 Web App、數碼工具、自動化流程及 AI 功能。
+          </p>
+          <div class="hero-cta" style="justify-content:flex-start;margin-top:26px">
+            <a class="btn btn-primary" href="mailto:shek0913@tbchk.com">聯絡 TBC Solutions <span class="arrow">→</span></a>
+            <a class="btn btn-ghost" href="https://solutions.tbchk.com">返回主網站</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  © TBC Solutions｜本資源只作流程整理參考，實際欄位及系統設計需按業務情況調整。
+</footer>
+
+<script>
+/*
+  Suggested route: /blog/base
+  Suggested backend API: /api/leads/base
+
+  Store these fields:
+  created_at, email, source, resource_slug, resource_title, page_url, user_agent, status
+
+  For Vercel:
+  - Keep Google Sheet credentials in Environment Variables.
+  - Production gating is strict: content only unlocks after the API stores the lead.
+*/
+
+const form = document.getElementById("leadForm");
+const emailInput = document.getElementById("email");
+const msg = document.getElementById("formMessage");
+const resource = document.getElementById("resourceContent");
+const lockedPreview = document.getElementById("lockedPreview");
+const submitBtn = form.querySelector("button[type='submit']");
+
+function isValidEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function unlockContent(options = {}){
+  const shouldScroll = options.scroll !== false;
+  resource.classList.add("show");
+  lockedPreview.style.display = "none";
+  msg.textContent = "已解鎖。你可以在下方查看完整框架。";
+  msg.className = "leadcap-msg ok";
+  localStorage.setItem("tbc_base_unlocked","true");
+  if(shouldScroll){
+    setTimeout(()=>resource.scrollIntoView({behavior:"smooth",block:"start"}),250);
+  }
+}
+
+if(localStorage.getItem("tbc_base_unlocked")==="true"){
+  unlockContent({scroll:false});
+}
+
+form.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const email = emailInput.value.trim().toLowerCase();
+  if(!isValidEmail(email)){
+    msg.textContent = "請輸入有效 Email。";
+    msg.className = "leadcap-msg err";
+    return;
+  }
+
+  const payload = {
+    email,
+    source:"blog_base",
+    resource_slug:"base",
+    resource_title:"業務資料整理框架",
+    page_url:window.location.href,
+    user_agent:navigator.userAgent,
+    status:"unlocked"
+  };
+
+  msg.textContent = "提交中，請稍候…";
+  msg.className = "leadcap-msg";
+  submitBtn.disabled = true;
+  submitBtn.textContent = "提交中…";
+
+  try{
+    const res = await fetch("/api/leads/base",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+    const data = await res.json().catch(()=>({}));
+
+    if(!res.ok || !data.ok) throw new Error(data.error || "Lead API error");
+    unlockContent();
+  }catch(err){
+    console.warn("Lead capture failed.", err);
+    msg.textContent = "提交失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+    msg.className = "leadcap-msg err";
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = "解鎖框架";
+  }
+});
+</script>
+</body>
+</html>
