@@ -774,6 +774,21 @@ function unlockContent(options = {}){
   }
 }
 
+function getLeadErrorMessage(error){
+  const code = error && error.code ? error.code : "";
+  const reason = error && error.message ? error.message : "";
+  if(code === "invalid_email" || reason === "Invalid email"){
+    return "請輸入有效 Email。";
+  }
+  if(code === "config_missing" || code === "config_invalid"){
+    return "提交失敗：伺服器設定未完成，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+  }
+  if(code.indexOf("webhook_") === 0 || reason.indexOf("Apps Script") !== -1){
+    return "提交失敗：Webhook 寫入失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+  }
+  return "提交失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+}
+
 if(localStorage.getItem("tbc_base_unlocked")==="true"){
   unlockContent({scroll:false});
 }
@@ -819,11 +834,16 @@ form.addEventListener("submit", async (e)=>{
     });
     const data = await res.json().catch(()=>({}));
 
-    if(!res.ok || !data.ok) throw new Error(data.error || "Lead API error");
+    if(!res.ok || !data.ok){
+      const apiError = new Error(data.error || "Lead API error");
+      apiError.code = data.code || "";
+      apiError.detail = data.detail || "";
+      throw apiError;
+    }
     unlockContent();
   }catch(err){
     console.warn("Lead capture failed.", err);
-    msg.textContent = "提交失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+    msg.textContent = getLeadErrorMessage(err);
     msg.className = "leadcap-msg err";
   }finally{
     submitBtn.disabled = false;

@@ -24,8 +24,8 @@ function isValidEmail(email) {
 
 function mapError(error) {
   if (error.statusCode) return error.statusCode;
-  if (/Missing environment variable/.test(error.message || "")) return 500;
-  if (/Apps Script webhook/.test(error.message || "")) return 502;
+  if (/Missing GOOGLE_APPS_SCRIPT_WEBHOOK_URL|Invalid GOOGLE_APPS_SCRIPT_WEBHOOK_URL/.test(error.message || "")) return 500;
+  if (/Apps Script webhook|Apps Script returned/.test(error.message || "")) return 502;
   if (error.name === "AbortError") return 504;
   return 500;
 }
@@ -33,7 +33,7 @@ function mapError(error) {
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
   try {
@@ -42,7 +42,7 @@ module.exports = async function handler(req, res) {
     const name = clean(body.name, 120);
 
     if (!isValidEmail(email)) {
-      return res.status(400).json({ error: "Invalid email" });
+      return res.status(400).json({ ok: false, code: "invalid_email", error: "Invalid email" });
     }
 
     const payload = {
@@ -60,12 +60,16 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true });
   } catch (error) {
     const statusCode = mapError(error);
-    const message =
-      statusCode === 400
-        ? error.message
-        : "Failed to save lead";
+    const message = error.clientError || (statusCode === 400 ? error.message : "Failed to save lead");
+    const body = { ok: false, error: message };
+    if (error.code) {
+      body.code = error.code;
+    }
+    if (error.safeDetail && statusCode === 502) {
+      body.detail = error.safeDetail;
+    }
 
     console.error("[api/leads/base]", error);
-    return res.status(statusCode).json({ error: message });
+    return res.status(statusCode).json(body);
   }
 };
