@@ -1,4 +1,4 @@
-const { appendBaseLeadRow } = require("../_lib/googleSheets");
+const { postBaseLeadToAppsScript } = require("../_lib/appsScriptWebhook");
 
 function parseJsonBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
@@ -25,7 +25,8 @@ function isValidEmail(email) {
 function mapError(error) {
   if (error.statusCode) return error.statusCode;
   if (/Missing environment variable/.test(error.message || "")) return 500;
-  if (/Google token request failed|Google Sheets append failed/.test(error.message || "")) return 502;
+  if (/Apps Script webhook/.test(error.message || "")) return 502;
+  if (error.name === "AbortError") return 504;
   return 500;
 }
 
@@ -40,16 +41,11 @@ module.exports = async function handler(req, res) {
     const email = clean(body.email, 254).toLowerCase();
     const name = clean(body.name, 120);
 
-    if (!name) {
-      return res.status(400).json({ error: "Invalid name" });
-    }
-
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: "Invalid email" });
     }
 
-    const row = {
-      created_at: new Date().toISOString(),
+    const payload = {
       email,
       name,
       source: clean(body.source || "blog_base", 120),
@@ -60,7 +56,7 @@ module.exports = async function handler(req, res) {
       status: clean(body.status || "unlocked", 80),
     };
 
-    await appendBaseLeadRow(row);
+    await postBaseLeadToAppsScript(payload);
     return res.status(200).json({ ok: true });
   } catch (error) {
     const statusCode = mapError(error);

@@ -59,15 +59,13 @@ hard-fails if any sensitive file (`.env.local`, `.git`, `*.skill`,
 
 > Until these three are set, the form returns a friendly error (no white screen).
 
-**Gated resource lead storage** (`/api/leads/base`, Google Sheets append):
+**Gated resource lead storage** (`/api/leads/base`, Google Apps Script webhook):
 
-- `GOOGLE_SHEETS_CLIENT_EMAIL` — service account email
-- `GOOGLE_SHEETS_PRIVATE_KEY` — service account private key; in Vercel, keep escaped newlines as `\n`
-- `GOOGLE_SHEETS_BASE_LEADS_SPREADSHEET_ID` — target Sheet ID
-- `GOOGLE_SHEETS_BASE_LEADS_RANGE` — optional; defaults to `base_leads!A:I`
+- `GOOGLE_APPS_SCRIPT_WEBHOOK_URL` — Apps Script Web App `/exec` URL. Keep this server-side only in Vercel Environment Variables.
 
-Share the target Sheet with the service account email. The first row should be:
-`created_at`, `email`, `name`, `source`, `resource_slug`, `resource_title`, `page_url`, `user_agent`, `status`.
+The Apps Script should receive a JSON POST from `/api/leads/base`, append one row
+to the target Sheet, and return `{ "ok": true }`. The webhook URL must never be
+added to frontend/client-side code.
 
 ## Spam / abuse note (launch hardening)
 
@@ -84,7 +82,7 @@ After deploy, test:
 - `/favicon.ico`
 - `/api/claude` — AI assistant replies
 - `/api/lead` — submit the email form → a `🟢 New lead` email arrives
-- `/api/leads/base` — invalid email returns 400; valid email writes one row to Google Sheet
+- `/api/leads/base` — invalid email returns 400; valid email posts to Apps Script and writes one row to Google Sheet
 - `/.env.local` → not accessible
 - `/.git/config` → not accessible
 - `/cold-email-tool.html` → not accessible
