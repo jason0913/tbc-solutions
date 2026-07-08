@@ -38,6 +38,11 @@ module.exports = async function handler(req, res) {
   try {
     const body = parseJsonBody(req);
     const email = clean(body.email, 254).toLowerCase();
+    const name = clean(body.name, 120);
+
+    if (!name) {
+      return res.status(400).json({ error: "Invalid name" });
+    }
 
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: "Invalid email" });
@@ -46,6 +51,7 @@ module.exports = async function handler(req, res) {
     const row = {
       created_at: new Date().toISOString(),
       email,
+      name,
       source: clean(body.source || "blog_base", 120),
       resource_slug: clean(body.resource_slug || "base", 120),
       resource_title: clean(body.resource_title || "業務資料整理框架", 200),

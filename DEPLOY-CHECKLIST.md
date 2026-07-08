@@ -21,8 +21,8 @@
     - [ ] `GOOGLE_SHEETS_CLIENT_EMAIL`
     - [ ] `GOOGLE_SHEETS_PRIVATE_KEY`(Vercel 用 `\n` 保留換行)
     - [ ] `GOOGLE_SHEETS_BASE_LEADS_SPREADSHEET_ID`
-    - [ ] `GOOGLE_SHEETS_BASE_LEADS_RANGE`(可選,預設 `base_leads!A:H`)
-    - [ ] Sheet 已 share 畀 service account email,首行欄位齊:`created_at,email,source,resource_slug,resource_title,page_url,user_agent,status`
+    - [ ] `GOOGLE_SHEETS_BASE_LEADS_RANGE`(可選,預設 `base_leads!A:I`)
+    - [ ] Sheet 已 share 畀 service account email,首行欄位齊:`created_at,email,name,source,resource_slug,resource_title,page_url,user_agent,status`
 - [ ] **Build 跑得過**:`node scripts/build-deploy.js` → 應該見 `[TBC] Built clean deploy folder`
   - 如果 forbidden-check 報錯,代表有敏感檔走入 dist,要清返。
 - [ ] **netlify.toml 確認**:`command = "node scripts/build-deploy.js"` / `publish = "dist"`

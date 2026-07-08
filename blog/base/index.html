@@ -384,7 +384,8 @@ td strong{color:var(--text)}
         </p>
 
         <form class="leadcap-form" id="leadForm" novalidate>
-          <input class="leadcap-input" id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required />
+          <input class="leadcap-input" id="name" name="name" type="text" placeholder="你的名字" autocomplete="name" aria-label="名字" required />
+          <input class="leadcap-input" id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email" required />
           <button class="leadcap-btn" type="submit">解鎖框架</button>
         </form>
         <div class="leadcap-msg" id="formMessage" role="status" aria-live="polite"></div>
@@ -742,7 +743,7 @@ td strong{color:var(--text)}
   Suggested backend API: /api/leads/base
 
   Store these fields:
-  created_at, email, source, resource_slug, resource_title, page_url, user_agent, status
+  created_at, email, name, source, resource_slug, resource_title, page_url, user_agent, status
 
   For Vercel:
   - Keep Google Sheet credentials in Environment Variables.
@@ -750,6 +751,7 @@ td strong{color:var(--text)}
 */
 
 const form = document.getElementById("leadForm");
+const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 const msg = document.getElementById("formMessage");
 const resource = document.getElementById("resourceContent");
@@ -779,7 +781,14 @@ if(localStorage.getItem("tbc_base_unlocked")==="true"){
 form.addEventListener("submit", async (e)=>{
   e.preventDefault();
 
+  const name = nameInput.value.trim();
   const email = emailInput.value.trim().toLowerCase();
+  if(!name){
+    msg.textContent = "請輸入名字。";
+    msg.className = "leadcap-msg err";
+    return;
+  }
+
   if(!isValidEmail(email)){
     msg.textContent = "請輸入有效 Email。";
     msg.className = "leadcap-msg err";
@@ -788,6 +797,7 @@ form.addEventListener("submit", async (e)=>{
 
   const payload = {
     email,
+    name,
     source:"blog_base",
     resource_slug:"base",
     resource_title:"業務資料整理框架",

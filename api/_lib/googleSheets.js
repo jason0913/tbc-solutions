@@ -82,11 +82,12 @@ async function appendBaseLeadRow(row) {
     );
   }
 
-  const range = process.env.GOOGLE_SHEETS_BASE_LEADS_RANGE || "base_leads!A:H";
+  const range = process.env.GOOGLE_SHEETS_BASE_LEADS_RANGE || "base_leads!A:I";
   const accessToken = await getGoogleAccessToken();
   const values = [[
     cell(row.created_at, 80),
     cell(row.email, 254),
+    cell(row.name, 120),
     cell(row.source, 120),
     cell(row.resource_slug, 120),
     cell(row.resource_title, 200),

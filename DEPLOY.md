@@ -64,10 +64,10 @@ hard-fails if any sensitive file (`.env.local`, `.git`, `*.skill`,
 - `GOOGLE_SHEETS_CLIENT_EMAIL` — service account email
 - `GOOGLE_SHEETS_PRIVATE_KEY` — service account private key; in Vercel, keep escaped newlines as `\n`
 - `GOOGLE_SHEETS_BASE_LEADS_SPREADSHEET_ID` — target Sheet ID
-- `GOOGLE_SHEETS_BASE_LEADS_RANGE` — optional; defaults to `base_leads!A:H`
+- `GOOGLE_SHEETS_BASE_LEADS_RANGE` — optional; defaults to `base_leads!A:I`
 
 Share the target Sheet with the service account email. The first row should be:
-`created_at`, `email`, `source`, `resource_slug`, `resource_title`, `page_url`, `user_agent`, `status`.
+`created_at`, `email`, `name`, `source`, `resource_slug`, `resource_title`, `page_url`, `user_agent`, `status`.
 
 ## Spam / abuse note (launch hardening)
 
