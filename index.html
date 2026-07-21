@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R35-founder-video -->
+<!-- Deploy build tag: 2026-05-31-R35.3-video-button -->
 
 
 <!-- ============== FONTS ============== -->
@@ -1823,7 +1823,7 @@ html{overflow-x:hidden}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
 .founder-card{
   position:relative;border-radius:var(--radius-lg);overflow:hidden;
-  background:#1a1a22 url('founder.jpg') center/cover no-repeat;
+  background:radial-gradient(120% 90% at 20% 0%,rgba(124,92,255,.38),transparent 60%),linear-gradient(160deg,#181428,#0d0d16);
   border:1px solid var(--line);aspect-ratio:4/5;
   display:flex;align-items:flex-end;
   box-shadow:0 24px 60px rgba(0,0,0,.45);
@@ -1832,18 +1832,14 @@ html{overflow-x:hidden}
 .founder-card:hover{transform:translateY(-4px) scale(1.01)}
 /* R35: founder self-intro video (facade → YouTube Short, language-aware) */
 .fv-play{position:absolute;inset:0;z-index:2;width:100%;height:100%;border:none;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-  background:linear-gradient(180deg,rgba(7,7,14,.10),rgba(7,7,14,.52));color:#fff}
-.fv-ring{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:24px;padding-left:5px;background:rgba(124,92,255,.35);border:2px solid rgba(255,255,255,.85);
-  backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.4);transition:transform .2s,background .2s}
-.fv-play:hover .fv-ring{transform:scale(1.09);background:rgba(124,92,255,.6)}
-.fv-cap{font-size:13px;font-weight:700;letter-spacing:.02em;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:transparent;color:#fff}
+.fv-ring{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:28px;padding-left:6px;background:var(--grad);border:2px solid rgba(255,255,255,.9);
+  box-shadow:0 12px 34px rgba(124,92,255,.5);transition:transform .2s,box-shadow .2s}
+.fv-play:hover .fv-ring{transform:scale(1.1);box-shadow:0 16px 44px rgba(124,92,255,.7)}
+.fv-cap{font-size:14px;font-weight:700;letter-spacing:.02em;text-shadow:0 2px 10px rgba(0,0,0,.6);padding:0 20px;text-align:center}
 .founder-card .fv-frame{position:absolute;inset:0;z-index:3;width:100%;height:100%;border:0}
-/* R30: founder photo shown by default (trust in HK/Chinese-speaking markets);
-   hidden by geo for other regions to avoid first-impression bias. */
-body.geo-no-photo .founder-card{display:none}
-body.geo-no-photo .about-grid{grid-template-columns:1fr;max-width:760px;margin-inline:auto}
 .founder-card::before{
   content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(124,92,255,.12) 0%,transparent 35%,transparent 60%,rgba(0,0,0,.85) 100%);
@@ -4863,7 +4859,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R35-founder-video";
+  const CURRENT_BUILD = "2026-05-31-R35.3-video-button";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -7911,22 +7907,6 @@ function renderLiveDemoForProfile(profile){
 })();
 
 /* ============== GEO: founder photo visibility ============== */
-(function audiencePhoto(){
-  // Founder photo hidden for global / Western audiences (avoids first-impression
-  // bias); shown by default for HK / Chinese-speaking traffic (real-person trust).
-  function hide(){ document.body.classList.add("geo-no-photo"); }
-  // (a) Deterministic override for campaigns — reliable, no network.
-  try{
-    const aud = new URLSearchParams(location.search).get("aud");
-    if(aud && /^(global|intl|en|west|na)$/i.test(aud)){ hide(); return; }
-  }catch(e){}
-  // (b) Best-effort IP geo (fail-open: shows photo if this fails or is blocked).
-  const WEST = ["US","CA","GB","IE","AU","NZ","FR","DE","ES","IT","NL","BE","LU","CH","AT","SE","NO","DK","FI","IS","PT","PL","CZ","SK","HU","RO","BG","GR","HR","SI","EE","LV","LT","MT","CY"];
-  fetch("https://get.geojs.io/v1/ip/country.json")
-    .then(r => r.json())
-    .then(d => { const c = ((d && d.country) || "").toUpperCase(); if(WEST.includes(c)) hide(); })
-    .catch(() => {});
-})();
 
 /* ============== FOUNDER SELF-INTRO VIDEO ============== */
 (function founderVideo(){
