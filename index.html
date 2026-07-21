@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R34.3-15min -->
+<!-- Deploy build tag: 2026-05-31-R35-founder-video -->
 
 
 <!-- ============== FONTS ============== -->
@@ -1830,6 +1830,16 @@ html{overflow-x:hidden}
   transition:transform var(--t-med);
 }
 .founder-card:hover{transform:translateY(-4px) scale(1.01)}
+/* R35: founder self-intro video (facade → YouTube Short, language-aware) */
+.fv-play{position:absolute;inset:0;z-index:2;width:100%;height:100%;border:none;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:linear-gradient(180deg,rgba(7,7,14,.10),rgba(7,7,14,.52));color:#fff}
+.fv-ring{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:24px;padding-left:5px;background:rgba(124,92,255,.35);border:2px solid rgba(255,255,255,.85);
+  backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.4);transition:transform .2s,background .2s}
+.fv-play:hover .fv-ring{transform:scale(1.09);background:rgba(124,92,255,.6)}
+.fv-cap{font-size:13px;font-weight:700;letter-spacing:.02em;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.founder-card .fv-frame{position:absolute;inset:0;z-index:3;width:100%;height:100%;border:0}
 /* R30: founder photo shown by default (trust in HK/Chinese-speaking markets);
    hidden by geo for other regions to avoid first-impression bias. */
 body.geo-no-photo .founder-card{display:none}
@@ -4632,6 +4642,10 @@ body.from-cold-email .nav-profile{display:none !important}
   <div class="container">
     <div class="about-grid">
       <div class="founder-card reveal">
+        <button class="fv-play" id="fv-play" type="button" aria-label="播放創辦人自我介紹">
+          <span class="fv-ring">▶</span>
+          <span class="fv-cap" data-i18n="about.video">1 分鐘認識創辦人 Grouper</span>
+        </button>
         <div class="founder-tag">
           <div class="name">Grouper</div>
           <div class="role" data-i18n="about.role">創辦人 · TBC Solutions</div>
@@ -4849,7 +4863,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R34.3-15min";
+  const CURRENT_BUILD = "2026-05-31-R35-founder-video";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -5112,6 +5126,7 @@ const I18N = {
     "about.status":"目前接受新客戶合作邀請，協助企業落地 AI 系統與自動化工作流",
     "about.cta":"與我聊聊，免費",
     "about.role":"創辦人 · TBC Solutions",
+    "about.video":"1 分鐘認識創辦人 Grouper",
     "about.stat1":"整合工具","about.stat2":"自動運作","about.stat3":"無限可能",
     "process.eyebrow":"合作流程",
     "process.title1":"六步走完，","process.title2":"從諮詢到交付",
@@ -5359,6 +5374,7 @@ const I18N = {
     "about.status":"Now taking on new clients — deploying AI systems and automated workflows for businesses",
     "about.cta":"Talk to me, free",
     "about.role":"FOUNDER · TBC Solutions",
+    "about.video":"Meet the founder — 1 min",
     "about.stat1":"Tools integrated","about.stat2":"Always-on","about.stat3":"Possibilities",
     "process.eyebrow":"PROCESS",
     "process.title1":"Six steps,","process.title2":"from call to delivery",
@@ -5632,6 +5648,7 @@ function applyLang(lang){
 document.querySelectorAll(".lang-switch button").forEach(b=>{
   b.addEventListener("click", ()=>{
     applyLang(b.dataset.lang);
+    if(window.__resetFounderVideo) window.__resetFounderVideo();
     try{ localStorage.setItem("tbc-lang", b.dataset.lang); }catch(e){}
   });
 });
@@ -7909,6 +7926,31 @@ function renderLiveDemoForProfile(profile){
     .then(r => r.json())
     .then(d => { const c = ((d && d.country) || "").toUpperCase(); if(WEST.includes(c)) hide(); })
     .catch(() => {});
+})();
+
+/* ============== FOUNDER SELF-INTRO VIDEO ============== */
+(function founderVideo(){
+  const VID = { zh:"VqeNAVFxv4c", en:"3RVA-qflQMc" };
+  const card = document.querySelector(".founder-card");
+  const play = document.getElementById("fv-play");
+  if(!card || !play) return;
+  function load(){
+    const id = VID[currentLang] || VID.zh;
+    const f = document.createElement("iframe");
+    f.className = "fv-frame";
+    f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
+    f.setAttribute("allow","accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share");
+    f.allowFullscreen = true;
+    play.hidden = true;
+    card.appendChild(f);
+  }
+  play.addEventListener("click", load);
+  // Language switch → reset to facade so the correct-language video plays next time.
+  window.__resetFounderVideo = function(){
+    const f = card.querySelector(".fv-frame");
+    if(f) f.remove();
+    if(play) play.hidden = false;
+  };
 })();
 
 /* ============== HERO TITLE ANIMATION ============== */
