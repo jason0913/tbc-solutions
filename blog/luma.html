@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 影片工具清單｜TBC Solutions</title>
+<meta name="description" content="免費查看 AI 影片工具清單，快速比較 Luma、Runway、Google Flow、Adobe Firefly 及 Pika，並了解如何用 AI 影片測試社交媒體、廣告及拍攝前的視覺方向。" />
+<link rel="canonical" href="https://solutions.tbchk.com/blog/luma.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="AI 影片工具清單｜TBC Solutions" />
+<meta property="og:description" content="用 AI 影片工具先測試視覺方向，再決定是否投入正式拍攝。" />
+<meta property="og:url" content="https://solutions.tbchk.com/blog/luma.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#07070a;--surface:#13131a;--line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.16);
+  --text:#f5f5f7;--dim:#9a9aa8;--faint:#6b6b78;--accent:#7c5cff;--pink:#ff5cb1;--cyan:#5cd7ff;
+  --grad:linear-gradient(120deg,#7c5cff 0%,#ff5cb1 50%,#5cd7ff 100%);--fast:.2s ease;--med:.4s cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{min-height:100vh;font-family:'Noto Sans TC','Syne',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none} button,input{font:inherit} ::selection{background:var(--accent);color:#fff}
+.backdrop{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px 540px at 78% -8%,rgba(124,92,255,.10),transparent 64%),radial-gradient(740px 500px at -8% 44%,rgba(255,92,177,.06),transparent 66%),var(--bg)}
+nav,main,footer{position:relative;z-index:1}
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,48px);background:rgba(7,7,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{display:flex;flex-direction:column;align-items:flex-start;line-height:1}.logo-row{display:flex;align-items:center;gap:10px}.logo-block{background:#fff;color:#07070a;padding:7px 11px;border-radius:6px;font-family:'Syne',sans-serif;font-weight:800;font-size:18px}.logo-right{border-left:1px solid rgba(255,255,255,.35);padding-left:10px}.logo-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px}.logo-sub{font-size:9px;color:var(--dim);letter-spacing:.22em;margin-top:2px}.logo-slogan{font-size:8px;color:var(--faint);letter-spacing:.32em;margin-top:6px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:24px}.nav-links>a:not(.btn){color:var(--dim);font-size:14px;font-weight:500}.nav-links>a:hover{color:#fff}
+.container{width:min(1280px,calc(100% - 40px));margin:0 auto}.section{padding:clamp(72px,9vw,126px) 0}.section-tight{padding:28px 0 12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--dim);font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase}.eyebrow::before{content:"";width:24px;height:1px;background:var(--grad)}
+.h1,.h2,.h3{font-family:'Syne','Noto Sans TC',sans-serif}.h1{font-size:clamp(44px,7vw,92px);font-weight:800;line-height:1.04}.h2{font-size:clamp(30px,4.4vw,56px);font-weight:700;line-height:1.12}.h3{font-size:clamp(21px,2vw,28px);font-weight:700}.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}.muted{color:var(--dim);font-size:15.5px}.section-head{display:flex;flex-direction:column;gap:18px;max-width:820px;margin-bottom:46px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;border:1px solid var(--line-strong);border-radius:999px;font-weight:700;font-size:14px;transition:transform var(--fast),background var(--med),box-shadow var(--med)}.btn-primary{border-color:transparent;background:var(--grad);color:#fff;box-shadow:0 10px 30px rgba(124,92,255,.36)}.btn-ghost{background:rgba(255,255,255,.04)}.btn:hover{transform:translateY(-2px)}.btn-ghost:hover{background:rgba(255,255,255,.08)}
+.hero{min-height:calc(100vh - 78px);display:flex;align-items:center;text-align:center;padding:98px 20px 78px}.hero-inner{max-width:1050px;margin:0 auto}.hero-copy{max-width:790px;margin:22px auto 0;font-size:clamp(17px,1.7vw,21px);font-weight:600}.hero-sub{max-width:790px;margin:16px auto 0;color:var(--dim);font-size:clamp(15px,1.35vw,18px)}.hero-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:38px}
+.lead-card{max-width:780px;margin:0 auto;padding:34px clamp(20px,4vw,42px);text-align:center;background:linear-gradient(160deg,rgba(124,92,255,.11),rgba(92,215,255,.04));border:1px solid rgba(124,92,255,.30);border-radius:22px;box-shadow:0 14px 38px rgba(0,0,0,.34)}.lead-title{font-size:clamp(20px,2.4vw,26px);font-weight:800;line-height:1.4}.lead-sub{max-width:650px;margin:12px auto 0;color:var(--dim);font-size:14.5px}.lead-form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:610px;margin:22px auto 0}.lead-input{flex:1 1 220px;min-width:0;padding:13px 15px;border:1px solid var(--line-strong);border-radius:12px;background:rgba(255,255,255,.05);color:var(--text);font-size:15px}.lead-input:focus{outline:none;border-color:rgba(124,92,255,.72)}.lead-btn{padding:13px 21px;border:0;border-radius:12px;background:var(--grad);color:#fff;font-weight:700;cursor:pointer;white-space:nowrap}.lead-btn:disabled{opacity:.7;cursor:wait}.lead-msg{min-height:20px;margin-top:13px;font-size:13.5px;font-weight:600}.lead-msg.ok{color:#7be8a3}.lead-msg.err{color:#ff9c8a}.privacy{margin-top:12px;color:var(--faint);font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}.card{min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;padding:30px 27px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:transform var(--med),border-color var(--med)}.card:hover{transform:translateY(-5px);border-color:rgba(124,92,255,.42)}.num{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.75}.tag{margin-bottom:6px;color:var(--faint);font-size:11px;letter-spacing:.25em;text-transform:uppercase}.card h3{font-size:21px;line-height:1.35}.card p,.card li{color:var(--dim);font-size:14.5px}.card ul{padding-left:18px;margin-top:8px}
+.demo{margin-top:28px;padding:34px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}.demo-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}.demo-tag{display:inline-flex;padding:6px 11px;border:1px solid rgba(124,92,255,.35);border-radius:999px;background:rgba(124,92,255,.12);color:#c8b9ff;font-size:11px;font-weight:700;letter-spacing:.24em}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}.table-wrap{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.34)}table{width:100%;border-collapse:collapse}th,td{padding:14px 15px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}th{background:rgba(255,255,255,.045);font-size:12px;letter-spacing:.12em;text-transform:uppercase}td{color:var(--dim);font-size:14px}td strong{color:var(--text)}td a{color:#bdaeff;text-decoration:underline;text-underline-offset:3px}
+.callout{margin-top:18px;padding:18px 20px;border:1px solid rgba(124,92,255,.3);border-radius:14px;background:linear-gradient(120deg,rgba(124,92,255,.15),rgba(92,215,255,.08));font-size:14.5px}.locked-preview{position:relative}.preview-blur{max-height:330px;overflow:hidden;mask-image:linear-gradient(to bottom,#000 0%,#000 50%,transparent 100%);pointer-events:none;user-select:none}.locked-cover{position:relative;min-height:200px;display:flex;align-items:center;justify-content:center;margin-top:-125px;padding:40px 20px;text-align:center;background:linear-gradient(to bottom,transparent,rgba(7,7,10,.94) 38%,var(--bg));border-radius:20px}.locked-cover strong{display:block;font-size:22px;margin-bottom:8px}.locked-cover span{display:block;max-width:580px;color:var(--dim);font-size:14.5px}.resource-content{display:none}.resource-content.show{display:block;animation:rise .4s ease both}@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.check{padding:15px 16px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.035);color:var(--dim);font-size:14.5px}.final-cta{background:linear-gradient(160deg,rgba(124,92,255,.11),rgba(255,92,177,.05));border-color:rgba(124,92,255,.3)}
+.wa-fab{position:fixed;right:20px;bottom:20px;z-index:60;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 10px 28px rgba(0,0,0,.42);transition:transform var(--fast)}.wa-fab:hover{transform:translateY(-2px)}.wa-fab svg{width:26px;height:26px;fill:#fff}.footer{padding:34px 20px 48px;text-align:center;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+@media(max-width:860px){.nav-links{display:none}.hero{padding-top:76px}.two-col{grid-template-columns:1fr}.checklist{grid-template-columns:1fr}}
+@media(max-width:620px){.container{width:min(100% - 32px,1280px)}.demo{padding:23px 17px}.lead-form{display:grid;grid-template-columns:minmax(0,1fr);justify-content:stretch}.lead-input,.lead-btn{width:100%}th{display:none}tr{display:block;border-bottom:1px solid var(--line)}tr:last-child{border-bottom:0}td{display:block;border-right:0}td::before{content:attr(data-label);display:block;margin-bottom:4px;color:var(--text);font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.h1{font-size:clamp(42px,14vw,62px)}}
+</style>
+</head>
+
+<body>
+<div class="backdrop"></div>
+
+<nav class="nav">
+  <a class="logo" href="/" aria-label="TBC Solutions 首頁">
+    <div class="logo-row"><div class="logo-block">TBC</div><div class="logo-right"><div class="logo-name">Solutions</div><div class="logo-sub">AI · AUTOMATION</div></div></div>
+    <div class="logo-slogan">Transform · Build · Create</div>
+  </a>
+  <div class="nav-links">
+    <a href="#preview">清單預覽</a><a href="#unlock">解鎖內容</a><a href="#tool-list">完整清單</a>
+    <a class="btn btn-primary" href="https://solutions.tbchk.com/#book" style="padding:8px 16px;font-size:13px">預約諮詢</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">免費資源 · FREE RESOURCE</div>
+      <h1 class="h1">AI 影片<br><span class="gradient-text">工具清單</span></h1>
+      <p class="hero-copy">想做影片內容，但未必每次都有正式拍攝預算？先用 AI 生成幾秒鐘概念片，測試場景、鏡頭與視覺方向。</p>
+      <p class="hero-sub">這份清單整理 5 個常用 AI 影片平台、適合用途、選擇方法、Prompt 結構及出片前檢查。AI 適合做初步測試，不等於完全取代正式製作。</p>
+      <div class="hero-cta"><a class="btn btn-primary" href="#unlock">解鎖免費清單 →</a><a class="btn btn-ghost" href="#preview">先看預覽</a></div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="unlock">
+    <div class="container">
+      <div class="lead-card">
+        <div class="eyebrow">LUMA · EMAIL UNLOCK</div>
+        <h2 class="lead-title">輸入名字及 Email，即時查看完整「AI 影片工具清單」</h2>
+        <p class="lead-sub">適合想製作社交媒體素材、廣告概念片、產品視覺草稿，或在正式拍攝前先測試方向的中小企及內容團隊。</p>
+        <form class="lead-form" id="leadForm" novalidate>
+          <input class="lead-input" id="name" name="name" type="text" placeholder="你的名字" autocomplete="name" aria-label="名字" required />
+          <input class="lead-input" id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email" required />
+          <button class="lead-btn" type="submit">解鎖清單</button>
+        </form>
+        <div class="lead-msg" id="formMessage" role="status" aria-live="polite"></div>
+        <p class="privacy">提交 Email 後，你會在本頁查看此免費資源。資料只會用於提供此資源及後續相關業務溝通，不會出售予第三方。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="preview">
+    <div class="container">
+      <div class="section-head"><div class="eyebrow">WHAT YOU GET</div><h2 class="h2">先揀啱測試工具，再決定值唔值得正式製作。</h2><p class="muted">每個平台的強項、操作方式及成本不同。這份清單不會只給你一堆連結，而是幫你按實際用途縮窄選擇。</p></div>
+      <div class="grid">
+        <article class="card"><div class="num">01</div><div><div class="tag">Tools</div><h3>5 個工具比較</h3><p>Luma、Runway、Google Flow、Adobe Firefly 及 Pika 的適合用途與留意事項。</p></div></article>
+        <article class="card"><div class="num">02</div><div><div class="tag">Use Case</div><h3>按工作揀平台</h3><p>概念片、社交短片、現有影片修改、Storyboard，同一清單分清楚。</p></div></article>
+        <article class="card"><div class="num">03</div><div><div class="tag">Prompt</div><h3>Prompt 結構</h3><p>主體、場景、動作、鏡頭、光線、比例及限制，逐格組合。</p></div></article>
+        <article class="card"><div class="num">04</div><div><div class="tag">Workflow</div><h3>低成本測試流程</h3><p>由一張參考圖開始，先試 3 至 5 個短版本，再揀方向深化。</p></div></article>
+        <article class="card"><div class="num">05</div><div><div class="tag">Risk</div><h3>常見不穩定位置</h3><p>手部、文字、Logo、產品細節、連戲與物理動作，都要逐項檢查。</p></div></article>
+        <article class="card"><div class="num">06</div><div><div class="tag">Checklist</div><h3>出片前清單</h3><p>發佈前核對品牌、人物授權、聲音、字幕、細節及平台比例。</p></div></article>
+      </div>
+      <div class="demo locked-preview" id="lockedPreview">
+        <div class="preview-blur"><div class="demo-head"><span class="demo-tag">LOCKED PREVIEW</span><span class="muted">工具清單節錄</span></div><div class="table-wrap"><table><thead><tr><th>工具</th><th>適合先試</th><th>主要輸入</th></tr></thead><tbody><tr><td data-label="工具"><strong>Luma</strong></td><td data-label="適合先試">概念鏡頭、產品氛圍、動態測試</td><td data-label="主要輸入">文字 / 圖片 / 影片</td></tr><tr><td data-label="工具"><strong>Runway</strong></td><td data-label="適合先試">生成、修改及延伸現有片段</td><td data-label="主要輸入">文字 / 圖片 / 影片</td></tr><tr><td data-label="工具"><strong>Google Flow</strong></td><td data-label="適合先試">場景探索、Storyboard、連續創作</td><td data-label="主要輸入">文字 / 圖片 / 影片參考</td></tr></tbody></table></div></div>
+        <div class="locked-cover"><div><strong>完整工具清單已鎖定</strong><span>輸入名字及 Email 後，即時解鎖工具比較、Prompt 模板、測試流程及出片前檢查清單。</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="resource-content" id="resourceContent">
+    <section class="section" id="tool-list">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">AI VIDEO TOOLKIT</div><h2 class="h2">完整 AI 影片工具清單</h2><p class="muted">先把 AI 影片當成視覺原型：用較低成本驗證創意、鏡頭及觀眾反應，再決定哪些內容值得正式拍攝或精修。</p></div>
+        <div class="callout"><strong>先講結論：</strong>如果你只想快速試一個概念，可以先由 Luma 開始；如果你需要生成後再修改現有素材，Runway 較完整；如果要做場景規劃與連續創作，可試 Google Flow。各平台功能、收費及地區供應會更新，正式使用前請以官方頁面為準。</div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">TOOL LIST</span><h3 class="h3">5 個平台，應該點揀？</h3></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>工具</th><th>適合先試</th><th>主要輸入</th><th>使用時留意</th></tr></thead>
+            <tbody>
+              <tr><td data-label="工具"><strong>Luma Dream Machine</strong><br><a href="https://lumalabs.ai/create/ai-video-generator" target="_blank" rel="noopener">官方網站 ↗</a></td><td data-label="適合先試">產品氛圍、概念鏡頭、鏡頭動態、短版社交素材</td><td data-label="主要輸入">文字、圖片或影片參考</td><td data-label="使用時留意">同一 Prompt 可能需要多次生成；先用低成本草稿測方向，再精修。</td></tr>
+              <tr><td data-label="工具"><strong>Runway</strong><br><a href="https://runwayml.com/product/ai-video-generator" target="_blank" rel="noopener">官方網站 ↗</a></td><td data-label="適合先試">由零生成、修改現有片段、延伸鏡頭、背景或光線測試</td><td data-label="主要輸入">文字、圖片或現有影片</td><td data-label="使用時留意">功能較多，先按單一工作選模式，避免一開始同時試太多設定。</td></tr>
+              <tr><td data-label="工具"><strong>Google Flow</strong><br><a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">官方網站 ↗</a></td><td data-label="適合先試">場景發展、Storyboard、角色與環境參考、連續創作</td><td data-label="主要輸入">文字、圖片及影片參考</td><td data-label="使用時留意">功能及可用模型會因帳戶、方案及地區而異。</td></tr>
+              <tr><td data-label="工具"><strong>Adobe Firefly</strong><br><a href="https://www.adobe.com/products/firefly/features/ai-video-generator.html" target="_blank" rel="noopener">官方網站 ↗</a></td><td data-label="適合先試">產品 B-roll、商業內容草稿、Adobe 工作流程內的影片生成</td><td data-label="主要輸入">文字或圖片</td><td data-label="使用時留意">商業項目仍要核對所用模型、素材來源、方案條款及品牌審批。</td></tr>
+              <tr><td data-label="工具"><strong>Pika</strong><br><a href="https://pika.art/" target="_blank" rel="noopener">官方網站 ↗</a></td><td data-label="適合先試">節奏快、社交平台優先、效果導向的短片概念</td><td data-label="主要輸入">文字、圖片或短片</td><td data-label="使用時留意">發佈前檢查水印、輸出比例、細節穩定性及使用條款。</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">QUICK PICK</span><h3 class="h3">按你今次工作揀工具</h3></div>
+          <div class="grid">
+            <article class="card"><div class="num">A</div><div><div class="tag">Quick Concept</div><h3>最快試一個畫面</h3><p>先用 Luma 或 Pika 做數秒概念片，測試場景、節奏與情緒。</p></div></article>
+            <article class="card"><div class="num">B</div><div><div class="tag">Edit Footage</div><h3>已有片，想改內容</h3><p>先看 Runway 或 Adobe Firefly，測試背景、光線、風格及片段延伸。</p></div></article>
+            <article class="card"><div class="num">C</div><div><div class="tag">Story & Scene</div><h3>要做多鏡頭方向</h3><p>先用 Google Flow 或 Runway 整理場景，再建立每個鏡頭的參考。</p></div></article>
+            <article class="card"><div class="num">D</div><div><div class="tag">Final Campaign</div><h3>準備正式出街</h3><p>AI 先做測試及草稿；涉及人物、產品承諾、Logo 或精準文字時，保留人工製作與審批。</p></div></article>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">PROMPT FORMULA</span><h3 class="h3">一條實用 Prompt，至少交代 7 件事</h3></div>
+          <div class="callout"><strong>主體 + 場景 + 動作 + 鏡頭 + 光線／風格 + 畫面比例 + 不想出現的內容</strong></div>
+          <div class="two-col" style="margin-top:20px">
+            <article class="card"><div class="num">01</div><div><div class="tag">Product Example</div><h3>產品概念片</h3><p>一支透明玻璃精華液瓶放在乾淨白色石面，水珠緩慢滑過瓶身；鏡頭由近景向右平移，柔和晨光，高級護膚廣告風格，9:16，畫面不要文字、Logo 或手部。</p></div></article>
+            <article class="card"><div class="num">02</div><div><div class="tag">Service Example</div><h3>服務場景草稿</h3><p>香港小型診所接待區，一位接待員忙碌時，畫面以簡潔光點表示查詢被系統記錄；慢速推鏡、自然日光、可信專業、16:9，不顯示真實病人資料或可讀文字。</p></div></article>
+          </div>
+          <p class="muted" style="margin-top:20px">技巧：Image-to-video 時，圖片已經交代外觀，Prompt 應集中描述「會點郁、鏡頭點行、節奏幾快」。</p>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">WORKFLOW</span><h3 class="h3">一個較慳錢的測試流程</h3></div>
+          <div class="grid">
+            <article class="card"><div class="num">01</div><div><h3>先寫一句目的</h3><p>例如「測試這個產品可否用乾淨、未來感的視覺吸引社交媒體觀眾」。</p></div></article>
+            <article class="card"><div class="num">02</div><div><h3>先定一張參考圖</h3><p>把產品、人物造型、場景及色調鎖定，再由圖片生成短片，通常比純文字更容易控制。</p></div></article>
+            <article class="card"><div class="num">03</div><div><h3>只試 3 至 5 版</h3><p>每次只改一個變數，例如鏡頭、動作或光線，先找出方向，不要無限抽結果。</p></div></article>
+            <article class="card"><div class="num">04</div><div><h3>另外處理文字</h3><p>片中文字、字幕、價錢及 Logo 建議在剪片工具後加，可靠度通常高過要求 AI 直接生成。</p></div></article>
+            <article class="card"><div class="num">05</div><div><h3>小範圍測反應</h3><p>先作內部評估或小額社交測試，比較停留、完成播放、查詢或留言反應。</p></div></article>
+            <article class="card"><div class="num">06</div><div><h3>再決定正式製作</h3><p>只把表現好的概念投入正式拍攝、3D、精修或更完整的 AI 工作流程。</p></div></article>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">LIMITATIONS</span><h3 class="h3">AI 影片仍然要逐格檢查</h3></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>位置</th><th>常見問題</th><th>處理方法</th></tr></thead>
+            <tbody>
+              <tr><td data-label="位置"><strong>手部與細節動作</strong></td><td data-label="常見問題">手指、物件接觸及複雜動作可能變形或不連貫</td><td data-label="處理方法">減少近鏡手部動作，縮短鏡頭，逐格檢查</td></tr>
+              <tr><td data-label="位置"><strong>文字、價錢與 Logo</strong></td><td data-label="常見問題">字形錯誤、品牌元素漂移或變形</td><td data-label="處理方法">生成無字底片，之後在剪片軟件加入正確版本</td></tr>
+              <tr><td data-label="位置"><strong>人物與連戲</strong></td><td data-label="常見問題">樣貌、服裝、位置及動作在鏡頭之間改變</td><td data-label="處理方法">使用固定參考圖，分鏡生成，再人工篩選及剪接</td></tr>
+              <tr><td data-label="位置"><strong>產品準確度</strong></td><td data-label="常見問題">包裝、接口、比例及標籤未必符合真實產品</td><td data-label="處理方法">重要產品鏡頭用真實拍攝或 3D；AI 只用作氣氛及草稿</td></tr>
+              <tr><td data-label="位置"><strong>授權與私隱</strong></td><td data-label="常見問題">人物肖像、客戶資料、音樂或品牌素材可能受限制</td><td data-label="處理方法">先取得同意，避免上載敏感資料，並核對平台及素材條款</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">CHECKLIST</span><h3 class="h3">出片前快速檢查</h3></div>
+          <div class="checklist">
+            <div class="check">□ 手部、面部及產品細節有沒有變形？</div><div class="check">□ 字幕、價錢、Logo 是否由正式素材後加？</div>
+            <div class="check">□ 人物肖像、聲音、音樂及素材是否有使用權？</div><div class="check">□ 有沒有意外顯示客戶資料或敏感內容？</div>
+            <div class="check">□ 9:16、1:1 或 16:9 是否符合發佈平台？</div><div class="check">□ 片段是否清楚標示或交代 AI 生成內容（如適用）？</div>
+            <div class="check">□ 產品效果及服務承諾是否真確，沒有誤導？</div><div class="check">□ 這段片是概念測試，還是已達正式品牌品質？</div>
+          </div>
+        </div>
+
+        <div class="demo final-cta">
+          <div class="demo-head"><span class="demo-tag">NEXT STEP</span><h3 class="h3">想把一個概念變成可測試的 AI 影片流程？</h3></div>
+          <p class="muted">TBC Solutions 可以協助你拆解場景、整理 Prompt、建立內容流程，並把有效概念接到社交媒體、廣告測試或後續自動化。</p>
+          <div class="hero-cta" style="justify-content:flex-start;margin-top:26px"><a class="btn btn-primary" href="https://solutions.tbchk.com/#book">預約免費 15 分鐘諮詢 →</a><a class="btn btn-ghost" href="https://wa.me/85263920913" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="https://solutions.tbchk.com">返回主網站</a></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<a class="wa-fab" href="https://wa.me/85263920913" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+<footer class="footer">© TBC Solutions｜AI 影片工具只適合按實際項目測試；功能、收費及使用條款以各平台最新公佈為準。</footer>
+
+<script>
+const form=document.getElementById("leadForm");
+const nameInput=document.getElementById("name");
+const emailInput=document.getElementById("email");
+const message=document.getElementById("formMessage");
+const resource=document.getElementById("resourceContent");
+const lockedPreview=document.getElementById("lockedPreview");
+const submitButton=form.querySelector("button[type='submit']");
+
+function isValidEmail(email){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+function unlockContent(options={}){
+  resource.classList.add("show");
+  lockedPreview.style.display="none";
+  message.textContent="已解鎖。你可以在下方查看完整 AI 影片工具清單。";
+  message.className="lead-msg ok";
+  localStorage.setItem("tbc_luma_unlocked","true");
+  if(options.scroll!==false){setTimeout(()=>resource.scrollIntoView({behavior:"smooth",block:"start"}),220)}
+}
+function getLeadErrorMessage(error){
+  const code=error&&error.code?error.code:"";
+  const reason=error&&error.message?error.message:"";
+  if(code==="invalid_email"||reason==="Invalid email")return "請輸入有效 Email。";
+  if(code==="config_missing"||code==="config_invalid")return "提交失敗：伺服器設定未完成，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+  if(code.indexOf("webhook_")===0||reason.indexOf("Apps Script")!==-1)return "提交失敗：Webhook 寫入失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+  return "提交失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+}
+if(localStorage.getItem("tbc_luma_unlocked")==="true")unlockContent({scroll:false});
+
+form.addEventListener("submit",async event=>{
+  event.preventDefault();
+  const name=nameInput.value.trim();
+  const email=emailInput.value.trim().toLowerCase();
+  if(!name){message.textContent="請輸入名字。";message.className="lead-msg err";return}
+  if(!isValidEmail(email)){message.textContent="請輸入有效 Email。";message.className="lead-msg err";return}
+
+  const payload={email,name,source:"blog_luma",resource_slug:"luma",resource_title:"AI 影片工具清單",page_url:window.location.href,user_agent:navigator.userAgent,status:"unlocked"};
+  message.textContent="提交中，請稍候…";message.className="lead-msg";submitButton.disabled=true;submitButton.textContent="提交中…";
+  try{
+    const response=await fetch("/api/leads/base",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok||!data.ok){const error=new Error(data.error||"Lead API error");error.code=data.code||"";throw error}
+    unlockContent();
+  }catch(error){console.warn("Lead capture failed.",error);message.textContent=getLeadErrorMessage(error);message.className="lead-msg err"}
+  finally{submitButton.disabled=false;submitButton.textContent="解鎖清單"}
+});
+</script>
+</body>
+</html>
