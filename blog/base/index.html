@@ -772,12 +772,12 @@ function isValidEmail(email){
 }
 
 function unlockContent(options = {}){
+  setTimeout(function(){ if(window.scanReveal) window.scanReveal(); }, 60);
   const shouldScroll = options.scroll !== false;
   resource.classList.add("show");
   lockedPreview.style.display = "none";
   msg.textContent = "已解鎖。你可以在下方查看完整框架。";
   msg.className = "leadcap-msg ok";
-  localStorage.setItem("tbc_base_unlocked","true");
   if(shouldScroll){
     setTimeout(()=>resource.scrollIntoView({behavior:"smooth",block:"start"}),250);
   }
@@ -798,9 +798,6 @@ function getLeadErrorMessage(error){
   return "提交失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
 }
 
-if(localStorage.getItem("tbc_base_unlocked")==="true"){
-  unlockContent({scroll:false});
-}
 
 form.addEventListener("submit", async (e)=>{
   e.preventDefault();
@@ -859,6 +856,39 @@ form.addEventListener("submit", async (e)=>{
     submitBtn.textContent = "解鎖框架";
   }
 });
+</script>
+
+<style>
+/* Scroll-reveal (matches the main site's section fade-in) */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+
+<script>
+/* Scroll-reveal: tag key blocks, fade them in as they enter the viewport.
+   scanReveal() is re-run after unlocking so newly shown content animates too. */
+(function(){
+  var SEL = ".section-head,.card,.demo,.demo-block,.lead-card,.leadcap-card,.table-wrap,.callout,.hero-cta,.final-cta";
+  var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  },{threshold:.12,rootMargin:"0px 0px -8% 0px"}) : null;
+  function scan(){
+    document.querySelectorAll(SEL).forEach(function(el){
+      if(el.dataset.rv) return;
+      el.dataset.rv = "1";
+      el.classList.add("rv");
+      if(io){ io.observe(el); } else { el.classList.add("in"); }
+    });
+  }
+  window.scanReveal = scan;
+  scan();
+  // safety: anything still hidden after 2.5s (e.g. observer never fired) is shown
+  setTimeout(function(){ document.querySelectorAll(".rv:not(.in)").forEach(function(el){
+    var r = el.getBoundingClientRect();
+    if(r.top < (window.innerHeight||0)) el.classList.add("in");
+  }); }, 2500);
+})();
 </script>
 </body>
 </html>
