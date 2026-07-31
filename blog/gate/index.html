@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 回覆審批流程圖｜TBC Solutions</title>
+<meta name="description" content="免費查看診所 AI 回覆審批流程圖，了解預約查詢如何分類、讀取時段、草擬回覆、手機批准，以及何時必須轉交真人。" />
+<link rel="canonical" href="https://solutions.tbchk.com/blog/gate" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="AI 回覆審批流程圖｜TBC Solutions" />
+<meta property="og:description" content="真正要設計的不是 AI 有多快，而是哪一步必須保留人手把關。" />
+<meta property="og:url" content="https://solutions.tbchk.com/blog/gate" />
+<meta property="og:site_name" content="TBC Solutions" />
+<meta property="og:image" content="https://solutions.tbchk.com/blog/gate/og.png" />
+<meta property="og:image:width" content="1731" />
+<meta property="og:image:height" content="909" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI 回覆審批流程圖｜TBC Solutions" />
+<meta name="twitter:description" content="診所 AI 回覆如何分類、草擬、審批及轉交真人。" />
+<meta name="twitter:image" content="https://solutions.tbchk.com/blog/gate/og.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#07070a;--surface:#13131a;--surface-2:#1b1b24;--line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.16);
+  --text:#f5f5f7;--dim:#9a9aa8;--faint:#6b6b78;--accent:#7c5cff;--pink:#ff5cb1;--cyan:#5cd7ff;
+  --green:#75e7aa;--amber:#ffc76b;--red:#ff8f9d;--grad:linear-gradient(120deg,#7c5cff 0%,#ff5cb1 50%,#5cd7ff 100%);
+  --fast:.2s ease;--med:.4s cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{min-height:100vh;font-family:'Noto Sans TC','Syne',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button,input{font:inherit}::selection{background:var(--accent);color:#fff}
+.backdrop{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px 540px at 78% -8%,rgba(124,92,255,.10),transparent 64%),radial-gradient(740px 500px at -8% 44%,rgba(255,92,177,.06),transparent 66%),var(--bg)}
+nav,main,footer{position:relative;z-index:1}
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,48px);background:rgba(7,7,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{display:flex;flex-direction:column;align-items:flex-start;line-height:1}.logo-row{display:flex;align-items:center;gap:10px}.logo-block{background:#fff;color:#07070a;padding:7px 11px;border-radius:6px;font-family:'Syne',sans-serif;font-weight:800;font-size:18px}.logo-right{border-left:1px solid rgba(255,255,255,.35);padding-left:10px}.logo-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px}.logo-sub{font-size:9px;color:var(--dim);letter-spacing:.22em;margin-top:2px}.logo-slogan{font-size:8px;color:var(--faint);letter-spacing:.32em;margin-top:6px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:24px}.nav-links>a:not(.btn){color:var(--dim);font-size:14px;font-weight:500}.nav-links>a:hover{color:#fff}
+.container{width:min(1280px,calc(100% - 40px));margin:0 auto}.section{padding:clamp(72px,9vw,126px) 0}.section-tight{padding:28px 0 12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--dim);font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase}.eyebrow::before{content:"";width:24px;height:1px;background:var(--grad)}
+.h1,.h2,.h3{font-family:'Syne','Noto Sans TC',sans-serif}.h1{font-size:clamp(44px,7vw,92px);font-weight:800;line-height:1.04}.h2{font-size:clamp(30px,4.4vw,56px);font-weight:700;line-height:1.12}.h3{font-size:clamp(21px,2vw,28px);font-weight:700}.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}.muted{color:var(--dim);font-size:15.5px}.section-head{display:flex;flex-direction:column;gap:18px;max-width:850px;margin-bottom:46px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;border:1px solid var(--line-strong);border-radius:999px;font-weight:700;font-size:14px;transition:transform var(--fast),background var(--med),box-shadow var(--med)}.btn-primary{border-color:transparent;background:var(--grad);color:#fff;box-shadow:0 10px 30px rgba(124,92,255,.36)}.btn-ghost{background:rgba(255,255,255,.04)}.btn:hover{transform:translateY(-2px)}.btn-ghost:hover{background:rgba(255,255,255,.08)}
+.hero{min-height:calc(100vh - 78px);display:flex;align-items:center;text-align:center;padding:98px 20px 78px}.hero-inner{max-width:1080px;margin:0 auto}.hero-copy{max-width:820px;margin:22px auto 0;font-size:clamp(17px,1.7vw,21px);font-weight:600}.hero-sub{max-width:820px;margin:16px auto 0;color:var(--dim);font-size:clamp(15px,1.35vw,18px)}.hero-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:38px}
+.lead-card{max-width:780px;margin:0 auto;padding:34px clamp(20px,4vw,42px);text-align:center;background:linear-gradient(160deg,rgba(124,92,255,.11),rgba(92,215,255,.04));border:1px solid rgba(124,92,255,.30);border-radius:22px;box-shadow:0 14px 38px rgba(0,0,0,.34)}.lead-title{font-size:clamp(20px,2.4vw,26px);font-weight:800;line-height:1.4}.lead-sub{max-width:650px;margin:12px auto 0;color:var(--dim);font-size:14.5px}.lead-form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:610px;margin:22px auto 0}.lead-input{flex:1 1 220px;min-width:0;padding:13px 15px;border:1px solid var(--line-strong);border-radius:12px;background:rgba(255,255,255,.05);color:var(--text);font-size:15px}.lead-input:focus{outline:none;border-color:rgba(124,92,255,.72)}.lead-btn{padding:13px 21px;border:0;border-radius:12px;background:var(--grad);color:#fff;font-weight:700;cursor:pointer;white-space:nowrap}.lead-btn:disabled{opacity:.7;cursor:wait}.lead-msg{min-height:20px;margin-top:13px;font-size:13.5px;font-weight:600}.lead-msg.ok{color:var(--green)}.lead-msg.err{color:#ff9c8a}.privacy{margin-top:12px;color:var(--faint);font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}.card{min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;padding:30px 27px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:transform var(--med),border-color var(--med)}.card:hover{transform:translateY(-5px);border-color:rgba(124,92,255,.42)}.num{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.75}.tag{margin-bottom:6px;color:var(--faint);font-size:11px;letter-spacing:.25em;text-transform:uppercase}.card h3{font-size:21px;line-height:1.35}.card p,.card li{color:var(--dim);font-size:14.5px}.card ul{padding-left:18px;margin-top:8px}
+.demo{margin-top:28px;padding:34px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}.demo-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}.demo-tag{display:inline-flex;padding:6px 11px;border:1px solid rgba(124,92,255,.35);border-radius:999px;background:rgba(124,92,255,.12);color:#c8b9ff;font-size:11px;font-weight:700;letter-spacing:.24em}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.table-wrap{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.34)}table{width:100%;border-collapse:collapse}th,td{padding:14px 15px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th:last-child,td:last-child{border-right:0}tr:last-child td{border-bottom:0}th{background:rgba(255,255,255,.045);font-size:12px;letter-spacing:.12em;text-transform:uppercase}td{color:var(--dim);font-size:14px}td strong{color:var(--text)}
+.callout{margin-top:18px;padding:18px 20px;border:1px solid rgba(124,92,255,.3);border-radius:14px;background:linear-gradient(120deg,rgba(124,92,255,.15),rgba(92,215,255,.08));font-size:14.5px}.locked-preview{position:relative}.preview-blur{max-height:350px;overflow:hidden;mask-image:linear-gradient(to bottom,#000 0%,#000 50%,transparent 100%);pointer-events:none;user-select:none}.locked-cover{position:relative;min-height:200px;display:flex;align-items:center;justify-content:center;margin-top:-125px;padding:40px 20px;text-align:center;background:linear-gradient(to bottom,transparent,rgba(7,7,10,.94) 38%,var(--bg));border-radius:20px}.locked-cover strong{display:block;font-size:22px;margin-bottom:8px}.locked-cover span{display:block;max-width:600px;color:var(--dim);font-size:14.5px}.resource-content{display:none}.resource-content.show{display:block;animation:rise .4s ease both}@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.flow{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));align-items:stretch;gap:10px}.flow-step{grid-column:span 1;min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:16px 13px;border:1px solid var(--line-strong);border-radius:14px;background:rgba(255,255,255,.035);text-align:center}.flow-step strong{font-size:15px}.flow-step small{color:var(--dim);font-size:12px;line-height:1.5}.flow-step.approval{border-color:rgba(255,199,107,.52);background:rgba(255,199,107,.08)}.flow-step.send{border-color:rgba(117,231,170,.45);background:rgba(117,231,170,.07)}.flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:20px}.branch-board{display:grid;grid-template-columns:1fr 1fr;gap:18px}.branch{padding:24px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.branch.safe{border-color:rgba(117,231,170,.30)}.branch.human{border-color:rgba(255,143,157,.32)}.branch-label{display:inline-flex;margin-bottom:14px;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.15em}.safe .branch-label{color:var(--green);background:rgba(117,231,170,.10)}.human .branch-label{color:var(--red);background:rgba(255,143,157,.10)}.branch ol{padding-left:20px;color:var(--dim);font-size:14.5px}.branch li+li{margin-top:9px}
+.phone-wrap{display:grid;grid-template-columns:minmax(280px,430px) 1fr;gap:30px;align-items:center}.phone{padding:14px;border:1px solid var(--line-strong);border-radius:28px;background:#0b0b10;box-shadow:0 20px 50px rgba(0,0,0,.42)}.phone-screen{overflow:hidden;border:1px solid var(--line);border-radius:19px;background:var(--surface)}.phone-bar{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-bottom:1px solid var(--line);font-size:12px}.status-dot{display:inline-block;width:8px;height:8px;margin-right:7px;border-radius:50%;background:var(--amber)}.approval-body{padding:18px}.approval-section{padding:14px 0;border-bottom:1px solid var(--line)}.approval-section:first-child{padding-top:0}.approval-section:last-of-type{border-bottom:0}.approval-label{color:var(--faint);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.approval-body p{margin-top:6px;color:var(--dim);font-size:13.5px}.approval-body strong{color:var(--text)}.source-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.source-chip{padding:4px 8px;border-radius:999px;background:rgba(92,215,255,.08);color:#9ee6ff;font-size:10.5px}.approval-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.approval-action{min-height:42px;border:1px solid var(--line-strong);border-radius:10px;background:rgba(255,255,255,.045);color:var(--text);font-weight:700;font-size:13px;cursor:pointer}.approval-action.primary{grid-column:1/-1;border-color:rgba(117,231,170,.35);background:rgba(117,231,170,.10);color:var(--green)}.approval-action:hover{background:rgba(255,255,255,.09)}.approval-state{min-height:24px;margin-top:12px;color:var(--amber);font-size:12.5px;text-align:center}.phone-notes h4{font-size:21px;margin-bottom:12px}.phone-notes ul{padding-left:20px;color:var(--dim);font-size:14.5px}.phone-notes li+li{margin-top:10px}
+.risk{display:inline-flex;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700}.risk.green{color:var(--green);background:rgba(117,231,170,.10)}.risk.amber{color:var(--amber);background:rgba(255,199,107,.10)}.risk.red{color:var(--red);background:rgba(255,143,157,.10)}
+.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.check{padding:15px 16px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.035);color:var(--dim);font-size:14.5px}.final-cta{background:linear-gradient(160deg,rgba(124,92,255,.11),rgba(255,92,177,.05));border-color:rgba(124,92,255,.3)}
+.wa-fab{position:fixed;right:20px;bottom:20px;z-index:60;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 10px 28px rgba(0,0,0,.42);transition:transform var(--fast)}.wa-fab:hover{transform:translateY(-2px)}.wa-fab svg{width:26px;height:26px;fill:#fff}.footer{padding:34px 20px 48px;text-align:center;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+@media(max-width:960px){.flow{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg);min-height:26px}.flow-step{min-height:120px}.phone-wrap{grid-template-columns:1fr}.phone{max-width:430px;margin:0 auto;width:100%}}
+@media(max-width:860px){.nav-links{display:none}.hero{padding-top:76px}.two-col,.branch-board{grid-template-columns:1fr}.checklist{grid-template-columns:1fr}}
+@media(max-width:620px){.container{width:min(100% - 32px,1280px)}.demo{padding:23px 17px}.lead-form{display:grid;grid-template-columns:minmax(0,1fr);justify-content:stretch}.lead-input,.lead-btn{width:100%}.approval-actions{grid-template-columns:1fr}.approval-action.primary{grid-column:auto}th{display:none}tr{display:block;border-bottom:1px solid var(--line)}tr:last-child{border-bottom:0}td{display:block;border-right:0}td::before{content:attr(data-label);display:block;margin-bottom:4px;color:var(--text);font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.h1{font-size:clamp(42px,14vw,62px)}}
+</style>
+</head>
+
+<body>
+<div class="backdrop"></div>
+
+<nav class="nav">
+  <a class="logo" href="/" aria-label="TBC Solutions 首頁">
+    <div class="logo-row"><div class="logo-block">TBC</div><div class="logo-right"><div class="logo-name">Solutions</div><div class="logo-sub">AI · AUTOMATION</div></div></div>
+    <div class="logo-slogan">Transform · Build · Create</div>
+  </a>
+  <div class="nav-links"><a href="#preview">流程預覽</a><a href="#unlock">解鎖內容</a><a href="#full-flow">完整流程</a><a class="btn btn-primary" href="https://solutions.tbchk.com/#book" style="padding:8px 16px;font-size:13px">預約諮詢</a></div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">免費資源 · FREE RESOURCE</div>
+      <h1 class="h1">AI 回覆<br><span class="gradient-text">審批流程圖</span></h1>
+      <p class="hero-copy">診所考慮用 AI 回覆查詢時，最擔心的不是速度，而是它回錯內容。</p>
+      <p class="hero-sub">這份流程圖示範如何把預約查詢分類、讀取已批准資料、草擬回覆，再傳到手機等候人手批准；非標準報價、個別療程建議或投訴會直接轉交真人。</p>
+      <div class="hero-cta"><a class="btn btn-primary" href="#unlock">解鎖免費流程圖 →</a><a class="btn btn-ghost" href="#preview">先看預覽</a></div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="unlock">
+    <div class="container">
+      <div class="lead-card">
+        <div class="eyebrow">GATE · EMAIL UNLOCK</div>
+        <h2 class="lead-title">輸入名字及 Email，即時查看完整「AI 回覆審批流程圖」</h2>
+        <p class="lead-sub">適合正在評估 WhatsApp、網站或社交平台 AI 查詢回覆，但希望保留診所人員最後把關的團隊。</p>
+        <form class="lead-form" id="leadForm" novalidate>
+          <input class="lead-input" id="name" name="name" type="text" placeholder="你的名字" autocomplete="name" aria-label="名字" required />
+          <input class="lead-input" id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email" required />
+          <button class="lead-btn" type="submit">解鎖流程圖</button>
+        </form>
+        <div class="lead-msg" id="formMessage" role="status" aria-live="polite"></div>
+        <p class="privacy">提交 Email 後，你會在本頁查看此免費資源。資料只會用於提供此資源及後續相關業務溝通，不會出售予第三方。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="preview">
+    <div class="container">
+      <div class="section-head"><div class="eyebrow">WHAT YOU GET</div><h2 class="h2">先設計把關位置，再考慮自動化速度。</h2><p class="muted">核心不是叫 AI 自己決定，而是讓每類查詢沿着預先設定的路徑處理，並留下清楚的批准或轉交紀錄。</p></div>
+      <div class="grid">
+        <article class="card"><div class="num">01</div><div><div class="tag">Classify</div><h3>查詢分類</h3><p>先分辨預約、一般資料、報價、療程建議、投訴或其他敏感查詢。</p></div></article>
+        <article class="card"><div class="num">02</div><div><div class="tag">Source</div><h3>只讀批准資料</h3><p>可用時段、地址、開放時間及標準答案必須來自已批准來源。</p></div></article>
+        <article class="card"><div class="num">03</div><div><div class="tag">Draft</div><h3>AI 只負責草擬</h3><p>系統整理客人問題及資料來源，產生待審批回覆，不立即送出。</p></div></article>
+        <article class="card"><div class="num">04</div><div><div class="tag">Approve</div><h3>手機人手批准</h3><p>診所人員可批准、修改或轉真人，完成後才發送給客人。</p></div></article>
+        <article class="card"><div class="num">05</div><div><div class="tag">Escalate</div><h3>高風險直接轉人</h3><p>非標準報價、個別療程建議、投訴及不確定內容不由 AI 回覆。</p></div></article>
+        <article class="card"><div class="num">06</div><div><div class="tag">Audit</div><h3>保留審批紀錄</h3><p>記錄分類、資料版本、草稿、批准人、修改及最後送出內容。</p></div></article>
+      </div>
+
+      <div class="demo locked-preview" id="lockedPreview">
+        <div class="preview-blur">
+          <div class="demo-head"><span class="demo-tag">LOCKED PREVIEW</span><span class="muted">星期六預約查詢主線</span></div>
+          <div class="flow">
+            <div class="flow-step"><strong>收到查詢</strong><small>「星期六仲有冇位？」</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><strong>分類</strong><small>預約查詢</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><strong>讀取時段</strong><small>已批准預約資料</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step approval"><strong>手機批准</strong><small>批准／修改／轉人</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step send"><strong>發送及記錄</strong><small>批准後才回覆</small></div>
+          </div>
+        </div>
+        <div class="locked-cover"><div><strong>完整審批流程已鎖定</strong><span>輸入名字及 Email 後，即時解鎖完整分支流程、風險矩陣、手機審批 Demo 及上線檢查清單。</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="resource-content" id="resourceContent">
+    <section class="section" id="full-flow">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">HUMAN-IN-THE-LOOP</div><h2 class="h2">完整 AI 回覆審批流程</h2><p class="muted">以下以客人查詢「這個星期六還有沒有可預約時段」為例。AI 可以整理及草擬，但發送權仍由診所人員掌握。</p></div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">MAIN FLOW</span><h3 class="h3">標準預約查詢：批准後才發送</h3></div>
+          <div class="flow">
+            <div class="flow-step"><strong>收到查詢</strong><small>WhatsApp／網站／社交平台</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><strong>識別類別</strong><small>預約時段查詢</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><strong>讀取資料</strong><small>可預約時段及規則</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step approval"><strong>草擬＋審批</strong><small>傳到手機等候人手</small></div><div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step send"><strong>發送＋留痕</strong><small>批准後回覆客人</small></div>
+          </div>
+          <div class="callout"><strong>重要：</strong>AI 讀到可用時段，不代表可以自行承諾預約。審批畫面應同時顯示客人原文、資料來源、建議回覆及可執行操作，讓批准人有足夠資料判斷。</div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">DECISION GATE</span><h3 class="h3">由分類結果決定下一條路</h3></div>
+          <div class="branch-board">
+            <div class="branch safe"><span class="branch-label">標準／有批准資料</span><ol><li>讀取已批准來源。</li><li>AI 草擬回覆並附上來源。</li><li>傳到指定員工手機。</li><li>員工批准或修改後才送出。</li><li>保存批准人及最後內容。</li></ol></div>
+            <div class="branch human"><span class="branch-label">敏感／非標準／不確定</span><ol><li>停止生成對客回覆。</li><li>整理客人原文及已知背景。</li><li>標示轉交原因及優先程度。</li><li>通知指定真人跟進。</li><li>真人回覆後保留處理紀錄。</li></ol></div>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">MOBILE APPROVAL</span><h3 class="h3">手機審批畫面應該畀你睇到咩？</h3></div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="phone-bar"><span><span class="status-dot"></span>待審批</span><strong>預約查詢</strong></div>
+                <div class="approval-body">
+                  <div class="approval-section"><div class="approval-label">客人原文</div><p>你好，想問這個星期六下午仲有冇可預約時段？</p></div>
+                  <div class="approval-section"><div class="approval-label">讀取來源</div><div class="source-row"><span class="source-chip">預約表 · 即時</span><span class="source-chip">星期六規則 · v3</span></div></div>
+                  <div class="approval-section"><div class="approval-label">AI 草稿</div><p><strong>你好，這個星期六下午目前有 2:30 及 4:00 可供選擇。</strong>請問哪個時間較適合你？最終時段以診所確認為準。</p></div>
+                  <div class="approval-actions"><button class="approval-action primary" type="button" data-approval-action="approve">批准傳送</button><button class="approval-action" type="button" data-approval-action="edit">修改草稿</button><button class="approval-action" type="button" data-approval-action="handoff">轉交真人</button></div>
+                  <div class="approval-state" id="approvalState" role="status" aria-live="polite">尚未執行任何操作</div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-notes"><h4>批准人要一次過見到：</h4><ul><li>客人原文，而唔係只有 AI 摘要。</li><li>分類結果及觸發哪一條規則。</li><li>時段或答案來自哪個資料來源及版本。</li><li>AI 建議回覆的完整內容。</li><li>批准、修改、拒絕及轉真人四個清楚選項。</li><li>操作後由誰負責下一步及是否已成功發送。</li></ul></div>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">RISK MATRIX</span><h3 class="h3">哪些可草擬，哪些必須直接轉真人？</h3></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>查詢類型</th><th>風險</th><th>AI 可做</th><th>人手把關</th></tr></thead>
+            <tbody>
+              <tr><td data-label="查詢類型"><strong>一般可預約時段</strong></td><td data-label="風險"><span class="risk amber">需審批</span></td><td data-label="AI 可做">分類、讀取時段、草擬選項</td><td data-label="人手把關">批准或修改後才發送</td></tr>
+              <tr><td data-label="查詢類型"><strong>地址、開放時間、到診準備</strong></td><td data-label="風險"><span class="risk green">較低</span></td><td data-label="AI 可做">引用已批准標準答案</td><td data-label="人手把關">初期保留審批；穩定後才考慮有限自動發送</td></tr>
+              <tr><td data-label="查詢類型"><strong>改期、取消或個人預約紀錄</strong></td><td data-label="風險"><span class="risk amber">需審批</span></td><td data-label="AI 可做">整理要求及草擬下一步</td><td data-label="人手把關">核對身份、紀錄及可執行操作</td></tr>
+              <tr><td data-label="查詢類型"><strong>非標準報價或折扣</strong></td><td data-label="風險"><span class="risk red">轉真人</span></td><td data-label="AI 可做">摘要需求及標示缺少資料</td><td data-label="人手把關">由獲授權員工決定及回覆</td></tr>
+              <tr><td data-label="查詢類型"><strong>個別療程或醫療建議</strong></td><td data-label="風險"><span class="risk red">轉真人</span></td><td data-label="AI 可做">不作個人判斷，只整理問題</td><td data-label="人手把關">交由合資格診所人員處理</td></tr>
+              <tr><td data-label="查詢類型"><strong>投訴、退款、負面事件</strong></td><td data-label="風險"><span class="risk red">轉真人</span></td><td data-label="AI 可做">辨識情緒、摘要及通知</td><td data-label="人手把關">真人接手並按內部流程跟進</td></tr>
+              <tr><td data-label="查詢類型"><strong>緊急症狀或安全風險</strong></td><td data-label="風險"><span class="risk red">即時升級</span></td><td data-label="AI 可做">觸發已批准緊急提示及通知</td><td data-label="人手把關">立即交由真人及既定緊急流程處理</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">AUDIT TRAIL</span><h3 class="h3">每次審批最少要記錄 8 項資料</h3></div>
+          <div class="grid">
+            <article class="card"><div class="num">01</div><div><h3>查詢身份</h3><p>查詢編號、渠道、時間及客戶紀錄連結。</p></div></article>
+            <article class="card"><div class="num">02</div><div><h3>分類結果</h3><p>AI 判斷的類別、風險級別及觸發規則。</p></div></article>
+            <article class="card"><div class="num">03</div><div><h3>資料來源</h3><p>讀取哪張表、哪份知識及當時版本。</p></div></article>
+            <article class="card"><div class="num">04</div><div><h3>草稿內容</h3><p>AI 原始草稿及後續人手修改差異。</p></div></article>
+            <article class="card"><div class="num">05</div><div><h3>審批決定</h3><p>批准、修改、拒絕或轉真人的選擇。</p></div></article>
+            <article class="card"><div class="num">06</div><div><h3>批准人</h3><p>操作人、角色、時間及使用裝置。</p></div></article>
+            <article class="card"><div class="num">07</div><div><h3>最後回覆</h3><p>真正發送給客人的內容及發送結果。</p></div></article>
+            <article class="card"><div class="num">08</div><div><h3>後續狀態</h3><p>已完成、等待客人、需跟進或已升級。</p></div></article>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">ROLLOUT</span><h3 class="h3">建議由「全部審批」開始</h3></div>
+          <div class="three-phase grid">
+            <article class="card"><div class="num">1</div><div><div class="tag">Observe</div><h3>全人手審批</h3><p>所有 AI 草稿都要批准，先收集分類錯誤、資料缺口及常見修改原因。</p></div></article>
+            <article class="card"><div class="num">2</div><div><div class="tag">Restrict</div><h3>縮窄可自動類別</h3><p>只考慮開放時間、地址等有固定答案的低風險類別，其他繼續審批。</p></div></article>
+            <article class="card"><div class="num">3</div><div><div class="tag">Review</div><h3>定期覆核</h3><p>監察錯誤、轉交、修改與客訴，資料或流程一改就重新收緊權限。</p></div></article>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="demo-head"><span class="demo-tag">CHECKLIST</span><h3 class="h3">上線前快速檢查</h3></div>
+          <div class="checklist">
+            <div class="check">□ 每種查詢是否有明確類別及負責人？</div><div class="check">□ AI 是否只讀取已批准、可追蹤版本的資料？</div>
+            <div class="check">□ 不確定或缺少資料時是否自動停止及轉人？</div><div class="check">□ 非標準報價、療程建議及投訴是否禁止自動回覆？</div>
+            <div class="check">□ 批准畫面是否顯示客人原文、來源及完整草稿？</div><div class="check">□ 批准、修改、拒絕及轉真人是否都有清楚按鈕？</div>
+            <div class="check">□ 每次審批及修改是否留下可搜尋紀錄？</div><div class="check">□ 無人處理、逾時或發送失敗時是否有通知及後備流程？</div>
+          </div>
+        </div>
+
+        <div class="demo final-cta">
+          <div class="demo-head"><span class="demo-tag">NEXT STEP</span><h3 class="h3">想為診所畫一條真正可落地的審批流程？</h3></div>
+          <p class="muted">TBC Solutions 可以按你的查詢渠道、預約系統、員工權限及風險要求，設計分類、資料讀取、手機審批、轉真人及紀錄流程。</p>
+          <div class="hero-cta" style="justify-content:flex-start;margin-top:26px"><a class="btn btn-primary" href="https://solutions.tbchk.com/#book">預約免費 15 分鐘諮詢 →</a><a class="btn btn-ghost" href="https://wa.me/85263920913?text=%E6%82%A8%E5%A5%BD%20TBC%EF%BC%8C%E6%88%91%E5%96%BA%20AI%20%E5%9B%9E%E8%A6%86%E5%AF%A9%E6%89%B9%E6%B5%81%E7%A8%8B%E5%9C%96%E9%A0%81%E8%A6%8B%E5%88%B0%E4%BD%A0%E5%93%8B%E5%98%85%E8%B3%87%E6%96%99%EF%BC%8C%E6%83%B3%E4%BA%86%E8%A7%A3%E8%A8%BA%E6%89%80%20AI%20%E6%9F%A5%E8%A9%A2%E5%AF%A9%E6%89%B9%E6%B5%81%E7%A8%8B%E3%80%82" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="https://solutions.tbchk.com">返回主網站</a></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<a class="wa-fab" href="https://wa.me/85263920913?text=%E6%82%A8%E5%A5%BD%20TBC%EF%BC%8C%E6%88%91%E5%96%BA%20AI%20%E5%9B%9E%E8%A6%86%E5%AF%A9%E6%89%B9%E6%B5%81%E7%A8%8B%E5%9C%96%E9%A0%81%E8%A6%8B%E5%88%B0%E4%BD%A0%E5%93%8B%E5%98%85%E8%B3%87%E6%96%99%EF%BC%8C%E6%83%B3%E4%BA%86%E8%A7%A3%E8%A8%BA%E6%89%80%20AI%20%E6%9F%A5%E8%A9%A2%E5%AF%A9%E6%89%B9%E6%B5%81%E7%A8%8B%E3%80%82" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+<footer class="footer">© TBC Solutions｜本流程圖只作系統及風險設計參考，實際審批權限及回覆規則需按診所流程設定。</footer>
+
+<script>
+const form=document.getElementById("leadForm");
+const nameInput=document.getElementById("name");
+const emailInput=document.getElementById("email");
+const message=document.getElementById("formMessage");
+const resource=document.getElementById("resourceContent");
+const lockedPreview=document.getElementById("lockedPreview");
+const submitButton=form.querySelector("button[type='submit']");
+
+function isValidEmail(email){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+function unlockContent(){
+  resource.classList.add("show");
+  lockedPreview.style.display="none";
+  message.textContent="已解鎖。你可以在下方查看完整 AI 回覆審批流程圖。";
+  message.className="lead-msg ok";
+  setTimeout(function(){if(window.scanReveal)window.scanReveal()},60);
+  setTimeout(()=>resource.scrollIntoView({behavior:"smooth",block:"start"}),220);
+}
+function lockContent(){
+  resource.classList.remove("show");
+  lockedPreview.style.display="";
+  message.textContent="";
+  message.className="lead-msg";
+}
+function getLeadErrorMessage(error){
+  const code=error&&error.code?error.code:"";
+  const reason=error&&error.message?error.message:"";
+  if(code==="invalid_email"||reason==="Invalid email")return "請輸入有效 Email。";
+  if(code==="config_missing"||code==="config_invalid")return "提交失敗：伺服器設定未完成，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+  if(code.indexOf("webhook_")===0||reason.indexOf("Apps Script")!==-1)return "提交失敗：Webhook 寫入失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+  return "提交失敗，請稍後再試，或直接聯絡 shek0913@tbchk.com。";
+}
+window.addEventListener("pagehide",lockContent);
+
+form.addEventListener("submit",async event=>{
+  event.preventDefault();
+  const name=nameInput.value.trim();
+  const email=emailInput.value.trim().toLowerCase();
+  if(!name){message.textContent="請輸入名字。";message.className="lead-msg err";return}
+  if(!isValidEmail(email)){message.textContent="請輸入有效 Email。";message.className="lead-msg err";return}
+  const payload={email,name,source:"blog_gate",resource_slug:"gate",resource_title:"AI 回覆審批流程圖",page_url:window.location.href,user_agent:navigator.userAgent,status:"unlocked"};
+  message.textContent="提交中，請稍候…";message.className="lead-msg";submitButton.disabled=true;submitButton.textContent="提交中…";
+  try{
+    const response=await fetch("/api/leads/base",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok||!data.ok){const error=new Error(data.error||"Lead API error");error.code=data.code||"";throw error}
+    unlockContent();
+  }catch(error){console.warn("Lead capture failed.",error);message.textContent=getLeadErrorMessage(error);message.className="lead-msg err"}
+  finally{submitButton.disabled=false;submitButton.textContent="解鎖流程圖"}
+});
+
+document.querySelectorAll("[data-approval-action]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const state=document.getElementById("approvalState");
+    const action=button.dataset.approvalAction;
+    if(action==="approve"){state.textContent="已批准：系統會發送回覆並記錄批准人。";state.style.color="var(--green)"}
+    if(action==="edit"){state.textContent="已選擇修改：草稿會保持未發送狀態。";state.style.color="var(--amber)"}
+    if(action==="handoff"){state.textContent="已轉交真人：AI 不會向客人發送內容。";state.style.color="var(--red)"}
+  });
+});
+</script>
+
+<style>
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+<script>
+(function(){
+  var selector=".section-head,.card,.demo,.lead-card,.table-wrap,.callout,.hero-cta,.final-cta";
+  var observer=("IntersectionObserver" in window)?new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("in");observer.unobserve(entry.target)}})},{threshold:.12,rootMargin:"0px 0px -8% 0px"}):null;
+  function scan(){document.querySelectorAll(selector).forEach(function(element){if(element.dataset.rv)return;element.dataset.rv="1";element.classList.add("rv");if(observer){observer.observe(element)}else{element.classList.add("in")}})}
+  window.scanReveal=scan;scan();
+  setTimeout(function(){document.querySelectorAll(".rv:not(.in)").forEach(function(element){var rect=element.getBoundingClientRect();if(rect.top<(window.innerHeight||0))element.classList.add("in")})},2500);
+})();
+</script>
+</body>
+</html>
