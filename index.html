@@ -13,7 +13,7 @@
 <meta name="description" content="TBC Solutions — AI 自動化、網頁設計、AI 內容創作、客製化 AI 解決方案。" />
 <!-- Deploy version: 2026-05-22T18:35+08:00 -->
 <!-- Deploy version: dbf386fc + cache-bust headers -->
-<!-- Deploy build tag: 2026-05-31-R35.3-video-button -->
+<!-- Deploy build tag: 2026-05-31-R35.5-wa-prefill -->
 
 
 <!-- ============== FONTS ============== -->
@@ -4859,7 +4859,7 @@ body.from-cold-email .nav-profile{display:none !important}
    don't leak across deploys. Runs FIRST, before any other script.
    ================================================================= */
 (function buildIdGuard(){
-  const CURRENT_BUILD = "2026-05-31-R35.3-video-button";
+  const CURRENT_BUILD = "2026-05-31-R35.5-wa-prefill";
   // Expose for the freshness probe below
   window.__TBC_BUILD__ = CURRENT_BUILD;
   try{
@@ -7508,7 +7508,7 @@ function skipWelcome(){
 /* ----------------- CONTACT CHANNELS (single source of truth) ----------------- */
 // TODO: 石斑 commit 前手動填返真實 WhatsApp 號碼（去除 +、空格、dash）
 // 例：+852 1234 5678 → "85212345678"
-const CONTACT_WHATSAPP = "85257018218"; // +852 5701 8218
+const CONTACT_WHATSAPP = "85263920913"; // +852 6392 0913
 const CONTACT_TG_HANDLE = "grouper0913";
 const CONTACT_WHATSAPP_URL = `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent("您好 TBC，我想了解 AI 自動化方案")}`;
 const CONTACT_TG_URL = `https://t.me/${CONTACT_TG_HANDLE}`;
