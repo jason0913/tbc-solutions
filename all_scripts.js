@@ -71,7 +71,7 @@
    ================================================================= */
 const CLAUDE_ENDPOINT = "/api/claude";               // serverless function (works on Netlify and Vercel)
 const CLAUDE_MODEL    = "claude-sonnet-4-6"; // 最新 Claude Sonnet
-const CAL_LINK        = "https://cal.com/grouper-shek/30min";
+const CAL_LINK        = "https://cal.com/grouper-shek/15min";
 
 /* ============== i18n ============== */
 const I18N = {

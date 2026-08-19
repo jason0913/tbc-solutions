@@ -31,7 +31,7 @@
 ## 2. Deploy 後 Smoke Test(逐項真測)
 
 ### 轉化關鍵
-- [ ] **Cal.com** widget 載到(`https://cal.com/grouper-shek/30min`)— 唔好得個 fallback
+- [ ] **Cal.com** widget 載到(`https://cal.com/grouper-shek/15min`)— 唔好得個 fallback
 - [ ] **WhatsApp** link 撳到、開到對話
 - [ ] **Telegram** link 撳到、開到
 - [ ] **Email lead capture**:預約區之前個 form 填 email 提交 → inbox 收到「🟢 New lead」(未設 env 會出友善錯誤,唔白頁)
