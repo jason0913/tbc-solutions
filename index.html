@@ -820,6 +820,34 @@ html{overflow-x:hidden}
 .chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
 .chat-input-row .input{flex:1}
 
+/* ===== Demo 15: Parent leave / reschedule (WhatsApp concept) ===== */
+.pl-chat{height:auto;min-height:460px}
+.pl-chat-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-size:12.5px}
+.pl-chat-title{font-weight:700;color:var(--text)}
+.pl-chat-sub{color:var(--text-faint);font-size:11px}
+.pl-suggest{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 10px}
+.pl-chip{padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line-strong);color:var(--text);font-size:12.5px;transition:all .2s;cursor:pointer}
+.pl-chip:hover{background:rgba(124,92,255,.15);border-color:var(--accent)}
+.pl-chip:disabled{opacity:.35;cursor:default;pointer-events:none}
+.pl-note{padding:0 16px 14px;font-size:11px;color:var(--text-faint)}
+.pl-card{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px;font-size:13px}
+.pl-card-row{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.pl-card-row:last-child{border-bottom:none}
+.pl-card-row .k{color:var(--text-dim)}
+.pl-card-row .v{color:var(--text);font-weight:600;text-align:right}
+.pl-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.pl-actions .btn{flex:1;justify-content:center;padding:9px 14px;font-size:12.5px}
+.pl-options{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.pl-option{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line-strong);cursor:pointer;transition:all .2s;text-align:left;width:100%;font-family:inherit}
+.pl-option:hover{border-color:var(--accent);background:rgba(124,92,255,.12)}
+.pl-option:disabled{opacity:.45;cursor:default;pointer-events:none}
+.pl-option .t{font-size:13px;color:var(--text);font-weight:600;display:block}
+.pl-option .d{font-size:11.5px;color:var(--text-dim);margin-top:2px;display:block}
+.pl-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(123,232,163,.12);border:1px solid rgba(123,232,163,.35);color:#7be8a3;font-size:11px;font-weight:700}
+.pl-reset{display:block;margin:10px auto 0;font-size:12px;color:var(--text-dim);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit}
+.pl-reset:hover{color:var(--text)}
+[data-theme="light"] .pl-card{background:rgba(0,0,0,.03)}
+
 /* ===== Demo 3: Webgen ===== */
 .webgen-preview{
   background:rgba(0,0,0,.5);border:1px solid var(--line);border-radius:14px;
@@ -3768,6 +3796,7 @@ body.from-cold-email .nav-profile{display:none !important}
       <button class="demo-tab-btn"        data-slide="11"><span class="num">12</span> <span data-i18n="demo12.title">AI 倉庫智能調貨</span></button>
       <button class="demo-tab-btn"        data-slide="13"><span class="num">13</span> <span data-i18n="demo14.tabLabel">倉庫 Dashboard</span></button>
       <button class="demo-tab-btn active" data-slide="12"><span class="num">13</span> <span data-i18n="demo13.tabLabel">商業診斷</span></button>
+      <button class="demo-tab-btn"        data-slide="14"><span class="num">14</span> <span data-i18n="demo15.tabLabel">請假 · 補課助手</span></button>
       <button class="demos-expand" id="demos-expand" type="button"><span data-i18n="demos.expand">查看 14 個方案</span> <span>↓</span></button>
     </div>
 
@@ -4464,6 +4493,38 @@ body.from-cold-email .nav-profile{display:none !important}
           </div>
         </div>
 
+        <!-- ===== SLIDE 15 : DEMO 15 — PARENT LEAVE / RESCHEDULE (WhatsApp) ===== -->
+        <div class="demo-slide" data-slide-idx="14">
+          <div class="demo-block" id="demo15">
+            <div class="demo-head">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <div class="demo-tag">DEMO 14</div>
+                  <div class="demo-save" data-i18n="demo15.save">職員人手節省 70%</div>
+                </div>
+                <h3 class="h3" style="margin-top:8px" data-i18n="demo15.title">AI 家長請假 · 補課安排助手</h3>
+                <p class="muted" style="margin-top:6px;font-size:15px" data-i18n="demo15.desc">家長 WhatsApp 一句請假訊息，AI 自動配對原定課堂，即時提供合適補課時段供家長選擇。</p>
+              </div>
+            </div>
+
+            <div class="pl-chat chat-window">
+              <div class="pl-chat-head">
+                <span class="pl-chat-title" data-i18n="demo15.chatTitle">家長 WhatsApp</span>
+                <span class="pl-chat-sub" data-i18n="demo15.chatSub">模擬對話・不會真正發送</span>
+              </div>
+              <div class="chat-msgs" id="pl-msgs">
+                <div class="chat-msg bot" data-i18n="demo15.greet">您好！請直接輸入請假訊息，我會先整理資料，再請您確認原定課堂及補課選擇。</div>
+              </div>
+              <div class="pl-suggest" id="pl-suggest">
+                <button class="pl-chip" type="button" data-i18n="demo15.chip1">小朋友 2 號請假</button>
+                <button class="pl-chip" type="button" data-i18n="demo15.chip2">佢下星期二嚟唔到</button>
+                <button class="pl-chip" type="button" data-i18n="demo15.chip3">今日唔舒服，想安排補課</button>
+              </div>
+              <div class="pl-note" data-i18n="demo15.note">概念示範・只支援以上示範句式</div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /demos-carousel -->
     </div><!-- /demos-carousel-wrap -->
 
@@ -5012,6 +5073,13 @@ const I18N = {
     "demo14.safety":"安全線 150",
     "demo14.alertsTitle":"即時智能警示","demo14.live":"LIVE",
     "demo14.recsTitle":"智能推薦行動","demo14.recsSub":"一鍵自動建立 n8n 工作流",
+
+    "demo15.tabLabel":"請假 · 補課助手","demo15.save":"職員人手節省 70%",
+    "demo15.title":"AI 家長請假 · 補課安排助手","demo15.desc":"家長 WhatsApp 一句請假訊息，AI 自動配對原定課堂，即時提供合適補課時段供家長選擇。",
+    "demo15.chatTitle":"家長 WhatsApp","demo15.chatSub":"模擬對話・不會真正發送",
+    "demo15.greet":"您好！請直接輸入請假訊息，我會先整理資料，再請您確認原定課堂及補課選擇。",
+    "demo15.chip1":"小朋友 2 號請假","demo15.chip2":"佢下星期二嚟唔到","demo15.chip3":"今日唔舒服，想安排補課",
+    "demo15.note":"概念示範・只支援以上示範句式",
     "pain.eyebrow":"日常痛點",
     "pain.title1":"您現在是否有","pain.title2":"以下這些煩惱？",
     "pain.desc":"如果任何一項符合，您就是自動化系統最能受益的對象。",
@@ -5260,6 +5328,13 @@ const I18N = {
     "demo14.safety":"Safety line 150",
     "demo14.alertsTitle":"Real-time Smart Alerts","demo14.live":"LIVE",
     "demo14.recsTitle":"Recommended Actions","demo14.recsSub":"One-click n8n workflow setup",
+
+    "demo15.tabLabel":"Leave & Reschedule","demo15.save":"70% less admin time",
+    "demo15.title":"AI Parent Leave & Reschedule Assistant","demo15.desc":"One WhatsApp message from a parent — AI matches the original class and instantly offers suitable makeup slots.",
+    "demo15.chatTitle":"Parent WhatsApp","demo15.chatSub":"Simulated conversation・nothing is actually sent",
+    "demo15.greet":"Hi! Type a leave message below — I'll structure the details first, then ask you to confirm the class and pick a makeup slot.",
+    "demo15.chip1":"My kid is off on the 2nd","demo15.chip2":"She can't make it next Tuesday","demo15.chip3":"Feeling unwell today, need to reschedule",
+    "demo15.note":"Concept demo・only the sample messages above are supported",
     "pain.eyebrow":"YOUR DAILY PAIN",
     "pain.title1":"Are you facing","pain.title2":"any of these problems?",
     "pain.desc":"If any of these hit home, automation is built for you.",
@@ -5582,6 +5657,9 @@ function resetAllDemos(){
     const activeRange = document.querySelector("#dash-filter .dash-fseg.active")?.dataset.range || "7";
     window.__renderDashboard14(activeRange, false);
   }
+
+  // Demo 15 — parent leave / reschedule: restart scripted chat in new language
+  if(typeof window.__resetDemo15 === "function") window.__resetDemo15();
 
   // Allow previews to replay in the new language
   if(window.__resetPreviews) window.__resetPreviews();
@@ -6879,6 +6957,7 @@ const PAIN_DEMO_MAP = {
   "sales":     [5, 4],      // Demo 6 follow-up + Demo 5 intent analyser
   "translate": [7],         // Demo 8 translation
   "review":    [8],         // Demo 9 review reply
+  "booking":   [14],        // Demo 15 parent leave / reschedule (WhatsApp)
 };
 
 // Industry default pains (used when user only picks industry, skips pain step)
@@ -6890,7 +6969,7 @@ const INDUSTRY_DEFAULT_PAINS = {
   "餐飲":   ["follow-up","review","translate"],   // 訂位跟進 + 評論回覆 + 多語客評翻譯
   "零售":   ["support","content","review"],       // 客服 + 商品文案 + 評論回覆
   "專業服務":["follow-up","report","sales","support"], // Lead 跟進 + 會議紀要 + 成交 + 客服
-  "教育":   ["support","follow-up","content"],    // 家長客服 + 試堂跟進 + 內容
+  "教育":   ["support","follow-up","content","booking"], // 家長客服 + 試堂跟進 + 內容 + 請假補課
   "科技":   ["sales","report","support"],         // Lead scoring + 會議紀要 + Support
   "醫美":   ["follow-up","support","review"],     // 預約跟進 + WhatsApp 客服 + 評論回覆
   "物流":   ["warehouse","report","support"],     // 倉儲 + 報表 + 客服查物流
@@ -8416,7 +8495,7 @@ function wait(ms){ return new Promise(r=>setTimeout(r,ms)) }
   if(!slides.length) return;
 
   // Default visual order (no profile): Wizard first, then 01..12, then Dashboard
-  const DEFAULT_ORDER = [12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13];
+  const DEFAULT_ORDER = [12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14];
 
   // Visible order = profile-filtered list if profile is active, else DEFAULT_ORDER
   function visibleOrder(){
@@ -10602,6 +10681,172 @@ Available AI solutions (demo_ref maps to demo number):
     const c = document.getElementById("wz-report-container");
     if(c) c.innerHTML = `<div class="wz-loading"><div class="dot-typing"><span></span><span></span><span></span></div><div>${currentLang==="zh"?"AI 正在分析您的業務、配對方案 …":"AI is analysing your business and matching solutions…"}</div></div>`;
   };
+})();
+
+/* ===========================================================
+   DEMO 15 — PARENT LEAVE / RESCHEDULE (WhatsApp concept demo)
+   Fully scripted — no AI call. Mirrors a real parent-facing
+   WhatsApp flow: leave message → AI structures the data →
+   parent confirms the original class → AI offers same-week
+   makeup slots → parent picks one (or hands off to staff).
+   =========================================================== */
+(function parentLeaveDemo(){
+  const msgsRoot = document.getElementById("pl-msgs");
+  const suggestRoot = document.getElementById("pl-suggest");
+  if(!msgsRoot || !suggestRoot) return;
+
+  const T = {
+    zh: {
+      parsedIntro:"已整理請假資料：",
+      kIntent:"意圖", vIntent:"請假",
+      kStudent:"學生", vStudent:"陳小朋友（模擬）",
+      kDate:"日期", vDate:"2026-08-02",
+      kLesson:"原定課堂", vLesson:"英文 Level 1・Lesson 10",
+      kStatus:"狀態", vStatus:"待家長確認",
+      foundIntro:"我找到以下課堂，請確認是否正確：",
+      classL1:"陳小朋友 · 2026-08-02（週日）16:00",
+      classL2:"英文 Level 1・Lesson 10 · 王老師・灣仔中心",
+      btnConfirm:"資料正確", btnWrong:"唔啱課堂，轉人手",
+      confirmedIntro:"已確認原定課堂，AI 找到同週合適補課選項：",
+      opt1t:"8 月 4 日（二）17:00", opt1d:"英文 Level 1・Lesson 10｜李老師｜灣仔中心 · 模擬名額 2",
+      opt2t:"8 月 6 日（四）16:00", opt2d:"英文 Level 1・Lesson 10｜張老師｜灣仔中心 · 模擬名額 1",
+      doneIntro:"已為陳小朋友安排補課：",
+      doneBadge:"已完成安排 ✓",
+      handoffMsg:"已轉交職員處理，職員會透過 WhatsApp 盡快跟進確認。",
+      handoffBadge:"已轉人手 ✓",
+      reset:"↺ 重新開始示範",
+    },
+    en: {
+      parsedIntro:"Leave request structured:",
+      kIntent:"Intent", vIntent:"Leave request",
+      kStudent:"Student", vStudent:"Chan (demo)",
+      kDate:"Date", vDate:"2026-08-02",
+      kLesson:"Original class", vLesson:"English L1・Lesson 10",
+      kStatus:"Status", vStatus:"Awaiting parent confirmation",
+      foundIntro:"Found this class — please confirm it's correct:",
+      classL1:"Chan (demo) · 2026-08-02 (Sun) 16:00",
+      classL2:"English L1・Lesson 10 · Ms. Wong・Wan Chai Center",
+      btnConfirm:"Correct, continue", btnWrong:"Wrong class, hand off",
+      confirmedIntro:"Class confirmed — same-week makeup options found:",
+      opt1t:"Tue, Aug 4 · 17:00", opt1d:"English L1・Lesson 10｜Mr. Lee｜Wan Chai Center · 2 seats (demo)",
+      opt2t:"Thu, Aug 6 · 16:00", opt2d:"English L1・Lesson 10｜Ms. Cheung｜Wan Chai Center · 1 seat (demo)",
+      doneIntro:"Makeup class booked for the student:",
+      doneBadge:"Booking complete ✓",
+      handoffMsg:"Handed off to staff — they'll confirm with the parent on WhatsApp shortly.",
+      handoffBadge:"Handed to staff ✓",
+      reset:"↺ Restart demo",
+    }
+  };
+  function t(){ return T[currentLang] || T.zh; }
+  function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+  function addUserText(text){
+    const div = document.createElement("div");
+    div.className = "chat-msg user";
+    div.textContent = text;
+    msgsRoot.appendChild(div);
+    msgsRoot.scrollTop = msgsRoot.scrollHeight;
+    return div;
+  }
+  function addTyping(){
+    const div = document.createElement("div");
+    div.className = "chat-msg bot thinking";
+    div.innerHTML = `<span class="dot-typing"><span></span><span></span><span></span></span>`;
+    msgsRoot.appendChild(div);
+    msgsRoot.scrollTop = msgsRoot.scrollHeight;
+    return div;
+  }
+  async function replaceTyping(typingEl, html){
+    await wait(650);
+    typingEl.classList.remove("thinking");
+    typingEl.innerHTML = html;
+    msgsRoot.scrollTop = msgsRoot.scrollHeight;
+  }
+
+  async function runFlow(chipText){
+    const L = t();
+    suggestRoot.querySelectorAll(".pl-chip").forEach(b => b.disabled = true);
+    addUserText(chipText);
+
+    let typing = addTyping();
+    await replaceTyping(typing, `${L.parsedIntro}
+      <div class="pl-card">
+        <div class="pl-card-row"><span class="k">${L.kIntent}</span><span class="v">${L.vIntent}</span></div>
+        <div class="pl-card-row"><span class="k">${L.kStudent}</span><span class="v">${L.vStudent}</span></div>
+        <div class="pl-card-row"><span class="k">${L.kDate}</span><span class="v">${L.vDate}</span></div>
+        <div class="pl-card-row"><span class="k">${L.kLesson}</span><span class="v">${L.vLesson}</span></div>
+        <div class="pl-card-row"><span class="k">${L.kStatus}</span><span class="v">${L.vStatus}</span></div>
+      </div>`);
+
+    typing = addTyping();
+    const confirmId = "pl-confirm-" + Date.now();
+    const wrongId = "pl-wrong-" + (Date.now() + 1);
+    await replaceTyping(typing, `${L.foundIntro}
+      <div class="pl-card">
+        <div style="font-weight:600;margin-bottom:4px">${L.classL1}</div>
+        <div style="color:var(--text-dim);font-size:12px">${L.classL2}</div>
+      </div>
+      <div class="pl-actions">
+        <button class="btn btn-primary" type="button" id="${confirmId}">${L.btnConfirm}</button>
+        <button class="btn btn-ghost" type="button" id="${wrongId}">${L.btnWrong}</button>
+      </div>`);
+
+    document.getElementById(confirmId)?.addEventListener("click", () => onConfirm(L));
+    document.getElementById(wrongId)?.addEventListener("click", () => onHandoff(L));
+  }
+
+  async function onConfirm(L){
+    msgsRoot.querySelectorAll(".pl-actions .btn").forEach(b => b.disabled = true);
+    const typing = addTyping();
+    const opt1Id = "pl-opt1-" + Date.now();
+    const opt2Id = "pl-opt2-" + (Date.now() + 1);
+    await replaceTyping(typing, `${L.confirmedIntro}
+      <div class="pl-options">
+        <button class="pl-option" type="button" id="${opt1Id}"><span><span class="t">${L.opt1t}</span><span class="d">${L.opt1d}</span></span><span>›</span></button>
+        <button class="pl-option" type="button" id="${opt2Id}"><span><span class="t">${L.opt2t}</span><span class="d">${L.opt2d}</span></span><span>›</span></button>
+      </div>`);
+    document.getElementById(opt1Id)?.addEventListener("click", () => onPick(L, L.opt1t));
+    document.getElementById(opt2Id)?.addEventListener("click", () => onPick(L, L.opt2t));
+  }
+
+  async function onPick(L, chosen){
+    msgsRoot.querySelectorAll(".pl-options .pl-option").forEach(b => b.disabled = true);
+    const typing = addTyping();
+    await replaceTyping(typing, `${L.doneIntro}
+      <div class="pl-card"><div style="font-weight:600">${chosen}</div></div>
+      <div style="margin-top:10px"><span class="pl-badge">${L.doneBadge}</span></div>`);
+    showReset(L);
+  }
+
+  async function onHandoff(L){
+    msgsRoot.querySelectorAll(".pl-actions .btn").forEach(b => b.disabled = true);
+    const typing = addTyping();
+    await replaceTyping(typing, `${L.handoffMsg}
+      <div style="margin-top:10px"><span class="pl-badge">${L.handoffBadge}</span></div>`);
+    showReset(L);
+  }
+
+  function showReset(L){
+    const btn = document.createElement("button");
+    btn.className = "pl-reset";
+    btn.type = "button";
+    btn.textContent = L.reset;
+    btn.addEventListener("click", resetDemo);
+    msgsRoot.appendChild(btn);
+    msgsRoot.scrollTop = msgsRoot.scrollHeight;
+  }
+
+  function resetDemo(){
+    const dict = I18N[currentLang] || I18N.zh;
+    msgsRoot.innerHTML = `<div class="chat-msg bot" data-i18n="demo15.greet">${dict["demo15.greet"] || ""}</div>`;
+    suggestRoot.querySelectorAll(".pl-chip").forEach(b => b.disabled = false);
+  }
+
+  suggestRoot.querySelectorAll(".pl-chip").forEach(btn => {
+    btn.addEventListener("click", () => runFlow(btn.textContent.trim()));
+  });
+
+  window.__resetDemo15 = resetDemo;
 })();
 
 /* ===========================================================

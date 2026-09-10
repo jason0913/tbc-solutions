@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TBC 共享團隊頁 — 星球導覽原型 v2（測試用）</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width:100%; height:100%;
+    background:#000; overflow:hidden;
+    font-family:-apple-system, "PingFang HK", "Microsoft JhengHei", sans-serif;
+  }
+
+  /* ---------- Intro screen ---------- */
+  #introScreen {
+    position:fixed; inset:0; background:#050505;
+    display:flex; align-items:center; justify-content:center;
+    z-index:20; transition:opacity .6s ease;
+  }
+  #introScreen.fadeout { opacity:0; pointer-events:none; }
+
+  .figure { position:relative; width:260px; height:340px; }
+
+  .suit {
+    position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    width:220px; height:150px;
+    background:linear-gradient(180deg,#26262a,#141416);
+    border-radius:30px 30px 0 0;
+  }
+  .suit::before, .suit::after {
+    content:""; position:absolute; top:0; width:0; height:0;
+    border-style:solid;
+  }
+  .suit::before {
+    left:50%; margin-left:-58px;
+    border-width:70px 30px 0 0; border-color:#3a3a40 transparent transparent transparent;
+  }
+  .suit::after {
+    left:50%; margin-left:28px;
+    border-width:0 30px 70px 0; border-color:transparent transparent #3a3a40 transparent;
+  }
+  .collar {
+    position:absolute; bottom:118px; left:50%; transform:translateX(-50%);
+    width:26px; height:26px; background:#efe9e2; clip-path:polygon(50% 100%,0 0,100% 0);
+  }
+
+  .head {
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:150px; height:190px; border-radius:50% 50% 44% 44%;
+    background:radial-gradient(circle at 42% 34%, #4a4a4a, #1c1c1c 75%);
+    transition:background .25s ease;
+  }
+
+  .eye-reveal {
+    position:absolute; top:88px; left:50%; transform:translateX(-50%);
+    width:78px; height:24px;
+    clip-path:ellipse(4px 1.4px at 50% 50%);
+    transition:clip-path .45s cubic-bezier(.2,.8,.3,1);
+  }
+  .eye-reveal.open { clip-path:ellipse(38px 11px at 50% 50%); }
+  .eye-reveal.flash { clip-path:ellipse(60px 60px at 50% 50%); }
+
+  .eye-row { display:flex; justify-content:space-between; width:78px; }
+  .eyeball {
+    width:26px; height:22px; border-radius:50%;
+    background:#e7e3dc; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .iris {
+    width:12px; height:12px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #666, #101010 80%);
+    transition:background .2s ease, box-shadow .3s ease;
+  }
+  .eye-reveal.flash .eyeball { background:#fff; }
+  .eye-reveal.flash .iris {
+    background:#fff;
+    box-shadow:0 0 30px 14px #fff, 0 0 70px 34px rgba(255,255,255,.7);
+  }
+
+  .flash-cover {
+    position:fixed; inset:0; background:#fff; opacity:0;
+    pointer-events:none; z-index:25; transition:opacity .4s ease;
+  }
+  .flash-cover.on { opacity:1; }
+
+  .dots {
+    position:fixed; left:0; right:0; bottom:56px;
+    display:flex; justify-content:center; gap:6px; z-index:21;
+  }
+  .dots span {
+    width:6px; height:6px; border-radius:50%; background:#3a3a3a;
+    transition:background .25s ease;
+  }
+  .dots span.done { background:#e8e8e8; }
+
+  .skip-btn {
+    position:fixed; right:20px; bottom:24px; z-index:22;
+    font-size:13px; color:rgba(255,255,255,.55);
+    padding:8px 14px; border:1px solid rgba(255,255,255,.25);
+    border-radius:20px; cursor:pointer; opacity:0;
+    transition:opacity .4s ease, color .2s ease, border-color .2s ease;
+  }
+  .skip-btn.show { opacity:1; }
+  .skip-btn:hover { color:#fff; border-color:rgba(255,255,255,.6); }
+
+  /* ---------- Starfield ---------- */
+  #starfield {
+    position:fixed; inset:0; background:#05050a;
+    overflow:hidden; opacity:0; transition:opacity .8s ease;
+  }
+  #starfield.show { opacity:1; }
+  #stars { position:absolute; inset:0; }
+  .star {
+    position:absolute; width:2px; height:2px; border-radius:50%;
+    background:#fff; animation:twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle { 0%,100%{opacity:.25;} 50%{opacity:.9;} }
+
+  #orbitStage { position:absolute; inset:0; }
+  .planet-hit {
+    position:absolute; width:46px; height:46px; margin:-23px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; left:50%; top:50%;
+  }
+  .planet {
+    width:26px; height:26px; border-radius:50%;
+    position:relative;
+    box-shadow:inset -6px -4px 10px rgba(0,0,0,.55), 0 0 16px 2px rgba(255,255,255,.1);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .planet.ringed::after {
+    content:"";
+    position:absolute; left:50%; top:50%;
+    width:52px; height:14px; margin:-7px 0 0 -26px;
+    border:2px solid rgba(255,255,255,.35);
+    border-radius:50%;
+    transform:rotate(-18deg) scaleY(.55);
+    pointer-events:none;
+  }
+  .planet-hit:hover .planet, .planet-hit.active .planet {
+    transform:scale(1.3);
+    box-shadow:inset -6px -4px 10px rgba(0,0,0,.5), 0 0 24px 8px rgba(255,255,255,.3);
+  }
+  .planet-label {
+    position:absolute; top:32px; left:50%; transform:translateX(-50%);
+    font-size:10px; color:rgba(255,255,255,.45); white-space:nowrap;
+    pointer-events:none;
+  }
+
+  #infoCard {
+    position:fixed; left:50%; bottom:28px; transform:translate(-50%, 0);
+    width:min(320px, 86vw); background:rgba(20,20,26,.92);
+    border:1px solid rgba(255,255,255,.12); border-radius:14px;
+    padding:16px 18px; color:#eee; z-index:30;
+    opacity:0; pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+    backdrop-filter:blur(6px);
+  }
+  #infoCard.show { opacity:1; transform:translate(-50%, -6px); pointer-events:auto; }
+  #infoCard .name { font-size:15px; font-weight:600; margin-bottom:2px; }
+  #infoCard .role { font-size:12.5px; color:#bbb; margin-bottom:8px; }
+  #infoCard .bio { font-size:12.5px; color:#ddd; line-height:1.5; }
+
+  .hint {
+    position:fixed; top:22px; left:0; right:0; text-align:center;
+    font-size:12.5px; color:rgba(255,255,255,.4); z-index:21;
+    letter-spacing:.02em;
+  }
+
+  .replay-btn {
+    position:fixed; top:18px; right:18px; z-index:40;
+    font-size:12px; color:rgba(255,255,255,.6);
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:20px; padding:7px 13px; cursor:pointer;
+  }
+  .replay-btn:hover { color:#fff; }
+</style>
+</head>
+<body>
+
+<div id="introScreen">
+  <div class="figure">
+    <div class="suit"></div>
+    <div class="collar"></div>
+    <div class="head" id="head"></div>
+    <div class="eye-reveal" id="eyeReveal">
+      <div class="eye-row">
+        <div class="eyeball"><div class="iris"></div></div>
+        <div class="eyeball"><div class="iris"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dots" id="dots"></div>
+<div class="skip-btn" id="skipBtn">跳過 intro →</div>
+<div class="flash-cover" id="flashCover"></div>
+
+<div id="starfield">
+  <div class="hint">移動滑鼠或撳星球查看成員資訊</div>
+  <div id="stars"></div>
+  <div id="orbitStage"></div>
+  <div id="infoCard"></div>
+</div>
+
+<button class="replay-btn" id="replayBtn">重播 intro</button>
+
+<script>
+(function(){
+  var TOTAL = 13;
+  var CYCLE = 3000;
+
+  var MEMBERS = [
+    { name:"Grouper 石斑", role:"創辦人", company:"TBC Solutions", bio:"專注幫中小企用 AI 自動化流程,減省人手同流失客戶。", color:"#7F77DD", ring:false },
+    { name:"成員 02", role:"業務拓展", company:"Partner A", bio:"負責拓展合作網絡同新客源。", color:"#1D9E75", ring:true },
+    { name:"成員 03", role:"技術負責人", company:"Partner A", bio:"主理系統開發同技術對接。", color:"#D85A30", ring:false },
+    { name:"成員 04", role:"設計總監", company:"Partner B", bio:"負責品牌視覺同用戶體驗設計。", color:"#D4537E", ring:false },
+    { name:"成員 05", role:"客戶成功", company:"Partner B", bio:"跟進客戶落地成效同滿意度。", color:"#378ADD", ring:true },
+    { name:"成員 06", role:"營運經理", company:"Partner C", bio:"統籌日常營運同流程優化。", color:"#BA7517", ring:false },
+    { name:"成員 07", role:"市場推廣", company:"Partner C", bio:"負責社交媒體同內容策略。", color:"#639922", ring:false },
+    { name:"成員 08", role:"項目經理", company:"Partner D", bio:"管理項目時程同交付質素。", color:"#7F77DD", ring:true },
+    { name:"成員 09", role:"顧問", company:"Partner D", bio:"為客戶提供行業專屬建議。", color:"#1D9E75", ring:false },
+    { name:"成員 10", role:"財務顧問", company:"Partner E", bio:"協助客戶做成本效益分析。", color:"#D85A30", ring:false },
+    { name:"成員 11", role:"法律顧問", company:"Partner E", bio:"處理合作合約同合規事宜。", color:"#D4537E", ring:true },
+    { name:"成員 12", role:"AI 訓練師", company:"Partner F", bio:"優化 AI 助手嘅回應同流程。", color:"#378ADD", ring:false },
+    { name:"成員 13", role:"客戶關係", company:"Partner F", bio:"維繫長期客戶關係同回訪。", color:"#BA7517", ring:false }
+  ];
+
+  var introScreen = document.getElementById("introScreen");
+  var head = document.getElementById("head");
+  var eyeReveal = document.getElementById("eyeReveal");
+  var dotsEl = document.getElementById("dots");
+  var skipBtn = document.getElementById("skipBtn");
+  var flashCover = document.getElementById("flashCover");
+  var starfield = document.getElementById("starfield");
+  var starsEl = document.getElementById("stars");
+  var orbitStage = document.getElementById("orbitStage");
+  var infoCard = document.getElementById("infoCard");
+  var replayBtn = document.getElementById("replayBtn");
+
+  var timer = null, idx = -1, skipTimer = null, orbitRaf = null, orbitPaused = false;
+
+  function buildDots(){
+    dotsEl.innerHTML = "";
+    for (var i=0;i<TOTAL;i++){
+      dotsEl.appendChild(document.createElement("span"));
+    }
+  }
+  function setDot(n){
+    Array.prototype.forEach.call(dotsEl.children, function(d,i){
+      d.classList.toggle("done", i<=n);
+    });
+  }
+
+  function buildStars(){
+    starsEl.innerHTML = "";
+    for (var i=0;i<150;i++){
+      var s = document.createElement("div");
+      s.className = "star";
+      s.style.left = (Math.random()*100)+"%";
+      s.style.top = (Math.random()*100)+"%";
+      s.style.animationDelay = (Math.random()*3)+"s";
+      starsEl.appendChild(s);
+    }
+  }
+
+  var planetEls = [];
+  var orbitState = [];
+
+  function buildPlanets(){
+    orbitStage.innerHTML = "";
+    planetEls = [];
+    orbitState = [];
+    MEMBERS.forEach(function(m,i){
+      var radius = 90 + (i % 4) * 55;
+      var speed = 0.06 + (i % 3) * 0.03;
+      var dir = i % 2 === 0 ? 1 : -1;
+      var angle = (Math.PI * 2 / TOTAL) * i;
+
+      var hit = document.createElement("div");
+      hit.className = "planet-hit";
+
+      var p = document.createElement("div");
+      p.className = "planet" + (m.ring ? " ringed" : "");
+      var size = 20 + (i % 4) * 4;
+      p.style.width = size+"px";
+      p.style.height = size+"px";
+      p.style.background = "radial-gradient(circle at 35% 30%, "+m.color+", #0a0a12 78%)";
+      hit.appendChild(p);
+
+      var label = document.createElement("div");
+      label.className = "planet-label";
+      label.textContent = m.name;
+      hit.appendChild(label);
+
+      hit.addEventListener("mouseenter", function(){ showInfo(m, hit); orbitPaused = true; });
+      hit.addEventListener("mouseleave", function(){ orbitPaused = false; });
+      hit.addEventListener("click", function(e){
+        e.stopPropagation();
+        showInfo(m, hit);
+      });
+
+      orbitStage.appendChild(hit);
+      planetEls.push(hit);
+      orbitState.push({ radius:radius, speed:speed*dir, angle:angle });
+    });
+
+    document.addEventListener("click", function(){
+      infoCard.classList.remove("show");
+      Array.prototype.forEach.call(planetEls, function(h){ h.classList.remove("active"); });
+    });
+  }
+
+  function runOrbit(ts){
+    var w = orbitStage.clientWidth, h = orbitStage.clientHeight;
+    var cx = w/2, cy = h/2;
+    if (!orbitPaused){
+      orbitState.forEach(function(st){ st.angle += st.speed * 0.016; });
+    }
+    orbitState.forEach(function(st, i){
+      var x = cx + Math.cos(st.angle) * st.radius;
+      var y = cy + Math.sin(st.angle) * st.radius * 0.62;
+      planetEls[i].style.transform = "translate("+x+"px,"+y+"px)";
+    });
+    orbitRaf = requestAnimationFrame(runOrbit);
+  }
+
+  function showInfo(m, hitEl){
+    Array.prototype.forEach.call(planetEls, function(h){ h.classList.remove("active"); });
+    hitEl.classList.add("active");
+    infoCard.innerHTML =
+      '<div class="name">'+m.name+'</div>' +
+      '<div class="role">'+m.role+' · '+m.company+'</div>' +
+      '<div class="bio">'+m.bio+'</div>';
+    infoCard.classList.add("show");
+  }
+
+  function setHeadTone(i){
+    var shade = 40 + (i % 6) * 20;
+    head.style.background = "radial-gradient(circle at 42% 34%, rgb("+(shade+18)+","+(shade+18)+","+(shade+18)+"), rgb("+shade+","+shade+","+shade+") 75%)";
+  }
+
+  function nextMember(){
+    idx++;
+    if (idx >= TOTAL){
+      finishIntro();
+      return;
+    }
+    setDot(idx);
+    setHeadTone(idx);
+    eyeReveal.classList.remove("open", "flash");
+    requestAnimationFrame(function(){
+      eyeReveal.classList.add("open");
+    });
+    timer = setTimeout(closeThenNext, CYCLE - 500);
+  }
+
+  function closeThenNext(){
+    eyeReveal.classList.remove("open");
+    timer = setTimeout(nextMember, 500);
+  }
+
+  function finishIntro(){
+    eyeReveal.classList.remove("open");
+    setTimeout(function(){
+      eyeReveal.classList.add("flash");
+    }, 350);
+    setTimeout(function(){
+      flashCover.classList.add("on");
+    }, 700);
+    setTimeout(function(){
+      introScreen.classList.add("fadeout");
+      skipBtn.classList.remove("show");
+      starfield.classList.add("show");
+      setTimeout(function(){ flashCover.classList.remove("on"); }, 500);
+    }, 1050);
+  }
+
+  function startIntro(){
+    clearTimeout(timer);
+    clearTimeout(skipTimer);
+    idx = -1;
+    introScreen.classList.remove("fadeout");
+    starfield.classList.remove("show");
+    infoCard.classList.remove("show");
+    eyeReveal.classList.remove("open", "flash");
+    skipBtn.classList.remove("show");
+    buildDots();
+    nextMember();
+    skipTimer = setTimeout(function(){ skipBtn.classList.add("show"); }, 3000);
+  }
+
+  skipBtn.addEventListener("click", function(){
+    clearTimeout(timer);
+    finishIntro();
+  });
+
+  replayBtn.addEventListener("click", startIntro);
+
+  buildStars();
+  buildPlanets();
+  orbitRaf = requestAnimationFrame(runOrbit);
+  startIntro();
+})();
+</script>
+</body>
+</html>
