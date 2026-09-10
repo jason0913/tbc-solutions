@@ -847,6 +847,24 @@ html{overflow-x:hidden}
 .pl-reset{display:block;margin:10px auto 0;font-size:12px;color:var(--text-dim);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit}
 .pl-reset:hover{color:var(--text)}
 [data-theme="light"] .pl-card{background:rgba(0,0,0,.03)}
+.pl-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.pl-tab{padding:8px 16px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(255,255,255,.04);color:var(--text-dim);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.pl-tab:hover{color:var(--text)}
+.pl-tab.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(124,92,255,.35)}
+.pl-view{display:none}
+.pl-view.active{display:block}
+.pl-staff-body{padding:16px;min-height:300px}
+.pl-staff-empty{padding:60px 20px;text-align:center;color:var(--text-faint);font-size:13px}
+.pl-staff-case{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:16px;animation:slideUp .35s ease}
+[data-theme="light"] .pl-staff-case{background:rgba(0,0,0,.03)}
+.pl-staff-case-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.pl-staff-case-title{font-weight:700;font-size:13.5px;color:var(--text)}
+.pl-staff-status{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.pl-staff-status.pending{background:rgba(255,184,77,.14);border:1px solid rgba(255,184,77,.4);color:#ffb84d}
+.pl-staff-status.progress{background:rgba(92,215,255,.12);border:1px solid rgba(92,215,255,.4);color:#5cd7ff}
+.pl-staff-status.done{background:rgba(123,232,163,.12);border:1px solid rgba(123,232,163,.35);color:#7be8a3}
+.pl-staff-status.warn{background:rgba(255,140,140,.12);border:1px solid rgba(255,140,140,.35);color:#ff8c8c}
+.pl-staff-note{margin-top:10px;font-size:12px;color:var(--text-dim);line-height:1.55}
 
 /* ===== Demo 3: Webgen ===== */
 .webgen-preview{
@@ -4507,20 +4525,39 @@ body.from-cold-email .nav-profile{display:none !important}
               </div>
             </div>
 
-            <div class="pl-chat chat-window">
-              <div class="pl-chat-head">
-                <span class="pl-chat-title" data-i18n="demo15.chatTitle">家長 WhatsApp</span>
-                <span class="pl-chat-sub" data-i18n="demo15.chatSub">模擬對話・不會真正發送</span>
+            <div class="pl-tabs" role="tablist">
+              <button class="pl-tab active" type="button" data-view="parent" data-i18n="demo15.parentTab">家長 WhatsApp</button>
+              <button class="pl-tab" type="button" data-view="staff" data-i18n="demo15.staffTab">職員 WhatsApp</button>
+            </div>
+
+            <div class="pl-view pl-view-parent active" data-view-panel="parent">
+              <div class="pl-chat chat-window">
+                <div class="pl-chat-head">
+                  <span class="pl-chat-title" data-i18n="demo15.chatTitle">家長 WhatsApp</span>
+                  <span class="pl-chat-sub" data-i18n="demo15.chatSub">模擬對話・不會真正發送</span>
+                </div>
+                <div class="chat-msgs" id="pl-msgs">
+                  <div class="chat-msg bot" data-i18n="demo15.greet">您好！請直接輸入請假訊息，我會先整理資料，再請您確認原定課堂及補課選擇。</div>
+                </div>
+                <div class="pl-suggest" id="pl-suggest">
+                  <button class="pl-chip" type="button" data-i18n="demo15.chip1">小朋友 2 號請假</button>
+                  <button class="pl-chip" type="button" data-i18n="demo15.chip2">佢下星期二嚟唔到</button>
+                  <button class="pl-chip" type="button" data-i18n="demo15.chip3">今日唔舒服，想安排補課</button>
+                </div>
+                <div class="pl-note" data-i18n="demo15.note">概念示範・只支援以上示範句式</div>
               </div>
-              <div class="chat-msgs" id="pl-msgs">
-                <div class="chat-msg bot" data-i18n="demo15.greet">您好！請直接輸入請假訊息，我會先整理資料，再請您確認原定課堂及補課選擇。</div>
+            </div>
+
+            <div class="pl-view pl-view-staff" data-view-panel="staff">
+              <div class="pl-chat chat-window">
+                <div class="pl-chat-head">
+                  <span class="pl-chat-title" data-i18n="demo15.staffChatTitle">職員 WhatsApp</span>
+                  <span class="pl-chat-sub" data-i18n="demo15.staffChatSub">白名單職員查閱・模擬</span>
+                </div>
+                <div class="pl-staff-body" id="pl-staff-body">
+                  <div class="pl-staff-empty" data-i18n="demo15.staffEmpty">未有新個案・家長提交請假訊息後，呢度會即時顯示。</div>
+                </div>
               </div>
-              <div class="pl-suggest" id="pl-suggest">
-                <button class="pl-chip" type="button" data-i18n="demo15.chip1">小朋友 2 號請假</button>
-                <button class="pl-chip" type="button" data-i18n="demo15.chip2">佢下星期二嚟唔到</button>
-                <button class="pl-chip" type="button" data-i18n="demo15.chip3">今日唔舒服，想安排補課</button>
-              </div>
-              <div class="pl-note" data-i18n="demo15.note">概念示範・只支援以上示範句式</div>
             </div>
           </div>
         </div>
@@ -5080,6 +5117,9 @@ const I18N = {
     "demo15.greet":"您好！請直接輸入請假訊息，我會先整理資料，再請您確認原定課堂及補課選擇。",
     "demo15.chip1":"小朋友 2 號請假","demo15.chip2":"佢下星期二嚟唔到","demo15.chip3":"今日唔舒服，想安排補課",
     "demo15.note":"概念示範・只支援以上示範句式",
+    "demo15.parentTab":"家長 WhatsApp","demo15.staffTab":"職員 WhatsApp",
+    "demo15.staffChatTitle":"職員 WhatsApp","demo15.staffChatSub":"白名單職員查閱・模擬",
+    "demo15.staffEmpty":"未有新個案・家長提交請假訊息後，呢度會即時顯示。",
     "pain.eyebrow":"日常痛點",
     "pain.title1":"您現在是否有","pain.title2":"以下這些煩惱？",
     "pain.desc":"如果任何一項符合，您就是自動化系統最能受益的對象。",
@@ -5335,6 +5375,9 @@ const I18N = {
     "demo15.greet":"Hi! Type a leave message below — I'll structure the details first, then ask you to confirm the class and pick a makeup slot.",
     "demo15.chip1":"My kid is off on the 2nd","demo15.chip2":"She can't make it next Tuesday","demo15.chip3":"Feeling unwell today, need to reschedule",
     "demo15.note":"Concept demo・only the sample messages above are supported",
+    "demo15.parentTab":"Parent WhatsApp","demo15.staffTab":"Staff WhatsApp",
+    "demo15.staffChatTitle":"Staff WhatsApp","demo15.staffChatSub":"Whitelisted staff view・simulated",
+    "demo15.staffEmpty":"No open cases yet・this updates live once a parent sends a leave message.",
     "pain.eyebrow":"YOUR DAILY PAIN",
     "pain.title1":"Are you facing","pain.title2":"any of these problems?",
     "pain.desc":"If any of these hit home, automation is built for you.",
@@ -10715,6 +10758,11 @@ Available AI solutions (demo_ref maps to demo number):
       handoffMsg:"已轉交職員處理，職員會透過 WhatsApp 盡快跟進確認。",
       handoffBadge:"已轉人手 ✓",
       reset:"↺ 重新開始示範",
+      staffCaseTitle:"個案 · 陳小朋友（模擬）",
+      staffPendingStatus:"待家長確認", staffPendingNote:"AI 已整理請假資料，等待家長確認原定課堂，毋須職員輸入。",
+      staffProgressStatus:"揀緊補課時段", staffProgressNote:"家長已確認原定課堂，AI 正提供同週補課選項供家長選擇。",
+      staffDoneStatus:"已安排 ✓", staffDoneNoteTpl:"AI 已為陳小朋友安排「{slot}」補課，毋須職員手動處理。",
+      staffWarnStatus:"需要人手跟進", staffWarnNote:"家長表示課堂資料有誤，AI 已升級個案 — 請盡快透過 WhatsApp 聯絡家長跟進。",
     },
     en: {
       parsedIntro:"Leave request structured:",
@@ -10735,10 +10783,41 @@ Available AI solutions (demo_ref maps to demo number):
       handoffMsg:"Handed off to staff — they'll confirm with the parent on WhatsApp shortly.",
       handoffBadge:"Handed to staff ✓",
       reset:"↺ Restart demo",
+      staffCaseTitle:"Case · Chan (demo)",
+      staffPendingStatus:"Awaiting parent", staffPendingNote:"AI structured the leave request — waiting for the parent to confirm the class, no staff input needed.",
+      staffProgressStatus:"Picking a slot", staffProgressNote:"Parent confirmed the class — AI is offering same-week makeup slots for the parent to pick.",
+      staffDoneStatus:"Booked ✓", staffDoneNoteTpl:"AI booked \"{slot}\" for the student — no manual work needed.",
+      staffWarnStatus:"Needs follow-up", staffWarnNote:"Parent flagged the class as incorrect — AI escalated the case. Please follow up with the parent on WhatsApp.",
     }
   };
   function t(){ return T[currentLang] || T.zh; }
   function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+  const staffBody = document.getElementById("pl-staff-body");
+  function renderStaff(status, chosen){
+    if(!staffBody) return;
+    const L = t();
+    if(!status){
+      const dict = I18N[currentLang] || I18N.zh;
+      staffBody.innerHTML = `<div class="pl-staff-empty" data-i18n="demo15.staffEmpty">${dict["demo15.staffEmpty"] || ""}</div>`;
+      return;
+    }
+    let statusClass = "pending", statusText = L.staffPendingStatus, note = L.staffPendingNote;
+    if(status === "progress"){ statusClass = "progress"; statusText = L.staffProgressStatus; note = L.staffProgressNote; }
+    if(status === "done"){ statusClass = "done"; statusText = L.staffDoneStatus; note = (L.staffDoneNoteTpl || "").replace("{slot}", chosen || ""); }
+    if(status === "warn"){ statusClass = "warn"; statusText = L.staffWarnStatus; note = L.staffWarnNote; }
+    staffBody.innerHTML = `
+      <div class="pl-staff-case">
+        <div class="pl-staff-case-head">
+          <span class="pl-staff-case-title">${L.staffCaseTitle}</span>
+          <span class="pl-staff-status ${statusClass}">${statusText}</span>
+        </div>
+        <div class="pl-card-row"><span class="k">${L.kStudent}</span><span class="v">${L.vStudent}</span></div>
+        <div class="pl-card-row"><span class="k">${L.kDate}</span><span class="v">${L.vDate}</span></div>
+        <div class="pl-card-row"><span class="k">${L.kLesson}</span><span class="v">${L.vLesson}</span></div>
+        <div class="pl-staff-note">${note}</div>
+      </div>`;
+  }
 
   function addUserText(text){
     const div = document.createElement("div");
@@ -10793,6 +10872,8 @@ Available AI solutions (demo_ref maps to demo number):
 
     document.getElementById(confirmId)?.addEventListener("click", () => onConfirm(L));
     document.getElementById(wrongId)?.addEventListener("click", () => onHandoff(L));
+
+    renderStaff("pending");
   }
 
   async function onConfirm(L){
@@ -10807,6 +10888,8 @@ Available AI solutions (demo_ref maps to demo number):
       </div>`);
     document.getElementById(opt1Id)?.addEventListener("click", () => onPick(L, L.opt1t));
     document.getElementById(opt2Id)?.addEventListener("click", () => onPick(L, L.opt2t));
+
+    renderStaff("progress");
   }
 
   async function onPick(L, chosen){
@@ -10815,6 +10898,7 @@ Available AI solutions (demo_ref maps to demo number):
     await replaceTyping(typing, `${L.doneIntro}
       <div class="pl-card"><div style="font-weight:600">${chosen}</div></div>
       <div style="margin-top:10px"><span class="pl-badge">${L.doneBadge}</span></div>`);
+    renderStaff("done", chosen);
     showReset(L);
   }
 
@@ -10823,6 +10907,7 @@ Available AI solutions (demo_ref maps to demo number):
     const typing = addTyping();
     await replaceTyping(typing, `${L.handoffMsg}
       <div style="margin-top:10px"><span class="pl-badge">${L.handoffBadge}</span></div>`);
+    renderStaff("warn");
     showReset(L);
   }
 
@@ -10840,10 +10925,22 @@ Available AI solutions (demo_ref maps to demo number):
     const dict = I18N[currentLang] || I18N.zh;
     msgsRoot.innerHTML = `<div class="chat-msg bot" data-i18n="demo15.greet">${dict["demo15.greet"] || ""}</div>`;
     suggestRoot.querySelectorAll(".pl-chip").forEach(b => b.disabled = false);
+    renderStaff(null);
+    switchView("parent");
   }
 
   suggestRoot.querySelectorAll(".pl-chip").forEach(btn => {
     btn.addEventListener("click", () => runFlow(btn.textContent.trim()));
+  });
+
+  // Tab switching — parent / staff WhatsApp views of the same case
+  const demoRoot = document.getElementById("demo15");
+  function switchView(view){
+    demoRoot?.querySelectorAll(".pl-tab").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+    demoRoot?.querySelectorAll(".pl-view").forEach(p => p.classList.toggle("active", p.dataset.viewPanel === view));
+  }
+  demoRoot?.querySelectorAll(".pl-tab").forEach(btn => {
+    btn.addEventListener("click", () => switchView(btn.dataset.view));
   });
 
   window.__resetDemo15 = resetDemo;
